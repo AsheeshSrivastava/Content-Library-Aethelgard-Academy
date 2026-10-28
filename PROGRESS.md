@@ -12,7 +12,7 @@ A citation-grounded RAG library for the Aethelgard content factory: approved sou
 | # | Unit | Status | Notes |
 |---|---|---|---|
 | 0 | Branch, AGENTS, system design, ADRs, carry-over | Done 2026-10-28 | This commit. Docs only |
-| 1 | Contracts: normalize, Source, Passage, IDs, versions, read-back check | Next | ADR 0003 (Accepted). Test first |
+| 1 | Contracts: normalize, Source, Passage, IDs, versions, read-back check | Done 2026-10-28 | `src/ragcore/contracts.py`, 32 tests, 13 hand-made breaks of the code all caught. Python 3.12. Self-review recorded below |
 | 2 | Source register + licence gate (carried from library3) | Planned | Port, then re-test |
 | 3 | Loaders + inspection script | Planned | Order: inspection script, GitHub (merge of both), Markdown/MDX/front matter, rst, HTML, notebooks, txt. See system design |
 | 4 | Chunking comparison on cleaned text | Planned | rules vs parent-child vs a LlamaIndex variant branch |
@@ -38,8 +38,14 @@ A citation-grounded RAG library for the Aethelgard content factory: approved sou
 
 ## Session handoff
 
-Resumption prompt: "Read AGENTS.md, PROGRESS.md, docs/carry-over.md. Next: unit 1 (contracts, tests first)."
+Resumption prompt: "Read AGENTS.md, PROGRESS.md, docs/carry-over.md. Unit 1 (contracts) is done. Next: unit 2, port the source register and licence gate from library3 (read register.py, gate.py, fetch.py first)."
 
 ## Scope note (2026-10-28, owner)
 Work happens in this worktree. Relevant data may be read and copied from library3 and production-rag when needed. The front end will also get a fresh start later; the old front end is not carried over.
+
+
+## Self-review, unit 1 (2026-10-28)
+Restarting review of the work: checked against ADR 0003 and the approved scope. All 32 tests pass on Python 3.12. 14 hand-made breaks of contracts.py (no NFC, no CR fix, no BOM strip, chunker version or text hash left out of passage_id, read-back checks removed, bounds and blank checks removed, forged id accepted, licence-basis check removed) were each caught by a test. One slip found and fixed: a literal BOM character had been written into the source in place of the escape, then mangled by a mutation run; the source is now ASCII-only. Not independent review.
+
+Open debts from unit 1: Source has no title/URI fields yet (add with the first loader); the register will decide whether licence_basis=unknown must pair with licence=unknown; Span.headings is not type-checked beyond tuple use; Source version checks do not limit length.
 

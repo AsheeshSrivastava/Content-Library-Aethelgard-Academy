@@ -1,0 +1,16 @@
+[project]
+name = "ragcore"
+version = "0.0.1"
+description = "Aethelgard RAG library: sources, loaders, passages, search"
+requires-python = ">=3.12"
+dependencies = []
+
+[tool.uv]
+package = false
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src"]
+
+[dependency-groups]
+dev = ["pytest>=9.1.1"]
