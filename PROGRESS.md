@@ -39,3 +39,7 @@ A citation-grounded RAG library for the Aethelgard content factory: approved sou
 ## Session handoff
 
 Resumption prompt: "Read AGENTS.md, PROGRESS.md, docs/carry-over.md. Next: ADR 0003 review by the owner, then unit 1 (contracts, tests first)."
+
+## Scope note (2026-10-28, owner)
+Work happens in this worktree. Relevant data may be read and copied from library3 and production-rag when needed. The front end will also get a fresh start later; the old front end is not carried over.
+
