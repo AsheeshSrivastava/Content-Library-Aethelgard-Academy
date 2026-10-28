@@ -1,7 +1,7 @@
 # PROGRESS
 
 Single source of truth for where rag-core stands. Update at the end of every step.
-Last updated: 2026-10-28 (branch created, docs-only first commit).
+Last updated: 2026-10-28 (standalone repo, Entire remote, specs and ADRs drafted).
 
 ## Goal
 
@@ -52,3 +52,5 @@ Restarting review of the work: checked against ADR 0003 and the approved scope. 
 
 Open debts from unit 1: Source has no title/URI fields yet (add with the first loader); the register will decide whether licence_basis=unknown must pair with licence=unknown; Span.headings is not type-checked beyond tuple use; Source version checks do not limit length.
 
+## Repository (2026-10-28, owner)
+This work moved to the standalone repo D:\01-Project\rag-core (branch main), cloned from the orphan branch rag-core with its history. Remote: Entire origin (private, rag-learning-projects/aethelgard-rag-core); Entire enabled for Claude Code, Codex, OpenCode and Antigravity (commit a9aa400). GitHub mirror is on hold until the owner creates an empty private repo. The old worktree .worktrees/rag-core in the app repo is a frozen copy; do not work there. Entire checkpoints contain transcripts: keep every repo that receives them private. Codex hooks need approval in /hooks.
