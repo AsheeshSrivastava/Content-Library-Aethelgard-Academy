@@ -1,6 +1,6 @@
 # ADR 0003: Canonical text, exact-slice passages, two IDs
 
-## Status: Proposed (owner approved the three contract fixes and the exact-slice rule on 2026-10-28; the ID scheme below awaits explicit acceptance)
+## Status: Accepted (2026-10-28, owner)
 
 ## Context
 Citations are only checkable if a passage can be found again byte for byte. library3 slices raw file text; production-rag normalizes once and derives IDs from content. Vectors are the costly part, so a re-chunk should not re-embed unchanged text.

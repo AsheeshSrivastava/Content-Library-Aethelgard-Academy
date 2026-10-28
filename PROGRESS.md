@@ -12,7 +12,7 @@ A citation-grounded RAG library for the Aethelgard content factory: approved sou
 | # | Unit | Status | Notes |
 |---|---|---|---|
 | 0 | Branch, AGENTS, system design, ADRs, carry-over | Done 2026-10-28 | This commit. Docs only |
-| 1 | Contracts: normalize, Source, Passage, IDs, versions, read-back check | Next | ADR 0003 (Proposed). Test first |
+| 1 | Contracts: normalize, Source, Passage, IDs, versions, read-back check | Next | ADR 0003 (Accepted). Test first |
 | 2 | Source register + licence gate (carried from library3) | Planned | Port, then re-test |
 | 3 | Loaders + inspection script | Planned | Order: inspection script, GitHub (merge of both), Markdown/MDX/front matter, rst, HTML, notebooks, txt. See system design |
 | 4 | Chunking comparison on cleaned text | Planned | rules vs parent-child vs a LlamaIndex variant branch |
@@ -24,8 +24,8 @@ A citation-grounded RAG library for the Aethelgard content factory: approved sou
 
 - 0001 record decisions: Accepted (convention).
 - 0002 fresh orphan branch and carry-over list: Accepted by the owner 2026-10-28.
-- 0003 contracts: normalized loader output, `passage_id` and `content_id`, versions stored: Proposed.
-- 0004 loaders and inspection script: Proposed.
+- 0003 contracts: canonical text, `passage_id` and `content_id`, versions stored: Accepted 2026-10-28.
+- 0004 loaders and inspection script: Accepted 2026-10-28.
 
 ## Open debts
 
@@ -38,7 +38,7 @@ A citation-grounded RAG library for the Aethelgard content factory: approved sou
 
 ## Session handoff
 
-Resumption prompt: "Read AGENTS.md, PROGRESS.md, docs/carry-over.md. Next: ADR 0003 review by the owner, then unit 1 (contracts, tests first)."
+Resumption prompt: "Read AGENTS.md, PROGRESS.md, docs/carry-over.md. Next: unit 1 (contracts, tests first)."
 
 ## Scope note (2026-10-28, owner)
 Work happens in this worktree. Relevant data may be read and copied from library3 and production-rag when needed. The front end will also get a fresh start later; the old front end is not carried over.

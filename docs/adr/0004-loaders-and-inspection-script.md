@@ -1,6 +1,6 @@
 # ADR 0004: Loader set, inspection script first, skip policy
 
-## Status: Proposed
+## Status: Accepted (2026-10-28, owner)
 
 ## Context
 Ten new sources arrived as Markdown, MDX, rst, HTML, JSX and mostly notebooks. library3 indexes only .md/.mdx/.rst and drops the rest silently. production-rag has a skip report and guard rail but no notebook, MDX or duplicate handling.
