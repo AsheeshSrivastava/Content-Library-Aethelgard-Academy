@@ -23,10 +23,10 @@ flowchart LR
 
 ## Layers and rules
 
-1. **Register and gate.** A source starts in quarantine and moves only to approved, limited, reference-only or rejected. Rules set the highest status a licence can earn; a human approves. Carried from library3.
-2. **Pinned fetch.** Exact git commit or hashed web page; licence file hashed; licence text change sends the source back to quarantine; host allow-list; symlinks dropped; size limits. Merge of the library3 fetcher and the production-rag GitHub loader (owner approved 2026-10-28).
-3. **Loaders.** One loader per format. The loader output is the canonical text. Every Source records `raw_sha256` (input file), `text_sha256` (canonical text), `loader_version`, `normalizer_version`, licence and where it came from.
-4. **Normalize once.** BOM removed, Unicode NFC, `\n` line endings, applied when the Source text is made. Everything downstream uses that text.
+1. **Register and gate.** Specified in [spec 02](../specs/02-register-and-gate.md) (ADR 0005, 0006). The record type is `SourceRecord`. A source starts in quarantine and moves only to approved, limited, reference-only or rejected. Rules set the highest status a licence can earn; a human approves. Carried from library3.
+2. **Pinned fetch.** Specified in [spec 03](../specs/03-pinned-fetch.md). Exact git commit or hashed web page; licence file hashed; licence text change sends the source back to quarantine; host allow-list; symlinks dropped; size limits. Merge of the library3 fetcher and the production-rag GitHub loader (owner approved 2026-10-28).
+3. **Loaders.** Specs follow per loader (see docs/specs). One loader per format. The loader output is the canonical text. Every Source records `raw_sha256` (input file), `text_sha256` (canonical text), `loader_version`, `normalizer_version`, licence and where it came from.
+4. **Normalize once** ([spec 01](../specs/01-contracts.md)). BOM removed, Unicode NFC, `\n` line endings, applied when the Source text is made. Everything downstream uses that text.
 5. **Inspection.** A script prints, per source: files seen, indexed, skipped by reason; pieces over the cap or very small; leftover markup; directive-only stubs; front matter left in; notebook outputs; duplicates (exact and near). It fails the run when too many files are skipped.
 6. **Chunker.** A pure function from canonical text to spans. Baseline is structure-first (headings, never inside code fences or tables). Versioned; the version is stored and is part of `passage_id`. Parent-child and a LlamaIndex variant are compared on cleaned text before anything is adopted.
 7. **Passages and IDs.**

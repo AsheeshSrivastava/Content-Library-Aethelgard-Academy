@@ -27,6 +27,7 @@ This branch is a fresh start for the RAG library. It has no history from other b
 - Local only: commit locally, never push. Never print keys. No paid run without a printed cost estimate first; the owner runs paid steps himself.
 - Every passage is an exact slice of normalized loader output (see ADR 0003). Evaluation anchors are `(source_id, file/heading, quote)`, never passage IDs.
 - Nothing is indexed until its source is approved in the register and passes the licence gate.
+- Order for every unit: decision, ADR if hard to reverse, spec (docs/specs), tests, code. See docs/specs/README.md. If code would change a decision, amend the ADR or spec first.
 - Test first for contracts and loaders. Mutation-check the contract tests where practical.
 - Stable or LOCKED documents elsewhere in the project are not edited from this branch; write proposals as drafts.
 

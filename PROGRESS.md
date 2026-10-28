@@ -13,7 +13,7 @@ A citation-grounded RAG library for the Aethelgard content factory: approved sou
 |---|---|---|---|
 | 0 | Branch, AGENTS, system design, ADRs, carry-over | Done 2026-10-28 | This commit. Docs only |
 | 1 | Contracts: normalize, Source, Passage, IDs, versions, read-back check | Done 2026-10-28 | `src/ragcore/contracts.py`, 32 tests, 13 hand-made breaks of the code all caught. Python 3.12. Self-review recorded below |
-| 2 | Source register + licence gate (carried from library3) | Planned | Port, then re-test |
+| 2 | Source register, licence gate, pinned fetch (carried from library3) | Specs and ADRs drafted 2026-10-28 | [Spec 02](docs/specs/02-register-and-gate.md), [spec 03](docs/specs/03-pinned-fetch.md), ADR 0005 and 0006 Proposed. No code until the owner accepts them |
 | 3 | Loaders + inspection script | Planned | Order: inspection script, GitHub (merge of both), Markdown/MDX/front matter, rst, HTML, notebooks, txt. See system design |
 | 4 | Chunking comparison on cleaned text | Planned | rules vs parent-child vs a LlamaIndex variant branch |
 | 5 | Embedding + reranker choice (local) | Planned | Same questions, new embedder means new scores |
@@ -26,6 +26,9 @@ A citation-grounded RAG library for the Aethelgard content factory: approved sou
 - 0002 fresh orphan branch and carry-over list: Accepted by the owner 2026-10-28.
 - 0003 contracts: canonical text, `passage_id` and `content_id`, versions stored: Accepted 2026-10-28.
 - 0004 loaders and inspection script: Accepted 2026-10-28.
+- 0005 port register, gate and fetch with six changes: Proposed.
+- 0006 licence detection as a cross-check: Proposed.
+- Specs: 01 contracts (written after the code), 02 register and gate, 03 pinned fetch: Draft.
 
 ## Open debts
 
