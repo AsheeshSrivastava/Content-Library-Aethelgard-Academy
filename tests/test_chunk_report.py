@@ -88,3 +88,32 @@ def test_size_flags_change_the_chunker_version(tmp_path, capsys, flag):
     library, snaps, _ = setup(tmp_path, {"a.md": f"# A\n\n{PARA}\n"})
     main(["--source", "s1", "--register", str(library / "sources"), "--snapshots", str(snaps), flag, "2000"])
     assert "heading-pack-1/" in capsys.readouterr().out
+
+
+# --- other chunkers (spec 13, unit 13a) -----------------------------------------------------
+
+def test_the_chunker_can_be_chosen(tmp_path):
+    files = {"a.md": f"# A\n\n## B\n\nsmall one.\n\n## C\n\nsmall two.\n\n## D\n\n{PARA}\n"}
+    _, _, snap = setup(tmp_path, files)
+    base = chunk_snapshot(snap, record(), rules(tmp_path), ChunkConfig(max_chars=2000))
+    merged = chunk_snapshot(snap, record(), rules(tmp_path), ChunkConfig(max_chars=2000), chunker="merge-small",
+                            min_chars=300)
+    fixed = chunk_snapshot(snap, record(), rules(tmp_path), ChunkConfig(max_chars=100, hard_limit=100), chunker="fixed")
+    assert base.passages > merged.passages == 1
+    assert merged.chunker_version == "merge-small-1/2000/6000/300" and fixed.chunker_version == "fixed-1/100/100"
+    assert fixed.passages > 3 and fixed.failures == []
+
+
+def test_an_unknown_chunker_is_refused(tmp_path):
+    _, _, snap = setup(tmp_path, {"a.md": f"# A\n\n{PARA}\n"})
+    with pytest.raises(ValueError, match="chunker"):
+        chunk_snapshot(snap, record(), rules(tmp_path), ChunkConfig(), chunker="nope")
+
+
+def test_main_takes_a_chunker(tmp_path, capsys):
+    library, snaps, _ = setup(tmp_path, {"a.md": f"# A\n\n{PARA}\n"})
+    args = ["--source", "s1", "--register", str(library / "sources"), "--snapshots", str(snaps)]
+    assert main(args + ["--chunker", "fixed", "--max-chars", "100", "--hard-limit", "100"]) == 0
+    assert "fixed-1/100/100" in capsys.readouterr().out
+    assert main(args + ["--chunker", "merge-small", "--min-chars", "50"]) == 0
+    assert "merge-small-1/1500/6000/50" in capsys.readouterr().out

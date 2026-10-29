@@ -110,5 +110,19 @@ Asked with a recommendation each; the owner agreed to all four:
 4. The **fixed** and **merge-small** controls stay.
 ADR 0007 was accepted by the owner the same day.
 
+## 9a. Results, unit 13a (2026-10-29)
+- Built: `check_chunking(..., structure=False)`, `chunk_source(..., version=, structure=)`, `chunk_fixed` (`fixed-1/<max>/<hard>`), `chunk_merge_small` (`merge-small-1/<max>/<hard>/<min>`), and `--chunker rules|fixed|merge-small` with `--min-chars` on `scripts/chunk_sources.py`.
+- Tests: 32 new in `test_chunkers_baseline.py` plus 3 in `test_chunk_report.py`; full suite 604 passed, 2 skipped. Mutation check (22 mutants): 5 survivors at first, each closed with a test (window uses `max_chars` not `hard_limit`; line-end and paragraph-end preference; exact threshold and limit boundaries); none left.
+- Real data, all 23 snapshots, every check passes (exit 0) for both:
+
+| Chunker | Passages | Dropped empty | Under 100 chars | Over `max_chars` |
+|---|---|---|---|---|
+| rules (log predates the HTML and notebook readers) | 32,983 | 1,765 | 2,249 | 1,140 |
+| fixed | 19,919 | 2 | 54 | 0 |
+| merge-small (300) | 26,818 | 1,765 | 202 | 1,141 |
+
+llamaindex-docs, the case that started this: rules 7,638 passages (median 153 chars), merge-small 3,907 (median 408), fixed 1,658 (median 1,411). The rules numbers will be re-run in stage 1 so all runs use the same readers.
+- Note for the stage 1 report: `fixed` has no passage over `max_chars` by construction and almost no tiny ones, but it cuts through code blocks and sentences; this is exactly what the comparison should price.
+
 ## 10. Not in this spec
 Hybrid/lexical search, the reranker, the "not found" threshold, a quote-anchored question set, the content page, the paid embedders from library3.
