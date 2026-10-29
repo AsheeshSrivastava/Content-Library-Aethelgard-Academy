@@ -6,17 +6,15 @@ from __future__ import annotations
 import hashlib
 from dataclasses import dataclass, field
 from pathlib import Path
-from typing import Callable
 
 from ragcore.contracts import Source, normalize_text
-from ragcore.errors import LoadRefused, SkipShareExceeded
-from ragcore.files import MAX_FILE_BYTES, TEXT_EXTS, classify_file, raw_problem
+from ragcore.errors import LoadError, LoadRefused, SkipShareExceeded
+from ragcore.files import MAX_FILE_BYTES, classify_file, raw_problem
 from ragcore.gate import LicenceRules, check_path, licence_for_path
+from ragcore.loaders.plain import PLAIN_READERS, PLAIN_VERSION, Reader  # noqa: F401
+from ragcore.loaders.registry import DEFAULT_READERS
 from ragcore.register import SourceRecord, to_contract_fields
 
-Reader = Callable[[bytes], str]
-PLAIN_VERSION = "plain-1"  # The stand-in reader: UTF-8, no markup removal. Real format readers replace it per extension.
-PLAIN_READERS: dict[str, tuple[str, Reader]] = {ext: (PLAIN_VERSION, lambda raw: raw.decode("utf-8")) for ext in TEXT_EXTS}
 LOADABLE_STATUSES = ("approved", "limited")
 BUCKETS = ("read", "licence", "ignored", "code-config", "skipped", "withheld")
 
@@ -44,7 +42,7 @@ def load_snapshot(folder: Path, record: SourceRecord, rules: LicenceRules, *,
     if not version:
         raise LoadRefused(f"{record.id}: no pinned commit or version, so the text cannot be tied to a version.")
     folder = Path(folder)
-    readers = {ext.lower(): pair for ext, pair in (PLAIN_READERS if readers is None else readers).items()}
+    readers = {ext.lower(): pair for ext, pair in (DEFAULT_READERS if readers is None else readers).items()}
     result = LoadResult()
 
     for path in sorted(folder.rglob("*")):
@@ -89,6 +87,9 @@ def load_snapshot(folder: Path, record: SourceRecord, rules: LicenceRules, *,
             text = normalize_text(read(raw))
         except UnicodeDecodeError:
             skip("not-utf8")
+            continue
+        except LoadError as exc:
+            skip(str(exc))
             continue
         except Exception:
             skip("unreadable")

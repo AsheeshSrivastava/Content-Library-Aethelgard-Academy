@@ -16,14 +16,14 @@ from pathlib import Path
 from typing import Callable
 
 from ragcore.contracts import NORMALIZER_VERSION, normalize_text
+from ragcore.errors import LoadError  # noqa: F401  (re-exported for readers and tests)
 from ragcore.fetch import snapshot_hash
-from ragcore.files import (CODE_CONFIG_EXTS, CODE_CONFIG_NAMES, IGNORED_EXTS, MAX_FILE_BYTES, NOTEBOOK_EXT, TEXT_EXTS,  # noqa: F401
+from ragcore.files import (CODE_CONFIG_EXTS, CODE_CONFIG_NAMES, IGNORED_EXTS, MAX_FILE_BYTES, MIN_CHARS, NOTEBOOK_EXT, TEXT_EXTS,  # noqa: F401
                            classify_file, is_licence, raw_problem)
 from ragcore.register import RegisterError, load_record
 
 Reader = Callable[[bytes], str]
 
-MIN_CHARS = 100
 EXAMPLES = 5
 EXAMPLE_CHARS = 120
 RAW_KINDS = ("bom", "crlf", "not_nfc")
@@ -36,8 +36,6 @@ def register_reader(extension: str, reader: Reader) -> None:
     READERS[extension.lower()] = reader
 
 
-class LoadError(Exception):
-    """A reader that refuses a file; the message is the reason code shown in the report."""
 
 
 # --- look readers ------------------------------------------------------------------------
@@ -380,7 +378,7 @@ def inspect_folder(folder: Path, *, source_id: str = "", loaders: dict[str, Read
                 loaded = loader(raw)
             except LoadError as exc:
                 skip(str(exc))
-                if not str(exc).startswith("stub"):
+                if not str(exc).startswith(("stub", "empty")):
                     regressions.append((rel, f"skipped-by-loader: {exc}"))
                 continue
             except Exception:
@@ -518,9 +516,16 @@ def main(argv: list[str] | None = None) -> int:
         print(f"Not a folder: {folder}", file=sys.stderr)
         return 2
 
+    if args.loaders == "real":
+        from ragcore.loaders.registry import DEFAULT_READERS
+        for ext, (_version, reader) in DEFAULT_READERS.items():
+            register_reader(ext, reader)
     report = inspect_folder(folder, source_id=source_id, loaders=dict(READERS) if args.loaders == "real" else None,
                             section_cap=args.section_cap, max_skip_share=args.max_skip_share, compare=args.compare)
     txt, js = write_report(report, Path(args.out))
+    out = sys.stdout
+    if getattr(out, "encoding", None) and out.encoding.lower().replace("-", "") != "utf8":
+        out.reconfigure(errors="replace")  # A narrow console (Windows cp1252) must not stop the run after the report is saved.
     print(report.render())
     print(f"Saved: {txt}\nSaved: {js}")
     return 0 if report.gate_passed else 1

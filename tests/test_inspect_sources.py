@@ -403,3 +403,19 @@ def test_main_finds_the_folder_from_a_record(tmp_path):
     assert main(["--source", "demo", "--register", str(reg), "--snapshots", str(snaps), "--out", str(tmp_path / "o")]) == 0
     assert main(["--source", "nope", "--register", str(reg), "--snapshots", str(snaps), "--out", str(tmp_path / "o")]) == 2
     assert [p.name for p in (tmp_path / "o").glob("demo-*.txt")]
+
+
+def test_main_prints_text_a_narrow_console_cannot_encode(tmp_path, monkeypatch):
+    import io
+    import sys
+    folder = tree(tmp_path / "snap", {"a.md": LONG, "weird-" + chr(0x2264) + ".xyz": "x"})
+    console = io.TextIOWrapper(io.BytesIO(), encoding="cp1252", errors="strict")
+    monkeypatch.setattr(sys, "stdout", console)
+    assert main([str(folder), "--out", str(tmp_path / "out"), "--max-skip-share", "0.9"]) == 0
+
+
+def test_a_reader_that_reports_empty_is_not_a_regression(tmp_path):
+    def nothing(raw):
+        raise LoadError("empty")
+    r = run_with(tmp_path, nothing)
+    assert r.skipped == {"a.md": "empty"} and r.loader["regressions"] == []

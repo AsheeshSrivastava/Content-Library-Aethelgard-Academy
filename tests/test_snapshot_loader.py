@@ -6,7 +6,7 @@ from dataclasses import replace
 import pytest
 
 from ragcore.contracts import Source, normalize_text
-from ragcore.errors import LoadRefused, SkipShareExceeded
+from ragcore.errors import LoadError, LoadRefused, SkipShareExceeded
 from ragcore.gate import LicenceRules, licence_for_path
 from ragcore.loaders.snapshot import PLAIN_VERSION, LoadResult, load_snapshot
 from ragcore.register import FetchSpec, Licence, SourceRecord
@@ -81,13 +81,19 @@ def test_withheld_files_still_add_up_in_the_counts(tmp_path):
 # --- what a Source carries ------------------------------------------------------------------
 
 def test_source_fields(tmp_path):
-    r = load(tmp_path, {"docs/a.md": LONG})
+    r = load(tmp_path, {"docs/a.txt": LONG})
     (s,) = r.sources
     assert isinstance(s, Source)
-    assert s.source_id == "s1/docs/a.md" and s.version == COMMIT
+    assert s.source_id == "s1/docs/a.txt" and s.version == COMMIT
     assert s.loader_version == PLAIN_VERSION == "plain-1"
     assert s.licence == "MIT" and s.licence_basis == "detected"
     assert s.text == LONG and s.raw_sha256 == hashlib.sha256(LONG.encode()).hexdigest()
+
+
+def test_markdown_files_use_the_markdown_reader_by_default(tmp_path):
+    r = load(tmp_path, {"a.md": "<Tip>\n" + LONG + "</Tip>\n", "b.mdx": LONG, "c.rst": LONG})
+    assert {s.source_id: s.loader_version for s in r.sources} == {"s1/a.md": "md-1", "s1/b.mdx": "md-1", "s1/c.rst": PLAIN_VERSION}
+    assert "<Tip>" not in r.sources[0].text
 
 
 def test_version_falls_back_to_version_ref_without_a_commit(tmp_path):
@@ -181,3 +187,18 @@ def test_two_runs_and_a_copy_elsewhere_give_equal_sources(tmp_path):
     three = load_snapshot(tmp_path / "elsewhere" / "deeper", record(), rules(tmp_path))
     assert one.sources == two.sources == three.sources
     assert [s.source_id for s in one.sources] == ["s1/a.md", "s1/b.md", "s1/sub/c.txt"]
+
+
+# --- reasons from readers ---------------------------------------------------------------------
+
+def test_a_reader_may_refuse_a_file_with_a_reason(tmp_path):
+    def refuse(raw):
+        raise LoadError("stub")
+    r = load(tmp_path, {"a.md": LONG, "b.txt": LONG}, readers={".md": ("t-1", refuse), ".txt": ("t-1", lambda b: b.decode())},
+             max_skip_share=1.0)
+    assert r.skipped == {"a.md": "stub"} and len(r.sources) == 1
+
+
+def test_a_markdown_page_with_almost_nothing_left_is_a_named_stub(tmp_path):
+    r = load(tmp_path, {"a.md": LONG, "tiny.md": "# Title\n\n<Tip/>\n", "b.mdx": LONG}, max_skip_share=1.0)
+    assert r.skipped == {"tiny.md": "stub"}

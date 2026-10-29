@@ -26,6 +26,7 @@ CODE_CONFIG_NAMES = frozenset({
     ".python-version", ".python-versions", ".textlintignore", ".dockerignore",
 })
 MAX_FILE_BYTES = 2 * 1024 * 1024
+MIN_CHARS = 100  # Under this many characters a page or section is too small to stand alone.
 
 
 def is_licence(rel: str) -> bool:

@@ -19,3 +19,7 @@ class SkipShareExceeded(RuntimeError):
     def __init__(self, message: str, result) -> None:
         super().__init__(message)
         self.result = result
+
+
+class LoadError(Exception):
+    """A reader that refuses a file; the message is the reason code shown in the report (for example "stub")."""
