@@ -5,6 +5,7 @@ from ragcore.errors import LoadError
 from ragcore.files import MIN_CHARS
 from ragcore.loaders.markdown import MD_VERSION, read_md, read_mdx
 from ragcore.loaders.plain import PLAIN_READERS, Reader
+from ragcore.loaders.rst import RST_VERSION, read_rst
 
 
 def _no_stubs(read: Reader) -> Reader:
@@ -23,4 +24,5 @@ DEFAULT_READERS: dict[str, tuple[str, Reader]] = {
     **PLAIN_READERS,
     ".md": (MD_VERSION, _no_stubs(read_md)),
     ".mdx": (MD_VERSION, _no_stubs(read_mdx)),
+    ".rst": (RST_VERSION, _no_stubs(read_rst)),
 }

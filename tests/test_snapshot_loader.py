@@ -91,8 +91,8 @@ def test_source_fields(tmp_path):
 
 
 def test_markdown_files_use_the_markdown_reader_by_default(tmp_path):
-    r = load(tmp_path, {"a.md": "<Tip>\n" + LONG + "</Tip>\n", "b.mdx": LONG, "c.rst": LONG})
-    assert {s.source_id: s.loader_version for s in r.sources} == {"s1/a.md": "md-1", "s1/b.mdx": "md-1", "s1/c.rst": PLAIN_VERSION}
+    r = load(tmp_path, {"a.md": "<Tip>\n" + LONG + "</Tip>\n", "b.mdx": LONG, "c.rst": LONG, "d.txt": LONG})
+    assert {s.source_id: s.loader_version for s in r.sources} == {"s1/a.md": "md-1", "s1/b.mdx": "md-1", "s1/c.rst": "rst-1", "s1/d.txt": PLAIN_VERSION}
     assert "<Tip>" not in r.sources[0].text
 
 
