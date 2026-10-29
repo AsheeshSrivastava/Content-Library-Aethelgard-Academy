@@ -68,6 +68,7 @@ class SourceRecord:
     fetch: FetchSpec | None = None
     max_mb: int = 200
     licence_overrides: dict[str, str] = field(default_factory=dict)  # path prefix -> licence id
+    licence_warning: str = ""  # Set when the fetched licence file disagrees with the declared licence (spec 04)
 
 
 def _fail(path: Path, message: str) -> RegisterError:
@@ -145,6 +146,7 @@ def load_record(path: Path) -> SourceRecord:
         fetch=_fetch_spec(path, data.get("fetch")),
         max_mb=_max_mb(path, data.get("max_mb")),
         licence_overrides=_overrides(path, data.get("licence_overrides")),
+        licence_warning=_text(path, data, "licence_warning", required=False),
     )
 
 
@@ -211,7 +213,8 @@ def save_record(record: SourceRecord, path: Path) -> None:
         "version": {"ref": record.version_ref, "fetched": record.fetched},
         "content_hash": record.content_hash, "status": record.status,
         "reviewer": record.reviewer, "reviewed_on": record.reviewed_on,
-        "override_reason": record.override_reason, "notes": record.notes, "max_mb": record.max_mb,
+        "override_reason": record.override_reason, "licence_warning": record.licence_warning,
+        "notes": record.notes, "max_mb": record.max_mb,
     }
     if record.licence_overrides:
         data["licence_overrides"] = dict(record.licence_overrides)
@@ -257,6 +260,12 @@ def set_status(record: SourceRecord, new: str, rules: LicenceRules, *, reviewer:
         missing = _missing_evidence(record)
         if missing:
             raise TransitionError(f"Cannot move to {new} without {', '.join(missing)}.")
+        if record.licence_warning:
+            if not override_reason.strip():
+                raise TransitionError(
+                    f"The licence file does not match the record ({record.licence_warning}); "
+                    "correct the record or write an override reason.")
+            changes["override_reason"] = override_reason.strip()
         verdict = check(record, rules)
         if RANK[new] > RANK[verdict.status]:
             if not override_reason.strip():

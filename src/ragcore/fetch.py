@@ -15,6 +15,7 @@ from datetime import date
 from pathlib import Path
 from urllib.parse import urlparse
 
+from ragcore.licence import cross_check, detect_licence, read_licence_file
 from ragcore.register import FULL_SHA, SourceRecord
 from ragcore.webtext import html_to_markdown
 
@@ -38,6 +39,7 @@ class FetchResult:
     licence_hash: str
     licence_name: str
     dropped: tuple[str, ...] = ()
+    detected_licence: str = ""  # SPDX id read from the licence file, empty when not recognised (spec 04)
 
 
 def check_host(url: str, hosts: frozenset[str]) -> None:
@@ -158,7 +160,8 @@ def fetch_git(record: SourceRecord, snapshots: Path, hosts: frozenset[str], *, a
             for name in sorted(files):
                 digest.update(name.encode() + b"\n" + (repo / name).read_bytes() + b"\n")
             licence_hash, licence_name = "sha256:" + digest.hexdigest(), PER_DOCUMENT
-        result = FetchResult(sha, snapshot_hash(repo), licence_hash, licence_name, tuple(dropped))
+        detected = detect_licence(read_licence_file(repo, licence_name) or "") or ""
+        result = FetchResult(sha, snapshot_hash(repo), licence_hash, licence_name, tuple(dropped), detected)
         destination = parent / sha
         if destination.exists():
             _remove(destination)
@@ -208,7 +211,9 @@ def fetch_web(record: SourceRecord, snapshots: Path, hosts: frozenset[str], *, d
         licence = download(licence_url, hosts)
         (folder / "LICENSE").write_bytes(licence)
         ref = "web-" + hashlib.sha256(text.encode("utf-8")).hexdigest()[:12]
-        result = FetchResult(ref, snapshot_hash(folder), "sha256:" + hashlib.sha256(licence).hexdigest(), "LICENSE")
+        detected = detect_licence(licence.decode("utf-8", "replace")) or ""
+        result = FetchResult(ref, snapshot_hash(folder), "sha256:" + hashlib.sha256(licence).hexdigest(), "LICENSE",
+                             detected_licence=detected)
         destination = parent / ref
         if destination.exists():
             _remove(destination)
@@ -220,11 +225,14 @@ def fetch_web(record: SourceRecord, snapshots: Path, hosts: frozenset[str], *, d
 
 def apply_fetch(record: SourceRecord, result: FetchResult, *, on: date) -> SourceRecord:
     """Record the pin. If the licence text changed since it was read, an approved or limited source goes back to quarantine."""
+    outcome = cross_check(record.licence.id, result.detected_licence)
     status = record.status
-    if record.licence.file_hash != result.licence_hash and status in ("approved", "limited"):
+    changed = record.licence.file_hash != result.licence_hash or outcome.kind == "mismatch"
+    if changed and status in ("approved", "limited"):
         status = "quarantine"
     return replace(record, version_ref=result.ref, fetched=on, content_hash=result.content_hash, status=status,
-                   licence=replace(record.licence, file_hash=result.licence_hash))
+                   licence=replace(record.licence, file_hash=result.licence_hash, basis=outcome.basis),
+                   licence_warning=outcome.warning)
 
 
 def verify(record: SourceRecord, snapshots: Path) -> list[str]:

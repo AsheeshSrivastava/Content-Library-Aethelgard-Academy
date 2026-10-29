@@ -1,15 +1,15 @@
 # Spec 04: Licence detection (cross-check)
 
-Status: Draft, awaiting the owner's review. Decision: [ADR 0006](../adr/0006-licence-detection-cross-check.md) (Accepted). Detector ported in idea and phrase list from production-rag `licenses.py` (12 licences); two Creative Commons titles added because the register uses them.
+Status: Accepted by the owner 2026-10-29. Decision: [ADR 0006](../adr/0006-licence-detection-cross-check.md) (Accepted). Detector ported in idea and phrase list from production-rag `licenses.py` (12 licences); two Creative Commons titles added because the register uses them.
 
 ## Purpose
 After a fetch, read the licence file we hashed and check that it says what the register record declares. A person still declares and approves; the tool only warns. It never guesses.
 
 ## Detector `detect_licence(text) -> str | None`
 Returns an SPDX id or `None` (no match). It never raises: empty, binary-looking or odd input gives `None`.
-1. Prepare: drop copyright lines, lowercase, collapse spaces, keep only the first 4000 characters. A README that quotes a licence far below its start is not that licence.
+1. Prepare: if the text is an HTML page (the CC legal code is fetched as one), strip tags and entities first; drop copyright lines, lowercase, collapse spaces, keep only the first 4000 characters. A README that quotes a licence far below its start is not that licence.
 2. Licences recognised (14): MIT, ISC, BSD-2-Clause, BSD-3-Clause, Apache-2.0, MPL-2.0, GPL-2.0, GPL-3.0, LGPL-3.0, AGPL-3.0, CC0-1.0, Unlicense, CC-BY-4.0, CC-BY-SA-4.0.
-3. GNU and Mozilla licences are judged by the title and its version number (the GPL text mentions the Lesser and Affero licences further down). A version we do not list (GPL v1, LGPL 2.1, MPL 1.1) gives `None`.
+3. GNU and Mozilla licences are judged by the first licence name in the title and its version number (the GPL text mentions the Lesser and Affero licences further down). A version we do not list (GPL v1, LGPL 2.1, MPL 1.1) gives `None`.
 4. BSD: the standard opening plus both redistribution clauses; "neither the name of ... endorse or promote" makes it 3-Clause, otherwise 2-Clause; an advertising clause gives `None`.
 5. CC: the legal-code title "Creative Commons Attribution 4.0 International Public License" or "...Attribution-ShareAlike 4.0 International Public License"; the NonCommercial variants give `None` (they are not on our list, and the gate treats an unknown id as reference-only anyway).
 6. Anything custom, modified, or a file holding two licence texts gives `None`.

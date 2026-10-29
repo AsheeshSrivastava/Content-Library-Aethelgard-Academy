@@ -16,4 +16,4 @@ If code or a spec changes the decision, stop and amend the ADR or spec first. A 
 | [01](01-contracts.md) | Contracts | 1 | Draft, written after the code (unit 1 had only ADR 0003) |
 | [02](02-register-and-gate.md) | Source register and licence gate | 2 | Accepted 2026-10-29 |
 | [03](03-pinned-fetch.md) | Pinned fetch | 2b | Accepted 2026-10-29 |
-| [04](04-licence-detection.md) | Licence detection (cross-check) | 2c | Draft, awaiting review |
+| [04](04-licence-detection.md) | Licence detection (cross-check) | 2c | Accepted 2026-10-29 |
