@@ -5,6 +5,7 @@ from ragcore.errors import LoadError
 from ragcore.files import MIN_CHARS
 from ragcore.loaders.html import HTML_VERSION, read_html
 from ragcore.loaders.markdown import MD_VERSION, read_md, read_mdx
+from ragcore.loaders.notebook import NOTEBOOK_VERSION, read_ipynb
 from ragcore.loaders.plain import PLAIN_READERS, Reader
 from ragcore.loaders.rst import RST_VERSION, read_rst
 
@@ -28,4 +29,5 @@ DEFAULT_READERS: dict[str, tuple[str, Reader]] = {
     ".rst": (RST_VERSION, _no_stubs(read_rst)),
     ".html": (HTML_VERSION, _no_stubs(read_html)),
     ".htm": (HTML_VERSION, _no_stubs(read_html)),
+    ".ipynb": (NOTEBOOK_VERSION, _no_stubs(read_ipynb)),
 }

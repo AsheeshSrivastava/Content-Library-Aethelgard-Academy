@@ -60,3 +60,6 @@ Open: llamaindex-docs has many tiny passages (median 153 chars); try a merge-sma
 ## Self-review, unit 5: HTML reader (2026-10-29)
 Restarting review of the work: spec 10, `loaders/html.py` (html-1), registered for .html and .htm behind the stub wrapper. Full suite 508 passed, 2 skipped. Mutation check (25 mutants): two equivalent survivors; found and fixed one real bug (empty list item). The reader is not idempotent by design (its output is Markdown-style text), and the spec says so. Real data holds only 9 html files, all theme templates or a generated chart; the reader's job there is to not mistake them for content. Not independent review.
 Open: `.overrides`/`overrides` theme folders could be excluded by a register path rule (register change, not made).
+
+## Self-review, unit 6: notebook reader (2026-10-29)
+Restarting review of the work: spec 11, `loaders/notebook.py` (ipynb-1), registered for .ipynb behind the stub wrapper. Markdown cells go through the Markdown reader; code cells become fences; outputs, raw cells and metadata are dropped. Two older tests changed (registry sample for .ipynb; the loader test now expects `bad-notebook` for `{}` instead of `no-reader`). Mutation check 19 mutants, 5 survivors closed with tests. Real data: 2 notebooks, both sources pass the gate. Not independent review.

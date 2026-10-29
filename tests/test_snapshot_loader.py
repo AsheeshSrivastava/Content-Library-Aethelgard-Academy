@@ -132,7 +132,7 @@ def test_named_skips_and_the_rest_still_loads(tmp_path):
     r = load(tmp_path, files, max_file_bytes=400, max_skip_share=1.0)
     assert len(r.sources) == 10
     assert r.skipped == {"bin.md": "binary", "bad.md": "not-utf8", "empty.md": "empty", "big.md": "too-large",
-                         "n.ipynb": "no-reader"}
+                         "n.ipynb": "bad-notebook"}
 
 
 def test_a_text_that_normalises_to_blank_is_empty(tmp_path):
