@@ -52,3 +52,7 @@ Open debts from unit 1: Source has no title/URI fields yet (add with the first l
 
 ## Repository (2026-10-28, owner)
 This work moved to the standalone repo D:\01-Project\rag-core (branch main), cloned from the orphan branch rag-core with its history. Remote: Entire origin (private, rag-learning-projects/aethelgard-rag-core); Entire enabled for Claude Code, Codex, OpenCode and Antigravity (commit a9aa400). GitHub mirror is on hold until the owner creates an empty private repo. The old worktree .worktrees/rag-core in the app repo is a frozen copy; do not work there. Entire checkpoints contain transcripts: keep every repo that receives them private. Codex hooks need approval in /hooks.
+
+## Self-review, unit 4: chunking (2026-10-29)
+Restarting review of the work: spec 09 (heading-pack-1, check_chunking), `chunking.py`, `chunk_report.py`, `scripts/chunk_sources.py`. Full suite 476 passed, 2 skipped. Mutation check (34 hand-made breaks): all caught except equivalent ones (whitespace skip after a cut; paragraph-end cut branch); redundant conditions removed instead. Real data: all 23 snapshots chunk with every check passing (32,983 passages). Bugs found on the way: a fence next to text without a blank line could be cut mid-fence; a space-less token was cut at the heading space. Not independent review.
+Open: llamaindex-docs has many tiny passages (median 153 chars); try a merge-small-sections variant in the comparison. Still open from earlier: front matter keys as metadata (ADR), `experiments` snapshots not backed up.
