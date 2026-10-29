@@ -1,0 +1,75 @@
+# Written by Gemini from the OpenTelemetry docs at the pinned commit, 2026-10-24. Checked against the files by Claude.
+questions:
+- q: How can I set the name of my service using environment variables so it does not show up as unknown?
+  expect: [resources]
+- q: How do services pass distributed tracing identifiers across HTTP requests?
+  expect: [context-propagation]
+- q: How do I connect an asynchronous background worker task back to the earlier request that queued it?
+  expect: [signals/traces]
+- q: How can I avoid doing expensive calculations for telemetry attributes if a span is dropped by the sampler?
+  expect: [instrumentation/libraries]
+- q: How do I indicate which specific library or package created a given span or metric?
+  expect: [instrumentation-scope]
+- q: How can an agent continuously capture CPU profiling stack traces on Linux without modifying application binaries?
+  expect: [signals/profiles]
+- q: How can I forward an account or user identifier from an entry endpoint down to every downstream service in a call graph?
+  expect: [signals/baggage]
+- q: How do I test custom instrumentation in automated unit tests without running an external collector?
+  expect: [instrumentation/libraries]
+- q: What utility can I use to compile a custom OpenTelemetry Collector binary with only the plugins I need?
+  expect: [distributions]
+- q: Which metric instrument should I choose to record web request durations so that latency distributions can be analyzed?
+  expect: [signals/metrics]
+- q: How can an operations team add tracing to existing services without altering the underlying application code?
+  expect: [instrumentation/zero-code]
+- q: What steps should I take if an internal service needs to deploy pre-built monitoring layers to AWS Lambda?
+  expect: [concepts/components]
+- q: What distinguishes the root span of a distributed trace from all subsequent child spans?
+  expect: [signals/traces, observability-primer]
+- q: Does OpenTelemetry store telemetry data or provide a built-in user interface to view graphs and traces?
+  expect: [what-is-opentelemetry]
+- q: What fields make up the standard W3C traceparent header string?
+  expect: [context-propagation]
+- q: What kind of metric instrument should be used to track quantities that go both up and down, such as current queue size?
+  expect: [signals/metrics]
+- q: What does an OpenTelemetry Resource describe and what information does it typically hold?
+  expect: [resources, concepts/components]
+- q: What is the meaning of a span having an Unset status versus an Ok status?
+  expect: [signals/traces]
+- q: What are zPages and how do they expose telemetry?
+  expect: [glossary]
+- q: Why would an engineering team deploy tail sampling instead of relying solely on head sampling?
+  expect: [sampling]
+- q: When is it appropriate for a third-party library developer to decline adding OpenTelemetry spans to their library?
+  expect: [instrumentation/libraries]
+- q: Why should reusable third-party libraries depend solely on the OpenTelemetry API and not the SDK?
+  expect: [instrumentation/libraries, instrumentation/code-based]
+- q: Why should API tokens and user passwords never be stored in Baggage?
+  expect: [signals/baggage, context-propagation]
+- q: Why should developers avoid wrapping everyday log statements with checks on whether logging is enabled?
+  expect: [signals/logs]
+- q: Why did our error alert stop firing after a high-cardinality metric exceeded its cardinality limit?
+  expect: [signals/metrics]
+- q: Why are the contextual values I placed in baggage missing from the span attributes in my tracing backend?
+  expect: [signals/baggage]
+- q: Why does my service appear in telemetry dashboards under the name unknown_service?
+  expect: [resources]
+- q: How do you decide whether an event during execution should be recorded as a span attribute versus a span event?
+  expect: [signals/traces]
+- q: How does head sampling compare to tail sampling in how and where sampling decisions are made?
+  expect: [sampling]
+- q: How does a Service Level Indicator (SLI) differ from a Service Level Objective (SLO) when assessing system health?
+  expect: [observability-primer]
+outside:
+- How do I configure vector to route OpenTelemetry traces directly into ClickHouse?
+- How do I set up distributed tracing for GraphQL subscriptions in Apollo Server?
+- How do I configure B3 propagation headers in Spring Cloud Sleuth?
+- How do I define centralized sampling rules in AWS X-Ray using the AWS X-Ray daemon?
+- How do I instrument Celery background workers in Python using Datadog's ddtrace library?
+- How do I configure Envoy proxy access log service to export access logs via gRPC to Zipkin?
+- How do I enable SQL bind variable capture in the New Relic APM agent for Python?
+- How do I configure Prometheus Remote Write in Grafana Agent to send metrics to Grafana Mimir?
+- How do I send custom trace spans to Honeycomb using Libhoney in Python?
+- How do I configure Fluentbit to ship Kubernetes pod container logs to Elasticsearch?
+- How do I calculate the hydration percentage when baking a sourdough loaf?
+- How do I replace the hydraulic brake pads on a road bicycle?

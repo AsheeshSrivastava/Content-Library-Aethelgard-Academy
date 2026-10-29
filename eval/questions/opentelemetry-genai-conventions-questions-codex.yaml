@@ -1,0 +1,75 @@
+# Written by Codex from the OpenTelemetry GenAI conventions at the pinned commit, 2026-10-24. Checked against the files by Claude.
+questions:
+- q: How should I label the Azure resource provider in telemetry from an Azure AI Inference client?
+  expect: [azure-ai-inference.md]
+- q: How do I record the effort setting I send to Claude in the standard reasoning-level field?
+  expect: [anthropic.md]
+- q: How do I record both the OpenAI service tier I explicitly requested and the tier the response actually used?
+  expect: [openai.md]
+- q: How do I attach the identity of the Bedrock safety guardrail to a model-call span?
+  expect: [aws-bedrock.md]
+- q: How should a configured content-upload callback behave when the model-call span is not sampled?
+  expect: [gen-ai-spans.md]
+- q: How much time should one model-operation span cover if the client automatically tries the request again after a temporary failure?
+  expect: [gen-ai-spans.md]
+- q: How do I pass tracing information inside an MCP message so the receiving side can continue the same trace?
+  expect: [mcp.md]
+- q: How should I name a span for a tool reading a skill's bundled file when I know the file name but not the skill name?
+  expect: [gen-ai-agent-spans.md]
+- q: How do I count model calls for one agent run when that agent delegates work to other agents?
+  expect: [gen-ai-metrics.md]
+- q: How should I log a timeout exception from a model client, including the event name and severity?
+  expect: [gen-ai-exceptions.md]
+- q: How can I connect a quality-score event to the model output being judged when I no longer have its span ID?
+  expect: [gen-ai-events.md]
+- q: How do I add a sample message to this repository's schema checks and save the validation errors it produces?
+  expect: [non-normative/tests/README.md]
+- q: What is the fingerprint returned by OpenAI meant to help me track in telemetry?
+  expect: [openai.md]
+- q: What does an unknown modality on a token-usage counter mean if the token count itself is available?
+  expect: [gen-ai-token-metrics.md, token-metrics-design.md, openai.md]
+- q: What part of an agent's work does a planning span represent, and where does the model call that creates the plan sit beneath it?
+  expect: [gen-ai-agent-spans.md]
+- q: Does the input-token usage counter already include tokens served from cache, or should I add the cache-read counter to it?
+  expect: [gen-ai-token-metrics.md, openai.md]
+- q: What transport value identifies an MCP connection that talks through standard input and output?
+  expect: [mcp.md]
+- q: What spans would a worked example show when the model asks my app to run a weather function and my app sends the result back for a final reply?
+  expect: [examples-llm-calls.md]
+- q: What does the client-side histogram of pauses between streamed pieces actually time, and does the first piece count?
+  expect: [client-inference.md]
+- q: What does the knowledge-base identifier on a Bedrock span refer to?
+  expect: [aws-bedrock.md]
+- q: Why are the actual prompts and replies left out of telemetry unless I enable their capture?
+  expect: [gen-ai-spans.md]
+- q: When is it appropriate to trace an agent's planning separately from an ordinary model call?
+  expect: [gen-ai-agent-spans.md]
+- q: When counting tools used during an agent run, should I include web searches performed inside the model provider's service?
+  expect: [gen-ai-metrics.md]
+- q: Why would recording text and image token amounts separately in one per-request histogram give me a wrong 95th percentile?
+  expect: [gen-ai-token-metrics.md, token-metrics-design.md]
+- q: My trace shows two tool spans for one MCP call because both the agent framework and MCP client instrument it. How should the instrumentations avoid that duplication?
+  expect: [mcp.md]
+- q: After a schema edit, a sample that used to validate now has errors and the saved-output test fails. What change record is required before accepting the new output?
+  expect: [non-normative/tests/README.md]
+- q: Failed calls are showing up as zero-sized requests in my per-operation token histogram. Is that a recording bug when no usage came back?
+  expect: [gen-ai-token-metrics.md, token-metrics-design.md, openai.md]
+- q: How should tracing an agent that runs in my Python process differ from tracing an agent I invoke through a remote service?
+  expect: [gen-ai-agent-spans.md]
+- q: What are the trade-offs between putting full messages on spans and keeping the messages in separate storage with references on spans?
+  expect: [gen-ai-spans.md]
+- q: How can telemetry distinguish an OpenAI call made through Chat Completions from one made through Responses?
+  expect: [openai.md]
+outside:
+- How do I reconnect to the Gemini Live API using a session-resumption handle after the connection drops?
+- Which Amazon Nova bidirectional-streaming events do I send to start microphone audio and receive spoken replies?
+- How do I exchange an SDP offer and an ephemeral key to connect to OpenAI Realtime over WebRTC?
+- How do I submit an Anthropic Message Batch and poll its processing status until all requests finish?
+- How do I configure the per-category severity thresholds in Azure AI Content Safety?
+- How do I extend the expiry time of an existing Vertex AI context cache through the cachedContents API?
+- How do I call Cohere Rerank and read the relevance score for each returned document?
+- How do I choose the GPU memory configuration for deploying a model with NVIDIA NIM?
+- How do I pass a code prefix and suffix to Mistral's fill-in-the-middle API?
+- How do I use Ollama's keep_alive option to unload a model from GPU memory after a request?
+- How do I get an IBM Cloud IAM token and supply a project ID when calling Watsonx AI?
+- How do I map Agent2Agent protocol task states to a Python client that waits for task completion?

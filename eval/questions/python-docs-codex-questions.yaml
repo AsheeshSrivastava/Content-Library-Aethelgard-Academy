@@ -1,0 +1,108 @@
+# Written by GPT-6 (Codex) from the python-docs docs at pinned commit ead82c07db1f111d613926ed1b6667411d768125, 2026-10-24. To be checked against the files by Claude.
+questions:
+- q: What is the difference between dividing two integers with / and with //?
+  expect: [tutorial/introduction, reference/expressions]
+- q: Assigning to text[0] gives me a TypeError. How can I make a string with a different first character?
+  expect: [tutorial/introduction, faq/programming]
+- q: How can I define a function so callers have to name one of its arguments instead of passing it by position?
+  expect: [tutorial/controlflow, reference/compound_stmts]
+- q: How can I make a new list by transforming only the items that pass a condition?
+  expect: [tutorial/datastructures, reference/expressions, howto/functional]
+- q: What happens when I put three variable names on the left of an assignment and a tuple on the right?
+  expect: [tutorial/datastructures, reference/simple_stmts, howto/functional]
+- q: How do I go through a dictionary and get each key together with its value?
+  expect: [tutorial/datastructures]
+- q: Why do scripts put their startup code inside an if check on __name__ before calling main()?
+  expect: [tutorial/modules, library/__main__, faq/programming, reference/import, library/pydoc]
+- q: What does Python store in __pycache__, and why does that folder appear after importing a module?
+  expect: [tutorial/modules, faq/programming]
+- q: When reading a text file with readline(), how is reaching the end different from reading an empty line?
+  expect: [tutorial/inputoutput]
+- q: Why put code that follows a successful operation in the else part of try and except instead of keeping it inside try?
+  expect: [tutorial/errors]
+- q: How can I arrange for cleanup code to run whether or not the protected code raises an exception?
+  expect: [tutorial/errors, reference/compound_stmts]
+- q: Which data belongs to every instance of a class together, and which data belongs to each object separately?
+  expect: [tutorial/classes, reference/compound_stmts, reference/datamodel]
+- q: My raw string ends with a single backslash before the closing quote and will not parse. Why?
+  expect: [reference/lexical_analysis, faq/design]
+- q: What value do and and or produce when their operands are strings rather than booleans?
+  expect: [reference/expressions, tutorial/datastructures]
+- q: What does a comparison like low < value <= high mean, and how many times is value evaluated?
+  expect: [reference/expressions]
+- q: How can an inner function assign a new value to a variable from the surrounding function?
+  expect: [reference/simple_stmts, reference/executionmodel, tutorial/classes, glossary, faq/programming]
+- q: Why is assert unsuitable for a check that must still run when Python is started with -O?
+  expect: [reference/simple_stmts]
+- q: What does an if condition attached to a case in match do when the pattern fits but the condition is false?
+  expect: [reference/compound_stmts, tutorial/controlflow]
+- q: After I added __eq__ to my class, its objects stopped working as dictionary keys. Why does that happen if I do not define __hash__?
+  expect: [reference/datamodel]
+- q: Why does a function raise UnboundLocalError when it reads an outer variable before assigning to that same name later in the function?
+  expect: [reference/executionmodel, faq/programming]
+- q: How can I use a Path object to find all the .py files inside a folder and its nested folders?
+  expect: [library/pathlib]
+- q: When is a deque a better choice than a list for adding and removing items at both ends?
+  expect: [library/collections, tutorial/datastructures, tutorial/stdlib2]
+- q: Why does itertools.groupby put the same key in separate groups when other keys occur in between?
+  expect: [library/itertools, howto/functional]
+- q: When is lru_cache useful for a function, and why should I avoid it for a function that must create a fresh mutable object on every call?
+  expect: [library/functools]
+- q: How do I give a dataclass field an empty list so each new instance gets its own list?
+  expect: [library/dataclasses]
+- q: How can I ignore just FileNotFoundError while removing a file, using a with block?
+  expect: [library/contextlib]
+- q: How do I turn JSON text already stored in a string into Python objects without opening a file?
+  expect: [library/json]
+- q: How can I check that an entire string fits a regular expression instead of accepting a match for only its beginning?
+  expect: [library/re]
+- q: What does it mean for a datetime to be aware or naive, and does a naive one necessarily represent local time?
+  expect: [library/datetime]
+- q: How can I run another program, wait for it to finish, and capture both its normal output and its error output?
+  expect: [library/subprocess]
+- q: How can I run several coroutine calls concurrently and get their returned values in the same order that I supplied the calls?
+  expect: [library/asyncio-task]
+- q: How do I write a unittest test that succeeds only when a call raises a particular exception?
+  expect: [library/unittest, tutorial/stdlib]
+- q: How do shallow and deep copies differ when an object contains other mutable objects?
+  expect: [library/copy]
+- q: How can I get the five smallest values from a large collection without sorting the whole collection?
+  expect: [library/heapq, howto/sorting]
+- q: How can I insert a new score into a list that is already sorted and keep it sorted?
+  expect: [library/bisect, tutorial/stdlib2]
+- q: How do I make an argparse option like --verbose act as a true or false switch without requiring a value after it?
+  expect: [howto/argparse, library/argparse]
+- q: When should I record an event with logging instead of displaying it with print?
+  expect: [howto/logging]
+- q: How does choosing IntEnum instead of Enum change whether members can compare equal to ordinary integers?
+  expect: [howto/enum, library/enum]
+- q: What determines whether an instance dictionary entry or a descriptor with the same name wins during attribute lookup?
+  expect: [howto/descriptor, reference/datamodel]
+- q: What happens to the relative order of records with equal keys when Python sorts them?
+  expect: [howto/sorting]
+- q: How can I make a regex stop at the first closing delimiter instead of matching through to the last one?
+  expect: [howto/regex, library/re]
+- q: How can I make each lambda created in a loop remember the loop value from when that lambda was created?
+  expect: [faq/programming]
+- q: Why does Python make me write self explicitly when accessing an object's attributes from its methods?
+  expect: [faq/design]
+- q: Why is the operation for joining strings called on the separator rather than on the list being joined?
+  expect: [faq/design]
+- q: What does EAFP stand for, and what way of handling missing keys or attributes does it describe?
+  expect: [glossary]
+outside:
+- How do I set a timeout for an HTTP call made with the third-party Requests package?
+- How do I group rows in a pandas DataFrame by month and calculate a total for each month?
+- What are the rules for broadcasting arrays with different shapes in NumPy?
+- How do I create and apply a Django database migration after changing a model?
+- How do I store a signed session cookie in a Flask application?
+- How do I make FastAPI supply a shared dependency to several routes?
+- How do I write a pytest fixture that provides a fresh temporary database for each test?
+- How do I define a one-to-many relationship between two SQLAlchemy models?
+- How do I solve a differential equation with SciPy?
+- How do I train a classifier and measure its accuracy with scikit-learn?
+- How do I calculate gradients for a neural network with PyTorch?
+- How do I train a TensorFlow model using my own batches of data?
+- How do I use Beautiful Soup to find links with a particular CSS class in an HTML document?
+- How do I draw several subplots with a shared axis in Matplotlib?
+- How do I create an interactive chart with hover labels in Plotly?

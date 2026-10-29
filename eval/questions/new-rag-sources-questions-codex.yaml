@@ -1,0 +1,267 @@
+# Written by Codex, 2026-10-25; pinned snapshots: huggingface-sentence-transformers-docs=33f9bd81610560e48ff5eac80e910496b49ae193; llamaindex-docs=619d74664e8404612038bc15a1a40c686037277c; haystack-docs=622967d7b6a878085a72ce9fb942bab0f485ad2f; ragas-docs=298b68274234c060deacab3cf5fb52aa3a20e885; arxiv-rag-compositionality=web-fb713419ea9b.
+questions:
+# Sentence Transformers: 15 direct questions.
+- q: How do I score a batch of question and passage pairs with a model that reads both texts together?
+  expect: [usage.rst]
+- q: How do I get passages ordered by how well they answer my question?
+  expect: [usage.rst]
+- q: How do I check whether my pair-scoring model accepts images as well as text?
+  expect: [usage.rst]
+- q: How can I rank a mixture of pictures, text passages, and documents containing both?
+  expect: [usage.rst]
+- q: How do I compare every sentence in one list with every sentence in another?
+  expect: [semantic_textual_similarity.rst]
+- q: How do I compare only corresponding pairs of sentence vectors instead of every possible pair?
+  expect: [semantic_textual_similarity.rst]
+- q: How can I change the function used to compare my text vectors?
+  expect: [semantic_textual_similarity.rst]
+- q: How do I keep my chosen vector comparison function when saving a model?
+  expect: [semantic_textual_similarity.rst]
+- q: How should I choose a model when short questions need to match much longer answers?
+  expect: [README.md]
+- q: How should I encode questions and passages when the model has different prompts for each?
+  expect: [README.md]
+- q: How can I find related passages when the user uses abbreviations or alternative wording?
+  expect: [README.md]
+- q: What do I give up when I use an approximate vector index to make a large collection faster to query?
+  expect: [README.md]
+- q: How do I balance memory use against throughput when comparing many query vectors with a large collection?
+  expect: [README.md]
+- q: How can I speed up vector comparisons when the query vectors and stored vectors fit on a GPU?
+  expect: [README.md]
+- q: When can I score every paragraph directly without first building a candidate shortlist?
+  expect: [README.md]
+# Sentence Transformers: 5 concept questions; repeated basenames are listed once.
+- q: Why is a model that reads the question and passage together usually applied only after a fast first pass?
+  expect: [usage.rst, pretrained_models.md, README.md, basic_strategies.md, production_rag.md]
+- q: Why can normalized text vectors be compared faster with a dot product without changing their cosine ordering?
+  expect: [semantic_textual_similarity.rst, README.md]
+- q: What is the difference between storing a separate vector for each text and producing a score for a pair of texts?
+  expect: [usage.rst, pretrained_models.md, README.md]
+- q: How can a fast vector stage and a slower pair-scoring stage work together on a large passage collection?
+  expect: [usage.rst, README.md, basic_strategies.md, production_rag.md, sentencetransformerssimilarityranker.mdx]
+- q: Why can a meaning-based first pass still need a second model to remove superficially related passages?
+  expect: [usage.rst, README.md, basic_strategies.md, production_rag.md, rag_failure_mode_checklist.md]
+# Sentence Transformers: 5 hard questions.
+- q: How can I turn raw passage-pair scores into values between zero and one while keeping their order unchanged?
+  expect: [usage.rst, pretrained_models.md]
+- q: Under what condition do the general text encoder and the question-specific and passage-specific encoders return identical vectors?
+  expect: [README.md]
+- q: What are the default numbers of queries and collection entries processed together by the built-in vector lookup helper?
+  expect: [README.md]
+- q: What sign convention is used for Euclidean and Manhattan distances when I compare text vectors?
+  expect: [semantic_textual_similarity.rst]
+- q: Which field in an ordered passage result lets me recover the original passage from my input list?
+  expect: [usage.rst]
+# LlamaIndex: 15 direct questions.
+- q: How can I attach an author to each document and restrict returned passages to one author?
+  expect: [basic_strategies.md]
+- q: How can I keep each customer's document lookups confined to that customer's own data?
+  expect: [basic_strategies.md]
+- q: How do I retrieve ten candidates but send only the three best passages to the answer model?
+  expect: [basic_strategies.md]
+- q: If I halve the size of each text chunk, what else might I increase to preserve the amount of retrieved context?
+  expect: [basic_strategies.md]
+- q: How do I ask a model to infer document constraints from a user's question before querying the vector database?
+  expect: [production_rag.md]
+- q: How can I use a document's short overview to find it before fetching its detailed passages?
+  expect: [production_rag.md]
+- q: How can I match one precise sentence but give the answer model the surrounding text too?
+  expect: [production_rag.md]
+- q: Why might a request for a whole-document overview need a different lookup approach from a request for one fact?
+  expect: [production_rag.md]
+- q: How can I turn a complicated question into follow-up questions that use earlier answers?
+  expect: [query_transformations.md]
+- q: How can I use an invented draft answer to find real supporting passages for a question?
+  expect: [query_transformations.md]
+- q: How do I build an index directly from text nodes that I created myself?
+  expect: [vector_store_index.mdx]
+- q: How do I control splitting, title extraction, and vector creation before inserting nodes into an index?
+  expect: [vector_store_index.mdx]
+- q: How do I write an in-memory index to disk so I can reuse it after restarting?
+  expect: [save_load.md]
+- q: How do I select the right saved index when several share the same storage directory?
+  expect: [save_load.md]
+- q: How do I save an index to object storage through a filesystem adapter?
+  expect: [save_load.md]
+# LlamaIndex: 5 concept questions.
+- q: Why must I rebuild stored vectors after switching the model that creates them?
+  expect: [basic_strategies.md, embeddings.md, rag_failure_mode_checklist.md]
+- q: Why might the text used to find a passage be smaller than the text needed to answer from it?
+  expect: [production_rag.md, rag_failure_mode_checklist.md, sentencewindowretriever.mdx]
+- q: How can restricting documents by date or category stop answers from using the wrong part of a collection?
+  expect: [basic_strategies.md, production_rag.md, rag_failure_mode_checklist.md, metadata-filtering.mdx]
+- q: What can I change when the nearest passages seem related but fail to answer the actual question?
+  expect: [basic_strategies.md, production_rag.md, rag_failure_mode_checklist.md, README.md]
+- q: How can an index hand a question to another query engine when a matching entry represents that engine?
+  expect: [vector_store_index.mdx, advanced_retrieval.md]
+# LlamaIndex: 5 hard questions.
+- q: Which insertion setting should I lower if creating vectors for thousands of nodes at once exhausts memory?
+  expect: [vector_store_index.mdx]
+- q: Why does explicitly asking to save storage have no effect when the configured backend already persists automatically?
+  expect: [save_load.md]
+- q: How can I select a particular optimized model checkpoint when the repository contains several exported variants?
+  expect: [embeddings.md]
+- q: What should I check when retrieval suddenly worsens after a dependency update and similarity scores fall across all questions?
+  expect: [rag_failure_mode_checklist.md]
+- q: How can I keep outdated versions from appearing after source documents have changed without merely appending another copy?
+  expect: [rag_failure_mode_checklist.md]
+# Haystack: 15 direct questions.
+- q: How can I combine document lists from several components while discarding duplicate documents?
+  expect: [documentjoiner.mdx]
+- q: How do I give two incoming document scores different weights when combining their results?
+  expect: [documentjoiner.mdx]
+- q: How can I combine two result lists using positions instead of their original numeric scores?
+  expect: [documentjoiner.mdx]
+- q: How can I normalize differently distributed scores before combining results from several components?
+  expect: [documentjoiner.mdx]
+- q: How can I turn several matching fragments into their complete parent passage?
+  expect: [automergingretriever.mdx]
+- q: What document organization do I need before matching fragments can be replaced with their parent text?
+  expect: [automergingretriever.mdx]
+- q: How can I fetch the chunks immediately before and after a matching passage?
+  expect: [sentencewindowretriever.mdx]
+- q: How can I change the number of neighboring chunks for just one request?
+  expect: [sentencewindowretriever.mdx]
+- q: How do I let chunks with missing source or position information pass through instead of raising an error?
+  expect: [sentencewindowretriever.mdx]
+- q: How can I put the most useful passages near both ends of the context given to a language model?
+  expect: [lostinthemiddleranker.mdx]
+- q: How can I score retrieved passages against the question before handing them to the next component?
+  expect: [sentencetransformerssimilarityranker.mdx]
+- q: How do I express a date range together with a choice of companies in a document constraint?
+  expect: [metadata-filtering.mdx]
+- q: How can I retrieve literal product identifiers or error messages from an in-memory collection?
+  expect: [inmemorybm25retriever.mdx]
+- q: What must I compute at indexing time and query time before an in-memory vector retriever can work?
+  expect: [inmemoryembeddingretriever.mdx]
+- q: Where do I configure the function that compares stored document vectors with a query vector?
+  expect: [inmemoryembeddingretriever.mdx]
+# Haystack: 5 concept questions.
+- q: How can I narrow the candidate collection before looking for passages relevant to a question?
+  expect: [metadata-filtering.mdx, inmemorybm25retriever.mdx, inmemoryembeddingretriever.mdx, basic_strategies.md, production_rag.md, rag_failure_mode_checklist.md]
+- q: Why can collecting a broad candidate set and forwarding a smaller reordered set improve the final answer context?
+  expect: [sentencetransformerssimilarityranker.mdx, basic_strategies.md, production_rag.md, README.md, usage.rst]
+- q: How can I restore broader context after matching small document fragments?
+  expect: [automergingretriever.mdx, sentencewindowretriever.mdx, production_rag.md, rag_failure_mode_checklist.md]
+- q: What preparations are needed to combine literal word matches with vector matches in a single in-memory pipeline?
+  expect: [documentjoiner.mdx, inmemorybm25retriever.mdx, inmemoryembeddingretriever.mdx]
+- q: How can I control the number of documents returned by an in-memory retriever?
+  expect: [inmemorybm25retriever.mdx, inmemoryembeddingretriever.mdx]
+# Haystack: 5 hard questions.
+- q: What happens to a duplicate document's score when I combine lists without merging their numeric scores?
+  expect: [documentjoiner.mdx]
+- q: When two of a parent's three children match and the configured cutoff is one half, will the parent replace those children?
+  expect: [automergingretriever.mdx]
+- q: Which optional position information allows repeated text in overlapping neighboring chunks to be removed?
+  expect: [sentencewindowretriever.mdx]
+- q: If two retrieved chunks are close together, can the same neighboring chunk appear in both returned windows?
+  expect: [sentencewindowretriever.mdx]
+- q: Why should I check the selected document backend before using a negated condition or a substring comparison?
+  expect: [metadata-filtering.mdx]
+# Ragas: 15 direct questions.
+- q: How do I represent one question, its answer, supporting passages, and an expected answer as a test record?
+  expect: [eval_sample.md]
+- q: How do I represent a conversation that includes a human message, an assistant tool call, and a tool reply?
+  expect: [eval_sample.md]
+- q: Can I mix records for one exchange with records for whole conversations in the same test collection?
+  expect: [eval_dataset.md]
+- q: How do I convert an existing Hugging Face dataset split into a collection of test records?
+  expect: [eval_dataset.md]
+- q: How can I measure the fraction of answer claims that the supplied passages support?
+  expect: [faithfulness.md]
+- q: How can I check whether useful passages appear ahead of irrelevant ones in my retrieved results?
+  expect: [context_precision.md]
+- q: How do I judge retrieved passages when I have a generated answer but no expected answer?
+  expect: [context_precision.md]
+- q: How can I measure how much of an expected answer is supported by the passages I retrieved?
+  expect: [context_recall.md]
+- q: How can I compare retrieved document identifiers with the identifiers that should have been retrieved?
+  expect: [context_recall.md]
+- q: How can I check whether an answer addresses the user's intent without checking whether its facts are true?
+  expect: [answer_relevance.md]
+- q: How can I compare an answer's claims with an expected answer using precision, recall, or their harmonic mean?
+  expect: [factual_correctness.md]
+- q: How can I control how finely sentences are broken into claims before comparing two answers?
+  expect: [factual_correctness.md]
+- q: How can I measure errors in an answer that arise from distracting retrieved passages?
+  expect: [noise_sensitivity.md]
+- q: How can I create test questions from documents loaded through either LangChain or LlamaIndex?
+  expect: [rag_testset_generation.md]
+- q: How can I save and reload the enriched document graph used to produce test questions?
+  expect: [rag_testset_generation.md]
+# Ragas: 5 concept questions.
+- q: What information should I collect from each question-answer run before building a test collection?
+  expect: [eval_sample.md, eval_dataset.md, rag_eval.md]
+- q: How do I separate whether an answer follows supplied evidence from whether it agrees with an expected answer?
+  expect: [faithfulness.md, factual_correctness.md, noise_sensitivity.md]
+- q: How can testing distinguish missing supporting evidence from a generated answer that invents claims?
+  expect: [context_recall.md, faithfulness.md]
+- q: How can I check an answer for missing facts by breaking the expected answer into individual claims?
+  expect: [factual_correctness.md, context_recall.md]
+- q: How can I call a metric synchronously instead of awaiting its result?
+  expect: [faithfulness.md, context_precision.md, answer_relevance.md, factual_correctness.md, noise_sensitivity.md]
+# Ragas: 5 hard questions.
+- q: Why does moving a distracting passage from second place to first lower the score even when the useful passage is still retrieved?
+  expect: [context_precision.md]
+- q: Why can a score based on regenerating questions from an answer theoretically fall outside the usual zero-to-one interval?
+  expect: [answer_relevance.md]
+- q: What does increasing the strictness setting change when a metric reconstructs questions from an answer?
+  expect: [answer_relevance.md]
+- q: Which small classifier can replace part of the claim-support checking process, and how do I choose its device and batch size?
+  expect: [faithfulness.md]
+- q: What proportions of generated questions are single-hop specific, multi-hop abstract, and multi-hop specific by default?
+  expect: [rag_testset_generation.md]
+# RAG Compositionality paper: 15 direct questions.
+- q: What happened when the three strongest isolated improvements to passage ranking were combined in one system?
+  expect: [paper.md]
+- q: Why does adding more sophisticated components fail to guarantee a better document-grounded answer system?
+  expect: [paper.md]
+- q: Which pipeline choices were most strongly associated with finding the right documents in the factorial experiment?
+  expect: [paper.md]
+- q: Which pipeline choices were most strongly associated with keeping generated claims supported by evidence?
+  expect: [paper.md]
+- q: At what collection sizes did the leading configuration change in the scaling experiment?
+  expect: [paper.md]
+- q: How far ahead was the balanced configuration at two hundred thousand documents compared with the standard one?
+  expect: [paper.md]
+- q: Which configuration answered fastest, and what quality tradeoff came with it?
+  expect: [paper.md]
+- q: Which configuration gave the best joint quality and response-time volume under a thirty-second reference?
+  expect: [paper.md]
+- q: What happened to the predeclared requirement that pairwise interactions explain at least one fifth of grounding-score variance?
+  expect: [paper.md]
+- q: Why did the researchers put several benchmark collections into one shared corpus?
+  expect: [paper.md]
+- q: How were repeated chunks from the same source document handled before scoring document retrieval?
+  expect: [paper.md]
+- q: What did changing the model that judges grounded answers reveal about absolute scores and configuration ordering?
+  expect: [paper.md]
+- q: What happened when the document-vector representation was shortened from 1024 to 768 dimensions?
+  expect: [paper.md]
+- q: How could an automatic evidence-checking gate make a question requiring several reasoning steps harder to answer?
+  expect: [paper.md]
+- q: What did the study find when it rewarded variety among passages from narrowly focused collections?
+  expect: [paper.md]
+# Paper: 5 concept questions; this snapshot contains only paper.md.
+- q: Why should I measure both passage-finding quality and evidence support when choosing a complete pipeline?
+  expect: [paper.md]
+- q: Why should I retest a configuration at the size of the collection where I plan to deploy it?
+  expect: [paper.md]
+- q: Why might combining components from different stages work better than adding components that perform overlapping jobs?
+  expect: [paper.md]
+- q: How should a newly proposed component be compared fairly inside a representative surrounding system?
+  expect: [paper.md]
+- q: What prevents these results from establishing a universally best configuration for every organization and language?
+  expect: [paper.md]
+# Paper: 5 hard questions.
+- q: Why did shortening stored vectors reduce storage and lookup cost without reducing the encoder's computation?
+  expect: [paper.md]
+- q: In the worked multi-step example, how many of fifteen evidence chunks did an overaggressive gate remove?
+  expect: [paper.md]
+- q: What constant was used when combining result-list positions by summing reciprocals of shifted ranks?
+  expect: [paper.md]
+- q: Why were graph-derived enrichment and traversal omitted from the factorial experiment despite appearing in the methods catalog?
+  expect: [paper.md]
+- q: How did generating a hypothetical answer change first-hop latency and the latency-adjusted retrieval gain?
+  expect: [paper.md]

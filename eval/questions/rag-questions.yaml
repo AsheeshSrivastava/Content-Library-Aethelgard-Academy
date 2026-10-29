@@ -1,0 +1,135 @@
+# Learner-style questions for the library search test. `expect` lists path pieces: a search counts as right
+# when one of its top results comes from a file whose path contains one of them.
+# Source: rohitg00-ai-engineering-from-scratch (MIT) at the pinned commit. Written by Claude from the indexed lessons.
+questions:
+- q: How do I combine keyword search and vector search results into one ranking?
+  expect: [07-advanced-rag, 14-information-retrieval-search]
+- q: What is BM25 and what does it score?
+  expect: [14-information-retrieval-search, 07-advanced-rag]
+- q: How much should neighbouring chunks overlap, and how big should a chunk be?
+  expect: [23-chunking-strategies-rag, 06-rag, 04-embeddings]
+- q: What is semantic chunking and when is it worth the extra cost?
+  expect: [23-chunking-strategies-rag]
+- q: What does parent-document retrieval mean?
+  expect: [23-chunking-strategies-rag, 07-advanced-rag]
+- q: How do I check whether my chunking choice is any good?
+  expect: [23-chunking-strategies-rag]
+- q: What is cosine similarity and why use it instead of plain distance?
+  expect: [04-embeddings, 06-rag, 22-embedding-models]
+- q: What is the difference between a bi-encoder and a cross-encoder?
+  expect: [04-embeddings, 07-advanced-rag, 14-information-retrieval-search]
+- q: What are Matryoshka embeddings?
+  expect: [22-embedding-models, 04-embeddings]
+- q: How do I choose an embedding model for my documents?
+  expect: [22-embedding-models, 04-embeddings]
+- q: What is reranking and when should I add it?
+  expect: [07-advanced-rag, 14-information-retrieval-search]
+- q: What is HyDE and how does it help search?
+  expect: [07-advanced-rag]
+- q: Why does the middle of a long prompt get ignored?
+  expect: [05-context-engineering]
+- q: How do I count tokens before sending a prompt?
+  expect: [05-context-engineering]
+- q: When does prompt caching actually save money?
+  expect: [15-prompt-caching, 11-caching-cost]
+- q: What is a semantic cache and what can go wrong with it?
+  expect: [11-caching-cost]
+- q: How does a token bucket rate limiter work?
+  expect: [11-caching-cost]
+- q: How do I stop a RAG answer from making things up?
+  expect: [06-rag, 07-advanced-rag]
+- q: What is HNSW and why do vector databases use it?
+  expect: [04-embeddings]
+- q: Why use RAG instead of fine-tuning when facts keep changing?
+  expect: [06-rag]
+- q: What is binary quantization of embeddings?
+  expect: [04-embeddings, 22-embedding-models]
+- q: How can I send easy questions to a cheaper model?
+  expect: [11-caching-cost]
+# Second set: paraphrased so the wording differs from the lesson headings, with cases where two lessons overlap.
+- q: Why does my retriever miss answers that sit across two paragraphs?
+  expect: [23-chunking-strategies-rag, 06-rag, 04-embeddings]
+- q: Should the stable instructions go at the start or the end of my prompt to get cache hits?
+  expect: [15-prompt-caching]
+- q: How do I work out how many requests I need before caching pays for itself?
+  expect: [15-prompt-caching]
+- q: What does a circuit breaker do for my LLM spending?
+  expect: [11-caching-cost]
+- q: How do I get a discount for jobs that do not need an instant answer?
+  expect: [11-caching-cost]
+- q: Can I make embeddings smaller without retraining the model?
+  expect: [22-embedding-models, 04-embeddings]
+- q: Why can a model that tops a public leaderboard still do badly on my own documents?
+  expect: [22-embedding-models]
+- q: How do I fuse two ranked lists when their scores are on different scales?
+  expect: [14-information-retrieval-search, 07-advanced-rag]
+- q: How can I rewrite a vague user question so it retrieves better?
+  expect: [07-advanced-rag]
+- q: How do I limit search results to one product or date range?
+  expect: [07-advanced-rag]
+- q: How do I measure whether an answer is actually supported by the retrieved text?
+  expect: [07-advanced-rag]
+- q: What is the three-tier pattern for choosing embedding models?
+  expect: [22-embedding-models]
+- q: How do I give each chunk a short note about where it comes from before indexing it?
+  expect: [23-chunking-strategies-rag]
+- q: How do I keep a long chat from overflowing the context window?
+  expect: [05-context-engineering]
+- q: What should an assistant remember between sessions?
+  expect: [05-context-engineering]
+- q: How do I decide what to drop when my context budget is full?
+  expect: [05-context-engineering]
+- q: What does the model actually see when I build a prompt from retrieved chunks?
+  expect: [06-rag, 05-context-engineering]
+- q: How do I compute similarity from scratch without a library?
+  expect: [22-embedding-models, 04-embeddings, 06-rag]
+- q: What is TF-IDF and how can it stand in for embeddings in a small demo?
+  expect: [06-rag]
+- q: What is the difference between exact and approximate nearest-neighbour search?
+  expect: [04-embeddings, 06-rag]
+- q: How do I stop one noisy user from using up my API quota?
+  expect: [11-caching-cost]
+- q: How do I find out which feature or user is costing the most?
+  expect: [11-caching-cost]
+- q: Which kind of cache is safer when answers must be exactly right?
+  expect: [11-caching-cost]
+- q: How do I check retrieval quality with a set of questions and known answers?
+  expect: [14-information-retrieval-search, 23-chunking-strategies-rag, 07-advanced-rag, 22-embedding-models]
+- q: What mistakes make a cache never hit in production?
+  expect: [15-prompt-caching, 11-caching-cost]
+- q: Why is a very long context window not a replacement for retrieval?
+  expect: [05-context-engineering, 06-rag]
+- q: What is a dense retriever and how does it differ from a sparse one?
+  expect: [14-information-retrieval-search, 07-advanced-rag, 04-embeddings]
+- q: How can one model give me both keyword-style and meaning-style matching?
+  expect: [22-embedding-models]
+
+# Questions the library cannot answer (none of these lessons cover them). Used only to set the "not found" threshold.
+outside:
+- How do I make sourdough bread at home?
+- What is the capital of Australia?
+- How do I center a div in CSS?
+- Who won the 2018 football world cup?
+- How does photosynthesis work?
+- How do I file taxes as a freelancer?
+- What is the best way to learn the guitar?
+- How do I deploy a Docker container to Kubernetes?
+- How do I train a convolutional network on images?
+- What causes inflation in an economy?
+- How do I set up a PostgreSQL replica?
+- How do I write a React component with state?
+- What are the rules of chess?
+- How do I reset my home router?
+- How do I tune a SQL query with indexes?
+- How do I treat a sprained ankle?
+# Near-topic: about AI or Python work, but none of the indexed lessons explain them. These are the hard "not found" cases.
+- How do I train a transformer from scratch?
+- How does the attention mechanism work inside a language model?
+- What is reinforcement learning from human feedback?
+- How do I fine-tune BERT for sentiment analysis?
+- How do I label data for an image classifier?
+- How do I set up end-to-end browser tests with Playwright?
+- How do I set up caching for npm builds in GitHub Actions?
+- How do I scrape a website with Python?
+- How do I stream tokens from a language model API as they are generated?
+- How do I run a model on a GPU with CUDA?

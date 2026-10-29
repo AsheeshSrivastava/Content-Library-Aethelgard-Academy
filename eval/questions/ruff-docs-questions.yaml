@@ -1,0 +1,78 @@
+# Written by Gemini 3.8 Flash from the ruff-docs docs at the pinned commit, 2026-10-24. Checked against the files by Claude; three outside questions replaced because uv docs answer them (uv publish, project management) or the Ruff FAQ addresses plugins.
+questions:
+- q: How can I set up Ruff to run automatically right before every git commit?
+  expect: [integrations, tutorial]
+- q: How do I format Python code snippets written inside Markdown files?
+  expect: [formatter, features]
+- q: How can I run Ruff in continuous integration using GitHub workflows?
+  expect: [integrations]
+- q: How do I make the formatter ignore a specific code block so it keeps my custom layout?
+  expect: [formatter]
+- q: How can I automatically add suppression comments across an existing codebase for newly enabled checks?
+  expect: [linter, tutorial]
+- q: How do I install Ruff without having Python or pip on my system?
+  expect: [installation, faq]
+- q: How do I enforce Google or NumPy conventions for docstrings in my project?
+  expect: [faq, tutorial]
+- q: How do I configure Neovim to use the built-in Ruff language server?
+  expect: [setup]
+- q: How do I pass a large list of file paths to Ruff if my terminal command line length limit is exceeded?
+  expect: [configuration]
+- q: How can I test a brand new preview lint rule without enabling all other experimental checks?
+  expect: [preview]
+- q: How do I migrate my editor settings from the old Python-based ruff-lsp to the new Rust language server?
+  expect: [migration]
+- q: How do I prevent Ruff from scanning files inside certain test or build directories?
+  expect: [configuration]
+- q: What does it mean when a code fix is marked unsafe?
+  expect: [linter, versioning, faq]
+- q: What is the native Ruff Language Server and what protocol does it use to talk to editors?
+  expect: [editors/index]
+- q: What are the required sections when writing a design proposal for a new lint check?
+  expect: [rule-proposals]
+- q: What does exit code 2 indicate when running Ruff commands?
+  expect: [linter, formatter]
+- q: What is Ruff's versioning policy and which release numbers introduce breaking changes?
+  expect: [versioning]
+- q: What is preview mode in Ruff and what kinds of capabilities does it unlock?
+  expect: [preview, faq, versioning]
+- q: What are the different severity tiers used to organize lint rules into categories?
+  expect: [linter, rule-proposals]
+- q: What is the configurationPreference option in the language server and what choices does it offer?
+  expect: [settings]
+- q: When should I use select instead of extend-select in my linter configuration?
+  expect: [linter]
+- q: Why does Ruff's formatter preserve the indentation on multiline strings inside function calls?
+  expect: [black]
+- q: When is it recommended to turn off certain lint rules because they clash with the code formatter?
+  expect: [formatter]
+- q: Why would a team choose to use Ruff instead of Flake8, isort, and pyupgrade?
+  expect: [faq, linter]
+- q: When should a developer write a file-level ignore comment instead of an inline noqa comment?
+  expect: [linter, tutorial]
+- q: Why is Ruff still checking a Python file that I added to gitignore when I run the linter directly on that file?
+  expect: [configuration]
+- q: Why do I see duplicated edits or broken code when triggering save actions in VS Code notebooks?
+  expect: [faq]
+- q: Why did ruff format leave an overly long f-string expression unbroken across multiple lines?
+  expect: [formatter]
+- q: How does Ruff differ from Black in how it handles trailing inline comments on statements?
+  expect: [black, faq]
+- q: What is the difference between Ruff and a dedicated type checker like Mypy or Pyright?
+  expect: [faq]
+- q: How do pyproject.toml and ruff.toml compare when configuring project options?
+  expect: [configuration, faq]
+outside:
+- How do I install Rust and cargo on my computer?
+- How do I write a Flake8 plugin in Python?
+- How do I configure mypy to check type annotations in my codebase?
+- How do I profile Python code to find memory bottlenecks with memory_profiler?
+- How do I set up pytest fixtures and mock database connections?
+- How do I generate Sphinx documentation from my docstrings?
+- How do I attach a debugger to a running Node.js process?
+- How do I use Bazel to build a Python monorepo?
+- How do I scan Python dependencies for vulnerabilities using pip-audit or osv-scanner?
+- How do I format C++ or Rust code blocks using clang-format or rustfmt?
+- How do I make sourdough bread from a starter?
+- What are the rules of table tennis?
+- How do I change the oil in a car engine?

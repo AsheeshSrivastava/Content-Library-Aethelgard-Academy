@@ -1,0 +1,64 @@
+# Written by Gemini 3.8 Flash from the python-peps docs at the pinned commit, 2026-10-24. Checked against the files by Claude; two outside questions replaced on 2026-10-24 because the Ruff docs answer them (ignoring rules, Black comparison).
+questions:
+- q: How should whitespace around the equals sign be formatted when a function parameter has both a type annotation and a default value?
+  expect: [pep-0008]
+- q: How can you prevent a long multiline if-statement condition from visually blending into the indented code suite directly beneath it?
+  expect: [pep-0008]
+- q: When wrapping a long mathematical calculation across multiple lines, is it preferred to break before or after binary operators?
+  expect: [pep-0008]
+- q: How many empty lines should be placed between top-level function and class definitions in a Python module?
+  expect: [pep-0008]
+- q: In what order should standard library, third-party, and local application imports be grouped in a module?
+  expect: [pep-0008]
+- q: Where should module-level dunder names like __all__ and __version__ be placed relative to import statements?
+  expect: [pep-0008]
+- q: Why must a tuple containing only a single element include a trailing comma?
+  expect: [pep-0008]
+- q: What naming convention should be followed if a function parameter name clashes with a reserved language keyword?
+  expect: [pep-0008]
+- q: Which single-character variable names should never be used because they are easily confused with numerals?
+  expect: [pep-0008]
+- q: How can a class author prevent an attribute from accidentally colliding with attributes in subclasses?
+  expect: [pep-0008]
+- q: Why does Python style discourage assigning an anonymous lambda expression directly to a variable name?
+  expect: [pep-0008]
+- q: What problems can happen if you write a bare except clause without specifying an exception type?
+  expect: [pep-0008]
+- q: What string methods should be used to test for prefixes and suffixes instead of checking slices?
+  expect: [pep-0008]
+- q: Why is using a return, break, or continue statement inside a finally block discouraged?
+  expect: [pep-0008]
+- q: Under what circumstances may a development team increase the maximum line length limit from 79 up to 99 characters?
+  expect: [pep-0008]
+- q: What kind of string prefix is recommended when a docstring contains backslash characters?
+  expect: [pep-0257]
+- q: What is an attribute docstring and where is it located in a Python file?
+  expect: [pep-0257]
+- q: Why should a one-line docstring be phrased as an imperative command rather than a descriptive phrase?
+  expect: [pep-0257]
+- q: What information should be provided in the docstring of an executable command-line script?
+  expect: [pep-0257]
+- q: How do documentation processing tools calculate how much indentation to strip from multi-line docstrings?
+  expect: [pep-0257]
+- q: How can a programmer display the 19 aphorisms of Python design from within an interactive Python session?
+  expect: [pep-0020]
+- q: Why does Python design philosophy prefer a shallow architecture over deeply nested structures?
+  expect: [pep-0020]
+- q: What does the Zen of Python state regarding how difficult or easy an implementation is to explain?
+  expect: [pep-0020]
+- q: Which nationality is humorously credited with immediately seeing the one obvious way to do something in Python?
+  expect: [pep-0020]
+- q: How many design aphorisms did Tim Peters summarize, and how many are actually written down in the Zen of Python?
+  expect: [pep-0020]
+outside:
+- How do I configure Nginx as a reverse proxy with TLS certificates?
+- How do I set up remote state storage for Terraform?
+- How do I configure automatic retries for a Celery task?
+- How do I define a GraphQL schema with Strawberry?
+- How do I draw a correlation heatmap with seaborn?
+- What does the Python Code of Conduct say about how to treat other community members?
+- What conventions does the Google Python Style Guide mandate for documenting function arguments and return types?
+- How do I tune XGBoost hyperparameters with cross-validation?
+- How do I publish and subscribe to channels with Redis from Python?
+- How does the formatting philosophy of PEP 8 compare with the automated formatting standard of gofmt in Go?
+- How do I template a Kubernetes manifest with a Helm chart?

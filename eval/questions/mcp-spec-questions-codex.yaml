@@ -1,0 +1,95 @@
+# Written by Codex from the MCP spec and docs at the pinned commit dae694f61a31, 2026-10-24. Checked against the files by Claude (pending).
+questions:
+- q: How can my client get a server's supported protocol versions, available features, and software identity in one call before trying its tools?
+  expect: [2026-07-28/server/discover, 2026-07-28/basic/versioning, 2026-07-28/learn/versioning, 2026-07-28/learn/architecture, 2026-07-28/changelog, 2026-07-28/schema]
+- q: How do I fetch the rest of a long MCP list and tell when I have reached the end, without assuming every page has the same number of items?
+  expect: [server/utilities/pagination]
+- q: How do I make suggestions for one prompt argument take account of values the user has already filled into its other arguments?
+  expect: [server/utilities/completion]
+- q: In the July 2026 protocol, how do I ask for server log messages while a particular request runs?
+  expect: [2026-07-28/server/utilities/logging, 2026-07-28/basic/index, 2026-07-28/schema, 2026-07-28/changelog, 2026-07-28/tools/debugging, 2026-07-28/tools/inspector/protocol-eras]
+- q: How do I ask for updates during a slow MCP operation and connect each update back to the call that started it?
+  expect: [basic/patterns/progress, 2026-07-28/schema]
+- q: How should my client handle the unreadable state string returned when a server needs another round of input; may I unpack it and change it before retrying?
+  expect: [basic/patterns/mrtr]
+- q: In the July 2026 protocol, how do I listen for changes to the available tools and to one particular resource while leaving other event types out?
+  expect: [basic/patterns/subscriptions, 2026-07-28/schema, 2026-07-28/changelog, 2026-07-28/tools/inspector/protocol-eras]
+- q: When sending a tool call over HTTP in the July 2026 protocol, how do I put the operation and tool name into the required headers?
+  expect: [basic/transports/streamable-http]
+- q: How do I publish an HTTPS document that identifies my OAuth client, and which fields must that document contain?
+  expect: [basic/authorization/client-registration]
+- q: A protected MCP endpoint has refused my request with HTTP 401; how do I follow the metadata advertised in its response to find the sign-in server?
+  expect: [basic/authorization/authorization-server-discovery, 2026-07-28/tools/inspector/authorization, tutorials/security/authorization]
+- q: In the Python weather example, how do I turn an async function with type hints and a docstring into a tool without hand-writing its definition?
+  expect: [develop/build-server]
+- q: Which Python packages do I install with uv before building the example chatbot that talks to MCP servers and Anthropic?
+  expect: [develop/build-client]
+- q: On Windows, where do I configure Claude Desktop to launch the filesystem server with access to my Desktop and Downloads folders?
+  expect: [develop/connect-local-servers]
+- q: How do I add an internet-hosted MCP endpoint through Claude's connector settings?
+  expect: [develop/connect-remote-servers]
+- q: How can I make a CI job fail when an MCP server no longer exposes get_weather, without opening a browser to sign in during the job?
+  expect: [tools/inspector/cli]
+- q: How do I pass a flag such as --verbose to a stdio server launched by Inspector so Inspector does not consume the flag itself?
+  expect: [tools/inspector/recipes, tools/inspector/configuration]
+- q: In an AI application that connects to several MCP servers, what is the difference between the host and the individual clients it creates?
+  expect: [architecture/index, learn/architecture]
+- q: What does the date in an MCP protocol version tell me, and does every compatible documentation update require a new date?
+  expect: [learn/versioning]
+- q: What is an MCP resource meant to provide to a model, and what identifies an individual resource?
+  expect: [server/resources, learn/server-concepts, 2026-07-28/schema]
+- q: When MCP says a prompt is controlled by the user, does that mean the user wrote the template or that the user chooses when to use it?
+  expect: [2026-07-28/server/prompts, learn/server-concepts]
+- q: If I give a server a list of project folders as roots, does MCP actually prevent that server from reading files elsewhere?
+  expect: [2026-07-28/client/roots, 2026-07-28/learn/client-concepts]
+- q: What is the July 2026 status of asking the client to generate model output on the server's behalf, and what should a new server use instead?
+  expect: [2026-07-28/client/sampling, 2026-07-28/deprecated, 2026-07-28/changelog, 2026-07-28/learn/client-concepts]
+- q: What does isError mean inside a tool result when the surrounding JSON-RPC exchange succeeded?
+  expect: [server/tools, 2026-07-28/schema, develop/clients/client-best-practices, tools/inspector/cli]
+- q: What does the millisecond lifetime on a cacheable MCP result mean; is it a promise that the data cannot change during that time?
+  expect: [server/utilities/caching]
+- q: Which official SDKs are listed as Tier 1, and are Python and TypeScript among them?
+  expect: [sdk.mdx]
+- q: What keeps a named mcpdo connection alive after a shell command finishes, and when does that background process stop by itself?
+  expect: [tools/inspector/mcpdo, tools/inspector/security]
+- q: When should an MCP host stop putting all tool definitions into the model's context at once, and what can it offer the model instead?
+  expect: [develop/clients/client-best-practices]
+- q: Why is accepting a client's token for another API and forwarding it through my MCP server a problem?
+  expect: [tutorials/security/security_best_practices, basic/authorization/security-considerations]
+- q: When would I let an MCP validator fetch an external schema reference, and what restrictions should apply to those network requests?
+  expect: [2026-07-28/basic/index]
+- q: Why must my MCP OAuth client stop if the sign-in server's metadata does not say it supports PKCE?
+  expect: [basic/authorization/security-considerations]
+- q: Why does pinning the version of a local MCP package launched with npx or uvx still leave a risk from changed dependencies?
+  expect: [tutorials/security/local-server-security]
+- q: Why does Inspector start in the older protocol mode rather than automatically probing every server for the July 2026 protocol?
+  expect: [tools/inspector/protocol-eras]
+- q: My local Python MCP server starts misbehaving after I add print statements for debugging; where should those messages go instead?
+  expect: [basic/transports/stdio, develop/build-server, tools/debugging]
+- q: My stdio server finds ./data when I start it in a terminal but cannot find it when Claude Desktop launches it; what should I check in the path configuration?
+  expect: [tools/debugging, develop/connect-local-servers]
+- q: My client receives a result from an older MCP server with no resultType field; should it reject that result or interpret it in a particular way?
+  expect: [2026-07-28/basic/index, 2026-07-28/changelog, 2026-07-28/schema]
+- q: My July 2026 HTTP tool call gets error -32020 even though the JSON parses; what mismatch or missing information should I look for?
+  expect: [basic/transports/streamable-http, 2026-07-28/schema]
+- q: In the July 2026 protocol, how does stopping an in-flight request differ between HTTP streaming and a local stdio process?
+  expect: [basic/patterns/cancellation, basic/transports/streamable-http, basic/transports/stdio, tools/inspector/protocol-eras]
+- q: When a server needs more information from a person, how do the in-client form and external-page options differ for entering a password or API key?
+  expect: [client/elicitation, 2026-07-28/learn/client-concepts]
+- q: For Inspector, how does opening a server file with --config differ from --catalog if I want the original file to stay untouched or the file does not exist yet?
+  expect: [tools/inspector/configuration, tools/inspector/tui]
+- q: If I am working over SSH without a browser, which Inspector interface lets me explore tools interactively rather than getting one command's output and exiting?
+  expect: [2026-07-28/tools/inspector.mdx, tools/inspector/tui]
+- q: Which of the documented MCP development skills should I use to package a local server together with its runtime so users do not have to install Python or Node themselves?
+  expect: [develop/build-with-agent-skills]
+outside:
+- How do I publish an Agent Card and receive task push notifications using the A2A protocol?
+- How do I add my MCP server as a target in Amazon Bedrock AgentCore Gateway?
+- Which Azure API Management policies do I configure to expose an existing REST API as an MCP server?
+- How do I configure a remote MCP connector in Google's Gemini Interactions API?
+- In OpenAI's Responses API, how do allowed_tools and require_approval control a remote MCP tool call?
+- How do I combine mcp_servers and an mcp_toolset in an Anthropic Messages API request?
+- How do I load tools from several MCP servers into a LangGraph agent using langchain-mcp-adapters?
+- How do I convert an MCP server's tools into Semantic Kernel functions with McpClientTool?
+- How do I attach an MCP server to a Dify agent and map its tools into a workflow?
+- How do I expose a Zapier Zap through Zapier's MCP service and configure which Zap actions it permits?

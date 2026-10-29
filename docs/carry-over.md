@@ -10,7 +10,7 @@ Reference code: branch `library3`, commit 2d61cc0, files at `D:\01-Project\unslo
 | Markdown and rst splitters | library3 `chunks.py` | Reuse as the rules baseline, behind the new chunker interface; add chunker_version | Planned, unit 4 |
 | arXiv HTML to Markdown | library3 `webtext.py` | Keep as an HTML profile | Planned, unit 3 |
 | Separate chunk and vector tables | library3 `index.py` | Keep the idea; change vector key to (content_id, model) | Planned, unit 6 |
-| Eval harness, question sets (601, Codex/Gemini sets), result files | library3 `evaluate.py`, `eval-out/` | Carry as the measuring stick; change anchors | Planned, unit 7 |
+| Eval harness, question sets (601, Codex/Gemini sets), result files | library3 `evaluate.py`, `eval-out/` | Carry as the measuring stick; change anchors | Questions and scoring done 2026-10-29 ([spec 12](specs/12-eval-harness.md)); library3 `search()`-bound parts not carried |
 | Rerank and hybrid code | library3 `rerank.py`, `search.py` | Port later; embedder and reranker are chosen again | Planned, unit 5/6 |
 | Contract ideas (Source/Span/Passage, skip report, guard rail) | production-rag `contracts.py`, ADRs 0005, 0008, 0011 | Rewrite here, test first | Planned, unit 1 |
 | HTML extraction | production-rag `loaders/html_extract.py` | Reuse as a starting point | Planned, unit 3 |

@@ -1,0 +1,78 @@
+# Written by Gemini 3.8 Flash from the MCP spec and docs at the pinned commit, 2026-10-24. Checked against the files by Claude.
+questions:
+- q: How can a client retrieve the next set of items when a server returns a large list of tools or resources?
+  expect: [server/utilities/pagination]
+- q: How does a client specify the minimum severity of log events it wants to receive during a request?
+  expect: [server/utilities/logging]
+- q: How does an MCP server provide auto-complete suggestions for tool arguments or prompt inputs?
+  expect: [server/utilities/completion]
+- q: How can an application register to receive push notifications whenever a server adds or updates its resources?
+  expect: [basic/patterns/subscriptions, basic/patterns/index]
+- q: How can a server inform the client about intermediate progress during a long-running operation?
+  expect: [basic/patterns/progress]
+- q: How does a server ask the user or client for additional inputs before completing a tool execution?
+  expect: [basic/patterns/mrtr, server/tools]
+- q: How does an HTTP client locate the OAuth server that protects a remote MCP endpoint?
+  expect: [basic/authorization/authorization-server-discovery]
+- q: How can an application stop an in-flight operation that it no longer needs?
+  expect: [basic/patterns/cancellation]
+- q: How can a developer keep a connection to an MCP server open across multiple terminal commands?
+  expect: [tools/inspector/mcpdo]
+- q: How can a client find out what capabilities and protocol versions a server supports before invoking any tools?
+  expect: [server/discover]
+- q: How can a tool tell an HTTP client to forward a specific argument as an HTTP header rather than in the JSON body?
+  expect: [basic/transports/streamable-http, server/tools]
+- q: How can a server request structured user input with validation rules before proceeding?
+  expect: [client/elicitation]
+- q: What is an MCP resource and how is it addressed by clients?
+  expect: [server/resources]
+- q: What does a prompt template represent in MCP and what roles can its messages contain?
+  expect: [server/prompts]
+- q: What are client roots and what boundary do they establish for servers?
+  expect: [client/roots]
+- q: What is sampling and how does it allow a server to generate text without bundling its own model keys?
+  expect: [client/sampling]
+- q: What does the cacheScope field signify when returned alongside a time-to-live hint?
+  expect: [server/utilities/caching]
+- q: What is a Client ID Metadata Document and what URL scheme does it use?
+  expect: [basic/authorization/client-registration]
+- q: What does it mean for MCP to be stateless, and where is session information stored?
+  expect: [basic/index, changelog]
+- q: What are tool annotations such as audience and priority used for?
+  expect: [server/tools, schema, server/resources]
+- q: When should a server choose URL mode elicitation instead of standard form mode?
+  expect: [client/elicitation]
+- q: Why should an MCP server sort its list of tools in a fixed, repeatable order before returning them?
+  expect: [server/tools, changelog]
+- q: Why must server diagnostics and debug logs be directed to standard error rather than standard output when using the stdio transport?
+  expect: [basic/transports/stdio]
+- q: Why must clients verify the issuer identifier parameter returned in an authorization response?
+  expect: [basic/authorization/index, basic/authorization/security-considerations]
+- q: When should a server mark a cached result as private rather than public?
+  expect: [server/utilities/caching]
+- q: Why is a server returning an UnsupportedProtocolVersionError (-32000) when a client attempts to execute a request?
+  expect: [basic/versioning, basic/index]
+- q: Why does an MCP client freeze or fail to parse messages immediately after launching a local server subprocess?
+  expect: [basic/transports/stdio, tools/debugging]
+- q: What causes an MCP server to return a 403 Forbidden error with a WWW-Authenticate header during tool execution?
+  expect: [basic/authorization/index]
+- q: How do tools, resources, and prompts differ in whether the user, the model, or the application controls them?
+  expect: [learn/server-concepts]
+- q: How does an MCP server distinguish between an invalid JSON-RPC protocol error and an internal tool execution failure?
+  expect: [server/tools]
+- q: How does Client ID Metadata Document authentication differ from traditional Dynamic Client Registration?
+  expect: [basic/authorization/client-registration, deprecated]
+outside:
+- How do I configure LangChain's OpenAIAssistantRunnable to use Azure OpenAI endpoints?
+- How do I implement tool call streaming in the Vercel AI SDK with createDataStreamResponse?
+- How do I set up Semantic Kernel plugins using C# attributes like [KernelFunction]?
+- How do I establish bidirectional WebSocket audio streaming using OpenAI's Realtime API?
+- How do I configure LlamaIndex to use Pinecone as a vector store index?
+- How do I implement custom evaluation metrics using Ragas for context precision?
+- How do I deploy an Ollama model instance behind an Envoy reverse proxy?
+- How do I configure Haystack pipelines with HuggingFace LocalGenerator nodes?
+- How do I set up a GraphQL subscriptions resolver with Apollo Server in Node.js?
+- How do I configure LiteLLM proxy to load-balance across multiple Anthropic API keys?
+- How do I make sourdough bread from a starter?
+- What are the standard dimensions and rules of an Olympic table tennis table?
+- How do I replace the brake pads on a Honda Civic?

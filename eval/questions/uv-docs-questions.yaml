@@ -1,0 +1,69 @@
+# Written by Gemini from the uv-docs docs at the pinned commit, 2026-10-24. Checked against the files by Claude.
+questions:
+- q: How can I declare third-party dependencies directly inside a standalone Python script file?
+  expect: [scripts]
+- q: How do I delete unreferenced packages and old wheels from the local cache without wiping everything?
+  expect: [cache, storage]
+- q: How do I pin an exact Python version for the current directory using a project file?
+  expect: [python-versions]
+- q: How do I add development packages like test runners without including them in the published package metadata?
+  expect: [projects/dependencies]
+- q: How do I export locked project dependencies into a standard requirements.txt file for deployment?
+  expect: [export]
+- q: How do I create a reproducible lockfile from a requirements.in file using the pip command line interface?
+  expect: [compile]
+- q: How do I speed up Docker container builds by sharing downloaded wheels across image rebuilds?
+  expect: [docker]
+- q: How do I turn on automatic dependency caching when running uv in a GitHub Actions pipeline?
+  expect: [github]
+- q: How can I start JupyterLab inside my project so notebooks can import all project dependencies?
+  expect: [jupyter]
+- q: How do I convert an existing project that uses requirements.txt into a modern pyproject.toml project?
+  expect: [pip-to-project]
+- q: How do I enable tab completion for uv subcommands in my terminal shell?
+  expect: [installation]
+- q: What does universal resolution mean and how does it handle multiple operating systems?
+  expect: [resolution]
+- q: What is a workspace in uv and how does it coordinate multiple related packages?
+  expect: [workspaces]
+- q: What is the uv build backend and what files does it require to build a package?
+  expect: [build-backend]
+- q: What is pylock.toml and how does it relate to the native uv.lock file?
+  expect: [projects/layout]
+- q: What does the managed setting in pyproject.toml control when set to false?
+  expect: [projects/layout, projects/config]
+- q: What are isolated tool environments and where does uv place executables installed by uv tool install?
+  expect: [concepts/tools, storage]
+- q: Where does uv look for persistent configuration files and which file takes highest precedence?
+  expect: [configuration-files]
+- q: When should a library maintainer use the lowest-direct resolution strategy instead of highest?
+  expect: [resolution]
+- q: Why should project dependencies be installed before copying application source code in a Dockerfile?
+  expect: [docker]
+- q: Why does installing PyTorch with CUDA support often require adding an extra wheel index rather than using PyPI alone?
+  expect: [pytorch]
+- q: Why does the tool refuse to install packages into the system Python by default, and when is the system flag appropriate?
+  expect: [pip/environments]
+- q: Why did my package installation fail with an error about building a wheel or a missing C compiler?
+  expect: [build-failures]
+- q: How do I fix an error where a private Git dependency cannot be downloaded because authentication failed?
+  expect: [authentication/git]
+- q: How do I prevent an internal private package from accidentally being uploaded to PyPI when running publish?
+  expect: [projects/build]
+- q: What is the difference between initializing a project as an application versus initializing it as a library?
+  expect: [projects/init]
+- q: What is the difference between executing a tool with uvx and installing it with uv tool install?
+  expect: [guides/tools, concepts/tools]
+- q: What is the difference between updating the lockfile with uv lock and updating the environment with uv sync?
+  expect: [projects/sync]
+outside:
+- How do I install the Rust compiler and Cargo on Linux?
+- How do I convert a poetry.lock file to run with uv?
+- How do I configure custom Conda channels for package installations?
+- How do I migrate a project with a Pipfile from Pipenv to uv?
+- How do I switch active Python versions using pyenv on macOS?
+- How do I find slow SQL queries in PostgreSQL with EXPLAIN ANALYZE?
+- How do I compile CPython from source code with custom build flags?
+- How do I bundle a Python desktop application with PyInstaller into an executable?
+- What causes solar eclipses and how often do they occur?
+- How do I change the motor oil in an automobile engine?

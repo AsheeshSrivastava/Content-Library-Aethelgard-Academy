@@ -1,0 +1,109 @@
+# Written by Gemini 3.8 Flash from the python-docs docs at the pinned commit, 2026-10-24. Checked against the files by Claude.
+questions:
+- q: Why does adding 0.1 three times not equal 0.3 in Python?
+  expect: [tutorial/floatingpoint]
+- q: How do I create an isolated virtual environment for a Python project?
+  expect: [library/venv, tutorial/venv]
+- q: Under what condition does the optional else block attached to a for or while loop run?
+  expect: [reference/compound_stmts, tutorial/controlflow]
+- q: How can you prevent the original exception from being displayed as context when raising a new exception?
+  expect: [reference/simple_stmts, tutorial/errors]
+- q: Why is a standard list inefficient when used as a FIFO queue compared to collections.deque?
+  expect: [library/collections, tutorial/datastructures]
+- q: Why do all instances of a class end up sharing the same list when it is assigned directly inside the class body?
+  expect: [tutorial/classes]
+- q: Why would you choose a generator expression over a list comprehension when processing large datasets?
+  expect: [tutorial/classes, howto/functional]
+- q: Why is it recommended to open files using the with statement rather than calling close manually?
+  expect: [tutorial/inputoutput]
+- q: What is the difference between str() and repr() when converting an object to text?
+  expect: [tutorial/inputoutput]
+- q: How do you write a list comprehension with multiple for clauses to combine elements from different lists?
+  expect: [tutorial/datastructures]
+- q: How do the slash and asterisk symbols in a function signature control how arguments must be passed?
+  expect: [tutorial/controlflow]
+- q: How do explicit relative imports work within a package, and why can they not be used in the top-level main module?
+  expect: [tutorial/modules]
+- q: Why should a custom mutable class that implements __eq__ avoid implementing __hash__?
+  expect: [reference/datamodel]
+- q: How does defining __slots__ in a class optimize memory usage and attribute access?
+  expect: [reference/datamodel]
+- q: Why do the and and or operators return one of their operand values instead of always returning True or False?
+  expect: [reference/expressions]
+- q: How does Python evaluate chained comparison expressions like x < y <= z, and how many times are intermediate expressions evaluated?
+  expect: [reference/expressions]
+- q: Why do I get an UnboundLocalError when accessing an outer variable before reassigning it inside a function?
+  expect: [faq/programming, reference/executionmodel]
+- q: Under what conditions does Python ignore assert statements and avoid executing them at runtime?
+  expect: [reference/simple_stmts]
+- q: How do I modify a variable defined in an enclosing outer function from within an inner nested function?
+  expect: [reference/simple_stmts, faq/programming]
+- q: Why does putting a single trailing backslash at the end of a raw string literal cause a syntax error?
+  expect: [reference/lexical_analysis]
+- q: How do I configure command-line flags so that only one of two conflicting options can be supplied at a time?
+  expect: [howto/argparse, library/argparse]
+- q: How can I redirect application log messages to a file instead of the terminal console?
+  expect: [howto/logging, library/logging]
+- q: What does sort stability guarantee when ordering items that have identical comparison keys?
+  expect: [howto/sorting]
+- q: How do data descriptors and non-data descriptors differ when an instance attribute dictionary has an entry with the same name?
+  expect: [howto/descriptor]
+- q: How can I automatically assign sequential integer values to enumeration members without specifying them by hand?
+  expect: [howto/enum, library/enum]
+- q: Why does a regular expression pattern with .* match the whole line between HTML tags, and how do you make it non-greedy?
+  expect: [howto/regex, library/re]
+- q: Why does modifying one cell in a nested list created with [[None] * 3] * 3 change elements in every row?
+  expect: [faq/programming]
+- q: Why is the join operation implemented as a method on the separator string rather than on the sequence being joined?
+  expect: [faq/design]
+- q: How do Python release version numbers and suffixes like aN, bN, and rcN indicate release stability?
+  expect: [faq/general]
+- q: What is the difference between the EAFP and LBYL programming styles in Python?
+  expect: [glossary]
+- q: How do I recursively search a directory tree for files matching a specific pattern using pathlib?
+  expect: [library/pathlib]
+- q: How can I count element frequencies in a sequence and find the top three most frequent items?
+  expect: [library/collections]
+- q: How do I split an iterable into consecutive fixed-size tuples using the itertools module?
+  expect: [library/itertools]
+- q: How does functools.cache compare to functools.lru_cache in terms of cache eviction and overhead?
+  expect: [library/functools]
+- q: Why does Python raise a ValueError if you assign an empty list directly as a dataclass field default, and how does field(default_factory=...) solve it?
+  expect: [library/dataclasses]
+- q: How can I build a context manager using a generator function instead of writing a class with __enter__ and __exit__ methods?
+  expect: [library/contextlib]
+- q: How can I convert custom Python objects that are not natively supported into JSON using json.dumps?
+  expect: [library/json]
+- q: What is the difference between re.match and re.search when looking for a pattern in a string?
+  expect: [howto/regex, library/re]
+- q: How do I parse a date and time string formatted with specific directives into a datetime object?
+  expect: [library/datetime]
+- q: How do I invoke an external command line process and capture its stdout and stderr in Python?
+  expect: [library/subprocess]
+- q: How do I use an asyncio.TaskGroup context manager to wait for a collection of concurrent tasks to finish?
+  expect: [library/asyncio-task]
+- q: How can I verify that a function raises a specific exception and inspect the exception message using unittest?
+  expect: [library/unittest]
+- q: What is the difference between a shallow copy and a deep copy when copying nested data structures in Python?
+  expect: [library/copy]
+- q: How can I read a CSV file directly into dictionary rows using column headers as keys?
+  expect: [library/csv]
+- q: Why should values never be directly concatenated into SQL strings when using sqlite3, and how should query parameters be safely passed?
+  expect: [library/sqlite3]
+outside:
+- How do I install Python on Windows using the official executable installer?
+- How do I install Python on macOS using Homebrew?
+- What major changes and new features were introduced in Python 3.12?
+- How do I send an HTTP POST request with JSON data using the requests library?
+- How do I create and filter a DataFrame using pandas?
+- How do I compute dot products and matrix inversions of multi-dimensional arrays in NumPy?
+- How do I define database models and execute migrations in Django?
+- How do I register URL routes and return JSON responses in Flask?
+- How do I create an asynchronous REST API endpoint with path validation in FastAPI?
+- How do I write parameterized unit tests using pytest fixtures?
+- How do I declare an ORM mapped model class using SQLAlchemy?
+- How do I validate incoming data dictionaries using Pydantic schemas?
+- How do I plot a scatter chart with axis labels using matplotlib.pyplot?
+- How do I write a C extension module using PyMethodDef and PyModule_Create in the Python C API?
+- How do I compile a Cython pyx file into a shared library using setuptools?
+- How does variable scoping in Python closures compare to lexical scoping in JavaScript?

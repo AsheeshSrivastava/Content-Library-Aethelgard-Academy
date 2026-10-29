@@ -1,0 +1,79 @@
+# Written by Codex from the OpenTelemetry docs at the pinned commit ce13abdfc9fa, 2026-10-24. File-by-file checking by Claude is pending.
+questions:
+- q: Does installing OpenTelemetry give me somewhere to keep telemetry and browse it, or do I still need other software for that?
+  expect: [what-is-opentelemetry, concepts/glossary]
+- q: How could I extend OpenTelemetry to accept telemetry from a custom source that it cannot already read?
+  expect: [what-is-opentelemetry]
+- q: How can I filter telemetry before forwarding it to two different backends through the same intermediary?
+  expect: [concepts/components]
+- q: When OpenTelemetry calls something a signal, does it mean a measurement, an event moving through services, or both?
+  expect: [signals/_index]
+- q: Why can a shopping service be unreliable even if it never goes offline?
+  expect: [observability-primer]
+- q: What do SLI and SLO mean, and how do they connect what a user experiences to a team's reliability goals?
+  expect: [observability-primer]
+- q: How should I choose OpenTelemetry dependencies differently for a reusable Python package and for the service that runs it?
+  expect: [instrumentation/code-based]
+- q: How do I get the objects that create spans and metric measurements, and what identifying information should I give them?
+  expect: [instrumentation/code-based, instrumentation-scope]
+- q: Why can I move to another telemetry backend without learning an entirely new instrumentation API?
+  expect: [what-is-opentelemetry]
+- q: Automatic collection shows my database requests but nothing inside my own price-calculation function; what am I missing?
+  expect: [instrumentation/_index, instrumentation/zero-code]
+- q: How can I check the telemetry emitted by my library in a unit test without starting a separate telemetry server?
+  expect: [instrumentation/libraries]
+- q: When is it reasonable to leave a small wrapper library without its own tracing because the network client underneath already has it?
+  expect: [instrumentation/libraries]
+- q: What identifies the software component that emitted a span or metric, and which parts of that identity are optional?
+  expect: [instrumentation-scope]
+- q: How do I give my service a recognizable telemetry name instead of leaving the SDK's unknown_service value?
+  expect: [concepts/resources]
+- q: How can I label telemetry as coming from the production deployment using an environment variable?
+  expect: [concepts/resources]
+- q: How do I carry trace context across a service call myself when my libraries do not do it automatically?
+  expect: [context-propagation, instrumentation/libraries, concepts/components]
+- q: What are the four values separated by dashes in an HTTP traceparent header?
+  expect: [context-propagation]
+- q: How do I make a customer identifier carried in baggage actually appear as an attribute on downstream spans?
+  expect: [signals/baggage]
+- q: Why could putting a secret in baggage expose it to a third-party API even if I only intended it for my own services?
+  expect: [signals/baggage, context-propagation]
+- q: How should I record a work queue's size when my code can report each addition and removal as it happens?
+  expect: [signals/metrics]
+- q: How can I change which metric instruments get exported and how their measurements are combined without changing every measurement call?
+  expect: [signals/metrics]
+- q: My request counter's overall total still looks right, but filtering it to failed requests misses some failures after I add lots of distinct URL values; how could that happen?
+  expect: [signals/metrics]
+- q: What is actually recorded in a profiling sample, including its timing and any link to the request being handled?
+  expect: [signals/profiles]
+- q: How is a profile of memory still held by my program different from one counting all allocations, including memory already freed?
+  expect: [signals/profiles]
+- q: How do I choose between a span attribute and a span event when recording something that happened during an operation?
+  expect: [signals/traces]
+- q: An operation finished successfully but its span still says Unset; does that mean I forgot to mark it successful?
+  expect: [signals/traces]
+- q: How can I connect a background job's separate trace to the request that queued it when I cannot predict when the job will start?
+  expect: [signals/traces]
+- q: How can I keep traces containing errors when the error may happen well after the first span starts?
+  expect: [concepts/sampling]
+- q: What changes should I expect when choosing a Pure, Plus, or Minus OpenTelemetry distribution?
+  expect: [concepts/distributions]
+- q: Why does OpenTelemetry encourage shared field names across libraries and languages instead of each library inventing its own?
+  expect: [semantic-conventions, instrumentation/_index, instrumentation/libraries, signals/traces, concepts/glossary]
+- q: What are zPages, and where do they collect and show tracing and metric information?
+  expect: [concepts/glossary]
+- q: How can I ingest an existing log file that mixes ordinary text fields with JSON and turn it into records that downstream tools can analyze consistently?
+  expect: [signals/logs]
+outside:
+- How do I set different retention periods for different log indexes in Datadog?
+- What NRQL query in New Relic finds the slowest spans with a particular custom attribute?
+- Where do I put an Azure Application Insights connection string when configuring its Python exporter?
+- How do I write an AWS X-Ray daemon sampling-rule file that gives one route a higher sampling rate?
+- What Grafana Tempo configuration makes its compactor use an S3 bucket for trace storage?
+- How do I configure Elastic APM and Kibana to display a service map for my Python services?
+- How do I implement Sentry's traces_sampler callback to choose sampling rates for different Python endpoints?
+- How do I create a Honeycomb derived column that converts a duration field from nanoseconds to milliseconds?
+- How do I configure a Python service to send Zipkin B3 multi-header context instead of W3C trace headers?
+- How do I write Prometheus remote_write relabeling rules to remove one metric before sending it?
+- How do I configure Jaeger's Cassandra storage so that traces expire after seven days?
+- What is the exact OpenMetrics text syntax for attaching an exemplar to a histogram bucket?

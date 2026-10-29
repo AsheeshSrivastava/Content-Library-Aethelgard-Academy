@@ -1,0 +1,122 @@
+# Written by Gemini from the five new sources at the pinned commits (33f9bd816105, 619d74664e84, 622967d7b6a8, 298b68274234, web-fb713419ea9b), 2026-10-25.
+questions:
+- q: What is the difference between a bi-encoder and a cross-encoder when designing a retrieval system?
+  expect: [cross_encoder/applications/README.md, retrieve_rerank/README.md, cross_encoder/usage/usage.rst]
+- q: How can I compute cosine similarities between two lists of sentences using a SentenceTransformer model?
+  expect: [semantic_textual_similarity.rst]
+- q: How do I filter MTEB evaluation tasks to only run English retrieval benchmarks in a specific domain?
+  expect: [mteb_evaluation.md]
+- q: How can I make an MS MARCO cross-encoder output calibrated probability scores between 0 and 1 instead of raw logits?
+  expect: [cross_encoder/usage/usage.rst, cross_encoder/pretrained_models.md]
+- q: When should I use symmetric semantic search versus asymmetric semantic search?
+  expect: [semantic-search/README.md, sentence_transformer/training_overview.md]
+- q: Which loss function should I select to train a cross-encoder when my training data consists of query and document pairs with float similarity scores?
+  expect: [cross_encoder/loss_overview.md]
+- q: What method on a CrossEncoder model lets me check whether a model supports image inputs before running inference?
+  expect: [cross_encoder/usage/usage.rst]
+- q: How can I speed up model inference on GPU by switching from full precision to half precision during initialization?
+  expect: [sentence_transformer/usage/efficiency.rst]
+- q: How do I rank a list of candidate passages against a query in a single call using a CrossEncoder?
+  expect: [cross_encoder/usage/usage.rst]
+- q: Why is a two-stage retrieve and rerank architecture preferred over applying a cross-encoder across an entire document collection?
+  expect: [retrieve_rerank/README.md, cross_encoder/applications/README.md]
+- q: What requirements must a custom loss function meet when subclassing Module in Sentence Transformers?
+  expect: [cross_encoder/loss_overview.md]
+- q: How does encode_query differ from general encode when using a model with defined prompts or routing modules?
+  expect: [semantic-search/README.md]
+- q: How does the refine response mode synthesize answers compared to the compact mode in query engines?
+  expect: [response_modes.md]
+- q: How do I filter out retrieved chunks that fall below a minimum cosine similarity score?
+  expect: [node_postprocessors.md]
+- q: When and why should a reranker be added between initial retrieval and response synthesis in a RAG pipeline?
+  expect: [rerankers.md, rag_failure_mode_checklist.md, node_postprocessors.md]
+- q: How does HyDE transform a user query before embedding lookup?
+  expect: [query_transformations.md]
+- q: How do I update an existing document in an index when its text changes without re-indexing everything from scratch?
+  expect: [document_management.md]
+- q: Why does the LongContextReorder postprocessor reposition retrieved nodes before feeding them to the language model?
+  expect: [node_postprocessors.md]
+- q: How can I adjust the batch size of vector generation when inserting nodes into a remote vector store?
+  expect: [vector_store_index.mdx]
+- q: What causes index fragmentation and how can document tracking prevent stale or contradictory retrieved results?
+  expect: [rag_failure_mode_checklist.md, document_management.md]
+- q: How do I prune non-relevant sentences from retrieved nodes based on embedding percentile cutoffs to save tokens?
+  expect: [node_postprocessors.md]
+- q: How can SimpleDirectoryReader speed up document loading across many local files on supported operating systems?
+  expect: [simpledirectoryreader.md]
+- q: What is the difference between single-step and multi-step query transformations when answering complex multi-part questions?
+  expect: [query_transformations.md]
+- q: What symptoms indicate an embedding model mismatch between index time and query time in a pipeline?
+  expect: [rag_failure_mode_checklist.md]
+- q: What join modes does DocumentJoiner provide to combine document lists and recalculate scores from multiple retrievers?
+  expect: [documentjoiner.mdx]
+- q: How does SentenceWindowRetriever locate neighboring chunks around retrieved passages from a document store?
+  expect: [sentencewindowretriever.mdx]
+- q: When should I use a cross-encoder ranker instead of an LLM-based ranker to score retrieved documents?
+  expect: [choosing-the-right-ranker.mdx, sentencetransformerssimilarityranker.mdx]
+- q: What parameter controls the safety limit for component executions in a cyclic pipeline to prevent infinite loops?
+  expect: [pipeline-loops.mdx]
+- q: How do I structure a comparison dictionary for metadata filtering at query time in a retriever?
+  expect: [metadata-filtering.mdx]
+- q: Why must only one incoming branch produce an output per execution when using a BranchJoiner in a pipeline?
+  expect: [branchjoiner.mdx]
+- q: What is the role of MetaFieldGroupingRanker when preparing retrieved documents for language models?
+  expect: [choosing-the-right-ranker.mdx]
+- q: How can I build a hybrid search pipeline that merges keyword hits with dense semantic vectors?
+  expect: [documentjoiner.mdx, inmemorybm25retriever.mdx, inmemoryembeddingretriever.mdx]
+- q: How can I retrieve intermediate component outputs from a completed pipeline run rather than only the final component output?
+  expect: [pipeline-loops.mdx]
+- q: What outputs does SentenceWindowRetriever return after expanding retrieved text chunks?
+  expect: [sentencewindowretriever.mdx]
+- q: How does distribution-based rank fusion normalize document scores compared to standard reciprocal rank fusion?
+  expect: [documentjoiner.mdx]
+- q: Why would a pipeline place LostInTheMiddleRanker after semantic ranking rather than before it?
+  expect: [choosing-the-right-ranker.mdx]
+- q: How is the faithfulness score computed from claims in a generated response and the retrieved context?
+  expect: [faithfulness.md]
+- q: What does context precision measure when assessing the ranking order of retrieved chunks?
+  expect: [context_precision.md]
+- q: What is the difference between measuring retrieval quality with context precision versus context recall?
+  expect: [context_precision.md, context_recall.md]
+- q: How does the answer relevancy metric evaluate alignment without depending on ground-truth factual correctness?
+  expect: [answer_relevance.md]
+- q: How does context entities recall differ from general context recall in fact-heavy retrieval tasks?
+  expect: [context_entities_recall.md]
+- q: What is the difference between relevant and irrelevant modes when evaluating noise sensitivity?
+  expect: [noise_sensitivity.md]
+- q: How do I assemble individual SingleTurnSample instances into an EvaluationDataset for batch evaluation?
+  expect: [eval_dataset.md]
+- q: Which evaluation metrics require a ground-truth reference answer and which can run with only user input and context?
+  expect: [faithfulness.md, context_recall.md, answer_relevance.md]
+- q: What parameter on AnswerRelevancy controls the number of artificial questions generated from the response?
+  expect: [answer_relevance.md]
+- q: Why must all samples in a Ragas EvaluationDataset be homogenous in structure?
+  expect: [eval_dataset.md]
+- q: How does the mathematical formulation of context precision handle rank position weights in its summation?
+  expect: [context_precision.md]
+- q: How can I evaluate a metric synchronously instead of using its default asynchronous method?
+  expect: [faithfulness.md]
+- q: What percentage shortfall did researchers observe when combining three individually effective retrieval techniques into a single pipeline?
+  expect: [paper.md]
+- q: What empirical correlation exists between retrieval ranking metrics like NDCG and answer faithfulness across complete pipelines?
+  expect: [paper.md]
+- q: Which pipeline stages contribute most heavily to retrieval ranking quality compared to those that govern answer faithfulness?
+  expect: [paper.md]
+- q: Why does maximal marginal relevance sometimes hurt retrieval performance when applied to focused-domain corpora?
+  expect: [paper.md]
+- q: What happens to the relative ranking of different pipeline configurations when scaling from small corpora to hundreds of thousands of documents?
+  expect: [paper.md]
+- q: Which two specific two-way component interactions remained statistically significant after multiple hypothesis correction on the retrieval track?
+  expect: [paper.md]
+- q: Why does combining a stronger embedding model with a cross-encoder reranker yield diminishing returns?
+  expect: [paper.md]
+- q: What is the core argument against evaluating new retrieval components in isolation from the surrounding application stack?
+  expect: [paper.md]
+- q: What role do document-awareness prefixes play in mitigating retrieval degradation as corpus size expands?
+  expect: [paper.md]
+- q: How does the open-source lasagna framework enforce stage isolation when evaluating alternative pipeline components?
+  expect: [paper.md]
+- q: What practical constraints led the authors to evaluate 167 configurations instead of the planned 242-configuration factorial design?
+  expect: [paper.md]
+- q: Why does a low-dimensional embedding model degrade faster than hybrid approaches as distractor documents accumulate at scale?
+  expect: [paper.md]

@@ -1,0 +1,71 @@
+# Written by Gemini 3.8 Flash from the OpenTelemetry GenAI conventions at the pinned commit, 2026-10-24. Checked against the files by Claude.
+questions:
+- q: How can an application forward distributed tracing headers through Model Context Protocol requests over JSON-RPC?
+  expect: [mcp]
+- q: How should an instrumentation record individual runtime parameters passed into a prompt template?
+  expect: [client-inference]
+- q: How can an application ship prompt text and completion messages to remote object storage instead of recording them in span attributes?
+  expect: [gen-ai-spans]
+- q: How should an agent framework record spans when executing a bundled skill script or command-line process?
+  expect: [gen-ai-agent-spans]
+- q: How should an automated grading pipeline emit telemetry recording the score and textual feedback given to a model output?
+  expect: [gen-ai-events]
+- q: How can test suites refresh committed schema validation snapshot files when test fixtures change?
+  expect: [tests/README]
+- q: How should an instrumentation report the identifiers of active safety guardrails and retrieval knowledge bases used during an AWS Bedrock invocation?
+  expect: [aws-bedrock]
+- q: How can an application record the requested and actual processing service tier when calling OpenAI?
+  expect: [openai]
+- q: How should a retrieval-augmented generation application trace a query executed against a vector database or document store?
+  expect: [gen-ai-spans]
+- q: How should multimodal inputs such as inline binary media or remote storage links be structured in chat message payloads?
+  expect: [examples-llm-calls]
+- q: How should an instrumentation calculate the total input token count for Anthropic when cached tokens are present in the response?
+  expect: [anthropic]
+- q: What does the unknown value signify when applied to token modality on usage counters?
+  expect: [token-metrics-design]
+- q: What does a plan span represent in an autonomous agent execution trace?
+  expect: [gen-ai-agent-spans]
+- q: What does setting the conversation compacted attribute to true indicate about the chat history passed to a model?
+  expect: [client-inference]
+- q: What does the gen_ai.client.operation.exception event represent, and what severity should it carry?
+  expect: [gen-ai-exceptions]
+- q: What Azure-specific namespace attribute identifies the cloud service provider handling an inference request in Azure AI?
+  expect: [azure-ai-inference]
+- q: What constitutes an Agent Skill in OpenTelemetry conventions, and what core file must it contain?
+  expect: [gen-ai-agent-spans]
+- q: What is the purpose of recording the system fingerprint attribute on OpenAI response spans and metrics?
+  expect: [openai]
+- q: Why are modality breakdowns recorded on usage counters instead of operation token histograms?
+  expect: [token-metrics-design]
+- q: When should a memory tracking span use upsert_memory instead of create_memory or update_memory?
+  expect: [gen-ai-spans]
+- q: Why does an LLM serving backend record time_per_output_token separately from time_to_first_token?
+  expect: [gen-ai-metrics]
+- q: When should an instrumentation create an invoke workflow span rather than a standard agent invocation span?
+  expect: [gen-ai-agent-spans]
+- q: Why does an MCP server span fail to link to the client caller when trace headers are sent only on the underlying HTTP request?
+  expect: [mcp]
+- q: Why might an instrumentation report an unwrapped inner error type rather than the outer wrapper class on a client exception event?
+  expect: [gen-ai-exceptions]
+- q: Why is an invoke workflow span suppressed when an autonomous agent delegates a task to a background sub-agent runner?
+  expect: [gen-ai-agent-spans]
+- q: What is the distinction between a function tool and an extension tool in GenAI agent instrumentation?
+  expect: [gen-ai-spans]
+- q: How do message parts for server-executed built-in tools differ from client-side function calls in chat telemetry?
+  expect: [examples-llm-calls]
+- q: How do operation duration metrics differ from session duration metrics in Model Context Protocol instrumentation?
+  expect: [mcp]
+outside:
+- How do I configure vLLM's PagedAttention block size to reduce KV cache fragmentation?
+- How do I implement custom token bucket rate limiters for Cohere's Command R+ endpoint?
+- How do I configure Ollama to serve GGUF quantized models with GPU layer offloading?
+- How do I set up continuous pre-training using Hugging Face TRL and DeepSpeed ZeRO-3?
+- How do I configure Semantic Kernel to use Qdrant as an async vector store memory connector?
+- How do I implement speculative decoding in TensorRT-LLM with a draft model?
+- How do I configure LangGraph checkpointing with PostgreSQL for multi-turn human-in-the-loop workflows?
+- How do I set up LiteLLM proxy with Redis-based semantic cache for prompt deduplication?
+- How do I calculate ROUGE-L and BLEU scores in Python using the evaluate library?
+- How do I configure Mistral's Le Chat function calling with JSON mode constraints in JavaScript?
+- How do I prune and repot an indoor bonsai ficus tree?
+- What are the rules and scoring system of Olympic curling?

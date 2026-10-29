@@ -63,3 +63,7 @@ Open: `.overrides`/`overrides` theme folders could be excluded by a register pat
 
 ## Self-review, unit 6: notebook reader (2026-10-29)
 Restarting review of the work: spec 11, `loaders/notebook.py` (ipynb-1), registered for .ipynb behind the stub wrapper. Markdown cells go through the Markdown reader; code cells become fences; outputs, raw cells and metadata are dropped. Two older tests changed (registry sample for .ipynb; the loader test now expects `bad-notebook` for `{}` instead of `no-reader`). Mutation check 19 mutants, 5 survivors closed with tests. Real data: 2 notebooks, both sources pass the gate. Not independent review.
+
+## Self-review, unit 7: eval harness (2026-10-29)
+Restarting review of the work: spec 12, `evalset.py` (questions, checks, scoring with a retriever function), `question_check.py` and `scripts/check_questions.py`, 14 question files copied unchanged to `eval/questions/`. Full suite 575 passed, 2 skipped. Mutation check 28 mutants, none surviving after added tests. Real data: 601 questions, 8 problems, all the same unmatched piece (`2026-07-28/schema`, JSON/TS schema files in the code-config bucket). Lookup bands were left out on purpose (they belong to the lookup service). Not independent review.
+Next: chunker variants (fixed window, merge small sections, parent-child) behind the Chunker interface, then a run that prints a cost estimate first.
