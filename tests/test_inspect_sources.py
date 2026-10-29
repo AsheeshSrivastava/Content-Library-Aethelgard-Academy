@@ -47,7 +47,7 @@ def test_every_file_lands_in_exactly_one_bucket(tmp_path):
     })
     r = inspect_folder(tmp_path)
     assert r.files_seen == 8
-    assert r.buckets == {"read": 1, "licence": 1, "ignored": 1, "skipped": 5}
+    assert r.buckets == {"read": 1, "licence": 1, "ignored": 1, "code-config": 0, "skipped": 5}
     assert sum(r.buckets.values()) == r.files_seen
     assert r.skipped == {"c.xyz": "no-reader", "bin.md": "binary", "bad.md": "not-utf8",
                          "empty.md": "empty", "blank.md": "empty"}
@@ -72,6 +72,30 @@ def test_ignored_files_do_not_count_in_the_skip_share(tmp_path):
     tree(tmp_path, {"a.md": LONG, "p1.png": b"x", "p2.jpg": b"x", "f.woff2": b"x", "s.css": "a{}", "x.lock": "l"})
     r = inspect_folder(tmp_path)
     assert r.buckets["ignored"] == 5 and r.skip_share == 0.0 and r.gate_passed
+
+
+def test_code_and_config_files_have_their_own_bucket_outside_the_gate(tmp_path):
+    tree(tmp_path, {"a.md": LONG, "x.py": "print(1)", "c.yml": "a: 1", "d.json": "{}", "Makefile": "all:",
+                    ".gitignore": "x", "sub/.gitkeep": "", "INSTALL": "unknown"})
+    r = inspect_folder(tmp_path)
+    assert r.buckets == {"read": 1, "licence": 0, "ignored": 0, "code-config": 6, "skipped": 1}
+    assert sum(r.buckets.values()) == r.files_seen
+    assert r.skipped == {"INSTALL": "no-reader"}
+    assert r.skip_share == 0.5
+    assert sorted(r.code_config) == [".gitignore", "Makefile", "c.yml", "d.json", "sub/.gitkeep", "x.py"]
+    assert "x.py" in r.render() and "x.py" in r.to_json()["code_config"]
+
+
+def test_code_config_only_folder_passes_the_gate(tmp_path):
+    tree(tmp_path, {"a.md": LONG, "x.py": "1", "y.py": "2", "z.py": "3"})
+    r = inspect_folder(tmp_path)
+    assert r.skip_share == 0.0 and r.gate_passed
+
+
+def test_a_registered_loader_beats_code_config(tmp_path):
+    tree(tmp_path, {"x.py": "print(1)" + " pad" * 40})
+    r = inspect_folder(tmp_path, loaders={".py": lambda raw: raw.decode()})
+    assert r.buckets["read"] == 1 and r.buckets["code-config"] == 0
 
 
 # --- text problems and markup ----------------------------------------------------

@@ -14,7 +14,8 @@ Every file under the folder (never `.git`) lands in exactly one bucket, and the 
 1. `read`: extension in `.md .mdx .rst .txt .html .htm .ipynb` (notebooks are parsed as JSON; markdown and code cells counted, outputs measured and left out of the text).
 2. `licence`: files at the folder root named like a licence file (spec 03 names, or starting LICENSE/LICENCE), counted but not analysed. The same name deeper down (vendored code) is an ordinary file.
 3. `ignored`: by design, not content: images, fonts, audio/video, archives, `.css .js .map .lock .svg`. Not counted in the skip share.
-4. `skipped`, each with one reason code: `no-reader` (any other extension), `binary` (NUL bytes), `not-utf8`, `too-large` (over 2 MB), `empty`, `unreadable` (OS error, bad notebook JSON, or a reader that raised), `symlink`. These count in the skip share.
+4. `code-config`: code and configuration, listed by extension (`.py .pyi .ts .tsx .jsx .mjs .cjs .sh .bat .yml .yaml .json .jsonc .toml .cfg .ini .cff .xml .env .dot .inc`) and by known names (`Makefile`, `Dockerfile`, `.gitkeep`, `.gitignore`, `.gitattributes`, `.editorconfig`, and similar dot-files). Owner decision 2026-10-29: a separate bucket outside the gate. Not counted in the skip share, but every file is named in the JSON report (`code_config`), and the text report lists the first 50. A registered loader for the extension wins over this bucket. Unknown extensionless files stay `no-reader` skips so they remain visible.
+5. `skipped`, each with one reason code: `no-reader` (any other extension), `binary` (NUL bytes), `not-utf8`, `too-large` (over 2 MB), `empty`, `unreadable` (OS error, bad notebook JSON, or a reader that raised), `symlink`. These count in the skip share.
 
 ## Checks on `read` files
 Counted per file and summed per source, with up to 5 example paths each (examples never longer than 120 characters of text):

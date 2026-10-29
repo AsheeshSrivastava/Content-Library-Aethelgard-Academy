@@ -28,6 +28,15 @@ IGNORED_EXTS = frozenset({
     ".woff", ".woff2", ".ttf", ".otf", ".eot", ".mp3", ".mp4", ".wav", ".webm", ".mov",
     ".zip", ".gz", ".tar", ".tgz", ".7z", ".css", ".js", ".map", ".lock",
 })
+CODE_CONFIG_EXTS = frozenset({
+    ".py", ".pyi", ".ts", ".tsx", ".jsx", ".mjs", ".cjs", ".sh", ".bat", ".yml", ".yaml", ".json",
+    ".jsonc", ".toml", ".cfg", ".ini", ".cff", ".xml", ".env", ".dot", ".inc",
+})
+CODE_CONFIG_NAMES = frozenset({
+    "makefile", "dockerfile", ".gitkeep", ".gitignore", ".gitattributes", ".editorconfig", ".prettierignore",
+    ".prettierrc", ".ignore", ".git-blame-ignore-revs", ".htaccess", ".gitmodules", ".npmrc", ".nvmrc",
+    ".python-version", ".python-versions", ".textlintignore", ".dockerignore",
+})
 MAX_FILE_BYTES = 2 * 1024 * 1024
 MIN_CHARS = 100
 EXAMPLES = 5
@@ -204,8 +213,9 @@ class Report:
     section_cap: int
     max_skip_share: float
     files_seen: int = 0
-    buckets: dict = field(default_factory=lambda: {"read": 0, "licence": 0, "ignored": 0, "skipped": 0})
+    buckets: dict = field(default_factory=lambda: {"read": 0, "licence": 0, "ignored": 0, "code-config": 0, "skipped": 0})
     skipped: dict = field(default_factory=dict)
+    code_config: list = field(default_factory=list)
     extensions: dict = field(default_factory=dict)
     raw: dict = field(default_factory=lambda: {k: 0 for k in RAW_KINDS})
     raw_examples: dict = field(default_factory=lambda: {k: [] for k in RAW_KINDS})
@@ -277,6 +287,10 @@ class Report:
             out += [f"    {p}" for p in paths[:50]]
             if len(paths) > 50:
                 out.append(f"    ... and {len(paths) - 50} more")
+        out += ["", f"Code and config files (outside the gate): {len(self.code_config)}"]
+        out += [f"    {p}" for p in sorted(self.code_config)[:50]]
+        if len(self.code_config) > 50:
+            out.append(f"    ... and {len(self.code_config) - 50} more (all named in the JSON report)")
         out += ["", "Text problems in the input (files): " + ", ".join(f"{k} {v}" for k, v in self.raw.items())]
         out += [f"  e.g. {k}: {', '.join(v)}" for k, v in self.raw_examples.items() if v]
         out += ["Leftover markup (matches): " + ", ".join(f"{k} {v}" for k, v in self.markup.items())]
@@ -358,6 +372,10 @@ def inspect_folder(folder: Path, *, source_id: str = "", loaders: dict[str, Read
             continue
         if ext in IGNORED_EXTS:
             report.buckets["ignored"] += 1
+            continue
+        if ext not in loaders and (ext in CODE_CONFIG_EXTS or path.name.lower() in CODE_CONFIG_NAMES):
+            report.buckets["code-config"] += 1
+            report.code_config.append(rel)
             continue
         if ext not in TEXT_EXTS and ext != NOTEBOOK_EXT and ext not in loaders:
             skip("no-reader")
