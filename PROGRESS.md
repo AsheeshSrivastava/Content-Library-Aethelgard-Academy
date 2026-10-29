@@ -90,3 +90,7 @@ Next: 13e parent-child, then 13f semantic, 13g LlamaIndex, then the owner runs t
 ## Self-review, unit 13e: parent-child chunker (2026-10-29)
 Restarting review of the work: spec 13 section 4.2 and 4.5, `chunk_parent_child` and `parent_child_spans` in `chunking.py`, the `parent-child` entry in `stage.py`. Children pass `check_chunking` (exact slices, order, no overlap, hard limit, no lost text). Mutation check about 30 mutants over two rounds; two weak spots found and closed (dropped-text blocks, label missing the child size); two equivalent survivors noted in spec 13 section 9d. Not yet run on the full corpus (that is the stage 1 estimate). Not independent review.
 Next: 13f semantic chunker (steered by each embedder).
+
+## Self-review, unit 13f: semantic chunker (2026-10-29)
+Restarting review of the work: spec 13 section 4.2, `semantic.py`, the `breaks` argument of `heading_pack_spans`, the semantic parts of `stage.py` (labels with the steering model, the on-disk chunking cache, the estimate stand-in). Rules behaviour unchanged (existing chunking tests pass). Mutation check about 45 mutants; two dead guards removed, and tests added for the cache (dropped count, bad cache ignored, shared by embedders), the steering-time estimate and one model object per id. Real data on `python-peps` with bge-m3 and jina: all commands work. Not independent review.
+Next: 13g LlamaIndex mapper (optional group `variants`), then 13h late chunking.

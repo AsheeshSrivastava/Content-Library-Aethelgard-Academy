@@ -147,14 +147,15 @@ def _hard_cut(text: str, start: int, end: int, limit: int, block_ends: list[int]
     return parts
 
 
-def heading_pack_spans(text: str, config: ChunkConfig) -> tuple[list[Span], int]:
+def heading_pack_spans(text: str, config: ChunkConfig, breaks: frozenset[int] = frozenset()) -> tuple[list[Span], int]:
+    """`breaks` are block start offsets where a new passage must begin (the semantic chunker's cuts)."""
     lines = _scan(text)
     spans, dropped = [], 0
     for headings, first, end in _sections(lines):
         blocks = _blocks(lines, first, end)
         pieces, begin, last, sticky = [], None, None, False
         for b_start, b_end in blocks:
-            if begin is not None and b_end - begin > config.max_chars and not sticky:
+            if begin is not None and not sticky and (b_end - begin > config.max_chars or b_start in breaks):
                 pieces.append((begin, last))
                 begin = None
             if begin is None:

@@ -287,3 +287,180 @@ def test_parent_child_dropped_count_reaches_the_manifest(tmp_path):
     built = build_run(tmp_path, "parent-child", srcs, FakeEmbedder(), CONFIG, questions_fp="q")
     assert built.dropped_empty >= 1
     assert load_run(tmp_path, built.run_id).manifest["extra"]["dropped_empty"] == built.dropped_empty
+
+
+# --- semantic chunkers (steered by an embedder) ---------------------------------------------------
+
+from ragcore.semantic import SemanticChunker  # noqa: E402
+from ragcore.stage import is_semantic, semantic_name  # noqa: E402
+
+BIG = ChunkConfig(max_chars=1500, hard_limit=2000)
+A = "apple banana cherry grape melon peach plum pear " * 3
+B = "quartz basalt granite obsidian marble slate flint chalk " * 3
+
+
+def embedded(emb):
+    return sum(n for _, n in emb.calls)
+
+
+def topic_sources():
+    text = f"# One\n\n{A}\n\n{A}\n\n{B}\n\n{B}\n"
+    return [source("t.md", text)]
+
+
+class Boom(FakeEmbedder):
+    def embed(self, texts, *, kind):
+        raise AssertionError("the steering embedder must not be called")
+
+
+def test_semantic_names():
+    assert semantic_name("bge-m3") == "semantic-bge-m3"
+    assert is_semantic("semantic-jina-v2-base-en") and not is_semantic("rules")
+
+
+def test_semantic_label_needs_its_steering_embedder():
+    with pytest.raises(ValueError, match="steering"):
+        chunker_label("semantic-fake", BIG)
+    steer = FakeEmbedder()
+    assert chunker_label("semantic-fake", BIG, {"fake": steer}) == SemanticChunker(steer).version(BIG)
+    assert chunker_label("semantic-fake", BIG, {"fake": FakeEmbedder(dim=16)}) != chunker_label(
+        "semantic-fake", BIG, {"fake": steer})
+
+
+def test_semantic_run_uses_the_steering_cuts_and_is_reused(tmp_path):
+    steer = {"fake": FakeEmbedder()}
+    built = build_run(tmp_path, "semantic-fake", topic_sources(), FakeEmbedder(), BIG, questions_fp="q", steerers=steer)
+    plain = build_run(tmp_path, "rules", topic_sources(), FakeEmbedder(), BIG, questions_fp="q")
+    assert built.count > plain.count
+    again = build_run(tmp_path, "semantic-fake", topic_sources(), FakeEmbedder(), BIG, questions_fp="q",
+                      steerers={"fake": Boom()})
+    assert again.reused is True and again.run_id == built.run_id  # same fingerprint, so no chunking and no steering
+
+
+def test_the_chunking_is_cached_on_disk_for_the_other_embedder(tmp_path):
+    steer = Counting()
+    build_run(tmp_path, "semantic-fake", topic_sources(), FakeEmbedder(), BIG, questions_fp="q", steerers={"fake": steer})
+    used = embedded(steer)
+    assert used > 0 and len(list((tmp_path / "_chunks").iterdir())) == 1
+    other = build_run(tmp_path, "semantic-fake", topic_sources(), FakeEmbedder(dim=16), BIG, questions_fp="q",
+                      steerers={"fake": steer})
+    assert embedded(steer) == used and other.count > 0
+
+
+def test_a_cached_chunking_works_without_the_steering_model(tmp_path):
+    build_run(tmp_path, "semantic-fake", topic_sources(), FakeEmbedder(), BIG, questions_fp="q",
+              steerers={"fake": FakeEmbedder()})
+    for run in tmp_path.iterdir():
+        if run.name != "_chunks":
+            import shutil
+            shutil.rmtree(run)
+    built = build_run(tmp_path, "semantic-fake", topic_sources(), FakeEmbedder(), BIG, questions_fp="q",
+                      steerers={"fake": Boom()})
+    assert built.count > 0 and built.reused is False
+
+
+def test_cache_is_keyed_by_corpus_and_settings(tmp_path):
+    steer = {"fake": FakeEmbedder()}
+    build_run(tmp_path, "semantic-fake", topic_sources(), FakeEmbedder(), BIG, questions_fp="q", steerers=steer)
+    build_run(tmp_path, "semantic-fake", sources(), FakeEmbedder(), BIG, questions_fp="q", steerers=steer)
+    assert len(list((tmp_path / "_chunks").iterdir())) == 2
+
+
+def test_estimate_for_semantic_uses_rules_as_a_stand_in_and_never_embeds_blocks(tmp_path):
+    emb = FakeEmbedder()
+    steer = Counting()
+    result = estimate(sources(), ["semantic-fake"], [emb], BIG, tmp_path, questions_fp="q", probe_n=2,
+                      steerers={"fake": steer})
+    run = result["runs"][0]
+    rules = chunk_corpus(sources(), "rules", BIG)[0]
+    assert run["approx"] is True and run["passages"] == len(rules)
+    assert embedded(steer) <= 2  # only the speed sample
+    assert result["steering"]["semantic-fake"] >= 0.0
+    assert "semantic-fake" in render_estimate(result) and "about" in render_estimate(result)
+
+
+def test_main_runs_semantic_and_reports_it(tmp_path, capsys):
+    library, snaps, _ = setup(tmp_path, {"a.md": f"# A\n\n{DISK_PARA}\n\n## Zed\n\nZebras and quartz.\n"})
+    questions = tmp_path / "questions"
+    questions.mkdir()
+    (questions / "a.yaml").write_text("questions:\n  - q: 'Zebras and quartz.'\n    expect: ['a.md']\n", encoding="utf-8")
+    common = ["--register", str(library / "sources"), "--snapshots", str(snaps), "--questions", str(questions),
+              "--runs", str(tmp_path / "runs"), "--embedders", "fake", "--chunkers", "rules,semantic-fake"]
+    assert main(["estimate", *common]) == 0
+    assert main(["run", *common]) == 0
+    assert "fake/semantic-fake" in capsys.readouterr().out
+    assert main(["report", *common]) == 0
+    assert "| fake/semantic-fake |" in capsys.readouterr().out
+    assert main(["estimate", *common[:-1], "rules,semantic-nope"]) == 2
+
+
+def _drop_runs(root):
+    import shutil
+    for run in root.iterdir():
+        if run.name != "_chunks":
+            shutil.rmtree(run)
+
+
+def test_a_cached_chunking_keeps_its_dropped_count(tmp_path):
+    srcs = [source("c.md", "# A\n\n" + A + "\n\n## B\n\n<!-- hidden -->\n")]
+    first = build_run(tmp_path, "semantic-fake", srcs, FakeEmbedder(), BIG, questions_fp="q", steerers={"fake": FakeEmbedder()})
+    assert first.dropped_empty >= 1
+    _drop_runs(tmp_path)
+    second = build_run(tmp_path, "semantic-fake", srcs, FakeEmbedder(), BIG, questions_fp="q", steerers={"fake": Boom()})
+    assert second.dropped_empty == first.dropped_empty
+
+
+def test_a_cache_that_does_not_fit_the_corpus_is_ignored(tmp_path):
+    import json
+    build_run(tmp_path, "semantic-fake", topic_sources(), FakeEmbedder(), BIG, questions_fp="q", steerers={"fake": FakeEmbedder()})
+    _drop_runs(tmp_path)
+    (cache,) = (tmp_path / "_chunks").iterdir()
+    data = json.loads(cache.read_text(encoding="utf-8"))
+    data["spans"].append(["s1/other.md", 0, 5, []])
+    cache.write_text(json.dumps(data), encoding="utf-8")
+    steer = Counting()
+    build_run(tmp_path, "semantic-fake", topic_sources(), FakeEmbedder(), BIG, questions_fp="q", steerers={"fake": steer})
+    assert embedded(steer) > 0
+
+
+def test_estimate_knows_when_the_steering_pass_is_already_done_or_not_needed(tmp_path):
+    steer = {"fake": FakeEmbedder()}
+    build_run(tmp_path, "semantic-fake", topic_sources(), FakeEmbedder(), BIG, questions_fp="q", steerers=steer)
+    done = estimate(topic_sources(), ["semantic-fake"], [FakeEmbedder()], BIG, tmp_path, questions_fp="q", steerers=steer)
+    assert done["steering"] == {} and done["to_build"] == 0
+    _drop_runs(tmp_path)
+    cached = estimate(topic_sources(), ["semantic-fake"], [FakeEmbedder()], BIG, tmp_path, questions_fp="q", steerers=steer)
+    assert cached["steering"] == {"semantic-fake": 0.0} and cached["to_build"] == 1
+
+
+def test_estimate_times_the_steering_pass_from_the_steerers_speed(tmp_path):
+    emb, steer = FakeEmbedder(), FakeEmbedder()
+    ticks = iter([0.0, 2.0])
+    result = estimate(topic_sources(), ["semantic-fake"], [emb], BIG, tmp_path, questions_fp="q", probe_n=2,
+                      clock=lambda: next(ticks), steerers={"fake": steer})
+    rate = result["probe"]["fake"]["tokens_per_second"]
+    tokens = sum(steer.count_tokens(p.text) for p in chunk_corpus(topic_sources(), "rules", BIG)[0])
+    assert result["steering"]["semantic-fake"] == pytest.approx(tokens / rate)
+    assert result["total_seconds"] == pytest.approx(result["runs"][0]["seconds"] + tokens / rate)
+
+
+def test_a_steerer_that_is_not_an_embedder_gets_its_own_speed_sample(tmp_path):
+    class Other(FakeEmbedder):
+        id = "other"
+    result = estimate(topic_sources(), ["semantic-other"], [FakeEmbedder()], BIG, tmp_path, questions_fp="q", probe_n=2,
+                      steerers={"other": Other()})
+    assert set(result["probe"]) == {"fake", "other"}
+
+
+def test_main_makes_one_model_per_id(tmp_path, monkeypatch):
+    import ragcore.stage as stage
+    library, snaps, _ = setup(tmp_path, {"a.md": f"# A\n\n{DISK_PARA}\n"})
+    questions = tmp_path / "questions"
+    questions.mkdir()
+    (questions / "a.yaml").write_text("questions:\n  - q: 'x?'\n    expect: ['a.md']\n", encoding="utf-8")
+    made = []
+    real = stage.make_embedder
+    monkeypatch.setattr(stage, "make_embedder", lambda i, m: made.append(i) or real(i, m))
+    assert main(["estimate", "--register", str(library / "sources"), "--snapshots", str(snaps), "--questions", str(questions),
+                 "--runs", str(tmp_path / "runs"), "--embedders", "fake", "--chunkers", "rules,semantic-fake"]) == 0
+    assert made == ["fake"]
