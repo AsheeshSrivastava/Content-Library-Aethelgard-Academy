@@ -12,14 +12,14 @@ Also `--source ID --register DIR --snapshots DIR`, which finds the folder from t
 ## What each file becomes
 Every file under the folder (never `.git`) lands in exactly one bucket, and the buckets add up to the files seen:
 1. `read`: extension in `.md .mdx .rst .txt .html .htm .ipynb` (notebooks are parsed as JSON; markdown and code cells counted, outputs measured and left out of the text).
-2. `licence`: files named like a licence file (spec 03 names), counted but not analysed.
+2. `licence`: files at the folder root named like a licence file (spec 03 names, or starting LICENSE/LICENCE), counted but not analysed. The same name deeper down (vendored code) is an ordinary file.
 3. `ignored`: by design, not content: images, fonts, audio/video, archives, `.css .js .map .lock .svg`. Not counted in the skip share.
-4. `skipped`, each with one reason code: `no-reader` (any other extension), `binary` (NUL bytes), `not-utf8`, `too-large` (over 2 MB), `empty`, `unreadable` (OS error). These count in the skip share.
+4. `skipped`, each with one reason code: `no-reader` (any other extension), `binary` (NUL bytes), `not-utf8`, `too-large` (over 2 MB), `empty`, `unreadable` (OS error, bad notebook JSON, or a reader that raised), `symlink`. These count in the skip share.
 
 ## Checks on `read` files
 Counted per file and summed per source, with up to 5 example paths each (examples never longer than 120 characters of text):
 - Raw text problems before normalising: BOM, CRLF or lone CR, text that changes under NFC, NUL.
-- Leftover markup in the normalised text: HTML tags, JSX/MDX tags and `import`/`export` lines, rst directive lines (`.. name::`) and roles (`:ref:`), Markdown tables, setext underlines left as text.
+- Leftover markup in the normalised text, counted outside code fences: HTML tags, JSX/MDX tags and `import`/`export` lines, rst directive lines (`.. name::`) and roles (`:ref:`), Markdown tables, setext underlines left as text.
 - Front matter present (`---` block at the very start, or MyST/rst field lists).
 - Tiny files (under 100 characters) and directive-only stubs (under 100 characters of prose once directive lines, headings and toctree entries are removed).
 - Sections (split at Markdown or rst headings, and never at lines inside code fences) over `--section-cap` characters (default 6000, provisional) or under 100 characters.
