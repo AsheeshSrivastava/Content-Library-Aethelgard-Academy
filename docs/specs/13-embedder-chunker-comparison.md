@@ -133,5 +133,12 @@ llamaindex-docs, the case that started this: rules 7,638 passages (median 153 ch
   - Verdict words: **beats** (rule in section 5), **close** (not beating, neither measure down by more than 2), **worse** (anything else).
 - Tests: 56 new (`test_runs.py`, `test_retrieve.py`, `test_compare.py`); full suite 689 passed, 2 skipped, 21 deselected.
 
+## 9c. Results, unit 13d (2026-10-29)
+- Built: `stage.py` and `scripts/run_stage.py` with three commands, all taking the same arguments: `estimate` (prints runs, passages, tokens, a speed sample, minutes and disk; writes no run), `run` (builds each run, skips ones that exist) and `report` (paired tables per embedder, primary and secondary question sets, verdict words from section 5). `--only` limits the corpus to chosen source ids (stage 0 uses `python-peps`). Embedders: `fake`, `bge-m3`, `jina-v2-base-en`. Chunkers so far: `rules`, `fixed`, `merge-small`; 13e to 13g add the rest to the same list.
+- The run id covers chunker label (with sizes), embedding mode, embedder fingerprint, a hash of the corpus (source ids, versions, text hashes) and a hash of the question files, so a changed corpus or question file never reuses a run.
+- Tests: 23 new in `test_stage.py`; mutation check 26 mutants, 2 rounds, none surviving (one mutant could not apply after a rewrite). Full suite below in PROGRESS.
+- Stage 0 smoke on real data (`python-peps`, 3 sources, 72 / 42 / 69 passages): estimate, run and report work for `fake`, `bge-m3` and `jina-v2-base-en`. Both real models find the right file first for all 25 questions that python-peps can answer (the other 526 questions need other sources, so these tables only prove the pipeline, not a ranking). Speed sample on 72 passages: bge-m3 about 23,000 tokens per second, jina about 64,000; the sample includes model warm-up, so full runs should be faster than estimated.
+- Seen: transformers prints "torch_dtype is deprecated, use dtype"; harmless with the pinned 4.x, to be fixed if the pin moves.
+
 ## 10. Not in this spec
 Hybrid/lexical search, the reranker, the "not found" threshold, a quote-anchored question set, the content page, the paid embedders from library3.
