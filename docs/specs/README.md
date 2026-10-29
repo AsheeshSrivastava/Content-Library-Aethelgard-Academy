@@ -17,4 +17,4 @@ If code or a spec changes the decision, stop and amend the ADR or spec first. A 
 | [02](02-register-and-gate.md) | Source register and licence gate | 2 | Accepted 2026-10-29 |
 | [03](03-pinned-fetch.md) | Pinned fetch | 2b | Accepted 2026-10-29 |
 | [04](04-licence-detection.md) | Licence detection (cross-check) | 2c | Accepted 2026-10-29 |
-| [05](05-inspection-script.md) | Inspection script | 3a | Draft, awaiting review |
+| [05](05-inspection-script.md) | Inspection script (plain look + loader mode) | 3a | Accepted 2026-10-29 |

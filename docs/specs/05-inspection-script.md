@@ -1,6 +1,6 @@
 # Spec 05: Inspection script
 
-Status: Draft, awaiting the owner's review. Decision: [ADR 0004](../adr/0004-loaders-and-inspection-script.md) (Accepted). Ideas taken from production-rag `scripts/inspect_sources.py` and `inspection.py`; this version works on pinned snapshot folders and adds the checks ADR 0004 lists.
+Status: Accepted by the owner 2026-10-29 (with the loader mode added the same day). Decision: [ADR 0004](../adr/0004-loaders-and-inspection-script.md) (Accepted). Ideas taken from production-rag `scripts/inspect_sources.py` and `inspection.py`; this version works on pinned snapshot folders and adds the checks ADR 0004 lists.
 
 ## Purpose
 Show, per source, what is really in the snapshot before any loader or chunker is written, so loaders are designed on evidence. Nothing is changed and nothing is indexed. It runs before the loaders exist, so it reads files in a plain "look" mode: bytes decoded as UTF-8 and normalised with `contracts.normalize_text`. Loader-specific cleaning (front matter to metadata, JSX stripping, rst directives, notebook cells) is measured here and done later by the loaders.
@@ -36,6 +36,13 @@ Skip share = `skipped / (read + skipped)`, files not bytes. Default limit 0.25, 
 ## Failure behaviour
 One bad file is a `skipped` row, never a crash. Missing folder or bad arguments exit 2 with a plain message. The folder is only read: a test compares its hash before and after.
 
+## Loader mode (added 2026-10-29, owner request)
+The same script must also check that the loaders load properly. It has a reader registry, `{extension: reader}`, where a reader turns raw bytes into canonical text (or raises `LoadError` with a reason). At first every extension uses the plain "look" reader above. Each loader, when built, registers itself for its extensions and the script then runs it instead, with no change to the script.
+- `--loaders look` (default today): the plain look. `--loaders real`: use every registered loader, falling back to the look reader for extensions without one and saying so in the report.
+- `--compare`: runs both and reports, per loader, what the loader changed: characters before and after, and the leftover-markup, front-matter and stub counts before and after. A loader that makes any count worse, or turns a readable file into a skip, is listed as a regression.
+- Loader checks, per file: output is non-empty and not shorter than 20% of the look text unless the loader says why (stubs); output is already normalised (idempotent); no more leftover markup than the look text; a file the look reader accepts must not be skipped by the loader without a reason code; the loader is deterministic (run twice, same text).
+- The report lists, per loader, files loaded / skipped (with reasons) / regressed, and the gate also fails when any loader check fails. Loader specs must list which of these checks they promise.
+
 ## Not in this spec
 The exact-slice check of passages (needs the chunker, spec to follow) and any cleaning. Loader specs follow, using what this report shows.
 
@@ -48,4 +55,5 @@ The exact-slice check of passages (needs the chunker, spec to follow) and any cl
 - Gate passes below and fails above the limit; empty folder fails; limit is configurable.
 - Same folder gives an identical report twice; snapshot hash unchanged afterwards; file name carries the hash prefix.
 - Script: exit codes 0, 1, 2; `--source` finds the folder from a record.
+- Loader mode, with fake loaders registered in the test: a good loader passes; a loader that returns empty text, un-normalised text, more leftover markup, or different text on a second run is flagged; a loader that skips a file the look reader accepts is a regression; `--compare` prints before and after; extensions without a loader fall back to the look reader and the report says so; a loader that raises is a `skipped` row, not a crash.
 - Once, not committed: run on all 23 stored snapshots; the owner reads the reports; thresholds are set from them.
