@@ -124,5 +124,14 @@ ADR 0007 was accepted by the owner the same day.
 llamaindex-docs, the case that started this: rules 7,638 passages (median 153 chars), merge-small 3,907 (median 408), fixed 1,658 (median 1,411). The rules numbers will be re-run in stage 1 so all runs use the same readers.
 - Note for the stage 1 report: `fixed` has no passage over `max_chars` by construction and almost no tiny ones, but it cuts through code blocks and sentences; this is exactly what the comparison should price.
 
+## 9b. Results, unit 13b and 13c (2026-10-29)
+- 13b: `embed/base.py`, `embed/hf.py`, `configs/models.yaml`. On the RTX 5070 Ti both models pass 20 `-m model` tests: vectors match the reference libraries (cosine >= 0.999), fp16 vs fp32 >= 0.995, batch size does not change vectors, truncation is counted, token offsets point into the text. bge-m3 pooling is CLS (confirmed by the match). Section 4.3 is kept as written; late chunking is checked in 13h.
+- 13c: `runs.py`, `retrieve.py`, `compare.py`. Choices made while building, all inside section 4:
+  - The run folder stores no passage text, only ids, source id, span, headings and the parent id; `vectors.npy` has a SHA-256 in the manifest and `load_run` checks it, the row count and that the manifest inputs hash back to the folder name. A complete run with the same inputs is not rewritten.
+  - Search is exact cosine over all vectors. The best 200 passages are taken with ties broken by row position, so the same run always returns the same list. Children of one parent count once; then the list collapses to one hit per source file.
+  - Depth: reciprocal rank and recall@10 only count ranks within `depth` (10); top 3 uses `k`.
+  - Verdict words: **beats** (rule in section 5), **close** (not beating, neither measure down by more than 2), **worse** (anything else).
+- Tests: 56 new (`test_runs.py`, `test_retrieve.py`, `test_compare.py`); full suite 689 passed, 2 skipped, 21 deselected.
+
 ## 10. Not in this spec
 Hybrid/lexical search, the reranker, the "not found" threshold, a quote-anchored question set, the content page, the paid embedders from library3.
