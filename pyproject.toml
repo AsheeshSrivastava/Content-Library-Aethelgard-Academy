@@ -13,6 +13,8 @@ package = false
 [tool.pytest.ini_options]
 testpaths = ["tests"]
 pythonpath = ["src"]
+markers = ["network: needs the internet; run on purpose with -m network"]
+addopts = "-m 'not network'"
 
 [dependency-groups]
 dev = ["pytest>=9.1.1"]
