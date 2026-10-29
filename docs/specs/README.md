@@ -18,4 +18,4 @@ If code or a spec changes the decision, stop and amend the ADR or spec first. A 
 | [03](03-pinned-fetch.md) | Pinned fetch | 2b | Accepted 2026-10-29 |
 | [04](04-licence-detection.md) | Licence detection (cross-check) | 2c | Accepted 2026-10-29 |
 | [05](05-inspection-script.md) | Inspection script (plain look + loader mode) | 3a | Accepted 2026-10-29 |
-| [06](06-snapshot-loader.md) | Snapshot loader (GitHub at a pinned commit) | 3b | Draft |
+| [06](06-snapshot-loader.md) | Snapshot loader (GitHub at a pinned commit) | 3b | Accepted 2026-10-29 |

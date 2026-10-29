@@ -91,3 +91,14 @@ def check_path(record, rules: LicenceRules, path: str) -> Verdict:
     best = max(matching, key=lambda p: len(p.rstrip("/")))
     override = _verdict(record.licence_overrides[best], record.licence.covers, rules)
     return override if RANK[override.status] < RANK[own.status] else own
+
+
+def licence_for_path(record, rules: LicenceRules, path: str) -> str:
+    """The licence id that governs one file: the override that `check_path` applies, else the record's own."""
+    own = check(record, rules)
+    matching = [p for p in record.licence_overrides if _matches(p, path)]
+    if not matching:
+        return record.licence.id
+    best = max(matching, key=lambda p: len(p.rstrip("/")))
+    override = _verdict(record.licence_overrides[best], record.licence.covers, rules)
+    return record.licence_overrides[best] if RANK[override.status] < RANK[own.status] else record.licence.id

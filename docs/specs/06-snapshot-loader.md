@@ -1,11 +1,12 @@
 # Spec 06: Snapshot loader (GitHub at a pinned commit)
 
-Status: Draft, waiting for owner review. Decisions: [ADR 0003](../adr/0003-contracts-canonical-text-and-ids.md), [ADR 0004](../adr/0004-loaders-and-inspection-script.md). Builds on specs 01 (contracts), 03 (pinned fetch), 05 (inspection script).
+Status: Accepted by the owner 2026-10-29 ("proceed"). Decisions: [ADR 0003](../adr/0003-contracts-canonical-text-and-ids.md), [ADR 0004](../adr/0004-loaders-and-inspection-script.md). Builds on specs 01 (contracts), 03 (pinned fetch), 05 (inspection script).
 
 ## Purpose
 Turn one pinned snapshot folder plus its register record into `contracts.Source` objects, one per readable file. This is the shared front door: later format loaders (Markdown/MDX, rst, HTML, notebooks, plain text) are readers plugged into it by extension, each with its own spec. This spec ships the front door and a plain-text reader only, so the pipeline runs end to end before the format readers exist.
 
 ## Use
+The folder is the version folder inside a snapshot (`snapshots/<id>/<version_ref>`), because licence names count only at its root.
 `load_snapshot(folder, record, rules, *, readers=None) -> LoadResult` in `src/ragcore/loaders/snapshot.py`. No printing, no network, no index.
 `LoadResult` holds `sources` (sorted by path), `skipped` (path -> reason), `withheld` (path -> reason from the gate), `code_config` (paths), `counts` (the same five buckets as spec 05, plus `withheld`).
 
@@ -37,3 +38,6 @@ Format-specific checks (markup removed, front matter to metadata, outputs droppe
 
 ## Out of scope
 Chunking (next spec, with the exact-slice check), format readers, quarantined sources, embedding and indexing.
+
+## Result of the real-data check (2026-10-29)
+All 23 stored snapshots load. Sources per source are in the hundreds; the only skips are 3 notebooks (.ipynb, no reader yet): 1 each in huggingface-sentence-transformers-docs, ragas-docs and rohitg00-ai-engineering-from-scratch, plus 1 in llamaindex-docs. Nothing withheld, because no record has a reference-only override yet.

@@ -16,28 +16,13 @@ from pathlib import Path
 from typing import Callable
 
 from ragcore.contracts import NORMALIZER_VERSION, normalize_text
-from ragcore.fetch import LICENCE_NAMES, snapshot_hash
+from ragcore.fetch import snapshot_hash
+from ragcore.files import (CODE_CONFIG_EXTS, CODE_CONFIG_NAMES, IGNORED_EXTS, MAX_FILE_BYTES, NOTEBOOK_EXT, TEXT_EXTS,  # noqa: F401
+                           classify_file, is_licence, raw_problem)
 from ragcore.register import RegisterError, load_record
 
 Reader = Callable[[bytes], str]
 
-TEXT_EXTS = (".md", ".mdx", ".rst", ".txt", ".html", ".htm")
-NOTEBOOK_EXT = ".ipynb"
-IGNORED_EXTS = frozenset({
-    ".png", ".jpg", ".jpeg", ".gif", ".webp", ".ico", ".bmp", ".tif", ".tiff", ".svg",
-    ".woff", ".woff2", ".ttf", ".otf", ".eot", ".mp3", ".mp4", ".wav", ".webm", ".mov",
-    ".zip", ".gz", ".tar", ".tgz", ".7z", ".css", ".js", ".map", ".lock",
-})
-CODE_CONFIG_EXTS = frozenset({
-    ".py", ".pyi", ".ts", ".tsx", ".jsx", ".mjs", ".cjs", ".sh", ".bat", ".yml", ".yaml", ".json",
-    ".jsonc", ".toml", ".cfg", ".ini", ".cff", ".xml", ".env", ".dot", ".inc",
-})
-CODE_CONFIG_NAMES = frozenset({
-    "makefile", "dockerfile", ".gitkeep", ".gitignore", ".gitattributes", ".editorconfig", ".prettierignore",
-    ".prettierrc", ".ignore", ".git-blame-ignore-revs", ".htaccess", ".gitmodules", ".npmrc", ".nvmrc",
-    ".python-version", ".python-versions", ".textlintignore", ".dockerignore",
-})
-MAX_FILE_BYTES = 2 * 1024 * 1024
 MIN_CHARS = 100
 EXAMPLES = 5
 EXAMPLE_CHARS = 120
@@ -325,11 +310,6 @@ class Report:
 
 # --- the inspection -----------------------------------------------------------------------------
 
-def _is_licence(rel: str) -> bool:
-    name = rel.upper()
-    return "/" not in rel and (name in {n.upper() for n in LICENCE_NAMES} or name.startswith(("LICENSE", "LICENCE")))
-
-
 def _add_example(bucket: list, text: str) -> None:
     if len(bucket) < EXAMPLES:
         bucket.append(text)
@@ -364,35 +344,23 @@ def inspect_folder(folder: Path, *, source_id: str = "", loaders: dict[str, Read
             report.buckets["skipped"] += 1
             report.skipped[rel] = reason
 
-        if path.is_symlink():
-            skip("symlink")
+        bucket, reason = classify_file(rel, symlink=path.is_symlink(), loaders=loaders)
+        if bucket == "skipped":
+            skip(reason)
             continue
-        if _is_licence(rel):
-            report.buckets["licence"] += 1
-            continue
-        if ext in IGNORED_EXTS:
-            report.buckets["ignored"] += 1
-            continue
-        if ext not in loaders and (ext in CODE_CONFIG_EXTS or path.name.lower() in CODE_CONFIG_NAMES):
-            report.buckets["code-config"] += 1
-            report.code_config.append(rel)
-            continue
-        if ext not in TEXT_EXTS and ext != NOTEBOOK_EXT and ext not in loaders:
-            skip("no-reader")
+        if bucket != "read":
+            report.buckets[bucket] += 1
+            if bucket == "code-config":
+                report.code_config.append(rel)
             continue
         try:
             raw = path.read_bytes()
         except OSError:
             skip("unreadable")
             continue
-        if len(raw) > max_file_bytes:
-            skip("too-large")
-            continue
-        if not raw.strip():
-            skip("empty")
-            continue
-        if b"\x00" in raw:
-            skip("binary")
+        problem = raw_problem(raw, max_file_bytes)
+        if problem:
+            skip(problem)
             continue
         look_reader = look_notebook if ext == NOTEBOOK_EXT else look_text
         try:
