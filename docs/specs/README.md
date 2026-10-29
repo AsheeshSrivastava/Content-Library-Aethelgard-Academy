@@ -25,3 +25,4 @@ If code or a spec changes the decision, stop and amend the ADR or spec first. A 
 | [10](10-html-reader.md) | HTML reader | 5 | Accepted 2026-10-29 |
 | [11](11-notebook-reader.md) | Jupyter notebook reader | 6 | Accepted 2026-10-29 |
 | [12](12-eval-harness.md) | Eval harness (questions, checks, scoring) | 7 | Accepted 2026-10-29 |
+| [13](13-embedder-chunker-comparison.md) | Embedder and chunker comparison (plan) | 8+ | Draft, waiting for the owner |

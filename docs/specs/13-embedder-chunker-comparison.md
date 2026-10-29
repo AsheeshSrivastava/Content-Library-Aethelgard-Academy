@@ -1,0 +1,112 @@
+# Spec 13: Embedder and chunker comparison (plan, pre-registration, unit list)
+
+Status: Draft for the owner (2026-10-29). Depends on [ADR 0007](../adr/0007-local-embedder-and-chunker-comparison.md) (Proposed). Builds on specs 09 (chunking) and 12 (eval harness). Nothing here is built yet; this spec is what gets built, in the order of the last section.
+
+## 1. Question
+Which combination of chunker, embedding mode and local embedder puts the right file first, and in the top 3, most often on our questions, and is the gain worth the extra code? The two embedders are `BAAI/bge-m3` (MIT, 1024 dimensions, 8192 tokens, multilingual, also gives sparse and multi-vector output) and `jinaai/jina-embeddings-v2-base-en` (Apache-2.0, 137M parameters, 8192 tokens through ALiBi, English only, mean pooling, needs `trust_remote_code`). Hardware: RTX 5070 Ti 16 GB, 20 cores, 64 GB RAM, 200+ GB free.
+
+## 2. The grid
+| Axis | Values |
+|---|---|
+| Chunker | **rules** (`heading-pack-1`, done); **fixed** (window of `max_chars`, cut at whitespace, no structure); **merge-small** (rules, then neighbours under 300 characters joined up to `max_chars`); **parent-child** (children = one paragraph or code block, up to 500 characters; parent = the rules passage or section); **semantic-jina** and **semantic-bge** (cuts where adjacent blocks stop being similar, steered by that embedder); **llamaindex** (LlamaIndex splitter for boundaries only) |
+| Embedding mode | **normal** (each passage alone) or **late** (whole document through the model once, each passage = mean of its token vectors) |
+| Embedder | bge-m3, jina-v2-base-en |
+
+Stage 1 runs every chunker with the **normal** mode and both embedders: 7 chunkers x 2 = 14 runs. Stage 2 runs the **late** mode on the 3 best chunkers per embedder (6 runs). Stage 3 (separate spec, not planned here): hybrid with a lexical index, then the local reranker `BAAI/bge-reranker-v2-m3` on the best two cells. In total at most 20 runs, all local, no money cost.
+
+"semantic-bge" and "semantic-jina" differ only in who decides the cuts. Each is also embedded with both embedders, so the table shows the cross cells (jina cuts, bge embeds, and so on).
+
+## 3. Corpus and questions
+- **Corpus**: every approved source with a snapshot on disk (23 snapshots, 2,226 loaded sources at the time of writing), loaded by the spec 06 loader and the readers of specs 07, 08, 10 and 11. The corpus is fixed once: the run manifest stores the source ids with their snapshot versions, and every run uses the same list. Full corpus, not only AI sources: distractors from the Python docs are part of real use, and local embedding costs no money.
+- **Primary question set**: the 13 files in `eval/questions/` except `rag-questions.yaml`. **Secondary**: `rag-questions.yaml` alone. The 8 mcp-spec questions with the unmatched `2026-07-28/schema` piece stay in (their other pieces match); the result is also printed without them.
+- Question files are frozen by their SHA-256, stored in the manifest. Editing a question starts a new set.
+
+## 4. Components and interfaces (what gets built)
+
+### 4.1 Embedder wrapper (`embed/encoder.py`)
+```
+class Embedder(Protocol):
+    id: str            # "bge-m3"
+    fingerprint: str   # model id + revision + pooling + dtype + max_tokens
+    dim: int
+    def embed(self, texts: list[str], *, kind: "passage" | "query") -> np.ndarray   # (n, dim), L2-normalised, float32
+    def token_states(self, text: str) -> TokenStates   # for late chunking: (n_tokens, dim) and char offsets
+```
+- `HFEncoder(model_id, revision, pooling, trust_remote_code, max_tokens, dtype)` implements it with `AutoTokenizer` (fast, offsets) and `AutoModel`. bge-m3: pooling `cls`, no instruction text. jina-v2: pooling `mean` with the attention mask, no instruction text.
+- `FakeEmbedder` (hashed bag of words, deterministic, no model) for every unit test. `MOCK_EMBED=1` selects it in the command line tools.
+- Padding: batches are sorted by length and every text is truncated at `max_tokens`; the count of truncated passages is stored in the manifest. Output order always equals input order (tested).
+- **Golden check** (optional test, needs the `embed` group): on 5 fixed texts the wrapper's vectors must match the reference library (`sentence-transformers` for both, which applies each model's own pooling) at cosine >= 0.999. This catches a wrong pooling choice before 20 runs are wasted on it.
+- **fp16 check**: on 200 passages the fp16 and fp32 vectors must agree at cosine >= 0.995 (otherwise the run uses fp32). The chosen dtype is part of `fingerprint`.
+
+### 4.2 Chunkers (`chunking.py` and `chunkers/`)
+All return spans that are exact slices (ADR 0003); `check_chunking` stays the gate. Two switches are added to `check_chunking`: `structure=False` skips the "heading line inside the passage" check for chunkers that do not follow headings (fixed, merge-small, semantic across headings if ever allowed), and everything else (exact slice, order, no overlap, hard limit, coverage, ids) stays mandatory for all.
+- **fixed**: windows of at most `max_chars`, cut at the last paragraph end, else line end, else space in the window (the cut rules of spec 09 without sections). Heading path = the heading in force at the passage start.
+- **merge-small**: runs rules, then joins neighbours inside the same top-level section when the left one is under `min_chars` (300) and the join stays within `max_chars`. Heading path = the first passage's.
+- **parent-child**: children from the existing block scanner (paragraph or fenced code block, cut again at 500 characters by the spec 09 hard-cut rules); the parent of a child is the rules passage that contains it. The parent map is stored in the run folder, not in `Passage`.
+- **semantic**: inside each rules section, take the blocks (code blocks never split), embed each block, take the cosine distance between neighbours, cut where it exceeds the **90th percentile of that source's distances** (chosen now, not tuned), always cut at headings, then apply `max_chars` and `hard_limit` as in spec 09. The chunker version holds the embedder fingerprint and the percentile. Block vectors are cached by block hash.
+- **llamaindex**: run `MarkdownNodeParser` then `SentenceSplitter(chunk_size=~375 tokens)` (setting chosen now); map each node to `[start, end)` in our text by its character indexes, falling back to a forward search of the node text from the previous end; unmappable nodes are counted and, over 1% of nodes, the variant fails with a clear message. The mapping is tested on Markdown, rst-derived and code-heavy text.
+
+### 4.3 Late chunking (`embed/late.py`)
+For each source text: tokenise with offsets; if it fits `max_tokens`, one forward pass; if not, windows of `W` tokens (default 8192, 4096 if memory is short) with a stride of `W - 512` so neighbouring windows share 512 tokens. A passage is pooled from the window in which it lies fully and has the most context on both sides (largest minimum distance to a window edge); a passage longer than a window falls back to normal mode and is counted. The pooled vector is the mean of last-layer token vectors whose character offsets lie inside the span (special tokens excluded), then L2-normalised. Queries are always embedded normally.
+Checks: with a window large enough for the whole text, a one-passage source gives the same vector as normal mode to 1e-4 for mean-pooling models; pooling is independent of batch order; passages in different windows get vectors from the right window (tested with a fake model that returns the window index).
+
+### 4.4 Run folder and ids (`runs.py`)
+`~/.ragcore/runs/<run_id>/` holds `manifest.json` (all inputs, library versions, timings, counts of truncated and fallback passages), `passages.jsonl` (passage id, source id, start, end, headings, parent id if any), `vectors.npy` (float32), `scores.json`. `run_id` is a SHA-256 over the canonical JSON of the inputs, shortened. A run is written to a temp folder and renamed when complete, so an interrupted run leaves nothing half-readable. Loading checks that the vector count equals the passage count and the manifest hash matches.
+
+### 4.5 Retriever (`retrieve.py`)
+`retriever = load_run(run_id)` returns a function `(query, n) -> [Hit]` for the spec 12 harness: embed the query (kind `query`), cosine against all vectors, take the top `n_raw` passages (200), map child to parent where the run has parents (keep the best child score per parent), then **collapse to one hit per source file** keeping the best score and the order of first appearance, and return the first `n`. The raw passage list is kept for the secondary, passage-level report.
+
+### 4.6 Reports (`compare.py`)
+For each run: counts of first, top 3, per question file and for the primary and secondary sets; mean reciprocal rank and recall@10 at file level; misses; scores. For each pair of runs: **paired** counts of questions where only A or only B was right (first and top 3), and the net difference. Output: a Markdown table and a JSON file per stage in `reports/` (git-ignored; the table is pasted into spec 13 results by hand).
+
+## 5. Pre-registered decision rule (fixed before any run)
+- **Baseline for an embedder** = rules, normal mode, that embedder.
+- A cell **beats the baseline** if, on the primary set, it is right-first for at least **5 more** questions or in the top 3 for at least **3 more**, and it is not worse than the baseline by more than 2 on the other measure. (The same margins as library3 plan rev 2.)
+- A cell that does not beat the baseline but is within the margins is reported as **close**, never tuned afterwards.
+- The **winning cell overall** is the beating cell with the most right-first questions; ties go to the simpler chunker, then the smaller embedder, then the faster run.
+- Outside-question scores are printed but not compared across embedders (cosine scales differ by model). The "not found" threshold is chosen later, per model.
+- Settings are not tuned per cell. One value each: `max_chars` 1500, `hard_limit` 6000, merge threshold 300, child size 500, semantic percentile 90, llamaindex chunk size about 375 tokens, late window 8192 (4096 only if memory forces it, noted).
+
+## 6. Staging and the printed estimate
+Each stage prints, before it runs anything: number of runs, passages, tokens to embed, an estimated time from a measured **throughput probe** (the first 256 passages), disk needed, and the run ids that already exist and will be skipped. The owner runs the stage. Rough scale, to be replaced by the probe: about 35,000 passages per chunker; tens of thousands of kilobytes of vectors per run; the 568M bge-m3 is the slow one.
+
+- **Stage 0, smoke**: both embedders load; golden and fp16 checks pass; one small source (for example `python-peps`) goes through every chunker with the fake and then the real embedder; the harness runs on its questions.
+- **Stage 1**: 14 runs. Report. Owner reads the table before stage 2.
+- **Stage 2**: late mode on the best three chunkers per embedder.
+- **Stage 3**: a separate spec (lexical hybrid, reranker, band for "not found").
+
+## 7. Failure modes and chaos checks
+| Failure | Check or defence |
+|---|---|
+| Wrong pooling or missing normalisation | golden check against `sentence-transformers` |
+| Remote code of jina breaks or changes | pinned commit, files read once, offline load, smoke test first |
+| GPU out of memory on 8192-token windows | window falls to 4096, recorded; batch size halves on error |
+| fp16 differs from fp32 | agreement test; fp32 fallback |
+| Run interrupted | temp folder then rename; resumable per stage |
+| Same passage text in several sources | counted in the manifest; file-level collapse keeps them from filling the top 3 |
+| Truncation hiding the end of long passages | truncated count in the manifest; passages over 512 tokens counted |
+| Questions favour one variant | primary set excludes `rag-questions.yaml`; paired counts; ties reported |
+| File-level questions hide chunk quality | stated limit; passage-level report is secondary; a quote-anchored set is a later stage |
+| LlamaIndex nodes not exact | mapping check, 1% limit |
+| Results not repeatable | rerun of one cell must give the same top 1 file for >= 99.5% of questions (GPU rounding) |
+| Query and passage embedded differently | `kind` argument tested; neither model uses instruction prefixes (checked in the model cards before stage 0) |
+
+## 8. Units, in order (each: tests first, mutation check where practical, commit)
+1. **13a** Chunker switches in `check_chunking`; `fixed` and `merge-small`.
+2. **13b** Embedder protocol, `FakeEmbedder`, `HFEncoder`, golden and fp16 checks, throughput probe.
+3. **13c** Run folder, ids, atomic write; retriever with file-level collapse; paired report.
+4. **13d** Estimate command and stage 0 smoke (owner runs).
+5. **13e** Parent-child.
+6. **13f** Semantic chunker.
+7. **13g** LlamaIndex mapper.
+8. **13h** Late chunking.
+Stage 1 can start after 13a to 13g. Late chunking (13h) only needs to exist by stage 2.
+
+## 9. Open questions for the owner
+- **LlamaIndex as an optional dependency group instead of a variant branch** (ADR 0002 said branch). Recommended: group, because runs are folders and do not need a branch to compare. Your call.
+- **Torch install** (CUDA build for the RTX 5070 Ti, about 2.5 GB, from the official PyTorch index) goes into the `embed` group of this repo. I will vet the packages first (dependency vetting) and show you the lines before installing.
+- **Full corpus or AI sources only** for stage 1. Recommended: full corpus (free locally). If a run turns out slow, I will fall back to AI sources and say so.
+- Whether you want the fixed window and merge-small variants at all, or only the six you named. Recommended: keep them, they are cheap controls that show what structure-aware chunking is worth.
+
+## 10. Not in this spec
+Hybrid/lexical search, the reranker, the "not found" threshold, a quote-anchored question set, the content page, the paid embedders from library3.
