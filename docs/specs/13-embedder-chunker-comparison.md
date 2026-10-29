@@ -1,6 +1,6 @@
 # Spec 13: Embedder and chunker comparison (plan, pre-registration, unit list)
 
-Status: Draft for the owner (2026-10-29). Depends on [ADR 0007](../adr/0007-local-embedder-and-chunker-comparison.md) (Proposed). Builds on specs 09 (chunking) and 12 (eval harness). Nothing here is built yet; this spec is what gets built, in the order of the last section.
+Status: Accepted (2026-10-29, owner, with ADR 0007). Pre-registration in section 5 is now frozen. Builds on specs 09 (chunking) and 12 (eval harness). Nothing here is built yet; this spec is what gets built, in the order of the last section.
 
 ## 1. Question
 Which combination of chunker, embedding mode and local embedder puts the right file first, and in the top 3, most often on our questions, and is the gain worth the extra code? The two embedders are `BAAI/bge-m3` (MIT, 1024 dimensions, 8192 tokens, multilingual, also gives sparse and multi-vector output) and `jinaai/jina-embeddings-v2-base-en` (Apache-2.0, 137M parameters, 8192 tokens through ALiBi, English only, mean pooling, needs `trust_remote_code`). Hardware: RTX 5070 Ti 16 GB, 20 cores, 64 GB RAM, 200+ GB free.
@@ -102,11 +102,13 @@ Each stage prints, before it runs anything: number of runs, passages, tokens to 
 8. **13h** Late chunking.
 Stage 1 can start after 13a to 13g. Late chunking (13h) only needs to exist by stage 2.
 
-## 9. Open questions for the owner
-- **LlamaIndex as an optional dependency group instead of a variant branch** (ADR 0002 said branch). Recommended: group, because runs are folders and do not need a branch to compare. Your call.
-- **Torch install** (CUDA build for the RTX 5070 Ti, about 2.5 GB, from the official PyTorch index) goes into the `embed` group of this repo. I will vet the packages first (dependency vetting) and show you the lines before installing.
-- **Full corpus or AI sources only** for stage 1. Recommended: full corpus (free locally). If a run turns out slow, I will fall back to AI sources and say so.
-- Whether you want the fixed window and merge-small variants at all, or only the six you named. Recommended: keep them, they are cheap controls that show what structure-aware chunking is worth.
+## 9. Owner decisions (2026-10-29)
+Asked with a recommendation each; the owner agreed to all four:
+1. LlamaIndex goes in an **optional dependency group** (`variants`), not a variant branch. This amends the wording of ADR 0002 for this one case: runs are folders, so a branch is not needed to compare them.
+2. **Torch with CUDA** goes into the `embed` group. The NVIDIA driver on the PC (610.60) is enough; CUDA comes inside the PyTorch wheel. Install lines are shown to the owner before they run.
+3. Stage 1 uses the **full corpus** (23 snapshots).
+4. The **fixed** and **merge-small** controls stay.
+ADR 0007 was accepted by the owner the same day.
 
 ## 10. Not in this spec
 Hybrid/lexical search, the reranker, the "not found" threshold, a quote-anchored question set, the content page, the paid embedders from library3.

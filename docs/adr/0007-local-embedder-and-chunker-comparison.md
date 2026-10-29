@@ -1,6 +1,6 @@
 # ADR 0007: Local embedder and chunker comparison design
 
-## Status: Proposed (2026-10-29). Only the owner accepts.
+## Status: Accepted (2026-10-29, owner)
 
 ## Context
 The order in AGENTS.md is contracts, loaders, chunking comparison, then embedder and reranker choice. Contracts (specs 01 to 03), loaders (06 to 08, 10, 11), the baseline chunker (09) and the measuring stick (12) are done. The owner decided on 2026-10-29 to compare two local embedders, `BAAI/bge-m3` and `jinaai/jina-embeddings-v2-base-en`, with these chunking ideas: late chunking, semantic chunking steered by each embedder, parent-child, fixed windows, merging small sections, and a LlamaIndex splitter as a chunker-only variant (ADR 0002). Earlier library3 results (rules 73% first, parent-child 80%, hybrid-rerank 83% on 377 AI questions with a paid embedder) are the only evidence so far and used a different library and embedder.
@@ -12,7 +12,7 @@ The order in AGENTS.md is contracts, loaders, chunking comparison, then embedder
 4. **Late chunking is an embedding mode, not a chunker.** Spans stay exact slices from a chunker; only how their vectors are made changes (whole document through the model, then each span's token vectors averaged). This keeps ADR 0003 unchanged and lets late chunking be tested with any chunker.
 5. **Parent-child needs no new contract field.** The run keeps the child to parent map (both are exact slices); search ranks children and returns each parent once.
 6. **Semantic chunking is a chunker that takes an embedder.** Its version string carries the embedder and revision, so "jina steers the cuts" and "bge-m3 steers the cuts" are different, comparable chunkers.
-7. **LlamaIndex** is used only to find boundaries; every node is mapped back to an exact slice of our text. Nodes that cannot be mapped are counted; more than 1% unmapped fails the variant. It lives in the optional group `variants`.
+7. **LlamaIndex** is used only to find boundaries; every node is mapped back to an exact slice of our text. Nodes that cannot be mapped are counted; more than 1% unmapped fails the variant. It lives in the optional group `variants` (owner agreed, 2026-10-29; this replaces the variant branch named in ADR 0002 for this case).
 8. **Pre-registration.** The metrics, the primary question set, the ranking rule and the decision rule are written in spec 13 before any run, and not changed after seeing results.
 9. **Ranking is by file.** Hits are collapsed to the best-scoring hit per source file before "first" and "top 3" are counted, so small chunks cannot win by filling the top 3 with one file, and big chunks cannot win by hiding behind it.
 10. **The primary question set excludes `rag-questions.yaml`** (it was written from the same lessons as the old pieces and favours them; library3 plan rev 2 excluded it for the same reason). It is reported as a secondary set.
