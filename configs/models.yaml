@@ -1,0 +1,32 @@
+# Pinned models for the comparison (spec 13, ADR 0007). A run records these values in its manifest.
+# Change a pin only by adding a new entry and re-running; never edit a pin in place.
+bge-m3:
+  repo: BAAI/bge-m3
+  revision: 5617a9f61b028005a4858fdac845db406aefb181   # main on 2026-10-29, last modified 2024-07-03
+  license: MIT
+  dim: 1024
+  max_tokens: 8192
+  pooling: cls          # To be confirmed by the golden check against sentence-transformers (spec 13 section 4.1).
+  trust_remote_code: false
+  weights: pytorch_model.bin   # No safetensors file in the repo; loaded by torch with weights_only.
+jina-v2-base-en:
+  repo: jinaai/jina-embeddings-v2-base-en
+  revision: 322d4d7e2f35e84137961a65af894fda0385eb7a   # main on 2026-10-29, last modified 2025-01-06
+  license: Apache-2.0
+  dim: 768
+  max_tokens: 8192
+  pooling: mean
+  trust_remote_code: true
+  weights: model.safetensors
+  code:
+    repo: jinaai/jina-bert-implementation   # The model's config points here (auto_map); this repo is the code that runs.
+    revision: f3ec4cf7de7e561007f27c9efc7148b0bd713f81   # last modified 2024-02-26
+    local_copy: ~/.ragcore/models/jina-bert-implementation@f3ec4cf7de7e
+    sha256:
+      configuration_bert.py: 3866DABDE9264EF5057DF1D0D7EEFB4DBDF79A49E5BCE6C699E7889792EAF650
+      modeling_bert.py: DB5A054F8650E3DAFC9F43DBFB82B63EA4F7ABE8528D8169A593C4957B4F9902
+    review:
+      by: Claude (self-review, not independent)
+      date: 2026-10-29
+      scope: configuration_bert.py (168 lines) and modeling_bert.py (2357 lines), searched for process, network, file, eval and pickle calls and read the import list
+      result: No subprocess, socket, requests, urllib, eval, exec, pickle or os.system. `os` is used only to resolve a TensorFlow checkpoint path; `tensorflow` is imported inside the TF checkpoint loader (line 105) and not at import time. `AutoTokenizer.from_pretrained(config._name_or_path)` (lines 1110 and 1171) fetches tokenizer files from the Hub when the model is built, so a fully offline load needs those files cached; the smoke test checks this.
