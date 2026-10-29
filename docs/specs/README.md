@@ -22,3 +22,4 @@ If code or a spec changes the decision, stop and amend the ADR or spec first. A 
 | [07](07-markdown-reader.md) | Markdown and MDX reader | 3c | Accepted 2026-10-29 (rules open for comments) |
 | [08](08-rst-reader.md) | reStructuredText reader | 3d | Accepted 2026-10-29 (rules open for comments) |
 | [09](09-chunking.md) | Chunking and the exact-slice check | 4 | Accepted 2026-10-29 (sizes provisional) |
+| [10](10-html-reader.md) | HTML reader | 5 | Accepted 2026-10-29 |
