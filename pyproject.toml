@@ -13,8 +13,11 @@ package = false
 [tool.pytest.ini_options]
 testpaths = ["tests"]
 pythonpath = ["src"]
-markers = ["network: needs the internet; run on purpose with -m network"]
-addopts = "-m 'not network'"
+markers = [
+    "network: needs the internet; run on purpose with -m network",
+    "model: loads the real embedding models on the GPU; run on purpose with -m model",
+]
+addopts = "-m 'not network and not model'"
 
 [dependency-groups]
 dev = ["pytest>=9.1.1"]
