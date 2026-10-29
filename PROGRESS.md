@@ -13,7 +13,7 @@ A citation-grounded RAG library for the Aethelgard content factory: approved sou
 |---|---|---|---|
 | 0 | Branch, AGENTS, system design, ADRs, carry-over | Done 2026-10-28 | This commit. Docs only |
 | 1 | Contracts: normalize, Source, Passage, IDs, versions, read-back check | Done 2026-10-28 | `src/ragcore/contracts.py`, 32 tests, 13 hand-made breaks of the code all caught. Python 3.12. Self-review recorded below |
-| 2 | Source register, licence gate, pinned fetch (carried from library3) | Specs and ADRs drafted 2026-10-28 | [Spec 02](docs/specs/02-register-and-gate.md), [spec 03](docs/specs/03-pinned-fetch.md), ADR 0005 and 0006 Proposed. No code until the owner accepts them |
+| 2 | Source register, licence gate, pinned fetch (carried from library3) | Register + gate done 2026-10-29; fetch next | [Spec 02](docs/specs/02-register-and-gate.md), [spec 03](docs/specs/03-pinned-fetch.md) (amended 2026-10-29: pin by exact commit SHA + two-source re-fetch test). `register.py`, `gate.py`, `errors.py`, 71 new tests (103 total); 14 hand-made breaks all caught; all 36 real library3 records load and gate verdicts are sane. Not yet ported: `fetch.py`, licence detection (ADR 0006). ADR 0005/0006 and specs 02/03 still marked Proposed/Draft until the owner confirms acceptance in the file |
 | 3 | Loaders + inspection script | Planned | Order: inspection script, GitHub (merge of both), Markdown/MDX/front matter, rst, HTML, notebooks, txt. See system design |
 | 4 | Chunking comparison on cleaned text | Planned | rules vs parent-child vs a LlamaIndex variant branch |
 | 5 | Embedding + reranker choice (local) | Planned | Same questions, new embedder means new scores |
@@ -41,7 +41,7 @@ A citation-grounded RAG library for the Aethelgard content factory: approved sou
 
 ## Session handoff
 
-Resumption prompt: "Read AGENTS.md, PROGRESS.md, docs/carry-over.md. Unit 1 (contracts) is done. Next: unit 2, port the source register and licence gate from library3 (read register.py, gate.py, fetch.py first)."
+Resumption prompt: "Read AGENTS.md, PROGRESS.md, docs/carry-over.md. Units 1 (contracts) and 2a (register, gate) are done. Next: unit 2b, pinned fetch: write offline tests from spec 03 first (including pin by SHA), then port library3 `app/src/aethelgard/library/fetch.py` (path: D:\01-Project\unsloth\aethelgard-academy\.worktrees\library3\content\library holds register data: sources/, licence-rules.yaml, hosts.yaml). Then the network test: re-fetch two small sources at their recorded SHA and compare hashes with the stored snapshots. Owner to zip the ~250 MB snapshots to another drive."
 
 ## Scope note (2026-10-28, owner)
 Work happens in this worktree. Relevant data may be read and copied from library3 and production-rag when needed. The front end will also get a fresh start later; the old front end is not carried over.
