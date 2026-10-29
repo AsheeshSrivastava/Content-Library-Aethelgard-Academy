@@ -1,6 +1,6 @@
 # Spec 02: Source register and licence gate
 
-Status: Draft. Decisions: [ADR 0005](../adr/0005-port-register-gate-fetch.md), [ADR 0006](../adr/0006-licence-detection-cross-check.md). Ported from library3 `register.py` and `gate.py`, with the changes below.
+Status: Accepted by the owner 2026-10-29. Decisions: [ADR 0005](../adr/0005-port-register-gate-fetch.md), [ADR 0006](../adr/0006-licence-detection-cross-check.md). Ported from library3 `register.py` and `gate.py`, with the changes below.
 
 ## Purpose
 Nothing is indexed until a person has approved its source, and no approval can exceed what the licence allows without a written reason.

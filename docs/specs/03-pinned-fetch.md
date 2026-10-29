@@ -1,6 +1,6 @@
 # Spec 03: Pinned fetch
 
-Status: Draft. Decisions: [ADR 0005](../adr/0005-port-register-gate-fetch.md), [ADR 0006](../adr/0006-licence-detection-cross-check.md). Ported from library3 `fetch.py`; merged with ideas from the production-rag GitHub loader and web fetcher.
+Status: Accepted by the owner 2026-10-29 (including the SHA-pin amendment). Decisions: [ADR 0005](../adr/0005-port-register-gate-fetch.md), [ADR 0006](../adr/0006-licence-detection-cross-check.md). Ported from library3 `fetch.py`; merged with ideas from the production-rag GitHub loader and web fetcher.
 
 ## Purpose
 Get an exact, hashed copy of an approved source and of its licence, without running anything fetched.

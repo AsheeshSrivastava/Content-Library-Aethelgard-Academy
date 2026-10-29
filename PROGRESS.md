@@ -1,7 +1,7 @@
 # PROGRESS
 
 Single source of truth for where rag-core stands. Update at the end of every step.
-Last updated: 2026-10-28 (standalone repo, Entire remote, specs and ADRs drafted).
+Last updated: 2026-10-29 (register, gate, pinned fetch done; specs 02/03 and ADRs 0005/0006 accepted).
 
 ## Goal
 
@@ -13,7 +13,7 @@ A citation-grounded RAG library for the Aethelgard content factory: approved sou
 |---|---|---|---|
 | 0 | Branch, AGENTS, system design, ADRs, carry-over | Done 2026-10-28 | This commit. Docs only |
 | 1 | Contracts: normalize, Source, Passage, IDs, versions, read-back check | Done 2026-10-28 | `src/ragcore/contracts.py`, 32 tests, 13 hand-made breaks of the code all caught. Python 3.12. Self-review recorded below |
-| 2 | Source register, licence gate, pinned fetch (carried from library3) | Register, gate and fetch code done 2026-10-29; network proof and licence detection next | [Spec 02](docs/specs/02-register-and-gate.md), [spec 03](docs/specs/03-pinned-fetch.md) (amended 2026-10-29: pin by exact commit SHA + two-source re-fetch test). `register.py`, `gate.py`, `errors.py`, 71 new tests (103 total); 14 hand-made breaks all caught; all 36 real library3 records load and gate verdicts are sane. `fetch.py` + `webtext.py` ported with pin-by-SHA (53 offline tests; 17 of 18 hand-made breaks caught, the survivor is the symlink test, which is skipped on this PC for lack of symlink rights). Network proof (`tests/test_fetch_network.py`, `-m network`) RUN 2026-10-29 on pytest-docs (files mode) and mcp-spec: fresh fetch at the recorded SHA gave the same content hash and licence hash as the register, and the same content hash as the stored snapshot folder. Library3 snapshots are accepted as the main input. Backup: F:\backup\aethelgard-snapshots-2026-10-29.zip (68 MB). Not yet done: licence detection (ADR 0006). ADR 0005/0006 and specs 02/03 still marked Proposed/Draft until the owner confirms acceptance in the file |
+| 2 | Source register, licence gate, pinned fetch (carried from library3) | Register, gate and fetch code done 2026-10-29; network proof and licence detection next | [Spec 02](docs/specs/02-register-and-gate.md), [spec 03](docs/specs/03-pinned-fetch.md) (amended 2026-10-29: pin by exact commit SHA + two-source re-fetch test). `register.py`, `gate.py`, `errors.py`, 71 new tests (103 total); 14 hand-made breaks all caught; all 36 real library3 records load and gate verdicts are sane. `fetch.py` + `webtext.py` ported with pin-by-SHA (53 offline tests; 17 of 18 hand-made breaks caught, the survivor is the symlink test, which is skipped on this PC for lack of symlink rights). Network proof (`tests/test_fetch_network.py`, `-m network`) RUN 2026-10-29 on pytest-docs (files mode) and mcp-spec: fresh fetch at the recorded SHA gave the same content hash and licence hash as the register, and the same content hash as the stored snapshot folder. Library3 snapshots are accepted as the main input. Backup: F:\backup\aethelgard-snapshots-2026-10-29.zip (68 MB). Not yet done: licence detection (ADR 0006). |
 | 3 | Loaders + inspection script | Planned | Order: inspection script, GitHub (merge of both), Markdown/MDX/front matter, rst, HTML, notebooks, txt. See system design |
 | 4 | Chunking comparison on cleaned text | Planned | rules vs parent-child vs a LlamaIndex variant branch |
 | 5 | Embedding + reranker choice (local) | Planned | Same questions, new embedder means new scores |
@@ -26,9 +26,9 @@ A citation-grounded RAG library for the Aethelgard content factory: approved sou
 - 0002 fresh orphan branch and carry-over list: Accepted by the owner 2026-10-28.
 - 0003 contracts: canonical text, `passage_id` and `content_id`, versions stored: Accepted 2026-10-28.
 - 0004 loaders and inspection script: Accepted 2026-10-28.
-- 0005 port register, gate and fetch with six changes: Proposed.
-- 0006 licence detection as a cross-check: Proposed.
-- Specs: 01 contracts (written after the code), 02 register and gate, 03 pinned fetch: Draft.
+- 0005 port register, gate and fetch with six changes: Accepted 2026-10-29.
+- 0006 licence detection as a cross-check: Accepted 2026-10-29.
+- Specs: 01 contracts (written after the code): Draft; 02 register and gate, 03 pinned fetch: Accepted 2026-10-29.
 
 ## Open debts
 
@@ -37,7 +37,7 @@ A citation-grounded RAG library for the Aethelgard content factory: approved sou
 - Not yet read in library3: `fetch.py`, `gate.py`, `register.py`, `search.py`, `lookup.py`, `evaluate.py`. Read them when unit 2 starts.
 - 11,475 pieces from 10 new sources are indexed but not embedded in the old index; that old embed is held by the owner and may never be needed.
 - Python version for this branch is undecided (library3 venv is 3.12).
-- Snapshots (about 250 MB) and old index files are local only and not backed up.
+- Snapshots are backed up (F:\backup, 2026-10-29); old index files (experiments, 780 MB) are local only and not backed up.
 
 ## Session handoff
 

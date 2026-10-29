@@ -1,6 +1,6 @@
 # ADR 0006: Detect licences from the licence file and cross-check the declared one
 
-## Status: Proposed
+## Status: Accepted (owner, 2026-10-29)
 
 ## Context
 In library3 a person types the licence id and URL; nothing checks it against the fetched licence file. production-rag detects 12 common licences from distinctive phrases and records the basis (`detected`, `declared`, `unknown`). The contract (ADR 0003) carries `licence_basis`.

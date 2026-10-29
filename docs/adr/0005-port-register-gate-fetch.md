@@ -1,6 +1,6 @@
 # ADR 0005: Port the source register, licence gate and pinned fetch from library3, with six changes
 
-## Status: Proposed
+## Status: Accepted (owner, 2026-10-29)
 
 ## Context
 The register, gate and fetch in library3 work: nothing is indexed until a person approves, approvals cannot exceed the licence ceiling without a written reason, and copies are pinned by hash. They also depend on the old app (`aethelgard.catalog`, the arXiv converter), share the name `Source` with the new contract, check the git host in the caller, have no licence detection, hash only whole snapshots, and cannot express mixed licences inside one repository. Reviewed on 2026-10-28 (files read: `register.py`, `gate.py`, `fetch.py`).
