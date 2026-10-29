@@ -18,3 +18,16 @@ addopts = "-m 'not network'"
 
 [dependency-groups]
 dev = ["pytest>=9.1.1"]
+# Local embedders (spec 13): `uv sync --group embed`. Not installed by default, so the normal tests stay light.
+# transformers stays below 5: the remote code of jina-embeddings-v2 is written for 4.x.
+embed = ["torch>=2.7", "transformers>=4.50,<5", "numpy>=2.0"]
+# The LlamaIndex splitter, used only to find boundaries (ADR 0007): `uv sync --group variants`.
+variants = ["llama-index-core>=0.14"]
+
+[tool.uv.sources]
+torch = { index = "pytorch-cu128" }  # CUDA 12.8 build, needed for the RTX 5070 Ti (Blackwell).
+
+[[tool.uv.index]]
+name = "pytorch-cu128"
+url = "https://download.pytorch.org/whl/cu128"
+explicit = true
