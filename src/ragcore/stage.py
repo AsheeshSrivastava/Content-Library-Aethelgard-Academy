@@ -14,7 +14,8 @@ from typing import Callable
 
 import numpy as np
 
-from ragcore.chunking import ChunkConfig, chunk_fixed, chunk_merge_small, chunk_source
+from ragcore.chunking import (CHILD_CHARS, ChunkConfig, chunk_fixed, chunk_merge_small, chunk_parent_child,
+                              chunk_source)
 from ragcore.compare import markdown_table, score_questions, split_sets
 from ragcore.contracts import Passage, Source
 from ragcore.embed.base import FakeEmbedder, estimate_seconds, load_model_specs, probe
@@ -26,7 +27,7 @@ from ragcore.register import load_record
 from ragcore.retrieve import make_retriever
 from ragcore.runs import RunError, compute_run_id, load_run, write_run
 
-CHUNKER_NAMES = ("rules", "fixed", "merge-small")
+CHUNKER_NAMES = ("rules", "fixed", "merge-small", "parent-child")
 MERGE_MIN_CHARS = 300
 DEFAULT_RUNS = Path.home() / ".ragcore" / "runs"
 DEFAULT_MODELS = Path(__file__).resolve().parent.parent.parent / "configs" / "models.yaml"
@@ -42,19 +43,33 @@ def chunker_label(name: str, config: ChunkConfig) -> str:
         return f"fixed-1/{config.max_chars}/{config.hard_limit}"
     if name == "merge-small":
         return f"merge-small-1/{config.max_chars}/{config.hard_limit}/{MERGE_MIN_CHARS}"
+    if name == "parent-child":
+        return f"parent-child-1/{config.max_chars}/{config.hard_limit}/{CHILD_CHARS}"
     raise ValueError(f"unknown chunker {name!r}; choose one of {', '.join(CHUNKER_NAMES)}")
 
 
-def chunk_corpus(sources: list[Source], name: str, config: ChunkConfig) -> tuple[list[Passage], int]:
+def chunk_corpus_full(sources: list[Source], name: str, config: ChunkConfig) -> tuple[list[Passage], int, dict]:
+    """(passages to embed, dropped, parent map). The map is empty except for parent-child (child id -> parent id)."""
     chunkers = {"rules": lambda s: chunk_source(s, config), "fixed": lambda s: chunk_fixed(s, config),
                 "merge-small": lambda s: chunk_merge_small(s, config, MERGE_MIN_CHARS)}
-    if name not in chunkers:
+    if name not in chunkers and name != "parent-child":
         chunker_label(name, config)  # raises the "unknown chunker" message
-    passages, dropped = [], 0
+    passages, dropped, parents = [], 0, {}
     for source in sorted(sources, key=lambda s: s.source_id):
-        result = chunkers[name](source)
-        passages += result.passages
-        dropped += result.dropped_empty
+        if name == "parent-child":
+            pc = chunk_parent_child(source, config, CHILD_CHARS)
+            passages += pc.children
+            dropped += pc.dropped_empty
+            parents.update(pc.parent_of)
+        else:
+            result = chunkers[name](source)
+            passages += result.passages
+            dropped += result.dropped_empty
+    return passages, dropped, parents
+
+
+def chunk_corpus(sources: list[Source], name: str, config: ChunkConfig) -> tuple[list[Passage], int]:
+    passages, dropped, _ = chunk_corpus_full(sources, name, config)
     return passages, dropped
 
 
@@ -122,7 +137,7 @@ def build_run(root: Path, name: str, sources: list[Source], embedder, config: Ch
         return BuiltRun(run_id, existing.manifest["count"], existing.manifest["extra"].get("dropped_empty", 0), True)
     except RunError:
         pass
-    passages, dropped = chunk_corpus(sources, name, config)
+    passages, dropped, parents = chunk_corpus_full(sources, name, config)
     if not passages:
         raise ValueError("nothing to embed: the chunker produced no passages")
     start = time.perf_counter()
@@ -136,7 +151,7 @@ def build_run(root: Path, name: str, sources: list[Source], embedder, config: Ch
     extra = {"dropped_empty": dropped, "embed_seconds": round(seconds, 2), "passages": len(passages)}
     if hasattr(embedder, "truncated"):
         extra["truncated"] = embedder.truncated
-    write_run(root, inputs, passages, np.vstack(parts).astype(np.float32), extra=extra)
+    write_run(root, inputs, passages, np.vstack(parts).astype(np.float32), parents=parents, extra=extra)
     return BuiltRun(run_id, len(passages), dropped, False, seconds, passages)
 
 

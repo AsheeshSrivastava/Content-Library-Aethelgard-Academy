@@ -140,5 +140,10 @@ llamaindex-docs, the case that started this: rules 7,638 passages (median 153 ch
 - Stage 0 smoke on real data (`python-peps`, 3 sources, 72 / 42 / 69 passages): estimate, run and report work for `fake`, `bge-m3` and `jina-v2-base-en`. Both real models find the right file first for all 25 questions that python-peps can answer (the other 526 questions need other sources, so these tables only prove the pipeline, not a ranking). Speed sample on 72 passages: bge-m3 about 23,000 tokens per second, jina about 64,000; the sample includes model warm-up, so full runs should be faster than estimated.
 - Seen: transformers prints "torch_dtype is deprecated, use dtype"; harmless with the pinned 4.x, to be fixed if the pin moves.
 
+## 9d. Results, unit 13e (2026-10-29)
+- Built: `chunk_parent_child` in `chunking.py` (version `parent-child-1/<max>/<hard>/<child>`, child size 500). Children are the paragraphs and code blocks of each section, cut at 500 characters by the spec 09 cut rules; a block is first clipped at the parent boundaries, so a child never straddles two parents. Parents are exactly the `rules` passages (`parent_of` maps child id to parent id). Blocks the rules chunker dropped (only headings or comments) give no children.
+- Wired into the stage runner as chunker `parent-child`: only children are embedded; the run folder stores each child's parent id; retrieval counts the children of one parent once (best child score), then collapses to one hit per file.
+- Tests: 16 new in `test_parent_child.py` plus 2 in `test_stage.py`. Mutation check: the remaining survivors are equivalent (the heading check on children can never fire because blocks are cut per section; taking blocks over the whole text gives the same children because of the parent clipping). Mutants that loop forever were stopped by hand and count as caught.
+
 ## 10. Not in this spec
 Hybrid/lexical search, the reranker, the "not found" threshold, a quote-anchored question set, the content page, the paid embedders from library3.

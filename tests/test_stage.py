@@ -34,12 +34,12 @@ class Counting(FakeEmbedder):
 
 
 def test_chunker_names():
-    assert CHUNKER_NAMES == ("rules", "fixed", "merge-small")
+    assert CHUNKER_NAMES == ("rules", "fixed", "merge-small", "parent-child")
 
 
 def test_labels_name_the_chunker_and_change_with_settings():
     labels = {n: chunker_label(n, CONFIG) for n in CHUNKER_NAMES}
-    assert len(set(labels.values())) == 3
+    assert len(set(labels.values())) == 4
     assert chunker_label("rules", CONFIG) != chunker_label("rules", ChunkConfig(max_chars=500, hard_limit=2000))
     assert "400" in labels["fixed"] and "300" in labels["merge-small"]
     for name in CHUNKER_NAMES:
@@ -104,6 +104,16 @@ def test_build_run_vectors_match_passages_in_order(tmp_path):
     assert run.manifest["inputs"]["chunker"] == chunker_label("rules", CONFIG)
     assert run.manifest["inputs"]["embedder"] == emb.fingerprint
     assert run.manifest["extra"]["dropped_empty"] == built.dropped_empty
+
+
+def test_parent_child_run_stores_the_parent_of_every_child(tmp_path):
+    built = build_run(tmp_path, "parent-child", sources(), FakeEmbedder(), CONFIG, questions_fp="q")
+    run = load_run(tmp_path, built.run_id)
+    assert all(r["parent"] for r in run.rows) and len(run.rows) == built.count
+    rules_ids = {p.passage_id for p in chunk_corpus(sources(), "rules", CONFIG)[0]}
+    assert {r["parent"] for r in run.rows} <= rules_ids
+    plain = build_run(tmp_path, "rules", sources(), FakeEmbedder(), CONFIG, questions_fp="q")
+    assert all(r["parent"] is None for r in load_run(tmp_path, plain.run_id).rows)
 
 
 def test_second_build_is_reused_without_embedding(tmp_path):
@@ -264,3 +274,16 @@ def test_main_bad_input(tmp_path, capsys):
     assert main(["estimate", *base, "--embedders", "fake", "--chunkers", "rules"]) == 0
     assert main(["estimate", "--register", str(library / "sources"), "--snapshots", str(snaps),
                  "--questions", str(tmp_path / "nope")]) == 2
+
+
+def test_parent_child_label_matches_the_children_version():
+    from ragcore.chunking import chunk_parent_child
+    version = chunk_parent_child(sources()[0], CONFIG).children[0].chunker_version
+    assert chunker_label("parent-child", CONFIG) == version
+
+
+def test_parent_child_dropped_count_reaches_the_manifest(tmp_path):
+    srcs = [source("c.md", "# A\n\n" + PARA + "\n\n## B\n\n<!-- hidden -->\n")]
+    built = build_run(tmp_path, "parent-child", srcs, FakeEmbedder(), CONFIG, questions_fp="q")
+    assert built.dropped_empty >= 1
+    assert load_run(tmp_path, built.run_id).manifest["extra"]["dropped_empty"] == built.dropped_empty

@@ -291,3 +291,55 @@ def check_chunking(source: Source, passages: list[Passage], config: ChunkConfig,
         if b > a and not _only_headings(source.text[a:b]):
             problems.append(f"text lost between {a} and {b}: {source.text[a:b].strip()[:40]!r}")
     return problems
+
+
+CHILD_CHARS = 500
+
+
+@dataclass
+class ParentChildResult:
+    children: list[Passage]
+    parents: list[Passage]  # The `heading-pack` passages; only the children are embedded.
+    parent_of: dict[str, str]  # child passage_id -> parent passage_id
+    dropped_empty: int = 0
+
+
+def parent_child_spans(text: str, parents: list[Span], child_chars: int) -> tuple[list[tuple[Span, int]], int]:
+    """(child span, index of its parent) for every paragraph or code block, cut at `child_chars`. A block is clipped
+    at the parent boundaries first, so a child never straddles two parents."""
+    lines = _scan(text)
+    blocks = [b for _, first, end in _sections(lines) for b in _blocks(lines, first, end)]
+    block_ends = [b[1] for b in blocks]
+    line_ends = [ln.body_end for ln in lines if not ln.blank]
+    starts = [p.start for p in parents]
+    out: list[tuple[Span, int]] = []
+    dropped = 0
+    for b_start, b_end in blocks:
+        pos = b_start
+        while pos < b_end:
+            i = bisect.bisect_right(starts, pos) - 1
+            if i < 0 or pos >= parents[i].end:  # Outside every parent: the chunker dropped it (headings or comments only).
+                break
+            piece_end = min(b_end, parents[i].end)
+            for s, e in _hard_cut(text, pos, piece_end, child_chars, block_ends, line_ends):
+                s, e = _trim(text, s, e)
+                if e <= s or _only_headings(text[s:e]):
+                    dropped += 1
+                    continue
+                out.append((Span(s, e, parents[i].headings), i))
+            pos = piece_end
+            while pos < b_end and text[pos].isspace():
+                pos += 1
+    return out, dropped
+
+
+def chunk_parent_child(source: Source, config: ChunkConfig | None = None, child_chars: int = CHILD_CHARS) -> ParentChildResult:
+    config = config or ChunkConfig()
+    if not 0 < child_chars <= config.hard_limit:
+        raise ValueError(f"child_chars must be between 1 and the hard limit ({config.hard_limit}), got {child_chars}")
+    parents = chunk_source(source, config).passages
+    pairs, dropped = parent_child_spans(source.text, [Span(p.start, p.end, p.headings) for p in parents], child_chars)
+    version = f"parent-child-1/{config.max_chars}/{config.hard_limit}/{child_chars}"
+    result = _finish(source, config, [span for span, _ in pairs], dropped, version, True)
+    parent_of = {child.passage_id: parents[i].passage_id for child, (_, i) in zip(result.passages, pairs)}
+    return ParentChildResult(result.passages, parents, parent_of, dropped)

@@ -86,3 +86,7 @@ Next: 13d, the estimate command and the stage 0 smoke (owner runs it).
 ## Self-review, unit 13d: estimate, run and report commands (2026-10-29)
 Restarting review of the work: spec 13 section 6, `stage.py`, `scripts/run_stage.py`. 23 new tests; full suite passes. Mutation check 26 mutants over 2 rounds: weak spots found and closed were the label missing `hard_limit`, source order, a renamed question file, the `--only` filter, empty-input refusals, and bad-input tests that were passing for the wrong reason (empty question folder). Real data stage 0 smoke on `python-peps` with `fake`, `bge-m3` and `jina-v2-base-en`: all three commands work; run folders are in `~/.ragcore/runs-smoke` (not in the repo). Not independent review.
 Next: 13e parent-child, then 13f semantic, 13g LlamaIndex, then the owner runs the stage 1 estimate.
+
+## Self-review, unit 13e: parent-child chunker (2026-10-29)
+Restarting review of the work: spec 13 section 4.2 and 4.5, `chunk_parent_child` and `parent_child_spans` in `chunking.py`, the `parent-child` entry in `stage.py`. Children pass `check_chunking` (exact slices, order, no overlap, hard limit, no lost text). Mutation check about 30 mutants over two rounds; two weak spots found and closed (dropped-text blocks, label missing the child size); two equivalent survivors noted in spec 13 section 9d. Not yet run on the full corpus (that is the stage 1 estimate). Not independent review.
+Next: 13f semantic chunker (steered by each embedder).
