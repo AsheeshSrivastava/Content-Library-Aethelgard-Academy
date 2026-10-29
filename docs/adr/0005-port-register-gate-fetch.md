@@ -19,4 +19,4 @@ Existing register records and the local snapshots stay where they are; rag-core 
 The rules were already tested against real sources and match the owner's "one poor source must not damage the library" requirement. Rewriting would discard that for no gain; importing would keep rag-core tied to the old app.
 
 ## Trade-offs accepted
-Two copies of the logic exist for a while. A record's pinned hash stays valid only while the snapshot bytes are unchanged. Pinning by commit relies on the recorded SHA, not on cloning an arbitrary SHA.
+Two copies of the logic exist for a while. A record's pinned hash stays valid only while the snapshot bytes are unchanged. Pinning is by exact commit SHA (amended 2026-10-29, see spec 03): fetch by SHA is only possible where the host serves it, and failure is an error, not a fallback to a branch. The library3 snapshots are reused after a two-source re-fetch proves equal hashes.

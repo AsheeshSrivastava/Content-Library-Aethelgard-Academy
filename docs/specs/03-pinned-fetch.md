@@ -14,6 +14,15 @@ Get an exact, hashed copy of an approved source and of its licence, without runn
 6. The copy is built in a temp folder and moved into `snapshots/<id>/<sha>/` only when complete; an existing folder for the same SHA is replaced; the temp folder is always removed (read-only git files handled on Windows).
 7. Timeout 900 s per git call; git prompts disabled; `core.autocrlf=false`.
 
+## Pin by exact commit SHA (amendment 2026-10-29)
+A record may carry `commit`, a full 40-hex SHA (short forms and branch names are refused here; `ref` stays for first-time fetches). When `commit` is set:
+1. Init an empty repo, add the https remote, `git fetch --depth 1 --filter=blob:none origin <sha>`, then check out that SHA. No branch is cloned.
+2. After checkout, `git rev-parse HEAD` must equal `commit`. If not, or if the host refuses to serve that SHA, raise `FetchError` naming the SHA and leave nothing behind.
+3. Everything else (sparse paths, licence file, `.git` removal, symlinks, hashes, temp-then-move) is the same as above, so the same SHA and file selection must give the same `content_hash`.
+4. Snapshots are stored under `snapshots/<id>/<sha>/`, so an existing local snapshot for a SHA can be reused without a fetch. Reuse still runs `verify`.
+
+Why: the library3 snapshots were fetched by branch or tag and recorded a SHA afterward. Fetching by SHA lets us prove, later, that the stored bytes are exactly what that commit contains.
+
 ## Web fetch `fetch_web(record, snapshots, hosts)` (single paper page)
 Both URLs must be https on allowed hosts, redirects included. The abstract page must declare the licence in the record. The page text is converted to Markdown; under 500 words is refused. Page size capped at 20 MB, timeout 60 s. The version is `web-` plus 12 hex characters of the text hash, so a changed page is a new pin. Files: `paper.md` and `LICENSE`.
 
@@ -34,3 +43,5 @@ Any failure raises `FetchError` and leaves nothing behind. Messages name the URL
 - `apply_fetch` quarantines on a changed licence hash and keeps status on an unchanged one.
 - `verify` reports missing snapshot and changed bytes; returns empty otherwise.
 - Web fetch with a stubbed downloader: licence not declared, too little text, oversize, redirect off-host.
+- Pin by SHA, offline: in the local test repository with two commits, `commit` = the first SHA gives the first commit's files; a short SHA, a branch name and an unknown SHA are refused; a resulting HEAD that differs from `commit` is refused; nothing is left behind on failure.
+- **Network acceptance test (marked `network`, run by the owner, not in the default suite):** pick two small approved sources whose snapshots already exist in the library3 snapshot folder. Re-fetch each at its recorded SHA with the new fetcher, then compare `content_hash` and `licence_hash` with the stored snapshot's. Both must match exactly; any difference is reported with the first differing path and the source is not migrated until explained. Failure of this test blocks reuse of the old snapshots as the main input.
