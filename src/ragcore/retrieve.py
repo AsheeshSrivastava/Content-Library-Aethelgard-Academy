@@ -4,6 +4,9 @@ from __future__ import annotations
 import numpy as np
 
 from ragcore.evalset import Hit, Retriever
+from ragcore.fusion import rrf
+from ragcore.lexical import Bm25Index
+from ragcore.rerank import rerank_scored
 from ragcore.runs import Run
 
 N_RAW = 200
@@ -41,4 +44,72 @@ def make_retriever(run: Run, embedder, n_raw: int = N_RAW) -> Retriever:
                 seen.add(row["source_id"])
                 files.append(Hit(row["source_id"], score))
         return files[:n]
+    return retrieve
+
+
+# --- stage 3 pipelines (spec 15 section 3.4) ---------------------------------------------------
+
+PIPELINES = ("V", "L", "H", "VR", "HR")
+RERANK_DEPTH = 30
+
+
+def keyword_index(run: Run, texts: list[str]) -> Bm25Index:
+    """BM25 over each passage's heading path and text (spec 15 section 3.1)."""
+    _check_texts(run, texts)
+    return Bm25Index([" ".join(row["headings"]) + "\n" + text for row, text in zip(run.rows, texts)])
+
+
+def _check_texts(run: Run, texts: list[str]) -> None:
+    if len(texts) != len(run.rows):
+        raise ValueError(f"texts has {len(texts)} entries but the run has {len(run.rows)} passages")
+
+
+def _vector_positions(run: Run, query_vector: np.ndarray, n_raw: int) -> list[tuple[int, float]]:
+    scores = run.vectors @ np.asarray(query_vector, dtype=np.float32)
+    top = np.lexsort((np.arange(len(scores)), -scores))[:n_raw]
+    return [(int(i), float(scores[i])) for i in top]
+
+
+def _files(run: Run, ranked: list[tuple[int, float]], n: int) -> list[Hit]:
+    """One hit per source file, in rank order, scored by its best passage."""
+    seen, hits = set(), []
+    for position, score in ranked:
+        source_id = run.rows[position]["source_id"]
+        if source_id not in seen:
+            seen.add(source_id)
+            hits.append(Hit(source_id, score))
+    return hits[:n]
+
+
+def make_pipeline(variant: str, run: Run, texts: list[str], *, embedder=None, reranker=None,
+                  index: Bm25Index | None = None, n_raw: int = N_RAW, depth: int = RERANK_DEPTH) -> Retriever:
+    """V vectors only, L keywords only, H both fused, VR / HR the first `depth` passages of V / H reordered by the
+    reranker. `texts` is the text of each passage of the run, in row order."""
+    if variant not in PIPELINES:
+        raise ValueError(f"unknown variant {variant!r}; choose from {', '.join(PIPELINES)}")
+    _check_texts(run, texts)
+    if any(row["parent"] for row in run.rows):
+        raise ValueError("these pipelines work on runs without parent passages; this run has parents")
+    if depth < 1:
+        raise ValueError(f"depth must be at least 1, got {depth}")
+    if variant != "L" and embedder is None:
+        raise ValueError(f"variant {variant} needs an embedder")
+    if variant in ("VR", "HR") and reranker is None:
+        raise ValueError(f"variant {variant} needs a reranker")
+    if variant == "V":
+        return make_retriever(run, embedder, n_raw)
+    if variant != "VR" and index is None:
+        index = keyword_index(run, texts)
+
+    def retrieve(query: str, n: int) -> list[Hit]:
+        ranked: list[tuple[int, float]] = []
+        if variant != "L":
+            ranked = _vector_positions(run, embedder.embed([query], kind="query")[0], n_raw)
+        if variant != "VR":
+            keywords = index.search(query, n_raw)
+            ranked = keywords if variant == "L" else rrf([[p for p, _ in ranked], [p for p, _ in keywords]])
+        if variant in ("VR", "HR"):
+            first = [p for p, _ in ranked[:depth]]
+            ranked = [(first[i], score) for i, score in rerank_scored(reranker, query, [texts[p] for p in first])]
+        return _files(run, ranked, n)
     return retrieve

@@ -66,14 +66,20 @@ class Reranker(Protocol):
     def score(self, query: str, passages: list[str]) -> list[float]: ...
 
 
-def rerank(reranker: Reranker, query: str, passages: list[str]) -> list[int]:
-    """Indices of `passages`, best first. Equal scores keep the order they came in."""
+def rerank_scored(reranker: Reranker, query: str, passages: list[str]) -> list[tuple[int, float]]:
+    """(index, score) of `passages`, best first. Equal scores keep the order they came in."""
     if not passages:
         return []
     scores = reranker.score(query, passages)
     if len(scores) != len(passages):
         raise ValueError(f"reranker gave {len(scores)} scores for {len(passages)} passages")
-    return sorted(range(len(passages)), key=lambda i: -scores[i])  # Python's sort is stable, so ties keep input order.
+    order = sorted(range(len(passages)), key=lambda i: -scores[i])  # The sort is stable, so ties keep input order.
+    return [(i, scores[i]) for i in order]
+
+
+def rerank(reranker: Reranker, query: str, passages: list[str]) -> list[int]:
+    """Indices of `passages`, best first."""
+    return [i for i, _ in rerank_scored(reranker, query, passages)]
 
 
 _WORD = re.compile(r"\w+")
