@@ -8,14 +8,15 @@ Turn the chosen setup (ADR 0010: jina-v2-base-en, `llamaindex` chunker, hybrid s
 ## 2. The store (`index_store.py`)
 File `index.db` (SQLite, standard library). Tables:
 - `meta(key, value)`: `schema_version`, `embedder_id`, `embedder_revision`, `chunker`, `chunker_version`, `chunk_config`, `reranker_id`, `reranker_revision`, `created_at`.
-- `sources(source_id PK, version, content_sha256, url, licence, loaded_at)`.
-- `passages(id INTEGER PK, passage_id UNIQUE, source_id, start, end, heading_path, text, text_hash)`; `text` equals the source slice `[start:end]`.
-- `vectors(passage_id PK, embedder_id, dim, vector BLOB)` float32, unit length.
+- `sources(source_id PK, version, content_sha256, chunker_version, url, licence, loaded_at)`.
+- `passages(id INTEGER PK, passage_id UNIQUE, source_id, start_pos, end_pos, heading_path, text, text_hash)`; `text` equals the source slice `[start_pos:end_pos]`; `heading_path` is a JSON list; `text_hash` is the SHA-256 of `text` (checked on every write).
+- `vectors(passage_id PK, embedder_id, dim, vector BLOB)` float32, unit length (within 0.001), one dimension for the whole file (kept in `meta` as `dim` after the first vector).
+- Rows come back in the order they were added (`id`), which is the row position used for ties.
 Rules:
-1. `open_index(path, setup)` creates the file with the setup on first use. On later use it compares the setup with `meta` and raises `IndexError` ("rebuild the index") on any difference.
+1. `open_index(path, setup, read_only=False, create=True)` creates the file with the setup on first use. On later use it compares the setup with `meta` and raises `IndexStoreError` ("rebuild the index") on any difference. (The name avoids Python's built-in `IndexError`.)
 2. A `schema_version` newer than the code is refused. An older one is copied to `index.db.bak-<version>` before it is upgraded.
 3. All writes for one source happen in one transaction (`replace_source`), foreign keys on. A crash between sources leaves a valid index.
-4. A lock file stops two syncs at once with a clear message.
+4. An operating-system lock on `index.db.lock` stops two writers at once with a clear message; the system releases it if the process dies, so a power cut leaves no stale lock. Read-only opens never take it.
 5. The file uses SQLite's write-ahead mode (`journal_mode=WAL`), so searches are never blocked while a sync writes.
 6. The retriever opens the file **read-only** (`mode=ro`); only sync opens it for writing. A test proves that a write through the retriever's connection fails.
 

@@ -5,6 +5,7 @@ description = "Aethelgard RAG library: sources, loaders, passages, search"
 requires-python = ">=3.12"
 dependencies = [
     "pyyaml>=6.0.3",
+    "numpy>=2.0",
 ]
 
 [tool.uv]
@@ -25,7 +26,9 @@ dev = ["pytest>=9.1.1"]
 # transformers stays below 5: the remote code of jina-embeddings-v2 is written for 4.x.
 embed = ["torch>=2.7", "transformers>=4.50,<5", "numpy>=2.0"]
 # The LlamaIndex splitter, used only to find boundaries (ADR 0007): `uv sync --group variants`.
-variants = ["llama-index-core>=0.14"]
+# Pinned exactly (ADR 0010, spec 17): another version can move the cuts and change every passage ID.
+# The stage 1 to 4 results were made with 0.14.25. Change the pin only by re-running the comparison checks.
+variants = ["llama-index-core==0.14.25"]
 
 [tool.uv.sources]
 torch = { index = "pytorch-cu128" }  # CUDA 12.8 build, needed for the RTX 5070 Ti (Blackwell).
