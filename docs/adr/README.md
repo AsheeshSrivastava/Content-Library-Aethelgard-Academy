@@ -11,6 +11,7 @@
 | [0007](0007-local-embedder-and-chunker-comparison.md) | Local embedder and chunker comparison design (flat vectors, run folders, pre-registered rule) | Accepted |
 | [0008](0008-corpus-exclusions-file.md) | Corpus exclusions file (reviewed noise stays out of the searchable corpus) | Accepted |
 | [0009](0009-hybrid-search-and-local-reranker.md) | Hybrid search with our own keyword index and a local cross-encoder reranker | Accepted |
+| [0010](0010-final-chunker-and-embedder.md) | Final chunker and embedder: jina-v2-base-en with `llamaindex` | Proposed |
 
 ## When to write an ADR
 Write one when the decision is hard to reverse, had a real alternative, and someone could ask "why?". Write it before the code when you can. Copy [template.md](template.md) to the next number, keep it under a page, add a row above. Status starts as Proposed; only the owner sets Accepted. Never delete an ADR: supersede it.

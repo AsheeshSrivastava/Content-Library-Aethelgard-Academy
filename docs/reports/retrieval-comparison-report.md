@@ -116,7 +116,7 @@ Picked by right-first on the primary set. Primary set, 548 questions:
 
 ## 7. Limits
 
-- Questions check the file, not the passage, so chunk quality is barely measured. A quote-anchored passage-level set (about 150 questions, reviewed by Codex or Gemini) is a later stage.
+- Questions check the file, not the passage, so chunk quality is barely measured. A quote-anchored passage-level set (137 questions, reviewed by Codex and Gemini) was added in stage 4 (section 9.2).
 - One setting each: no semantic percentile sweep, no chunk-size sweep, one late window and overlap. These were fixed before the runs and not tuned.
 - Differences of 5 or 6 questions can change with a different question set.
 - Eight mcp-spec questions that expected a `2026-07-28/schema` file lost that expectation when the exclusions were applied; they still have other valid files.
@@ -132,9 +132,10 @@ Picked by right-first on the primary set. Primary set, 548 questions:
 | 2026-10-30 | Late chunking not adopted (rule in spec 13 section 5) | pre-registered rule |
 | 2026-10-30 | Stage 3 cells: jina + llamaindex and bge-m3 + merge-small | owner |
 | 2026-10-30 | Stage 3 result: HR (hybrid + reranker) beats V on both cells (section 9.1) | pre-registered rule |
-| open | Final chunker and embedder | owner |
+| 2026-10-30 | Passage-level questions (spec 16): 137 frozen after Gemini and Codex review | owner accepted spec; reviewers |
+| 2026-10-30 | Final choice: jina-v2-base-en + llamaindex, hybrid + reranker (ADR 0010, Proposed) | owner |
 
-## 9. To be filled in after stage 3 and the passage-level questions
+## 9. Stage 3, stage 4 and the final choice
 
 ### 9.1 Stage 3: hybrid search (lexical plus vectors) and bge-reranker-v2-m3
 Spec 15, ADR 0009 (both accepted). Run on 2026-10-30 on the two cells chosen by the owner, all 598 questions (548 primary, 50 secondary), saved in `~/.ragcore/stage3/`. The baseline for each cell is its own V (vector only), which matches the stage 1 numbers exactly (a check that the same runs and corpus were used). Two power cuts interrupted the run; results are saved one pipeline at a time, so only the interrupted pipeline was scored again.
@@ -172,13 +173,45 @@ Spec 15, ADR 0009 (both accepted). Run on 2026-10-30 on the two cells chosen by 
 - The questions still check files, not passages. The ranking of the two cells under HR is a near tie and is not settled by this set.
 
 ### 9.2 Passage-level (quote-anchored) questions
-_Not written yet._
+Spec 16 (accepted). 137 questions, each tied to an exact quote (40 to 400 characters, appearing once) in one of 23 register sources. Quote places were drawn at random from the source text (seed 20261030), not from chunker passages. 146 were written; Codex (sample of 50) and Gemini Pro (all) reviewed them, 9 were dropped and none reworded (6 from Gemini, 3 from Codex, 1 from my own check; question 51 failed both reviewers). The set was frozen with SHA-256 DF6A47B5E99998239BDE80500060F17F53F53EEC5CC5B7DE6C87194794D20B59 (commit c151cad). A passage holds a quote only if it covers it fully. Run on 2026-10-30; results are in `~/.ragcore/stage4/`. Only V and HR were run.
+
+| Cell and pipeline | Right first | Top 3 | MRR | Within 10 | vs its V (first / top 3) |
+|---|---|---|---|---|---|
+| jina + llamaindex V | 64 | 85 | 0.565 | 106 | baseline |
+| jina + llamaindex HR | 100 | 121 | 0.818 | 132 | +36 / +36, beats |
+| bge-m3 + merge-small V | 65 | 99 | 0.607 | 116 | baseline |
+| bge-m3 + merge-small HR | 96 | 127 | 0.812 | 134 | +31 / +28, beats |
+
+**By kind (V first/top 3 to HR first/top 3):**
+
+| Kind (questions) | jina | bge-m3 |
+|---|---|---|
+| code (47) | 20/25 to 29/38 | 16/31 to 28/41 |
+| context (22) | 12/15 to 18/20 | 17/19 to 19/21 |
+| fact (35) | 19/25 to 26/34 | 18/26 to 24/35 |
+| how-to (13) | 2/6 to 11/12 | 3/7 to 10/13 |
+| number (20) | 11/14 to 16/17 | 11/16 to 15/17 |
+
+**Between the cells:** with HR, bge-m3 against jina is -4 first and +6 top 3 (the tool prints "worse", because first is more than 2 behind); with V only, bge-m3 is +1 first and +14 top 3 ("beats"). So the cells are mixed, not clearly ordered.
+
+**Other measurements:** quotes cut by the chunking: jina 1 of 137, bge-m3 0 of 137. Seconds per question: jina V 0.011, HR 0.130; bge-m3 V 0.010, HR 0.171. Reranker pairs cut at the 1,024-token limit: jina 0, bge-m3 83 of 4,110.
+
+**What this says:**
+- The reranker lifts both cells a lot at passage level too: right-first from about 64 to 100 (jina) and 65 to 96 (bge-m3).
+- Chunking does not cut quotes in two (1 of 137), so the chunk boundaries are not the weak point on this set.
+- The kinds that gain most are how-to and code. Context questions were already easy for bge-m3 with V.
+- Under HR the two cells are close: jina is ahead right-first (+4), bge-m3 in the top 3 (+6). 137 questions cannot separate them with confidence.
 
 ### 9.3 Final choice and reasons
-_Open._
+Chosen by the owner on 2026-10-30: **jina-v2-base-en with the `llamaindex` chunker, with hybrid search plus bge-reranker-v2-m3 (HR).** Recorded in ADR 0010 (Proposed until the owner marks it Accepted).
+
+Reasons: the cells are a near tie; jina puts the right passage first more often on the passage-level set, no reranker pair is cut at the length limit, it is a little faster, and the corpus is English only, which removes the main extra of bge-m3. bge-m3 is ahead only in the top 3.
+
+Not done and not part of the decision: a longer reranker pair limit (it could help bge-m3), and front-matter metadata for passages.
 
 ## 10. Change log
 
 - 2026-10-30: first version after stage 1 and stage 2.
 - 2026-10-30: added section 2a (why each comparison, and the size of the matrix).
 - 2026-10-30: stage 3 results added (section 9.1); sections 7 and 8 updated.
+- 2026-10-30: stage 4 (137 passage-level questions) added as 9.2, final choice as 9.3, decisions in section 8; ADR 0010 written.
