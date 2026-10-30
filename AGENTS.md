@@ -24,7 +24,7 @@ This branch is a fresh start for the RAG library. It has no history from other b
 ## Rules of this branch
 
 - Plain simple words with the owner. One step at a time.
-- Local only: commit locally, never push. Never print keys. No paid run without a printed cost estimate first; the owner runs paid steps himself.
+- Commit locally. Push only to the Entire remote, and only when the owner asks. Never print keys. No paid run without a printed cost estimate first; the owner runs paid steps himself.
 - Every passage is an exact slice of normalized loader output (see ADR 0003). Evaluation anchors are `(source_id, file/heading, quote)`, never passage IDs.
 - Nothing is indexed until its source is approved in the register and passes the licence gate.
 - Order for every unit: decision, ADR if hard to reverse, spec (docs/specs), tests, code. See docs/specs/README.md. If code would change a decision, amend the ADR or spec first.
@@ -36,6 +36,23 @@ This branch is a fresh start for the RAG library. It has no history from other b
 - A task is a deliverable with acceptance checks. At completion or agent switch update PROGRESS.md.
 - After substantive work, state **"Restarting review of the work"** and do a fresh pass against the approved scope, changed files, checks and governing documents. Record findings and fixes. Self-review is not independent review.
 - After checks and review, commit only the approved scope and verify the hash. Inspect staged paths first. If a check is missing, report the blocker; do not claim tests, review or a commit that did not happen.
+
+## Mistakes made before (do not repeat)
+
+Each line: what went wrong, then the rule. Add a line when a new mistake is found; keep it to the point.
+
+- **Synthetic tests passed, real files failed (parent-child, semantic).** Text was lost on 5 real files. Rule: before handing over any chunker, run it over every loaded source and require 0 failures (spec 13 section 9f). Check semantic chunkers with a random-unit-vector embedder that cuts a lot, at percentiles 90, 50 and 10, never with a stand-in that rarely cuts.
+- **Indented code comment mistaken for a heading.** `    # note` inside a code fence in an admonition lost text when it stood alone in a passage. Rule: decide "only headings" on the raw slice before `_trim`, never after (fixed in `parent_child_spans`, `heading_pack_spans`, `fixed_spans`).
+- **Loop simplified and behaviour lost.** A gap rule in parent-child became `break` and dropped text. Rule: when simplifying a loop, keep every case; add the case as a test first.
+- **Ties gave different results.** Equal scores came back in a different order. Rule: sort with row position as the tie-break (`np.lexsort`), and test it.
+- **Case the spec did not foresee.** Late chunking crashed on a passage shorter than a window but cut by every window boundary. Rule: test the edges of every limit: exactly the size, one over, straddling two parts, empty.
+- **Equivalent mutants.** Several surviving mutants were harmless guards. Rule: if no input can tell the two versions apart, simplify the code; do not add a test for it. If a survivor can be told apart, the tests had a real gap.
+- **Owner's script missed a setting.** `stage1.ps1` did not pass `--exclusions`, so the owner's estimate would have used the wrong corpus. Rule: after adding an option, update the owner's scripts, then run one full command line end to end and read the printed corpus size.
+- **Changing things under a running comparison.** The corpus, question files and run-id inputs are frozen while runs exist. Rule: never add sources or edit questions mid-comparison; code edits are fine only if existing run ids stay identical, and a test pins that.
+- **Telling the owner to run before decisions were settled.** Rule: send `estimate`/`run` steps only after the open choices (corpus, ADR) are answered.
+- **Windows shell traps on the owner's PC.** PowerShell strips `$` and breaks inline quoting: put code in a helper `.py` or `.ps1` file. Pipe nothing into `git commit`: use `-F file`. Desktop Commander `write_file` on an existing file needs `mode: rewrite`. The agent's own Write tool writes to the container, not the PC. `git add -A` would stage the owner's `.obsidian/` folder: add by path. Never kill all `python.exe` (the owner's own processes): stop only the PID you started. A mutant that loops forever hangs pytest: stop only that process.
+- **A tool result is not a check of the file.** An `edit_block` that reports "found" or a long echo does not prove the edit; read the changed lines or run the test.
+- **Repeated failures.** After two failed attempts, stop, run a small diagnostic, name the likely root cause, and tell the owner which topic to revisit first.
 
 ## Documents
 
