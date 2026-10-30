@@ -1,0 +1,21 @@
+336	number	If a company has fifty internal functions, how many should a tool-calling model be allowed to reach?
+340	how-to	How deeply may objects be nested in a schema before extraction errors rise, and how should ambiguous fields be declared?
+347	fact	Which of the three editor-setting preferences ignores configuration files completely?
+349	code	Which component visits the syntax tree when a new lint rule is added, and what must you change to trigger the violation?
+353	code	What happens to line length set in configuration files when a command-line override is given?
+355	context	Does the experimental-features switch guarantee that the gated features will stay?
+361	code	Is an editable install still allowed when binary-only installs are demanded?
+362	number	From which version can users opt in to pip-style behaviour for packages on several indexes, and through which two means?
+363	how-to	How can you add a package from inside a notebook so that the project files are not changed?
+369	code	How do you require a backport package only for older Python versions?
+371	fact	When does uv first create the virtual environment and lock file for a project?
+372	fact	Which index does uv use by default, and how can others be configured?
+375	context	Why can a cached prefix for hybrid state-space models only resume at block boundaries, and what extra checkpoint helps?
+376	number	What are the default values of the two settings for graph capture of the multimodal encoder?
+378	how-to	Which environment variable helps find the GPU kernel causing a failure?
+382	number	Into which language can the speech models translate, and from how many languages?
+386	fact	What can be given beside the count when limiting multimodal inputs per prompt?
+387	how-to	How can you check that AMD optimized kernels are being used without setting any flag?
+391	context	When does the sampler skip some post-processing steps to save work, and why is that safe?
+394	how-to	When can a custom token-adjusting plugin be loaded without being passed explicitly?
+397	code	What does the option to offload graph memory during sleep depend on, and what is its default?

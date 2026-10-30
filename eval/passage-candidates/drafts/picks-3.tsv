@@ -1,0 +1,20 @@
+210	fact	In the conference-room translation demo, how do listeners get the speaker's words in their own language?
+217	number	Which version of the tracing API should libraries depend on, and when should they update it?
+220	context	How does passing context between requests let metrics be broken down by the chain of calls?
+224	fact	When is the keep-or-drop choice made in head sampling, and what does it not look at?
+225	code	How are the values filled into a prompt template recorded on a span?
+227	code	What properties should each retrieved document object carry when they are available?
+231	code	Can one output message mix parts from several generated choices?
+239	code	Why is the input-messages attribute absent from a span that records a fetched response?
+241	fact	What does the workflow duration metric measure from and to?
+243	code	Why is the response identifier left out of the span name?
+245	code	When should instrumentation set the flag that shows the conversation was compacted?
+246	code	What may the prompt version string look like, and which system's identifier should it match?
+249	fact	Can strictness and constraints be applied to the extra types that come in a separate package?
+250	fact	Why is it better to use concrete container types than abstract ones for validation speed?
+256	how-to	How can you find which record in a large file failed validation after an unattended run?
+259	code	What are the three settings for extra data, and which one is the default?
+260	code	Why might serializing every value by its runtime type be unwanted?
+262	code	What can a plugin around the validator observe for each validation?
+264	code	How do you add type hints to a fixture function?
+267	how-to	How can warning filters be applied only to chosen tests, classes or modules?

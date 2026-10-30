@@ -48,7 +48,7 @@ def main(argv: list[str] | None = None) -> int:
         return 2
     picks = pick_candidates({s.source_id: s.text for s in sources}, args.count, args.seed, args.cap)
     data = {"seed": args.seed, "count": len(picks),
-            "candidates": [{"source": c.source_id, "start": c.start, "end": c.end, "hint": c.hint, "quote": c.quote}
+            "candidates": [{"source": c.source_id, "start": c.start, "end": c.end, "hint": c.hint, "heading": c.heading, "quote": c.quote}
                            for c in picks]}
     out = Path(args.out)
     out.parent.mkdir(parents=True, exist_ok=True)

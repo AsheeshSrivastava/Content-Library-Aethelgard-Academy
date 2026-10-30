@@ -14,6 +14,7 @@ from dataclasses import dataclass
 QUOTE_MIN, QUOTE_MAX = 40, 400
 TRIES_PER_PICK = 40
 MIN_ALNUM_SHARE = 0.5
+_HEADING = re.compile(r"^#{1,6}\s+(.+?)\s*#*\s*$", re.M)
 _FENCE = re.compile(r"^\s*(```|~~~)")
 _SENTENCE_END = re.compile(r"[.!?](?=\s)")
 _LICENCE = ("licensed under", "permission is hereby granted", "spdx-license-identifier", "all rights reserved")
@@ -28,6 +29,7 @@ class Candidate:
     end: int
     quote: str
     hint: str  # code, number or text: a guide for choosing a mix, not a label
+    heading: str = ""  # the closest Markdown heading above the quote, to help write a question that makes sense alone
 
 
 def allocate(sizes: dict[str, int], total: int, cap: int) -> dict[str, int]:
@@ -111,6 +113,14 @@ def shape_quote(block: str) -> str | None:
     return piece if len(piece) >= QUOTE_MIN else None
 
 
+def heading_before(text: str, position: int) -> str:
+    """The text of the last Markdown heading that starts before `position`, or an empty string."""
+    found = ""
+    for match in _HEADING.finditer(text, 0, position):
+        found = match.group(1)
+    return found
+
+
 def hint(quote: str) -> str:
     if "```" in quote or quote.count("`") >= 2:
         return "code"
@@ -161,5 +171,5 @@ def pick_candidates(sources: dict[str, str], total: int, seed: int, cap: int) ->
                 continue
             taken.add((source_id, k))
             found += 1
-            out.append(Candidate(source_id, start, start + len(quote), quote, hint(quote)))
+            out.append(Candidate(source_id, start, start + len(quote), quote, hint(quote), heading_before(text, start)))
     return out

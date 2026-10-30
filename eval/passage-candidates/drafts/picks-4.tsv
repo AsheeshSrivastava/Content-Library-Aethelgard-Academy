@@ -1,0 +1,26 @@
+274	code	Which option makes pytest use a folder you name directly as the base for temporary directories?
+275	fact	Does the order fixtures are defined in decide the order they run, and what should you rely on?
+277	context	What does the virtualenv test automation tool help you set up, and when would you reach for it?
+279	code	How can you stop plugins from loading on their own and allow only chosen ones?
+285	number	How many copies of the previous pattern does a repeat count of six require, and what happens with five?
+287	fact	What happens during the last phase of the interpreter's life that can run user-defined destructor code?
+290	how-to	How can you avoid a blocking connect on a socket, and how do you tell it has succeeded?
+291	code	Which copy function is used by default when moving a directory across file systems?
+294	number	What is the default spacing between tab positions when expanding tabs in a byte sequence?
+298	fact	What states can a future be in, and why is it like a status light?
+301	fact	What is a dialect in the CSV module, and how is one passed to a reader or writer?
+303	code	What does a dictionary view do when the dictionary changes, and how do you force it into a full list?
+305	code	What is the only reliable way to find out whether an object can be iterated?
+307	code	How do you avoid name clashes with subclasses for instance variables?
+308	context	Why does the style guide recommend importing with full package paths?
+317	context	Why does the recall measure for retrieved context always need something to compare against?
+319	number	Over what range does the overlap-based text metric score, and does it use a language model?
+321	fact	What does the identifier-based recall measure compare, and what types of identifiers does it accept?
+322	number	In which release is the older metrics interface planned for removal, and when does its deprecation begin?
+326	context	Why is a model scoring its own factual output unreliable, and what replaces that step in CRITIC?
+328	number	How many cases are in the production sample tier of the test suite, and how often should it be refreshed?
+329	fact	Which field of a tool definition is the most important for the model, and why?
+331	context	How do the four observability tools differ in the question each is best at answering?
+332	fact	In which orchestration pattern do specialists never talk to each other, and who dispatches the work?
+333	fact	Which real systems are given as examples of prompt-extraction and injection attacks?
+334	number	After how many days open does an issue become eligible for a contributor bounty in the sponsorship plan?

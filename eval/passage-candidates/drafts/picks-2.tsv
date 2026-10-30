@@ -1,0 +1,29 @@
+58	fact	In what order does FastAPI run the cleanup code of dependencies that use yield when they are nested?
+66	fact	Without a declared output model, what does FastAPI do to returned data before sending it?
+140	fact	What three things does a new agent need when it is created in the agent tutorial?
+141	code	Which callback counts tokens for cost analysis?
+144	how-to	How can you produce a retrieval test set without writing every question by hand?
+145	number	Which ports can the bidirectional connection protocol in the full-stack tutorial work over?
+150	fact	What happens to a document's attributes when a node parser breaks it into chunks?
+154	how-to	What naming pattern do packages for data connectors follow on the Python package index?
+158	number	What minimum version of the Python SDK is needed for the client tutorial?
+161	code	Can a server give a freshness lifetime without announcing list-change notifications, and what then happens on the client?
+163	code	How can servers represent directories among file resources, given they lack a standard type?
+164	code	Which two fields handle version negotiation in the discovery exchange?
+167	code	What does giving arguments as one JSON object do to a ZIP code value in the inspector command line?
+170	context	What do roots tell servers, and how does a server learn about changes to them?
+172	number	How many clients does the reference debugging tool provide, behind a single program?
+180	context	What should an agent do when its conversation grows too long, according to the fix for context distraction?
+183	context	When is it worth using several agents instead of one, and when is one enough?
+185	fact	Why does tampering with a signed payload make verification fail?
+187	context	How does managing information across a conversation differ from writing one static set of instructions?
+188	fact	How should an agent's access to important systems be limited?
+190	fact	How does remembered information about a traveller shape later trip planning?
+192	fact	Why do human reviewers still matter when evaluating voice agents?
+194	code	Why are two separate OpenAI keys needed for the Databricks sandbox example, and what must they share?
+195	fact	What does the adapter do in the AWS flight demo?
+197	how-to	When should the portfolio manager agent call a single specialist on its own?
+199	context	Why is a pleasant-sounding spoken confirmation not enough to show a voice agent did its job?
+200	context	Building reliable systems out of unreliable parts is compared to which field?
+201	code	Does the SharePoint URL inspection command change the ChatGPT allowlist?
+202	fact	What does the gating network in a mixture of experts do, and what ensures the weights sum to one?

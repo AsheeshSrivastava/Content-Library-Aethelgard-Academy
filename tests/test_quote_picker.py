@@ -1,7 +1,7 @@
 """Random quote picker for the passage-level questions (spec 16 section 3)."""
 import pytest
 
-from ragcore.quote_picker import (Candidate, allocate, blocks, group_of, hint, is_usable, pick_candidates, shape_quote)
+from ragcore.quote_picker import (Candidate, allocate, blocks, group_of, heading_before, hint, is_usable, pick_candidates, shape_quote)
 
 PARA = ("Retries are attempted again when a call raises a timeout error, and the delay between two attempts grows "
         "after every failure.")
@@ -224,3 +224,18 @@ def test_a_bare_number_of_two_digits_or_a_decimal_is_a_number_hint():
     assert hint("Set the limit to 4096 for long inputs.") == "number"
     assert hint("The ratio is 0.75 for most inputs.") == "number"
     assert hint("Version 3 is the one to use.") == "text"
+
+def test_the_heading_above_a_place():
+    text = "# Top\n\nintro\n\n## Retry options ##\n\nbody text\n\n### Deep one\n\nmore\n"
+    assert heading_before(text, text.index("intro")) == "Top"
+    assert heading_before(text, text.index("body")) == "Retry options"
+    assert heading_before(text, text.index("more")) == "Deep one"
+    assert heading_before("no headings here\n", 5) == ""
+    assert heading_before(text, 0) == ""
+    assert heading_before("#hashtag is not a heading\n\ntext\n", 30) == ""
+
+
+def test_candidates_carry_the_heading_above_them():
+    picks = pick_candidates({"a/x.md": doc(6, "alpha")}, 4, seed=1, cap=4)
+    for c in picks:
+        assert c.heading.startswith("Heading ") and c.heading == heading_before(doc(6, "alpha"), c.start)

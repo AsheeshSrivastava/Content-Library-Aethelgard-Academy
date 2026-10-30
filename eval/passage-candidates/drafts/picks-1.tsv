@@ -1,0 +1,50 @@
+0	fact	What happens to an ad whose targeting data has no minimum age, if it is for something like gambling?
+2	number	How is a product listing treated if it names a high-end label, is cheap, and claims to be the real thing?
+3	number	How long and how expensive is a normal notebook run of the moderation example, and which switch turns on the whole table?
+10	number	Apart from the two main factorial designs, how many extra targeted studies did the authors run, and how many distinct configurations did these cover in total?
+12	number	How much smaller was the real benefit of stacking the best three retrieval methods than the total expected from using each alone?
+13	fact	Why were seven of the supported benchmarks left out of the evaluation, and which one was named as too large?
+15	fact	Which model judged faithfulness throughout the study, and with what sampling settings?
+20	number	In the executed subset, how many of the main effects and two-way interactions can be estimated, and what is the range of cell sizes?
+22	code	In the example of generating code from comments, which statement was missing from the model's output?
+23	fact	What does Toggle do during budget-limited training phases in Kimi K2.5?
+25	context	Why are tool definitions seen as the most important part of function calling?
+30	fact	What is the takeaway about using small language models for generating rationales?
+33	how-to	What can be done when an LLM does not model a needed role well?
+35	fact	What two abilities let agents handle complex tasks and be extended with external tools?
+38	context	How do deep agents keep track of long-term goals instead of reasoning ad hoc within one context window?
+42	code	Why should settings be read inside forward and not in the constructor of a module?
+43	code	What does the public call of an RLM do before it starts its loop, and when does the loop stop?
+45	code	When is token-usage information available on a prediction?
+46	fact	What do the optimizers actually change in a program to improve a metric?
+50	code	Which adapter suits a model that formats its answers unreliably?
+53	code	At what point does KNNFewShot choose its demonstrations, and what does it do with the training set when it is built?
+70	fact	What risk is shown when a model that includes a password is used for both input and output?
+71	fact	What advantage does sending a series of items one by one give the receiving side?
+72	code	In the tutorial on returning several model types, why does putting two model classes joined by a vertical bar directly into the response model argument raise an error?
+73	code	If the other side drops the connection in a FastAPI websocket handler, what is raised, and what can the developer do with it?
+75	fact	When a path operation returns a Response object directly, what conversion work does FastAPI skip?
+78	code	For the FastEmbed ranker, which two settings control where the model files live and how much parallelism the runtime gets?
+80	code	Where is the distance measure for the Oracle embedding retriever chosen, and besides the query vector which two arguments does the retriever accept?
+82	fact	What does the component that merges branches do with several values that arrive, and what is it useful for?
+85	how-to	How can you get at the saved pipeline state after a run crashes?
+86	number	Which model does the NVIDIA ranker use if none is given?
+87	fact	Which optional search settings can be passed to the MongoDB Atlas full-text retriever when it runs?
+89	code	What two things must a Vespa document store provide for embedding retrieval, and what are their default names?
+95	fact	Who is responsible for cleaning user-supplied URLs and file paths before they reach Haystack?
+99	code	What must be provided to train a cross-encoder with the trainer, and which items are optional?
+102	code	Besides the evaluation loss, how can you get richer measurements while training a cross-encoder?
+104	fact	Why is training on many datasets at once usually tricky, and what lets the cross-encoder trainer cope?
+105	fact	What do the example training scripts for sentence embedding models fine-tune?
+106	code	Which function quantizes OpenVINO models to 8-bit, and where does it save the result?
+108	code	Where do extra arguments given as model kwargs end up for ONNX models?
+113	code	How do you pick and order which Intel GPUs a training run uses?
+116	fact	Which cache class do models use by default, and how does its size behave as text is produced?
+117	code	What two settings must a custom model implement so that attention backends can be swapped?
+122	number	How many weights does AQLM group together and represent as a sum of code vectors?
+124	fact	Which image processor backend is the default, and why is it preferred?
+127	number	How many threads load parameters asynchronously by default, and why is that the best trade-off?
+128	code	Which precision flag should you use on older GPUs rather than Ampere ones, and what does gradient accumulation simulate?
+131	code	How do you turn on layer-wise variants of an optimizer, and which layers get low-rank treatment?
+137	fact	Why are models with custom code skipped when looking up a conversion mapping?
+138	code	How can you inspect the text an LLM will actually read for a document?

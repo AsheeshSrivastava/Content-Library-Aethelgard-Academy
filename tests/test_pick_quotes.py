@@ -17,7 +17,7 @@ def test_it_writes_candidates_that_are_slices_of_the_sources(tmp_path, capsys):
     data = yaml.safe_load((tmp_path / "cand.yaml").read_text(encoding="utf-8"))
     assert data["seed"] == 5 and data["count"] == len(data["candidates"]) > 0
     first = data["candidates"][0]
-    assert set(first) == {"source", "start", "end", "hint", "quote"}
+    assert set(first) == {"source", "start", "end", "hint", "heading", "quote"} and first["heading"].startswith("# ") is False
     assert first["end"] - first["start"] == len(first["quote"])
     assert f"{data['count']} candidates from" in capsys.readouterr().out
 
