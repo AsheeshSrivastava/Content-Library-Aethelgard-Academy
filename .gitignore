@@ -10,3 +10,10 @@ eval-out/
 /reports/
 
 .obsidian
+*.db-wal
+*.db-shm
+*.db.lock
+*.db.bak-*
+.claude/settings.local.json
+.mypy_cache/
+.coverage
