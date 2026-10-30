@@ -40,6 +40,14 @@ A before/after test for each rule (sections and paths with skipped levels, headi
 - Real data, all 23 snapshots: every check passes. 32,983 passages, 1,765 dropped as empty, 2,249 under 100 characters, 1,140 over `max_chars`.
 - Finding for the comparison: llamaindex-docs has 7,638 passages with a median of 153 characters and 1,483 under 100, because adjacent small sections are never merged. A "merge small sections" variant is a candidate chunker.
 
+## Update 2026-10-30: the comparison is done, and the production chunker is `llamaindex`
+This spec described the baseline `heading-pack`. The comparison (spec 13, report `docs/reports/retrieval-comparison-report.md`) is finished and the owner accepted [ADR 0010](../adr/0010-final-chunker-and-embedder.md): **the library chunks with the `llamaindex` chunker** (`src/ragcore/llamaindex_chunker.py`), version label `llamaindex-1/375/1500/6000`.
+- **How it cuts:** LlamaIndex's `MarkdownNodeParser` and then `SentenceSplitter` (375 tokens, no overlap) decide only where cuts go. Each passage is still the exact slice of our text from one cut to the next, so the contract, the exact-slice rule and all six checks in this spec apply to it unchanged. Heading paths come from our own scan, as for `heading-pack`.
+- **Settings:** 375 tokens, with `ChunkConfig(max_chars=1500, hard_limit=6000)` still applied as its limits. These were fixed before the comparison and are now final; they are no longer provisional.
+- **`heading-pack` stays** as the baseline and as the home of the shared helpers and `check_chunking`. It is not used for the production index.
+- **Dependency:** `llama-index-core` is installed with `uv sync --group variants`. For production it must be a pinned dependency of the index (decided in spec 17 unit 17b), because a different LlamaIndex version can move the cuts and change every passage ID. A node whose text cannot be found in the source is counted; over 1% of nodes unmapped stops the run.
+- The sync in spec 17 records the chunker version label in the index, and re-cuts a source when it changes.
+
 ## Open questions for the owner (not blocking)
-- The sizes (1500 and 6000) come from library3 and stay provisional until the comparison.
+- ~~The sizes (1500 and 6000) come from library3 and stay provisional until the comparison.~~ Settled by the comparison (see the update above).
 - At embedding time the heading path will probably be put in front of the passage text; the passage itself stays an exact slice. That is the embedder's unit, not this one.
