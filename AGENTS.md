@@ -24,6 +24,7 @@ This branch is a fresh start for the RAG library. It has no history from other b
 ## Rules of this branch
 
 - Plain simple words with the owner. One step at a time.
+- **How to reply to the owner (set 2026-10-30, after a reply was too dense).** Write as if to a smart reader who has not followed the details. Say in this order: what we did, what happened (the result in one or two plain sentences), what is needed from the owner. Give a number only with what it counts ("373 of 548 questions had the right file first"). Do not use arrows, fragments, tables full of ids, or private names (V, HR, MRR, RRF, "cells", "baseline") unless they were first explained in the same reply. Offer at most two numbered choices and say which one is recommended and why. If the owner says they did not understand, say it again shorter and in different words; do not add more detail. Put long detail in the report, not in the reply.
 - Commit locally. Push only to the Entire remote, and only when the owner asks. Never print keys. No paid run without a printed cost estimate first; the owner runs paid steps himself.
 - Every passage is an exact slice of normalized loader output (see ADR 0003). Evaluation anchors are `(source_id, file/heading, quote)`, never passage IDs.
 - Nothing is indexed until its source is approved in the register and passes the licence gate.
