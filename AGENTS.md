@@ -42,6 +42,7 @@ This branch is a fresh start for the RAG library. It has no history from other b
 
 Each line: what went wrong, then the rule. Add a line when a new mistake is found; keep it to the point.
 
+- A helper script that reads a file by relative path with .NET ([IO.File]::ReadAllText('tests\x.py')) looks in the wrong folder, gets nothing, and then writes an EMPTY file back (this emptied a test file once). Rule: in helper scripts use full paths only, and check git diff --stat after a scripted edit.
 - Mutation check by editing a source file and restoring it within the same second leaves a stale `.pyc` (same size, same mtime), so later runs fail on code that is correct. Rule: delete `__pycache__` (or run pytest with `-B`) after every mutation round before trusting the suite.
 
 - **Synthetic tests passed, real files failed (parent-child, semantic).** Text was lost on 5 real files. Rule: before handing over any chunker, run it over every loaded source and require 0 failures (spec 13 section 9f). Check semantic chunkers with a random-unit-vector embedder that cuts a lot, at percentiles 90, 50 and 10, never with a stand-in that rarely cuts.

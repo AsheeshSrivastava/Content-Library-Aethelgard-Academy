@@ -1,4 +1,4 @@
-﻿# Specs
+# Specs
 
 A spec says what a unit must do, in testable terms, before any code for it is written.
 
@@ -28,4 +28,4 @@ If code or a spec changes the decision, stop and amend the ADR or spec first. A 
 | [13](13-embedder-chunker-comparison.md) | Embedder and chunker comparison (plan) | 8+ | Accepted 2026-10-29 (pre-registration frozen) |
 | [14](14-corpus-exclusions.md) | Corpus exclusions file | 8+ | Accepted 2026-10-30 |
 | [15](15-hybrid-and-rerank.md) | Hybrid search and reranking (stage 3) | 8+ | Accepted 2026-10-30 |
-| [16](16-passage-level-questions.md) | Passage-level questions (stage 4) | 8+ | Proposed 2026-10-30 |
+| [16](16-passage-level-questions.md) | Passage-level questions (stage 4) | 8+ | Accepted 2026-10-30 |

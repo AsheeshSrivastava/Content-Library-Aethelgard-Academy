@@ -1,6 +1,6 @@
 # Spec 16: Passage-level questions (stage 4)
 
-Status: Proposed 2026-10-30. Needs the owner's acceptance before any code or question is written.
+Status: Accepted 2026-10-30. Written before the code.
 
 ## 1. Question
 The 598 questions so far only check that the right **file** is found. Stage 3 left the two cells (jina-v2-base-en with llamaindex, bge-m3 with merge-small) almost level. Which cell, and which pipeline (V or HR), finds the right **passage**, the piece of text that actually holds the answer?
