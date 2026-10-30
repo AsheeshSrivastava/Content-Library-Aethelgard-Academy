@@ -1,6 +1,6 @@
 # Spec 17: Persistent index, automatic sync and retriever adapter
 
-Status: Draft, follows ADR 0011 (Proposed). Written before the code.
+Status: Accepted by the owner 2026-10-30, follows ADR 0011 (Accepted). Written before the code.
 
 ## 1. Purpose
 Turn the chosen setup (ADR 0010: jina-v2-base-en, `llamaindex` chunker, hybrid search, local reranker) into a working library: an index that survives restarts, updates only what changed, and answers `search(query)` with citable passages.
@@ -21,15 +21,17 @@ Rules:
 6. The retriever opens the file **read-only** (`mode=ro`); only sync opens it for writing. A test proves that a write through the retriever's connection fails.
 
 ## 3. Sync (`index_sync.py`)
-`sync(register, snapshots, exclusions, setup, embedder, store) -> SyncReport`.
-1. Load approved, gate-passed, non-excluded sources (same loading as the comparison).
-2. For each source: unchanged if stored `content_sha256` and `chunker_version` match, else cut passages with the chunker, drop the old rows of that source, insert the new ones.
-3. A passage whose `text_hash` already has a vector under this embedder reuses it; only the rest are embedded, in batches.
-4. Sources in the store but not in the loaded set are deleted with their passages and vectors.
-5. `SyncReport`: sources added, replaced, unchanged, deleted; passages added, reused, deleted; vectors embedded; seconds. A dry run (`--dry-run`) reports what would change and writes nothing.
-6. Running sync twice in a row changes nothing the second time.
+`sync(sources, store, chunk, embedder, *, urls=None, batch=32, dry_run=False, allow_mass_delete=False, progress=None) -> SyncReport`.
+The caller (the `index.ps1` command, unit 17d) loads the approved, gate-passed, non-excluded sources exactly as the comparison did and passes them in as `Source` objects, together with `urls` (register entry, the first part of the source id, to its url). `sync` itself never reads files, so it is tested without a corpus.
+1. Sources are handled in sorted order of source id; two sources with the same id are refused. `progress(done, total, source_id)` is called after each.
+2. A source is unchanged if its stored version, `content_sha256`, `chunker_version`, url and licence all match; otherwise it is chunked and replaced in one transaction (`replace_source`).
+3. A passage whose text hash already has a vector in the index (also from another source, or from the source being replaced) reuses it; the same text inside one run is embedded once. Only new texts are embedded, in batches of `batch`.
+4. Sources in the index but not in `sources` are deleted with their passages and vectors, after the other sources are done (so their vectors can still be reused). **Mass-delete guard:** if that would remove half or more of the stored sources, `sync` stops before changing anything with a plain message, unless `allow_mass_delete` is set. This protects against a wrong folder or an empty load.
+5. `SyncReport`: sources added, replaced, unchanged, deleted; passages added, reused (passages stored without a new embedding), deleted (including the old passages of replaced sources); vectors embedded; seconds; dry run. `dry_run` reports what would change and writes and embeds nothing (limit: if a replaced source gives up a text that a later source needs, the real run embeds it again and the dry run does not count it).
+6. Running sync twice in a row changes nothing the second time. A crash or an embedder failure leaves every finished source stored; the next sync completes the rest.
 7. **Same inputs as the comparison.** A passage is embedded as its exact text with `kind="passage"` (the heading path is NOT put in front, as in the stage 1 to 4 runs); a question is embedded with `kind="query"`. Changing this would break the end-to-end check in section 7 test 10.
-8. **Pinned chunker dependency.** `llama-index-core` is a pinned dependency of the index (exact version in `pyproject.toml` and recorded in `meta` as part of the chunker setup), because another version can move the cuts and change passage IDs (spec 09 update of 2026-10-30). Sync refuses to run with a different installed version than the one in `meta`.
+8. **Pinned chunker dependency.** `llama-index-core` is a pinned dependency of the index (exact version in `pyproject.toml` and recorded in `meta` as part of the setup), because another version can move the cuts and change passage IDs (spec 09 update of 2026-10-30). The command in 17d refuses to run when the installed version differs from the one in `meta`.
+9. **Chunker check.** Every passage the chunker gives must carry the chunker version recorded in `meta`; otherwise `sync` stops with a `SyncError` and stores nothing for that source. The embedder must return exactly one vector per text; the store refuses vectors that are not unit length.
 
 ## 4. Retriever (`index_retriever.py`)
 - `Retriever.open(path, setup, embedder, reranker)` loads all vectors into one array and builds the keyword index from stored texts (spec 15 section 3.1).

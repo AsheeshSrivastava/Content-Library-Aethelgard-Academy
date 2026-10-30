@@ -1,6 +1,6 @@
 # ADR 0011: One SQLite index file, synced automatically, with a small retriever adapter
 
-## Status: Proposed
+## Status: Accepted
 
 ## Context
 The comparison ended (ADR 0010): jina-v2-base-en, the `llamaindex` chunker, hybrid search and the local reranker. So far every result came from a "run folder" built for an experiment (ADR 0007): vectors without text, rebuilt from the corpus each time, never updated in place. The real library needs three things the run folders do not give: the index must **survive restarts**, it must **update by itself** when a source changes (only what changed), and callers (the Aethelgard app later) need **one small, stable way to ask for passages** without knowing how search works inside. This is the "before the store" decision in `docs/adr/README.md`.

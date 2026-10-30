@@ -447,3 +447,12 @@ def test_an_empty_database_file_is_not_an_index_when_read_only(path):
     with pytest.raises(IndexStoreError, match="not an index"):
         open_index(path, SETUP, read_only=True)
 
+
+
+def test_count_passages_counts_one_source(store):
+    store.replace_source(source("docs/a.md"), rows("docs/a.md", 3))
+    store.replace_source(source("docs/b.md"), rows("docs/b.md", 2))
+    assert store.count_passages("docs/a.md") == 3
+    assert store.count_passages("docs/b.md") == 2
+    assert store.count_passages("docs/none.md") == 0
+

@@ -240,6 +240,9 @@ class IndexStore:
         return {name: db.execute(f"SELECT COUNT(*) FROM {name}").fetchone()[0]
                 for name in ("sources", "passages", "vectors")}
 
+    def count_passages(self, source_id: str) -> int:
+        return self._db().execute("SELECT COUNT(*) FROM passages WHERE source_id = ?", (source_id,)).fetchone()[0]
+
     def sources(self) -> dict[str, SourceRow]:
         query = ("SELECT source_id, version, content_sha256, chunker_version, url, licence, loaded_at "
                  "FROM sources ORDER BY source_id")
