@@ -1,6 +1,6 @@
-"""The index commands (spec 17 section 5): sync, status and search, run through `scripts/index.ps1`.
+"""The index commands (spec 17 sections 5 and 7): sync, status, search and check, run through `scripts/index.ps1`.
 
-    uv run --group embed --group variants python scripts/run_index.py sync|status|search ...
+    uv run --group embed --group variants python scripts/run_index.py sync|status|search|check ...
 
 Models and the chunker are built only when a command needs them: a sync with nothing new, and `status`, load none.
 Exit code 0 = done, 1 = could not continue (the index is unchanged or still valid), 2 = bad input."""
@@ -21,10 +21,15 @@ from ragcore.errors import RegisterError
 from ragcore.index_retriever import Retriever
 from ragcore.index_store import IndexSetup, IndexStoreError, open_index
 from ragcore.index_sync import SyncError, sync
+from ragcore.passage_eval import QuoteSpan, score_passage_questions
+from ragcore.passage_questions import PassageQuestion
+from ragcore.retrieve import PassageHit
 
 DEFAULT_INDEX = Path.home() / ".ragcore" / "index" / "index.db"
 DEFAULT_EMBEDDER = "jina-v2-base-en"
 DEFAULT_RERANKER = "bge-reranker-v2-m3"
+DEFAULT_QUESTIONS = Path(__file__).resolve().parent.parent.parent / "eval" / "passage-questions"
+STAGE4_FIRST, STAGE4_TOP3 = 100, 121  # jina-v2-base-en + llamaindex + HR on the 137 questions (report section 9.2)
 PROGRESS_EVERY = 100
 SNIPPET_CHARS = 200
 
@@ -37,6 +42,7 @@ class Services:
     make_chunker: Callable[[argparse.Namespace], Callable[[Source], object]]  # callable(source) -> ChunkResult, + verify()
     make_embedder: Callable[[argparse.Namespace], object]
     make_reranker: Callable[[argparse.Namespace], object]
+    load_questions: Callable[[argparse.Namespace], tuple[list[PassageQuestion], list[QuoteSpan]]] | None = None
 
 
 class _Lazy:
@@ -67,6 +73,7 @@ def real_services() -> Services:
     from ragcore.register import load_record
     from ragcore.rerank import load_reranker_specs
     from ragcore.stage import _exclusions, load_corpus, make_embedder
+    from ragcore.stage4 import prepare
     from ragcore.stage3 import make_reranker
 
     config = ChunkConfig()
@@ -77,6 +84,13 @@ def real_services() -> Services:
                                      _exclusions(args.exclusions))
         urls = {record.id: record.url for record in (load_record(p) for p in sorted(register.glob("*.yaml")))}
         return sources, urls, notes
+
+    def load_questions(args):
+        sources, notes = load_corpus(Path(args.register), Path(args.snapshots), Path(args.rules) if args.rules else None,
+                                     None, _exclusions(args.exclusions))
+        if not sources:
+            raise ValueError("no sources loaded: " + "; ".join(notes))
+        return prepare(Path(args.passage_questions), {s.source_id: s.text for s in sources})
 
     def setup(args):
         try:
@@ -100,7 +114,7 @@ def real_services() -> Services:
             self.chunker.verify()
 
     return Services(load_sources, setup, lambda args: Bound(), lambda args: make_embedder(args.embedder, Path(args.models)),
-                    lambda args: make_reranker(args.reranker, Path(args.rerankers))[0])
+                    lambda args: make_reranker(args.reranker, Path(args.rerankers))[0], load_questions)
 
 
 def _say(text: str = "") -> None:
@@ -111,7 +125,7 @@ def _say(text: str = "") -> None:
 
 def _parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(description="Sync, inspect and search the index (spec 17).")
-    parser.add_argument("command", choices=("sync", "status", "search"))
+    parser.add_argument("command", choices=("sync", "status", "search", "check"))
     parser.add_argument("question", nargs="?", help="search: the question")
     parser.add_argument("--index", default=str(DEFAULT_INDEX))
     parser.add_argument("--register")
@@ -126,6 +140,11 @@ def _parser() -> argparse.ArgumentParser:
     parser.add_argument("--dry-run", action="store_true", help="sync: show what would change, change nothing")
     parser.add_argument("--allow-mass-delete", action="store_true",
                         help="sync: allow removing half or more of the stored sources")
+    parser.add_argument("--passage-questions", default=str(DEFAULT_QUESTIONS), help="check: the frozen questions folder")
+    parser.add_argument("--expect-first", type=int, default=STAGE4_FIRST,
+                        help="check: right-first count the stage 4 result gave")
+    parser.add_argument("--expect-top3", type=int, default=STAGE4_TOP3,
+                        help="check: right-in-first-3 count the stage 4 result gave")
     parser.add_argument("-k", type=int, default=5, help="search: how many passages")
     parser.add_argument("--max-per-file", type=int, default=None, help="search: at most this many passages per source")
     return parser
@@ -208,6 +227,44 @@ def _search(args, services: Services) -> int:
     return 0
 
 
+def _check(args, services: Services) -> int:
+    """Spec 17 test 10: score the frozen passage-level questions through `Retriever.search`; the counts must equal the
+    stage 4 result, and a second run must give exactly the same answers."""
+    if not (args.register and args.snapshots):
+        print("Give --register and --snapshots.", file=sys.stderr)
+        return 2
+    questions, spans = services.load_questions(args)
+    if not questions:
+        print("Cannot start: no questions found in " + str(args.passage_questions), file=sys.stderr)
+        return 2
+    path = Path(args.index)
+    if not path.exists():
+        print(f"{path} does not exist; run `index.ps1 sync` first.", file=sys.stderr)
+        return 1
+    with Retriever.open(path, services.setup(args), services.make_embedder(args), services.make_reranker(args)) as retriever:
+        def retrieve(question: str, n: int) -> list[PassageHit]:
+            return [PassageHit(r.source_id, r.start, r.end, r.score) for r in retriever.search(question, k=n)]
+
+        first = score_passage_questions(questions, spans, retrieve)
+        second = score_passage_questions(questions, spans, retrieve)
+    total = len(questions)
+    right_first, right_top3 = sum(r.first for r in first), sum(r.top_k for r in first)
+    repeatable = first == second
+    matches = (right_first, right_top3) == (args.expect_first, args.expect_top3)
+    _say(f"Checked {total} questions through Retriever.search")
+    _say(f"  right first: {right_first} of {total}")
+    _say(f"  right in the first 3: {right_top3} of {total}")
+    _say(f"  right within 10: {sum(r.recall10 for r in first)} of {total}")
+    _say(f"  mean reciprocal rank: {sum(r.rr for r in first) / total:.3f}")
+    _say(f"  same result on a second run: {'yes' if repeatable else 'no'}")
+    if matches:
+        _say(f"  the stage 4 result ({args.expect_first} first, {args.expect_top3} in the first 3) matches")
+    else:
+        _say(f"  differs from the stage 4 result: expected {args.expect_first} first and {args.expect_top3} in the "
+             f"first 3")
+    return 0 if matches and repeatable else 1
+
+
 def main(argv: list[str] | None = None, services: Services | None = None) -> int:
     try:
         args = _parser().parse_args(argv)
@@ -218,7 +275,7 @@ def main(argv: list[str] | None = None, services: Services | None = None) -> int
         return 2
     try:
         services = services or real_services()
-        return {"sync": _sync, "status": _status, "search": _search}[args.command](args, services)
+        return {"sync": _sync, "status": _status, "search": _search, "check": _check}[args.command](args, services)
     except (SyncError, IndexStoreError) as exc:
         print(f"Cannot continue: {_plain(exc)}", file=sys.stderr)
         return 1

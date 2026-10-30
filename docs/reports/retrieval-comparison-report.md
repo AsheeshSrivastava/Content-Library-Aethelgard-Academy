@@ -209,9 +209,14 @@ Reasons: the cells are a near tie; jina puts the right passage first more often 
 
 Not done and not part of the decision: a longer reranker pair limit (it could help bge-m3), and front-matter metadata for passages.
 
+## 10. The index reproduces the result (2026-10-30)
+
+The final setup was built as a real, persistent index (ADR 0011, spec 17) and the 137 passage-level questions were scored through its `Retriever.search`. Result: 100 right first and 121 right in the first 3 of 137, within 10: 132, mean reciprocal rank 0.818, identical on a second run. These are exactly the stage 4 numbers for jina-v2-base-en with the llamaindex chunker and hybrid search with the reranker (section 9.2), so the stored index, the sync and the retriever add no change to the measured quality. Command: `.\scripts\index.ps1 check`.
+
 ## 10. Change log
 
 - 2026-10-30: first version after stage 1 and stage 2.
 - 2026-10-30: added section 2a (why each comparison, and the size of the matrix).
 - 2026-10-30: stage 3 results added (section 9.1); sections 7 and 8 updated.
 - 2026-10-30: stage 4 (137 passage-level questions) added as 9.2, final choice as 9.3, decisions in section 8; ADR 0010 written.
+- 2026-10-30: section 10 added (the index reproduces the stage 4 result: 100 / 121 of 137).
