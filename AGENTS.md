@@ -42,6 +42,7 @@ This branch is a fresh start for the RAG library. It has no history from other b
 
 Each line: what went wrong, then the rule. Add a line when a new mistake is found; keep it to the point.
 
+- PowerShell traps in helper scripts: `string.Replace(a, b, 1)` does not exist (it errors but the script goes on and writes a half-edited file); a one-item list of lists loses its inner list. Rule: use two-argument Replace, check each edit actually changed the file (`Contains` first), and run the tests straight after a scripted edit.
 - A helper script that reads a file by relative path with .NET ([IO.File]::ReadAllText('tests\x.py')) looks in the wrong folder, gets nothing, and then writes an EMPTY file back (this emptied a test file once). Rule: in helper scripts use full paths only, and check git diff --stat after a scripted edit.
 - Mutation check by editing a source file and restoring it within the same second leaves a stale `.pyc` (same size, same mtime), so later runs fail on code that is correct. Rule: delete `__pycache__` (or run pytest with `-B`) after every mutation round before trusting the suite.
 

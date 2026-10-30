@@ -1,6 +1,9 @@
 """Retriever over a run (spec 13 section 4.5): exact cosine search, parent mapping, one hit per source file."""
 from __future__ import annotations
 
+from dataclasses import dataclass
+from typing import Callable
+
 import numpy as np
 
 from ragcore.evalset import Hit, Retriever
@@ -81,10 +84,9 @@ def _files(run: Run, ranked: list[tuple[int, float]], n: int) -> list[Hit]:
     return hits[:n]
 
 
-def make_pipeline(variant: str, run: Run, texts: list[str], *, embedder=None, reranker=None,
-                  index: Bm25Index | None = None, n_raw: int = N_RAW, depth: int = RERANK_DEPTH) -> Retriever:
-    """V vectors only, L keywords only, H both fused, VR / HR the first `depth` passages of V / H reordered by the
-    reranker. `texts` is the text of each passage of the run, in row order."""
+def _ranker(variant: str, run: Run, texts: list[str], embedder, reranker, index: Bm25Index | None, n_raw: int,
+            depth: int) -> Callable[[str], list[tuple[int, float]]]:
+    """query -> passages of the run (row position, score), best first, for one of the five variants."""
     if variant not in PIPELINES:
         raise ValueError(f"unknown variant {variant!r}; choose from {', '.join(PIPELINES)}")
     _check_texts(run, texts)
@@ -96,20 +98,48 @@ def make_pipeline(variant: str, run: Run, texts: list[str], *, embedder=None, re
         raise ValueError(f"variant {variant} needs an embedder")
     if variant in ("VR", "HR") and reranker is None:
         raise ValueError(f"variant {variant} needs a reranker")
-    if variant == "V":
-        return make_retriever(run, embedder, n_raw)
-    if variant != "VR" and index is None:
+    if variant not in ("V", "VR") and index is None:
         index = keyword_index(run, texts)
 
-    def retrieve(query: str, n: int) -> list[Hit]:
-        ranked: list[tuple[int, float]] = []
+    def ranked(query: str) -> list[tuple[int, float]]:
+        found: list[tuple[int, float]] = []
         if variant != "L":
-            ranked = _vector_positions(run, embedder.embed([query], kind="query")[0], n_raw)
-        if variant != "VR":
+            found = _vector_positions(run, embedder.embed([query], kind="query")[0], n_raw)
+        if variant in ("L", "H", "HR"):
             keywords = index.search(query, n_raw)
-            ranked = keywords if variant == "L" else rrf([[p for p, _ in ranked], [p for p, _ in keywords]])
+            found = keywords if variant == "L" else rrf([[p for p, _ in found], [p for p, _ in keywords]])
         if variant in ("VR", "HR"):
-            first = [p for p, _ in ranked[:depth]]
-            ranked = [(first[i], score) for i, score in rerank_scored(reranker, query, [texts[p] for p in first])]
-        return _files(run, ranked, n)
+            first = [p for p, _ in found[:depth]]
+            found = [(first[i], score) for i, score in rerank_scored(reranker, query, [texts[p] for p in first])]
+        return found
+    return ranked
+
+
+def make_pipeline(variant: str, run: Run, texts: list[str], *, embedder=None, reranker=None,
+                  index: Bm25Index | None = None, n_raw: int = N_RAW, depth: int = RERANK_DEPTH) -> Retriever:
+    """V vectors only, L keywords only, H both fused, VR / HR the first `depth` passages of V / H reordered by the
+    reranker. `texts` is the text of each passage of the run, in row order. Answers are files (spec 15 section 3.4)."""
+    ranker = _ranker(variant, run, texts, embedder, reranker, index, n_raw, depth)
+    if variant == "V":
+        return make_retriever(run, embedder, n_raw)
+    return lambda query, n: _files(run, ranker(query), n)
+
+
+@dataclass(frozen=True)
+class PassageHit:
+    source_id: str
+    start: int
+    end: int
+    score: float
+
+
+def make_passage_pipeline(variant: str, run: Run, texts: list[str], *, embedder=None, reranker=None,
+                          index: Bm25Index | None = None, n_raw: int = N_RAW, depth: int = RERANK_DEPTH
+                          ) -> Callable[[str, int], list[PassageHit]]:
+    """The same five variants, answering with passages (no collapsing to files) for the stage 4 questions."""
+    ranker = _ranker(variant, run, texts, embedder, reranker, index, n_raw, depth)
+
+    def retrieve(query: str, n: int) -> list[PassageHit]:
+        return [PassageHit(run.rows[p]["source_id"], run.rows[p]["start"], run.rows[p]["end"], score)
+                for p, score in ranker(query)[:n]]
     return retrieve
