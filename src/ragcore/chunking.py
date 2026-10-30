@@ -168,8 +168,9 @@ def heading_pack_spans(text: str, config: ChunkConfig, breaks: frozenset[int] = 
         line_ends = [ln.body_end for ln in lines[first:end] if not ln.blank]
         for p_start, p_end in pieces:
             for s, e in _hard_cut(text, p_start, p_end, config.hard_limit, block_ends, line_ends):
+                headings_only = _only_headings(text[s:e])  # Judged before the indent is trimmed: "    # note" is code.
                 s, e = _trim(text, s, e)
-                if _only_headings(text[s:e]):
+                if headings_only:
                     dropped += 1
                     continue
                 spans.append(Span(s, e, headings))
@@ -213,8 +214,9 @@ def fixed_spans(text: str, config: ChunkConfig) -> tuple[list[Span], int]:
     line_ends = [ln.body_end for ln in lines if not ln.blank]
     spans, dropped = [], 0
     for s, e in _hard_cut(text, 0, len(text), config.max_chars, block_ends, line_ends):
+        headings_only = _only_headings(text[s:e])  # Judged before the indent is trimmed: "    # note" is code.
         s, e = _trim(text, s, e)
-        if _only_headings(text[s:e]):
+        if headings_only:
             dropped += 1
             continue
         k = bisect.bisect_right(starts, s) - 1

@@ -169,5 +169,9 @@ The first `estimate` on the whole corpus stopped with a chunking error in `paren
 - Estimate in late mode uses the files' own token count (every file passes the model once) and says that long windows run slower than the speed sample.
 - Tests: 32 in `test_late.py`, 6 in `test_stage.py`. Mutation check 13 mutants, none surviving after one round of simplification (two guards were equivalent and removed). Model tests for late chunking on the GPU are run after stage 1 finishes (the GPU is busy).
 
+## 9i. Fix after the first stage 1 run (2026-10-30)
+- The semantic chunker stopped on `vllm-docs/docs/features/custom_logitsprocs.md`: text lost at `# ...or...`. Cause: the file has an indented code fence inside an admonition, and the comment line `    # ...or...` stood alone in a passage after a semantic cut. `heading_pack_spans` (and `fixed_spans`) decided "only headings, drop it" after trimming the indent, so a code comment looked like a heading. This is the same mistake as the parent-child fix in 9f, in two more places. Fix: judge before trimming (`chunking.py`). 5 tests written red first in `test_indented_comment.py`.
+- Why the earlier whole-corpus check did not see it: it used a stand-in embedder whose cuts never isolated that line. The check now uses a random-vector embedder at percentiles 90, 50 and 10 over all 1,884 sources (27,314 / 49,330 / 73,879 passages): 0 failures. Passage counts of rules, fixed, merge-small, parent-child and llamaindex on the corpus are unchanged (22,125 / 15,241 / 19,751 / 92,904 / 22,675), so the runs already built stay valid and are reused.
+
 ## 10. Not in this spec
 Hybrid/lexical search, the reranker, the "not found" threshold, a quote-anchored question set, the content page, the paid embedders from library3.
