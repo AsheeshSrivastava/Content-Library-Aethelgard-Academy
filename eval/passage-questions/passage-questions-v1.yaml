@@ -47,10 +47,6 @@ questions:
   source: dair-ai-prompt-engineering-guide/pages/agents/function-calling.en.mdx
   quote: Tool definitions are arguably the most critical component of function calling. They are the only way the LLM knows what tools are available and when to use them.
   kind: context
-- q: What lesson do the authors draw about relying on compact models to produce reasoning explanations?
-  source: dair-ai-prompt-engineering-guide/pages/research/guided-cot.en.mdx
-  quote: This approach shows a clever use of small language models for rationale generation. The results are remarkable given that larger language models are preferred for this capability over smaller ones. Decomposing tasks in this way is something developers should think deeply about. Not everything needs to be done by the large models.
-  kind: fact
 - q: What can be done when an LLM does not model a needed role well?
   source: dair-ai-prompt-engineering-guide/pages/research/llm-agents.en.mdx
   quote: '- **Role-playing capability**: LLM-based agents typically need to adapt a role to effectively complete tasks in a domain. For roles that the LLM doesn''t characterize well, it''s possible to fine-tune the LLM on data that represent uncommon roles or psychology characters.'
@@ -209,12 +205,6 @@ questions:
 
     > The default is 4 threads for asynchronous parameter loading. This provides the best trade-off across loading scenarios and hardware. The work is mostly I/O bound, but depending on accelerator hardware and the `dtype` required at loading, it can become CPU/GPU-bound if the `dtype` differs from the serialized one (this requires an additional copy operation).'
   kind: number
-- q: Which precision flag should you use on older GPUs rather than Ampere ones, and what does gradient accumulation simulate?
-  source: huggingface-transformers-docs/docs/source/en/training.md
-  quote: '- Set `bf16=True` for fast mixed precision training if your hardware supports it (Ampere+ GPUs). Otherwise, fall back to `fp16=True` on older hardware.
-
-    - `gradient_accumulation_steps` simulates a larger effective batch size by accumulating gradients over multiple forward passes before updating weights.'
-  kind: code
 - q: How do you turn on layer-wise variants of an optimizer, and which layers get low-rank treatment?
   source: huggingface-transformers-docs/docs/source/en/optimizers.md
   quote: Append `_layerwise` to the optimizer name for layerwise optimization (`"galore_adamw_layerwise"`). Only linear layers targeted by GaLore use low-rank decomposition. All other layers are optimized normally.
@@ -231,10 +221,6 @@ questions:
   source: fastapi-docs/docs/en/docs/advanced/response-directly.md
   quote: If you don't declare a response model, FastAPI will use the `jsonable_encoder` explained in [JSON Compatible Encoder](../tutorial/encoder.md) and put it in a `JSONResponse`.
   kind: fact
-- q: What three things does a new agent need when it is created in the agent tutorial?
-  source: llamaindex-docs/docs/src/content/docs/framework/understanding/agent/index.mdx
-  quote: Now we create our agent. It needs an array of tools, an LLM, and a system prompt to tell it what kind of agent to be. Your system prompt would usually be more detailed than this!
-  kind: fact
 - q: Which callback counts tokens for cost analysis?
   source: llamaindex-docs/docs/src/content/docs/framework/understanding/evaluating/cost_analysis/index.md
   quote: Tokens are counted using the `TokenCountingHandler` callback. See the [example notebook](/python/examples/observability/tokencountinghandler) for details on the setup.
@@ -243,14 +229,6 @@ questions:
   source: llamaindex-docs/docs/src/content/docs/framework/module_guides/evaluating/usage_pattern_retrieval.md
   quote: 'You can manually curate a retrieval evaluation dataset of questions + node id''s. We also offer synthetic dataset generation over an existing text corpus with our `generate_question_context_pairs` function:'
   kind: how-to
-- q: Which ports can the bidirectional connection protocol in the full-stack tutorial work over?
-  source: llamaindex-docs/docs/src/content/docs/framework/understanding/putting_it_all_together/apps/fullstack_with_delphic.md
-  quote: 'WebSockets are a communication protocol that enables bidirectional and full-duplex communication between a client and a
-
-    server over a single, long-lived connection. The WebSocket protocol is designed to work over the same ports as HTTP and
-
-    HTTPS (ports 80 and 443, respectively) and uses a similar handshake process to establish a connection.'
-  kind: number
 - q: What happens to a document's attributes when a node parser breaks it into chunks?
   source: llamaindex-docs/docs/src/content/docs/framework/module_guides/loading/node_parsers/index.md
   quote: Node parsers are a simple abstraction that take a list of documents, and chunk them into `Node` objects, such that each node is a specific chunk of the parent document. When a document is broken into nodes, all of it's attributes are inherited to the children nodes (i.e. `metadata`, text and metadata templates, etc.).
@@ -261,16 +239,6 @@ questions:
 
     - Search PyPI for `llama-index-readers-`. Package names follow the pattern `llama-index-readers-<source>`, for example `llama-index-readers-google` or `llama-index-readers-database`.'
   kind: how-to
-- q: What minimum version of the Python SDK is needed for the client tutorial?
-  source: mcp-spec/docs/docs/2026-07-28/develop/build-client.mdx
-  quote: '- Mac or Windows computer
-
-    - Latest Python version installed
-
-    - Latest version of `uv` installed
-
-    - You must use the Python MCP SDK 2.0.0 or higher'
-  kind: number
 - q: Can a server give a freshness lifetime without announcing list-change notifications, and what then happens on the client?
   source: mcp-spec/docs/specification/2026-07-28/server/utilities/caching.mdx
   quote: "- A server **MAY** provide `ttlMs` without advertising `listChanged: true` in its\n  capabilities. In this case, the client relies entirely on TTL-based freshness.\n- A server **MAY** advertise `listChanged: true` **and** provide `ttlMs`. In this case,\n  the client can use the TTL to avoid unnecessary refetches between notifications, and\n  the notification acts as an immediate invalidation signal."
@@ -519,16 +487,6 @@ questions:
   source: pytest-docs/doc/en/how-to/tmp_path.rst
   quote: "- When the `--basetemp` option is used (e.g. `pytest --basetemp=mydir`),\n  it will be used directly as base temporary directory:"
   kind: code
-- q: Does the sequence in which test setup helpers are written decide the sequence they run in, and what should you rely on?
-  source: pytest-docs/doc/en/reference/fixtures.rst
-  quote: 'Names of fixtures or tests, where they''re defined, the order they''re defined in,
-
-    and the order fixtures are requested in have no bearing on execution order
-
-    beyond coincidence. While pytest will try to make sure coincidences like these
-
-    stay consistent from run to run, it''s not something that should be depended on.'
-  kind: fact
 - q: What does the environment test automation helper do, and when would you consider it?
   source: pytest-docs/doc/en/explanation/goodpractices.rst
   quote: 'Once you are done with your work and want to make sure that your actual
