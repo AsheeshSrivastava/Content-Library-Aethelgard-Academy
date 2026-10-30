@@ -13,7 +13,7 @@ Key numbers with HR, right passage first / in top 3:
 - Time per question with HR: jina 0.13 s, bge-m3 0.17 s.
 
 ## Decision
-1. The corpus is chunked with the `llamaindex` chunker (default settings from the run) and embedded with `jinaai/jina-v2-base-en` at the pinned revision in `configs/models.yaml`.
+1. The corpus is chunked with the `llamaindex` chunker (default settings from the run) and embedded with `jinaai/jina-embeddings-v2-base-en` (entry `jina-v2-base-en` in `configs/models.yaml`, revision 322d4d7e2f35, 768 dimensions, Apache-2.0). The same model embeds the questions at search time: passages and questions must use the same model and revision, so a change of model means re-embedding everything.
 2. Search is hybrid (own BM25 plus vectors, rank fusion) followed by the local reranker, exactly as in ADR 0009.
 3. The corpus language is English only, so the many-language strength of bge-m3 is not needed.
 
