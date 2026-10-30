@@ -7,11 +7,14 @@
 # If the GPU runs out of memory, add -Window 4096 to estimate, run and report (the same number every time).
 param(
   [Parameter(Mandatory = $true)][ValidateSet('estimate', 'run', 'report')][string]$Step,
-  [Parameter(Mandatory = $true)][string]$Embedders,
-  [Parameter(Mandatory = $true)][string]$Chunkers,
+  [Parameter(Mandatory = $true)][string[]]$Embedders,
+  [Parameter(Mandatory = $true)][string[]]$Chunkers,
   [int]$Window = 0,
   [string]$Only = ''
 )
+# A comma list typed without quotes arrives as a list; join it back into one text.
+$Embedders = $Embedders -join ','
+$Chunkers = $Chunkers -join ','
 $lib = 'D:\01-Project\unsloth\aethelgard-academy\.worktrees\library3\content\library'
 $snaps = 'C:\Users\sashe\.aethelgard\library\snapshots'
 $args2 = @('--register', "$lib\sources", '--snapshots', $snaps, '--questions', 'eval\questions',
