@@ -18,7 +18,7 @@ The 598 questions so far only check that the right **file** is found. Stage 3 le
 
 ## 4. Review, before any run
 - The loader checks that every quote is found exactly once in its source, the mix rule, the 4-word rule and that no question is listed twice.
-- Codex and Gemini each get the question list and the quotes (prompt files made by me). Each answers: can the question be answered from the quote alone, is it clear, is there another place in the corpus that answers it just as well. A question that fails with either reviewer is **dropped, not reworded**, and the drop is listed in the report. The owner does not review the content.
+- Reviewers (owner's tools, 2026-10-30): Gemini 3.8 on the Pro plan is the main reviewer and reads all questions. Codex is on the free plan, so it reviews a sample of 50 questions if its limit allows; if it does not, the report says only one outside reviewer was used. A Claude model on Antigravity is not independent of me and is not counted as a reviewer. I make the prompt files. Each reviewer answers: can the question be answered from the quote alone, is it clear, is there another place in the corpus that answers it just as well. A question that fails with either reviewer is **dropped, not reworded**, and the drop is listed in the report. The owner does not review the content.
 - The set is frozen (hash written into the report) before the first run.
 
 ## 5. Scoring
@@ -42,5 +42,5 @@ Nothing about the pipelines, chunkers or models changes in this stage. If the se
 | Questions favour one chunker | quote places picked at random in the source text, not from passages |
 | Questions too easy (copy the quote) | 4-word rule by script |
 | Quote not in the source after cleaning | exact match against the loaded source text, found exactly once |
-| Wrong or unclear question | two outside reviewers; failures dropped, not edited after results |
+| Wrong or unclear question | one or two outside reviewers; failures dropped, not edited after results |
 | 150 questions too few to separate near-equal cells | the report says "tie" when gaps are under the rule |
