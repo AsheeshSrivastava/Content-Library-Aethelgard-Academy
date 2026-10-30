@@ -84,7 +84,7 @@ def _files(run: Run, ranked: list[tuple[int, float]], n: int) -> list[Hit]:
     return hits[:n]
 
 
-def _ranker(variant: str, run: Run, texts: list[str], embedder, reranker, index: Bm25Index | None, n_raw: int,
+def make_ranker(variant: str, run: Run, texts: list[str], embedder, reranker, index: Bm25Index | None, n_raw: int,
             depth: int) -> Callable[[str], list[tuple[int, float]]]:
     """query -> passages of the run (row position, score), best first, for one of the five variants."""
     if variant not in PIPELINES:
@@ -119,7 +119,7 @@ def make_pipeline(variant: str, run: Run, texts: list[str], *, embedder=None, re
                   index: Bm25Index | None = None, n_raw: int = N_RAW, depth: int = RERANK_DEPTH) -> Retriever:
     """V vectors only, L keywords only, H both fused, VR / HR the first `depth` passages of V / H reordered by the
     reranker. `texts` is the text of each passage of the run, in row order. Answers are files (spec 15 section 3.4)."""
-    ranker = _ranker(variant, run, texts, embedder, reranker, index, n_raw, depth)
+    ranker = make_ranker(variant, run, texts, embedder, reranker, index, n_raw, depth)
     if variant == "V":
         return make_retriever(run, embedder, n_raw)
     return lambda query, n: _files(run, ranker(query), n)
@@ -137,7 +137,7 @@ def make_passage_pipeline(variant: str, run: Run, texts: list[str], *, embedder=
                           index: Bm25Index | None = None, n_raw: int = N_RAW, depth: int = RERANK_DEPTH
                           ) -> Callable[[str, int], list[PassageHit]]:
     """The same five variants, answering with passages (no collapsing to files) for the stage 4 questions."""
-    ranker = _ranker(variant, run, texts, embedder, reranker, index, n_raw, depth)
+    ranker = make_ranker(variant, run, texts, embedder, reranker, index, n_raw, depth)
 
     def retrieve(query: str, n: int) -> list[PassageHit]:
         return [PassageHit(run.rows[p]["source_id"], run.rows[p]["start"], run.rows[p]["end"], score)

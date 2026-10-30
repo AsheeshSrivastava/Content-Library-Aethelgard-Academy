@@ -34,8 +34,8 @@ The caller (the `index.ps1` command, unit 17d) loads the approved, gate-passed, 
 9. **Chunker check.** Every passage the chunker gives must carry the chunker version recorded in `meta`; otherwise `sync` stops with a `SyncError` and stores nothing for that source. The embedder must return exactly one vector per text; the store refuses vectors that are not unit length.
 
 ## 4. Retriever (`index_retriever.py`)
-- `Retriever.open(path, setup, embedder, reranker)` loads all vectors into one array and builds the keyword index from stored texts (spec 15 section 3.1).
-- `search(query, k=5, max_per_file=None) -> list[Result]`: vector top 200, keyword top 200, rank fusion, reranker on the first 30, then the first `k` (limited to `max_per_file` per source when set). Empty or whitespace query returns an empty list. An empty index returns an empty list.
+- `Retriever.open(path, setup, embedder, reranker, *, n_raw=200, depth=30)` opens the file **read-only** (never creating it; a different setup is refused), loads all vectors into one array and builds the keyword index from the stored texts (spec 15 section 3.1). It uses the stage 3 `HR` ranking code itself (`retrieve.make_ranker`), so the measured pipeline is the one that runs. A new `Retriever` is needed to see a later sync. `close()` or a `with` block closes the file.
+- `search(query, k=5, max_per_file=None) -> list[Result]`: vector top `n_raw`, keyword top `n_raw`, rank fusion, reranker on the first `depth`, then the first `k` (limited to `max_per_file` per source when set; only the reranked passages can be returned, so a limit can leave fewer than `k`). Empty or whitespace query returns an empty list without embedding. An empty index returns an empty list. `k` or `max_per_file` below 1 raises `ValueError`; a closed retriever raises `IndexStoreError`.
 - `Result` (frozen): `passage_id, source_id, url, licence, heading_path, text, start, end, rank (from 1), score`. Scores are the reranker's, so they compare only within one search.
 - Same query and same index give the same list (ties by row position).
 
