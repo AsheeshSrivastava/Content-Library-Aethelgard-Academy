@@ -44,7 +44,8 @@ class SyncReport:
             f"{self.sources_unchanged} sources unchanged, {self.sources_deleted} removed",
             f"  {self.passages_added} passages stored ({self.passages_reused} reused an existing vector), "
             f"{self.passages_deleted} old passages removed",
-            f"  {self.vectors_embedded} texts embedded in {self.seconds:.1f} seconds",
+            (f"  {self.vectors_embedded} texts would need embedding (cutting the passages took {self.seconds:.1f} seconds)"
+             if self.dry_run else f"  {self.vectors_embedded} texts embedded in {self.seconds:.1f} seconds"),
         ])
 
 

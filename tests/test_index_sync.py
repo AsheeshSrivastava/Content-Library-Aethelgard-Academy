@@ -307,7 +307,9 @@ def test_the_report_reads_in_plain_words(store):
     assert "3 sources added" in text and "0 sources unchanged" in text
     assert "embedded" in text
     assert "dry run" not in text.lower()
-    assert "dry run" in run(store, sources, dry_run=True).render().lower()
+    planned = run(store, sources, dry_run=True).render()
+    assert "dry run" in planned.lower() and "would need embedding" in planned and "texts embedded" not in planned
+    assert "texts embedded" in text
 
 
 def test_seconds_come_from_the_clock(store):

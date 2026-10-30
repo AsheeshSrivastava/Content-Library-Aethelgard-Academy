@@ -39,9 +39,12 @@ The caller (the `index.ps1` command, unit 17d) loads the approved, gate-passed, 
 - `Result` (frozen): `passage_id, source_id, url, licence, heading_path, text, start, end, rank (from 1), score`. Scores are the reranker's, so they compare only within one search.
 - Same query and same index give the same list (ties by row position).
 
-## 5. Commands (`scripts/index.ps1`, owner's PC)
-- `index.ps1 sync [-DryRun]`, `index.ps1 status` (setup, counts, last sync, size), `index.ps1 search "question" [-K 5]` (prints rank, heading path, source URL, first 200 characters).
-- Paths come from the same options as `stage4.ps1`; first run prints the number of passages to embed and the time estimate, and costs no money.
+## 5. Commands (`index_cli.py`, `scripts/run_index.py`, `scripts/index.ps1` on the owner's PC)
+- `index.ps1 sync [-DryRun] [-AllowMassDelete]`: loads the corpus exactly as the comparison did (register, snapshots, exclusions file; a source's url comes from its register record), then calls `sync` (section 3) with the setup read from `configs/models.yaml` and `configs/rerankers.yaml` (embedder and reranker revisions, the embedder's code pin, the chunker version, the installed `llama-index-core` version). Models and the chunker are built only when needed, so a sync with nothing new loads no model. Prints progress every 100 sources and the report. A dry run on a missing index creates no file. Loading no sources at all is refused (exit 2). After a sync the chunker's own check runs (over 1% of LlamaIndex nodes not found in the text); if it fails the command exits 1 and says not to trust the index.
+- `index.ps1 status`: opens the index read-only (works while a sync runs) and prints counts, last sync, schema version, vector size and the setup the file was built with. Loads no model.
+- `index.ps1 search "question" [-K 5] [-MaxPerFile 2]`: prints rank, score, heading path, source link, source id, licence and the first 200 characters of each passage.
+- Exit codes: 0 done, 1 could not continue (index unchanged or still valid), 2 bad input. The index file defaults to `~\.ragcore\index\index.db` (`-Index` changes it). The cost is no money: everything runs on the PC. `index.ps1 sync -DryRun` first shows the number of passages and texts that would be embedded.
+- Real-run check of 17d (2026-10-30): `sync -DryRun` on the real corpus loaded 1,884 sources and cut 22,675 passages, of which 22,362 texts would be embedded (313 passages share a text with another).
 
 ## 6. Failure behaviour
 Setup mismatch, newer schema, a source whose text no longer matches its stored hash after load (corrupt snapshot), a locked index: each stops with a plain message and changes nothing. A power cut during sync: next `sync` completes it.
