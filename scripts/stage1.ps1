@@ -6,7 +6,7 @@
 param(
   [Parameter(Mandatory = $true)][ValidateSet('estimate', 'run', 'report')][string]$Step,
   [string]$Embedders = 'bge-m3,jina-v2-base-en',
-  [string]$Chunkers = 'rules,fixed,merge-small,parent-child,semantic-bge-m3,semantic-jina-v2-base-en',
+  [string]$Chunkers = 'rules,fixed,merge-small,parent-child,llamaindex,semantic-bge-m3,semantic-jina-v2-base-en',
   [string]$Only = ''
 )
 $lib = 'D:\01-Project\unsloth\aethelgard-academy\.worktrees\library3\content\library'
@@ -14,4 +14,4 @@ $snaps = 'C:\Users\sashe\.aethelgard\library\snapshots'
 $args2 = @('--register', "$lib\sources", '--snapshots', $snaps, '--questions', 'eval\questions',
            '--embedders', $Embedders, '--chunkers', $Chunkers)
 if ($Only) { $args2 += @('--only', $Only) }
-uv run --group embed python scripts/run_stage.py $Step @args2
+uv run --group embed --group variants python scripts/run_stage.py $Step @args2

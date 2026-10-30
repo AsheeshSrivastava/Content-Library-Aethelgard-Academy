@@ -1,4 +1,6 @@
 """Stage runner (spec 13 section 6): corpus, building runs, the printed estimate, the report. Fake embedder only."""
+import importlib.util
+
 import numpy as np
 import pytest
 
@@ -34,12 +36,12 @@ class Counting(FakeEmbedder):
 
 
 def test_chunker_names():
-    assert CHUNKER_NAMES == ("rules", "fixed", "merge-small", "parent-child")
+    assert CHUNKER_NAMES == ("rules", "fixed", "merge-small", "parent-child", "llamaindex")
 
 
 def test_labels_name_the_chunker_and_change_with_settings():
     labels = {n: chunker_label(n, CONFIG) for n in CHUNKER_NAMES}
-    assert len(set(labels.values())) == 4
+    assert len(set(labels.values())) == 5
     assert chunker_label("rules", CONFIG) != chunker_label("rules", ChunkConfig(max_chars=500, hard_limit=2000))
     assert "400" in labels["fixed"] and "300" in labels["merge-small"]
     for name in CHUNKER_NAMES:
@@ -51,7 +53,12 @@ def test_unknown_chunker_refused():
         chunk_corpus(sources(), "nope", CONFIG)
 
 
-@pytest.mark.parametrize("name", CHUNKER_NAMES)
+HAS_LLAMA = importlib.util.find_spec("llama_index") is not None
+CHUNKERS_HERE = [n if n != "llamaindex" else pytest.param(n, marks=pytest.mark.skipif(not HAS_LLAMA, reason="needs the variants group"))
+                 for n in CHUNKER_NAMES]
+
+
+@pytest.mark.parametrize("name", CHUNKERS_HERE)
 def test_chunk_corpus_covers_every_source_in_order(name):
     passages, dropped = chunk_corpus(sources(), name, CONFIG)
     assert passages and dropped >= 0
@@ -464,3 +471,17 @@ def test_main_makes_one_model_per_id(tmp_path, monkeypatch):
     assert main(["estimate", "--register", str(library / "sources"), "--snapshots", str(snaps), "--questions", str(questions),
                  "--runs", str(tmp_path / "runs"), "--embedders", "fake", "--chunkers", "rules,semantic-fake"]) == 0
     assert made == ["fake"]
+
+
+def test_llamaindex_label_works_without_llamaindex_installed():
+    assert chunker_label("llamaindex", CONFIG) == "llamaindex-1/375/400/2000"
+
+
+@pytest.mark.skipif(not HAS_LLAMA, reason="needs the variants group")
+def test_llamaindex_run_is_built_and_stops_when_too_many_nodes_are_unmapped(tmp_path, monkeypatch):
+    built = build_run(tmp_path, "llamaindex", sources(), FakeEmbedder(), CONFIG, questions_fp="q")
+    assert built.count > 0
+    import ragcore.llamaindex_chunker as li
+    monkeypatch.setattr(li.LlamaIndexChunker, "_node_texts", lambda self, text: ["never in the text " + t for t in ["a", "b"]])
+    with pytest.raises(RuntimeError, match="1%"):
+        build_run(tmp_path, "llamaindex", sources(), FakeEmbedder(dim=16), CONFIG, questions_fp="q")

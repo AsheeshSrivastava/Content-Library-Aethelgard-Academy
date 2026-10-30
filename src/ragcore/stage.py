@@ -28,9 +28,10 @@ from ragcore.loaders.snapshot import load_snapshot
 from ragcore.register import load_record
 from ragcore.retrieve import make_retriever
 from ragcore.runs import RunError, compute_run_id, load_run, write_run
+from ragcore.llamaindex_chunker import LlamaIndexChunker, llamaindex_version
 from ragcore.semantic import SemanticChunker
 
-CHUNKER_NAMES = ("rules", "fixed", "merge-small", "parent-child")
+CHUNKER_NAMES = ("rules", "fixed", "merge-small", "parent-child", "llamaindex")
 MERGE_MIN_CHARS = 300
 DEFAULT_RUNS = Path.home() / ".ragcore" / "runs"
 DEFAULT_MODELS = Path(__file__).resolve().parent.parent.parent / "configs" / "models.yaml"
@@ -69,6 +70,8 @@ def chunker_label(name: str, config: ChunkConfig, steerers: dict | None = None) 
         return f"merge-small-1/{config.max_chars}/{config.hard_limit}/{MERGE_MIN_CHARS}"
     if name == "parent-child":
         return f"parent-child-1/{config.max_chars}/{config.hard_limit}/{CHILD_CHARS}"
+    if name == "llamaindex":
+        return llamaindex_version(config)
     if is_semantic(name):
         return SemanticChunker(_steerer(name, steerers)).version(config)
     raise ValueError(f"unknown chunker {name!r}; choose one of {', '.join(CHUNKER_NAMES)} or semantic-<embedder>")
@@ -122,11 +125,16 @@ def chunk_corpus_full(sources: list[Source], name: str, config: ChunkConfig, ste
         if path is not None:
             _save_chunk_cache(path, passages, dropped)
         return passages, dropped, {}
-    if name not in chunkers and name != "parent-child":
+    if name not in chunkers and name not in ("parent-child", "llamaindex"):
         chunker_label(name, config)  # raises the "unknown chunker" message
     passages, dropped, parents = [], 0, {}
+    llama = LlamaIndexChunker() if name == "llamaindex" else None
     for source in sorted(sources, key=lambda s: s.source_id):
-        if name == "parent-child":
+        if llama is not None:
+            result = llama(source, config)
+            passages += result.passages
+            dropped += result.dropped_empty
+        elif name == "parent-child":
             pc = chunk_parent_child(source, config, CHILD_CHARS)
             passages += pc.children
             dropped += pc.dropped_empty
@@ -135,6 +143,8 @@ def chunk_corpus_full(sources: list[Source], name: str, config: ChunkConfig, ste
             result = chunkers[name](source)
             passages += result.passages
             dropped += result.dropped_empty
+    if llama is not None:
+        llama.verify()  # Over 1% of nodes not found in the text: stop rather than trust the variant.
     return passages, dropped, parents
 
 

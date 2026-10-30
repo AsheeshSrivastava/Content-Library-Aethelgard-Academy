@@ -97,3 +97,7 @@ Next: 13g LlamaIndex mapper (optional group `variants`), then 13h late chunking.
 
 ## Fix, unit 13e: parent-child on real files (2026-10-30)
 Restarting review of the work: `parent_child_spans` in `chunking.py`. The owner first estimate on the whole corpus failed on `reasoning-llms.en.mdx` (lost text), then a whole-corpus check found 4 more files. Two causes (trimmed indent before a new parent; indented heading-like lines), 4 new tests written red first, then fixed. Lesson: synthetic tests were not enough, so every new chunker is now also run over all 2,226 sources before it is handed over (spec 13 section 9f). Not independent review.
+
+## Self-review, unit 13g: LlamaIndex chunker (2026-10-30)
+Restarting review of the work: spec 13 section 4.2 and ADR 0007 point 7, `llamaindex_chunker.py` and its stage wiring. Boundaries only: our text is sliced, LlamaIndex text is never used. Checked on all 2,226 sources before handover (lesson from the parent-child fix): 0 failures, 0 unmapped nodes. Mutation check 19 mutants. Needs `uv sync --group variants`; `scripts/stage1.ps1` now passes that group. Not independent review.
+Next: the owner-approved corpus curation (ADR 0008 Proposed, spec 14 Draft), then 13h late chunking.
