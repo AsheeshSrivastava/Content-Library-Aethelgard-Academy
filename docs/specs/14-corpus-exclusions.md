@@ -1,6 +1,6 @@
-# Spec 14: Corpus exclusions
+﻿# Spec 14: Corpus exclusions
 
-Status: Draft (2026-10-30), follows ADR 0008 (Proposed). Written before the code.
+Status: Accepted 2026-10-30, follows ADR 0008 (Accepted). Written before the code.
 
 ## 1. Purpose
 Leave reviewed noise out of the searchable corpus without touching the register, the snapshots or the licence gate.

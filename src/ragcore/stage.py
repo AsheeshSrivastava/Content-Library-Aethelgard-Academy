@@ -21,6 +21,7 @@ from ragcore.chunking import (CHILD_CHARS, ChunkConfig, chunk_fixed, chunk_merge
 from ragcore.compare import markdown_table, score_questions, split_sets
 from ragcore.contracts import Passage, Source, Span, make_passages
 from ragcore.embed.base import FakeEmbedder, estimate_seconds, load_model_specs, probe
+from ragcore.embed.late import DEFAULT_OVERLAP, embed_passages_late
 from ragcore.exclusions import Rule, apply_exclusions, load_exclusions
 from ragcore.errors import LoadRefused, RegisterError, SkipShareExceeded
 from ragcore.evalset import QuestionSet, load_question_dir
@@ -215,16 +216,26 @@ class BuiltRun:
     passages: list = field(default_factory=list)  # Empty when the run was reused.
 
 
+MODES = ("normal", "late")
+
+
 def run_inputs(name: str, config: ChunkConfig, embedder, corpus_fp: str, questions_fp: str, mode: str = "normal",
-               steerers: dict | None = None) -> dict:
-    return {"chunker": chunker_label(name, config, steerers), "mode": mode, "embedder": embedder.fingerprint,
-            "corpus": corpus_fp, "questions": questions_fp}
+               steerers: dict | None = None, late_window: int | None = None,
+               late_overlap: int = DEFAULT_OVERLAP) -> dict:
+    if mode not in MODES:
+        raise ValueError(f"unknown mode {mode!r}; choose from {', '.join(MODES)}")
+    inputs = {"chunker": chunker_label(name, config, steerers), "mode": mode, "embedder": embedder.fingerprint,
+              "corpus": corpus_fp, "questions": questions_fp}
+    if mode == "late":  # Normal-mode ids stay exactly as they were.
+        inputs["late"] = {"window": late_window or embedder.max_tokens, "overlap": late_overlap}
+    return inputs
 
 
 def build_run(root: Path, name: str, sources: list[Source], embedder, config: ChunkConfig, *, questions_fp: str,
-              batch: int = 256, mode: str = "normal", steerers: dict | None = None,
-              progress: Callable[[int, int], None] | None = None) -> BuiltRun:
-    inputs = run_inputs(name, config, embedder, corpus_fingerprint(sources), questions_fp, mode, steerers)
+              batch: int = 256, mode: str = "normal", steerers: dict | None = None, late_window: int | None = None,
+              late_overlap: int = DEFAULT_OVERLAP, progress: Callable[[int, int], None] | None = None) -> BuiltRun:
+    inputs = run_inputs(name, config, embedder, corpus_fingerprint(sources), questions_fp, mode, steerers,
+                        late_window, late_overlap)
     run_id = compute_run_id(inputs)
     try:
         existing = load_run(root, run_id)
@@ -235,17 +246,24 @@ def build_run(root: Path, name: str, sources: list[Source], embedder, config: Ch
     if not passages:
         raise ValueError("nothing to embed: the chunker produced no passages")
     start = time.perf_counter()
-    texts = [p.text for p in passages]
-    parts = []
-    for i in range(0, len(texts), batch):
-        parts.append(embedder.embed(texts[i:i + batch], kind="passage"))
-        if progress:
-            progress(min(i + batch, len(texts)), len(texts))
+    extra: dict = {}
+    if mode == "late":
+        vectors, late_stats = embed_passages_late(embedder, sources, passages, window=late_window,
+                                                  overlap=late_overlap, batch=batch, progress=progress)
+        extra.update(late_stats)
+    else:
+        texts = [p.text for p in passages]
+        parts = []
+        for i in range(0, len(texts), batch):
+            parts.append(embedder.embed(texts[i:i + batch], kind="passage"))
+            if progress:
+                progress(min(i + batch, len(texts)), len(texts))
+        vectors = np.vstack(parts)
     seconds = time.perf_counter() - start
-    extra = {"dropped_empty": dropped, "embed_seconds": round(seconds, 2), "passages": len(passages)}
+    extra.update({"dropped_empty": dropped, "embed_seconds": round(seconds, 2), "passages": len(passages)})
     if hasattr(embedder, "truncated"):
         extra["truncated"] = embedder.truncated
-    write_run(root, inputs, passages, np.vstack(parts).astype(np.float32), parents=parents, extra=extra)
+    write_run(root, inputs, passages, vectors.astype(np.float32), parents=parents, extra=extra)
     return BuiltRun(run_id, len(passages), dropped, False, seconds, passages)
 
 
@@ -253,9 +271,13 @@ def build_run(root: Path, name: str, sources: list[Source], embedder, config: Ch
 
 def estimate(sources: list[Source], chunkers: list[str], embedders: list, config: ChunkConfig, root: Path, *,
              questions_fp: str, probe_n: int = 256, clock: Callable[[], float] = time.perf_counter,
-             steerers: dict | None = None) -> dict:
+             steerers: dict | None = None, mode: str = "normal", late_window: int | None = None,
+             late_overlap: int = DEFAULT_OVERLAP) -> dict:
     """A semantic chunker cannot be counted without running it (that is a full embedding pass), so its passages and
-    tokens are taken from the `rules` chunking as a stand-in and the pass itself is timed separately."""
+    tokens are taken from the `rules` chunking as a stand-in and the pass itself is timed separately.
+
+    In late mode every file goes through the model once whatever the chunker, so the tokens are the files' tokens
+    (the shared window overlap adds a little, and long windows run slower than the speed sample)."""
     if not sources:
         raise ValueError("nothing to estimate: the corpus is empty")
     corpus_fp = corpus_fingerprint(sources)
@@ -273,13 +295,21 @@ def estimate(sources: list[Source], chunkers: list[str], embedders: list, config
             tokens = sum(steerer.count_tokens(p.text) for p in chunked["rules"])
             steering[name] = 0.0 if cached else estimate_seconds(tokens, probes[steerer.id]["tokens_per_second"])
     runs = []
+    file_tokens: dict[str, int] = {}
     for name in chunkers:
         passages = chunked[stand_in[name]]
         for emb in embedders:
-            tokens = sum(emb.count_tokens(p.text) for p in passages)
+            if mode == "late":
+                if emb.id not in file_tokens:
+                    file_tokens[emb.id] = sum(emb.count_tokens(s.text) for s in sources)
+                tokens = file_tokens[emb.id]
+            else:
+                tokens = sum(emb.count_tokens(p.text) for p in passages)
             exists = True
             try:
-                load_run(root, compute_run_id(run_inputs(name, config, emb, corpus_fp, questions_fp, steerers=steerers)))
+                load_run(root, compute_run_id(run_inputs(name, config, emb, corpus_fp, questions_fp, mode=mode,
+                                                         steerers=steerers, late_window=late_window,
+                                                         late_overlap=late_overlap)))
             except RunError:
                 exists = False
             runs.append({"name": f"{emb.id}/{name}", "chunker": name, "embedder": emb.id, "passages": len(passages),
@@ -289,6 +319,7 @@ def estimate(sources: list[Source], chunkers: list[str], embedders: list, config
     needed = {name: sec for name, sec in steering.items()
               if any(r["chunker"] == name and not r["exists"] for r in runs)}
     return {"runs": runs, "probe": probes, "sources": len(sources), "total_runs": len(runs), "steering": needed,
+            "mode": mode,
             "to_build": sum(not r["exists"] for r in runs),
             "total_seconds": sum(r["seconds"] for r in runs) + sum(needed.values()),
             "total_disk_mb": sum(r["disk_mb"] for r in runs if not r["exists"])}
@@ -309,6 +340,10 @@ def render_estimate(result: dict) -> str:
         lines.append(f"  {name} also needs one embedding pass over every paragraph to find its cuts: about "
                      f"{seconds / 60:.1f} minutes, done once and shared by all embedders. Its passage and token "
                      f"counts above are the rules chunker's as a stand-in.")
+    if result.get("mode") == "late":
+        lines.append("Late mode: every file goes through the model once, so the token counts above are the files' "
+                     "own. Windows overlap a little and long windows run slower than the speed sample, so expect "
+                     "more time than shown. Passages that cannot be pooled late are embedded the normal way.")
     lines.append(f"Total: about {result['total_seconds'] / 60:.1f} minutes and {result['total_disk_mb']:.0f} MB of disk. "
                  "No paid service is used; everything runs on this computer.")
     return "\n".join(lines)
@@ -353,6 +388,10 @@ def _parser() -> argparse.ArgumentParser:
     parser.add_argument("--only", default="", help="comma list of source ids (stage 0 uses one small source)")
     parser.add_argument("--exclusions", default="", help="corpus exclusions file (default: configs/corpus-exclusions.yaml); "
                         "'none' turns the exclusions off")
+    parser.add_argument("--mode", default="normal", help="normal (stage 1) or late (stage 2, late chunking)")
+    parser.add_argument("--late-window", type=int, default=None, help="late mode: window in tokens (default: the "
+                        "model's limit less a small margin; 4096 if memory is short)")
+    parser.add_argument("--late-overlap", type=int, default=DEFAULT_OVERLAP)
     parser.add_argument("--baseline", default="rules")
     parser.add_argument("--max-chars", type=int, default=ChunkConfig.max_chars)
     parser.add_argument("--hard-limit", type=int, default=ChunkConfig.hard_limit)
@@ -391,6 +430,12 @@ def main(argv: list[str] | None = None) -> int:
                 chunker_label(name, config)  # raises the "unknown chunker" message
         if not chunkers:
             raise ValueError("no chunkers chosen")
+        if args.mode not in MODES:
+            raise ValueError(f"unknown mode {args.mode!r}; choose from {', '.join(MODES)}")
+        if args.late_window is not None and args.late_window <= 0:
+            raise ValueError("--late-window must be above 0")
+        if not 0 <= args.late_overlap < (args.late_window or 8192):
+            raise ValueError("--late-overlap must be from 0 up to less than the window")
         embedder_ids = _csv(args.embedders)
         unknown = [e for e in embedder_ids if e not in EMBEDDER_IDS]
         if unknown or not embedder_ids:
@@ -416,14 +461,16 @@ def main(argv: list[str] | None = None) -> int:
     if args.command == "estimate":
         _safe_print(render_estimate(estimate(sources, chunkers, list(embedders.values()), config, root,
                                              questions_fp=questions_fp, probe_n=args.probe_n,
-                                             steerers=steerers)))
+                                             steerers=steerers, mode=args.mode, late_window=args.late_window,
+                                             late_overlap=args.late_overlap)))
         _safe_print("No run was written.")
         return 0
     if args.command == "run":
         for emb_id, emb in embedders.items():
             for name in chunkers:
                 built = build_run(root, name, sources, emb, config, questions_fp=questions_fp, batch=args.batch,
-                                  steerers=steerers)
+                                  steerers=steerers, mode=args.mode, late_window=args.late_window,
+                                  late_overlap=args.late_overlap)
                 state = "reused" if built.reused else f"built in {built.seconds / 60:.1f} min"
                 _safe_print(f"{emb_id}/{name}: {built.count} passages, {state} [{built.run_id}]")
         return 0
@@ -431,8 +478,13 @@ def main(argv: list[str] | None = None) -> int:
     primary, secondary = split_sets(sets)
     try:
         for emb_id, emb in embedders.items():
-            ids = {f"{emb_id}/{n}": compute_run_id(run_inputs(n, config, emb, corpus_fp, questions_fp, steerers=steerers))
-                   for n in chunkers}
+            ids = {}
+            for n in dict.fromkeys([args.baseline, *chunkers]) if args.mode == "late" else chunkers:
+                ids[f"{emb_id}/{n}"] = compute_run_id(run_inputs(n, config, emb, corpus_fp, questions_fp,
+                                                                 steerers=steerers))
+                if args.mode == "late" and n in chunkers:  # Each late run sits next to the normal run it is paired with.
+                    ids[f"{emb_id}/{n} (late)"] = compute_run_id(run_inputs(
+                        n, config, emb, corpus_fp, questions_fp, "late", steerers, args.late_window, args.late_overlap))
             for title, group in (("Primary questions", primary), ("Secondary questions (rag-questions)", secondary)):
                 if not any(s.questions for s in group):
                     continue

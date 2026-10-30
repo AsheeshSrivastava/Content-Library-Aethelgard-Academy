@@ -112,9 +112,11 @@ class Embedder(Protocol):
     id: str
     fingerprint: str
     dim: int
+    max_tokens: int
 
     def embed(self, texts: list[str], *, kind: str) -> np.ndarray: ...
     def token_states(self, text: str) -> TokenStates: ...
+    def token_spans(self, text: str) -> list[tuple[int, int]]: ...
     def count_tokens(self, text: str) -> int: ...
 
 
@@ -138,8 +140,8 @@ class FakeEmbedder:
 
     id = "fake"
 
-    def __init__(self, dim: int = 32, window: int = 2) -> None:
-        self.dim, self.window = dim, window
+    def __init__(self, dim: int = 32, window: int = 2, max_tokens: int = 8192) -> None:
+        self.dim, self.window, self.max_tokens = dim, window, max_tokens
         self.fingerprint = f"fake|dim={dim}|window={window}"
 
     def _word(self, word: str) -> np.ndarray:
@@ -155,6 +157,9 @@ class FakeEmbedder:
             if around:
                 vectors[i] += 0.5 * np.mean(around, axis=0)
         return TokenStates(vectors.astype(np.float32), [(m.start(), m.end()) for m in found])
+
+    def token_spans(self, text: str) -> list[tuple[int, int]]:
+        return [(m.start(), m.end()) for m in _WORD.finditer(text)]
 
     def embed(self, texts: list[str], *, kind: str) -> np.ndarray:
         check_kind(kind)

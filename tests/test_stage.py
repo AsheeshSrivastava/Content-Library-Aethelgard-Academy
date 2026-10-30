@@ -1,4 +1,4 @@
-"""Stage runner (spec 13 section 6): corpus, building runs, the printed estimate, the report. Fake embedder only."""
+﻿"""Stage runner (spec 13 section 6): corpus, building runs, the printed estimate, the report. Fake embedder only."""
 import importlib.util
 
 import numpy as np
@@ -10,7 +10,7 @@ from ragcore.embed.base import FakeEmbedder
 from ragcore.evalset import load_question_dir
 from ragcore.runs import load_run
 from ragcore.stage import (CHUNKER_NAMES, build_run, chunk_corpus, chunker_label, corpus_fingerprint, estimate,
-                           evaluate_runs, load_corpus, main, questions_fingerprint, render_estimate)
+                           evaluate_runs, load_corpus, main, questions_fingerprint, render_estimate, run_inputs)
 
 PARA = "Retrieval finds passages that answer a question, and ranking orders them by cosine similarity. "
 CONFIG = ChunkConfig(max_chars=400, hard_limit=2000)
@@ -544,3 +544,60 @@ def test_main_uses_the_shipped_file_by_default(tmp_path, capsys):
     library, snaps, _ = setup(tmp_path, {"a.md": f"# A\n\n{DISK_PARA}\n"})
     assert main(["estimate", *_main_args(tmp_path, library, snaps)]) == 0
     assert "Corpus: 1 sources" in capsys.readouterr().out  # no rule names source s1, and rules for other sources stay quiet
+
+
+# --- late mode (unit 13h) ----------------------------------------------------------------------
+
+def test_normal_run_inputs_have_not_changed():
+    inputs = run_inputs("rules", CONFIG, FakeEmbedder(), "c" * 8, "q" * 8)
+    assert set(inputs) == {"chunker", "mode", "embedder", "corpus", "questions"} and inputs["mode"] == "normal"
+    assert "late" in run_inputs("rules", CONFIG, FakeEmbedder(), "c", "q", "late")
+
+
+def test_main_late_mode_estimate_run_and_report(tmp_path, capsys):
+    library, snaps, _ = setup(tmp_path, {"a.md": f"# A\n\n{DISK_PARA}\n\n## Zed\n\nZebras and quartz.\n"})
+    args = _main_args(tmp_path, library, snaps)
+    assert main(["run", *args]) == 0
+    capsys.readouterr()
+    assert main(["estimate", *args, "--mode", "late"]) == 0
+    assert "Late mode" in capsys.readouterr().out
+    assert main(["run", *args, "--mode", "late"]) == 0
+    assert "fake/rules:" in capsys.readouterr().out
+    assert main(["report", *args, "--mode", "late"]) == 0
+    out = capsys.readouterr().out
+    assert "| fake/rules |" in out and "| fake/rules (late) |" in out
+
+
+def test_main_late_report_needs_the_late_runs(tmp_path, capsys):
+    library, snaps, _ = setup(tmp_path, {"a.md": f"# A\n\n{DISK_PARA}\n"})
+    args = _main_args(tmp_path, library, snaps)
+    assert main(["run", *args]) == 0
+    assert main(["report", *args, "--mode", "late"]) == 1
+
+
+def test_main_refuses_bad_late_settings(tmp_path):
+    library, snaps, _ = setup(tmp_path, {"a.md": f"# A\n\n{DISK_PARA}\n"})
+    args = _main_args(tmp_path, library, snaps)
+    assert main(["estimate", *args, "--mode", "sideways"]) == 2
+    assert main(["estimate", *args, "--mode", "late", "--late-window", "0"]) == 2
+    assert main(["estimate", *args, "--mode", "late", "--late-overlap", "9000"]) == 2
+    assert main(["estimate", *args, "--mode", "late", "--late-window", "100", "--late-overlap", "100"]) == 2
+
+
+def test_late_estimate_counts_the_files_tokens_not_the_passages(tmp_path):
+    srcs = [source("c.md", f"# Lonely heading\n\n# Next\n\n{PARA}\n")]  # The lone heading is dropped from the passages.
+    emb = FakeEmbedder()
+    result = estimate(srcs, ["rules", "fixed"], [emb], CONFIG, tmp_path, questions_fp="q", mode="late")
+    want = sum(emb.count_tokens(s.text) for s in srcs)
+    assert [r["tokens"] for r in result["runs"]] == [want, want]
+    normal = estimate(srcs, ["rules"], [emb], CONFIG, tmp_path, questions_fp="q")
+    assert normal["runs"][0]["tokens"] < want
+
+
+def test_late_estimate_knows_which_late_runs_exist(tmp_path):
+    srcs = sources()
+    emb = FakeEmbedder()
+    build_run(tmp_path, "rules", srcs, emb, CONFIG, questions_fp="q", mode="late")
+    result = estimate(srcs, ["rules"], [emb], CONFIG, tmp_path, questions_fp="q", mode="late")
+    assert result["runs"][0]["exists"]
+    assert not estimate(srcs, ["rules"], [emb], CONFIG, tmp_path, questions_fp="q")["runs"][0]["exists"]

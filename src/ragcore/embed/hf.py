@@ -31,7 +31,7 @@ class HFEncoder:
 
         verify_reviewed_code(spec)
         self.torch = torch
-        self.spec, self.id, self.dim = spec, spec.id, spec.dim
+        self.spec, self.id, self.dim, self.max_tokens = spec, spec.id, spec.dim, spec.max_tokens
         self.device = device or ("cuda" if torch.cuda.is_available() else "cpu")
         self.dtype = dtype if self.device != "cpu" else "float32"
         self.max_batch_tokens = max_batch_tokens
@@ -49,6 +49,11 @@ class HFEncoder:
 
     def count_tokens(self, text: str) -> int:
         return len(self.tokenizer(text, add_special_tokens=False)["input_ids"])
+
+    def token_spans(self, text: str) -> list[tuple[int, int]]:
+        """Where each real token sits in the text (special tokens left out), however long the text is."""
+        enc = self.tokenizer(text, add_special_tokens=False, return_offsets_mapping=True)
+        return [tuple(span) for span in enc["offset_mapping"]]
 
     def _hidden(self, ids: list[list[int]]) -> "torch.Tensor":  # noqa: F821
         torch = self.torch

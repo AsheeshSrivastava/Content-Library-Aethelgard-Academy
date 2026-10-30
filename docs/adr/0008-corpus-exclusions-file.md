@@ -1,6 +1,6 @@
-# ADR 0008: Corpus exclusions live in a rag-core file, not in the library3 register
+﻿# ADR 0008: Corpus exclusions live in a rag-core file, not in the library3 register
 
-## Status: Proposed (2026-10-30; the owner asked for the exclusions themselves, the mechanism is open for the owner to accept)
+## Status: Accepted (2026-10-30, by the owner)
 
 ## Context
 The noise audit (reports/noise-audit.md, 2026-10-30) found content that is approved and licensed but should not be searched: most of Python `library/` (tkinter, audio, curses and removed modules), migration and deprecation pages, link-list pages, release notes, one site-theme file, test fixtures. The owner said noise makes a bad RAG and asked to curate first, before any chunking. The register can only withhold files by licence (`licence_overrides`), which is the wrong lever: a file would have to be given a false licence id, and the register records live in the library3 app repository, which this branch treats as a frozen reference (ADR 0002).

@@ -1,4 +1,4 @@
-# Specs
+﻿# Specs
 
 A spec says what a unit must do, in testable terms, before any code for it is written.
 
@@ -26,4 +26,4 @@ If code or a spec changes the decision, stop and amend the ADR or spec first. A 
 | [11](11-notebook-reader.md) | Jupyter notebook reader | 6 | Accepted 2026-10-29 |
 | [12](12-eval-harness.md) | Eval harness (questions, checks, scoring) | 7 | Accepted 2026-10-29 |
 | [13](13-embedder-chunker-comparison.md) | Embedder and chunker comparison (plan) | 8+ | Accepted 2026-10-29 (pre-registration frozen) |
-| [14](14-corpus-exclusions.md) | Corpus exclusions file | 8+ | Draft 2026-10-30 |
+| [14](14-corpus-exclusions.md) | Corpus exclusions file | 8+ | Accepted 2026-10-30 |
