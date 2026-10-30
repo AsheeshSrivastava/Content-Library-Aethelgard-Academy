@@ -19,6 +19,30 @@ Earlier evidence (library3, a different corpus and a paid embedder) is not compa
 
 **Pre-registered rule (spec 13 section 5):** a cell **beats** its baseline (rules, normal mode, same embedder) if it is right-first for at least 5 more questions or in the top 3 for at least 3 more, and not worse than the baseline by more than 2 on the other measure. Otherwise it is **close** or **worse**. The winning cell overall is the beating cell with the most right-first questions.
 
+## 2a. Why these comparisons, and how big the matrix is
+
+Three things can change what a search finds: **where the text is cut** (the chunker), **how a passage becomes a vector** (the embedding mode) and **which model makes the vector** (the embedder). The comparison varies these three, one at a time against a baseline, and keeps the questions, the corpus and the settings fixed.
+
+**Why each option is in the grid:**
+- **rules** is the baseline: our own heading-following chunker (spec 09), the simplest thing that respects document structure. Every other option has to beat it.
+- **fixed** is the control with no structure at all. If plain windows do as well, structure-aware cutting is not worth its complexity.
+- **merge-small** answers a problem seen in the data: `llamaindex-docs` produced thousands of tiny passages (median 153 characters), which match questions by accident.
+- **parent-child** tests precision against context: search small pieces, hand back the whole section.
+- **semantic** (steered by bge-m3 and by jina) tests whether cutting where the topic changes beats cutting at headings. The owner asked for each embedder to steer, with bge-m3 as the main one and jina as the control.
+- **llamaindex** is a popular framework splitter used for the cut points only (ADR 0002 and 0007). It tells us whether a ready-made splitter beats ours, without adopting the framework as the backbone.
+- **late chunking** is an embedding mode the owner asked to try: embed the whole file once so each passage carries file context. It only makes sense on the chunkers that already do well, so it was run on the best three per embedder.
+- **bge-m3 and jina-v2-base-en** are two local models, so no paid calls and no money cost. bge-m3 is the larger model (1,024 dimensions, CLS pooling) and jina-v2 is smaller and faster (768 dimensions, mean pooling, built for long text). Paid embedders from the earlier library3 work are not repeated.
+
+**The matrix:**
+
+| Stage | What varies | Cells | Status |
+|---|---|---|---|
+| 1 | 7 chunkers (rules, fixed, merge-small, parent-child, semantic by bge-m3, semantic by jina, llamaindex) x 2 embedders, normal mode | 14 | done |
+| 2 | late mode on the best 3 chunkers per embedder | 6 | done |
+| 3 | hybrid search (lexical plus vectors), then `BAAI/bge-reranker-v2-m3`, on the best two cells | 2 | not started |
+
+The full grid would be 7 chunkers x 2 modes x 2 embedders = 28 cells. Only 20 were built (14 + 6) because late mode was tried where it had the best chance, not on weak chunkers. That is a saving in time, with the cost that some late cells were never measured. Stage 3 reuses existing runs; it adds a search method on top, not new embeddings.
+
 ## 3. The chunkers, in plain words
 
 Every passage is an exact slice of the source text, so any result can be quoted and cited. The chunkers differ only in where they cut.
@@ -122,3 +146,4 @@ _Open._
 ## 10. Change log
 
 - 2026-10-30: first version after stage 1 and stage 2.
+- 2026-10-30: added section 2a (why each comparison, and the size of the matrix).
