@@ -118,3 +118,6 @@ All 14 runs built (the semantic runs after the fix in spec 13 section 9i). Repor
 
 ## Stage 2 finished (2026-10-30)
 Late chunking built for 3 chunkers per embedder and reported: every late run is worse than its normal baseline (bge-m3 about 250 questions worse, jina about 20 worse). A diagnostic on 554 passages shows bge-m3 mean-pooled vectors do not match its CLS-trained space (cosine 0.49 to the normal vector), while jina late vectors match closely (0.94), so the code is sound and the loss is a finding. Late chunking not adopted. Results in spec 13 section 9j. Next: stage 3 spec (hybrid + `BAAI/bge-reranker-v2-m3`) on the two best cells, jina/llamaindex and bge-m3/merge-small, once the owner confirms the pair.
+
+## Living report (2026-10-30)
+`docs/reports/retrieval-comparison-report.md` is the one detailed report of the comparison: corpus, chunkers in plain words, stage 1 and 2 tables, what is settled and what is not. It is provisional. Update it (and its change log) after stage 3 and after the passage-level questions; do not write a second report.
