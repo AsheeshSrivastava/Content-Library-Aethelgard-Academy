@@ -8,6 +8,8 @@ from pathlib import Path
 
 import yaml
 
+from ragcore.quote_picker import group_of
+
 KINDS = ("fact", "how-to", "code", "number", "context")
 QUOTE_MIN, QUOTE_MAX = 40, 400
 COPY_RUN = 4  # A question may not repeat this many words in a row from its quote.
@@ -84,6 +86,11 @@ def _resolve(source: str, sources: dict[str, str]) -> list[str]:
     return [s for s in sources if source in s]
 
 
+def _file(item: PassageQuestion, sources: dict[str, str] | None) -> str:
+    found = _resolve(item.source, sources) if sources else []
+    return found[0] if len(found) == 1 else item.source
+
+
 def check_questions(questions: list[PassageQuestion], sources: dict[str, str]) -> list[str]:
     """Problems found in each question against the loaded source texts (source id -> text); empty means all fine."""
     problems: list[str] = []
@@ -112,8 +119,9 @@ def check_questions(questions: list[PassageQuestion], sources: dict[str, str]) -
     return problems
 
 
-def check_mix(questions: list[PassageQuestion]) -> list[str]:
-    """The spec 16 section 2 mix rule for the whole set."""
+def check_mix(questions: list[PassageQuestion], sources: dict[str, str] | None = None) -> list[str]:
+    """The spec 16 section 2 mix rule for the whole set. With `sources`, a question counts for the register source of the
+    file it names; without, for the first part of its `source` text."""
     n = len(questions)
     if n < FULL_SET:
         return [f"{n} questions; the set should have about 150"]
@@ -125,7 +133,7 @@ def check_mix(questions: list[PassageQuestion]) -> list[str]:
     for kind, count in kinds.items():
         if count / n > MAX_KIND_SHARE:
             problems.append(f"{kind} is {count} of {n}, above {MAX_KIND_SHARE:.0%}")
-    per_source = Counter(x.source for x in questions)
+    per_source = Counter(group_of(_file(x, sources)) for x in questions)
     for source, count in per_source.items():
         if count > MAX_PER_SOURCE:
             problems.append(f"{source} has {count} questions, above {MAX_PER_SOURCE}")

@@ -1,0 +1,3018 @@
+seed: 20261030
+count: 400
+candidates:
+- source: anthropic-cookbook/capabilities/content_moderation/data/ad_creatives/policies.md
+  start: 2102
+  end: 2313
+  hint: number
+  quote: '4.1 If targeting metadata leaves minimum age unset, treat the ad as reaching all ages: restricted categories (alcohol, gambling, weight loss, financial services) are then rejected regardless of creative content.'
+- source: anthropic-cookbook/patterns/agents/prompts/research_lead_agent.md
+  start: 20246
+  end: 20600
+  hint: text
+  quote: '<important_guidelines>
+
+    In communicating with subagents, maintain extremely high information density while being concise - describe everything needed in the fewest words possible.
+
+    As you progress through the search process:
+
+    1. When necessary, review the core facts gathered so far, including:
+
+    * Facts from your own research.
+
+    * Facts reported by subagents.'
+- source: anthropic-cookbook/capabilities/content_moderation/data/product_listings/policies.md
+  start: 455
+  end: 614
+  hint: number
+  quote: 3.1 A listing that names a luxury brand and is priced under $100 is flagged for counterfeit review, and if it also asserts authenticity it is rejected instead.
+- source: anthropic-cookbook/capabilities/content_moderation/README.md
+  start: 5070
+  end: 5289
+  hint: code
+  quote: 'The notebook''s own evaluation cell runs 2 samples per domain by default to keep it cheap;
+
+    set `RUN_FULL_EVAL=1` for the full table. A default notebook run takes about 10 to 15
+
+    minutes and costs on the order of a dollar.'
+- source: anthropic-cookbook/claude_agent_sdk/hosting/kubernetes/README.md
+  start: 8937
+  end: 9307
+  hint: code
+  quote: '```bash
+
+    REG=your.registry.example.com/claude-agent     # ECR, ACR, GHCR, Artifact Registry, ...
+
+
+    # 1. Build and push the three images
+
+    docker build -t $REG/agent:latest -f ../Dockerfile ..
+
+    docker build -t $REG/gateway:latest ./gateway
+
+    docker build -t $REG/egress-proxy:latest ./egress-proxy
+
+    docker push $REG/agent:latest $REG/gateway:latest $REG/egress-proxy:latest
+
+
+    # 2.'
+- source: anthropic-cookbook/patterns/agents/prompts/research_lead_agent.md
+  start: 10635
+  end: 10895
+  hint: text
+  quote: '<delegation_instructions>
+
+    Use subagents as your primary research team - they should perform all major research tasks:
+
+    1. **Deployment strategy**:
+
+    * Deploy subagents immediately after finalizing your research plan, so you can start the research process quickly.'
+- source: anthropic-cookbook/claude_agent_sdk/hosting/README.md
+  start: 580
+  end: 695
+  hint: code
+  quote: "```\nThe agent image exposes:\n\n  GET  /health\n       → 200 {\"status\": \"ok\"}\n       Liveness check for orchestration."
+- source: anthropic-cookbook/patterns/agents/prompts/research_lead_agent.md
+  start: 560
+  end: 932
+  hint: text
+  quote: '<research_process>
+
+    Follow this process to break down the user’s question and develop an excellent research plan. Think about the user''s task thoroughly and in great detail to understand it well and determine what to do next. Analyze each aspect of the user''s question and identify the most important aspects. Consider multiple approaches with complete, thorough reasoning.'
+- source: anthropic-cookbook/patterns/agents/prompts/citations_agent.md
+  start: 2053
+  end: 2165
+  hint: text
+  quote: '**Technical requirements:**
+
+    - Citations result in a visual, interactive element being placed at the closing tag.'
+- source: arxiv-rag-compositionality/paper.md
+  start: 103314
+  end: 103517
+  hint: number
+  quote: 'Table 21: Distractor-relevance audit (n{=}100). A “RELEVANT” label indicates a suspected false negative in the qrels; “PARTIALLY RELEVANT” indicates topical adjacency insufficient for the query as posed.'
+- source: arxiv-rag-compositionality/paper.md
+  start: 211802
+  end: 212197
+  hint: number
+  quote: The headline analyses in the main text rest on the 167-configuration D-optimal fractional factorial (retrieval ANOVA) and the 122-configuration faithfulness factorial. Beyond that core design, we ran 24 targeted ablation and model-comparison experiments totalling 138 distinct configurations, plus the 5K–200K corpus-scaling sweep (18 cells \times 1–3 seeds = 72 runs; see Sections 5 and B.3.9).
+- source: arxiv-rag-compositionality/paper.md
+  start: 170363
+  end: 170715
+  hint: number
+  quote: 'Query-level paired bootstrap (paper/data/scaling_bootstrap_cis.json, B{=}10{,}000 resamples over per-query NDCG@10 at fixed corpus): the profile crossover between sota_standard and sota_balanced at the 100K\!\to\!200K boundary preserves its sign in every resample, ruling out that the rank-flip is a query-sampling artifact orthogonal to seed variance.'
+- source: arxiv-rag-compositionality/paper.md
+  start: 330215
+  end: 330395
+  hint: number
+  quote: How far a combined pipeline’s gain falls below the gain predicted by adding up its techniques measured one at a time; 63\% for the three strongest retrieval techniques (Section 5).
+- source: arxiv-rag-compositionality/paper.md
+  start: 91014
+  end: 91409
+  hint: text
+  quote: 'The remaining 7 supported benchmarks (MS MARCO, TREC-COVID, TriviaQA, Natural Questions, FEVER, 2WikiMultiHopQA, MultiHop-RAG) were not evaluated due to infrastructure constraints: corpus sizes exceeding our Milvus Lite capacity (MS MARCO: 8.8M passages), rate-limited LLM proxy access for generation evaluation, and time constraints. All adapters are functional and available for community use.'
+- source: arxiv-rag-compositionality/paper.md
+  start: 137077
+  end: 137261
+  hint: number
+  quote: The n{=}50 human study of Section C.4 establishes judge validity at the per-answer level but is under-powered to certify configuration-ranking accuracy across the D5\timesD8 factorial.
+- source: arxiv-rag-compositionality/paper.md
+  start: 154572
+  end: 154773
+  hint: number
+  quote: All faithfulness evaluations (both the factorial ANOVA and the profile comparisons) use the same GPT-5.1 judge model with identical RAGAS v0.4 configuration (T{=}0, deterministic seed, batch_size{}=4).
+- source: arxiv-rag-compositionality/paper.md
+  start: 113977
+  end: 114195
+  hint: text
+  quote: This appendix provides formal definitions for every evaluation metric exposed by lasagna’s evaluation SDK, grouped into retrieval metrics (computed before generation), end-to-end answer metrics, and LLM-judged metrics.
+- source: arxiv-rag-compositionality/paper.md
+  start: 48288
+  end: 48409
+  hint: number
+  quote: H1 | Do components combine additively? | Single-component ablation as evidence | \eta^{2}\geq 0.20, Type-III ANOVA F-test
+- source: arxiv-rag-compositionality/paper.md
+  start: 318614
+  end: 318928
+  hint: text
+  quote: 'This appendix catalogs the techniques associated with the eight component dimensions varied in the factorial experiment. These dimensions sit within the nine-stage workflow described in Section 3: document processing and the base answer generator were held fixed, while D8 varies agentic control around generation.'
+- source: arxiv-rag-compositionality/paper.md
+  start: 309275
+  end: 309476
+  hint: text
+  quote: 'Cross-encoder rerankers operate on (query, passage) pairs and produce calibrated relevance scores. Their effectiveness depends on the quality of the candidate set provided by the first-stage retriever:'
+- source: arxiv-rag-compositionality/paper.md
+  start: 76809
+  end: 77152
+  hint: number
+  quote: The 167 executed configurations cover all factor levels in 7 of 8 dimensions and 3 of 4 levels in the enrichment dimension (D3). All 22 main effects and all 28 two-way interactions are estimable from this subset. However, the design is unbalanced (cell sizes range from 1 to 7), which affects the precision of individual interaction estimates.
+- source: arxiv-rag-compositionality/paper.md
+  start: 308717
+  end: 309115
+  hint: text
+  quote: 'All SOTA profiles either use BGE-M3 (standard, balanced, Max-Reliable) or MiniLM-L6 (speed), and none use enrichment. This is the correct design choice: the interaction analysis confirms that enrichment provides no benefit and may actively harm weaker embedders. Future work should evaluate whether enrichment becomes beneficial on open-domain corpora where document text alone may be insufficient.'
+- source: dair-ai-prompt-engineering-guide/pages/applications/coding.en.mdx
+  start: 1962
+  end: 2233
+  hint: code
+  quote: The generated code looks like working code. However, the output doesn't contain an important `import` statement, i.e., `import json`. While these models generate working code, you must pay close attention to small details like this and always make sure to test your code.
+- source: dair-ai-prompt-engineering-guide/pages/models/kimi-k2.5.en.mdx
+  start: 7111
+  end: 7402
+  hint: text
+  quote: Kimi K2.5 introduces Toggle, a training heuristic that alternates between inference-time scaling and budget-constrained optimization. During budget-limited phases, the model is trained to solve problems within a task-dependent token budget, producing more concise chain-of-thought reasoning.
+- source: dair-ai-prompt-engineering-guide/pages/models/collection.en.mdx
+  start: 114
+  end: 209
+  hint: text
+  quote: '| Model | Release Date | Size (B) | Checkpoints | Description |
+
+    | --- | --- | --- | --- | --- |'
+- source: dair-ai-prompt-engineering-guide/pages/agents/function-calling.en.mdx
+  start: 3167
+  end: 3328
+  hint: text
+  quote: Tool definitions are arguably the most critical component of function calling. They are the only way the LLM knows what tools are available and when to use them.
+- source: dair-ai-prompt-engineering-guide/pages/techniques/tot.en.mdx
+  start: 2332
+  end: 2642
+  hint: number
+  quote: At a high level, the main ideas of [Yao et el. (2023)](https://arxiv.org/abs/2305.10601) and [Long (2023)](https://arxiv.org/abs/2305.08291) are similar. Both enhance LLM's capability for complex problem solving through tree search via a multi-round conversation. One of the main difference is that [Yao et el.
+- source: dair-ai-prompt-engineering-guide/pages/prompts/mathematics/odd-numbers.en.mdx
+  start: 495
+  end: 849
+  hint: code
+  quote: "```python\n        from openai import OpenAI\n        client = OpenAI()\n\n        response = client.chat.completions.create(\n        model=\"gpt-4\",\n        messages=[\n            {\n            \"role\": \"user\",\n            \"content\": \"The odd numbers in this group add up to an even number: 15, 32, 5, 13, 82, 7, 1. \\nSolve by breaking the problem into steps."
+- source: dair-ai-prompt-engineering-guide/pages/prompts/truthfulness/identify-hallucination.en.mdx
+  start: 1896
+  end: 2073
+  hint: code
+  quote: "```python\n    from openai import OpenAI\n    client = OpenAI()\n\n    response = client.chat.completions.create(\n    model=\"gpt-4\",\n    messages=[\n        {\n        \"role\": \"user\","
+- source: dair-ai-prompt-engineering-guide/pages/models/gemini.en.mdx
+  start: 11173
+  end: 11522
+  hint: text
+  quote: We are interested in building a simple emotion classifier using Gemini. The first step is to create a "Structured prompt" by clicking on "Create new" or "+". The few-shot prompt will combine your instructions (describing the task) and examples you have provided. The figure below shows the instruction (top) and examples we are passing to the model.
+- source: dair-ai-prompt-engineering-guide/pages/research/guided-cot.en.mdx
+  start: 1281
+  end: 1612
+  hint: text
+  quote: This approach shows a clever use of small language models for rationale generation. The results are remarkable given that larger language models are preferred for this capability over smaller ones. Decomposing tasks in this way is something developers should think deeply about. Not everything needs to be done by the large models.
+- source: dair-ai-prompt-engineering-guide/pages/research/rag.en.mdx
+  start: 22891
+  end: 23253
+  hint: number
+  quote: '| **Insight**  | **Reference** | **Date** |
+
+    | ------------- | ------------- | ------------- |
+
+    | Shows how retrieval augmentation can be used to distill language model assistants by training retrieval augmented simulators | [KAUCUS: Knowledge Augmented User Simulators for Training Language Model Assistants](https://aclanthology.org/2024.scichat-1.5)| Mar 2024 |'
+- source: dair-ai-prompt-engineering-guide/pages/prompts/reasoning/indirect-reasoning.en.mdx
+  start: 807
+  end: 876
+  hint: text
+  quote: Below is an example of zero-shot template for proof-by-contradiction.
+- source: dair-ai-prompt-engineering-guide/pages/research/llm-agents.en.mdx
+  start: 16608
+  end: 16878
+  hint: text
+  quote: '- **Role-playing capability**: LLM-based agents typically need to adapt a role to effectively complete tasks in a domain. For roles that the LLM doesn''t characterize well, it''s possible to fine-tune the LLM on data that represent uncommon roles or psychology characters.'
+- source: dair-ai-prompt-engineering-guide/pages/introduction/examples.en.mdx
+  start: 9678
+  end: 10004
+  hint: code
+  quote: "*Prompt:*\n```\nThe following is a conversation with an AI research assistant. The assistant answers should be easy to understand even by primary school students.\n\nHuman: Hello, who are you?\nAI: Greeting! I am an AI research assistant. How can I help you today?\nHuman: Can you tell me about the creation of black holes?\nAI: \n```"
+- source: dair-ai-prompt-engineering-guide/pages/agents/function-calling.en.mdx
+  start: 1737
+  end: 1980
+  hint: text
+  quote: 'LLM-based agents rely on two key capabilities to solve complex tasks: tool calling and reasoning. These capabilities allow agents to be augmented with external tools, connect to MCP (Model Context Protocol) servers, and access knowledge bases.'
+- source: dair-ai-prompt-engineering-guide/pages/guides/context-engineering-guide.en.mdx
+  start: 1768
+  end: 1900
+  hint: text
+  quote: '![A diagram showing overlapping aspects of context engineering](../../img/context-engineering-guide/context-engineering-diagram.jpg)'
+- source: dair-ai-prompt-engineering-guide/pages/risks/adversarial.en.mdx
+  start: 3824
+  end: 3890
+  hint: text
+  quote: 'Here is another basic example with different instruction and task:'
+- source: dair-ai-prompt-engineering-guide/pages/agents/deep-agents.en.mdx
+  start: 1419
+  end: 1798
+  hint: text
+  quote: Instead of reasoning ad-hoc inside a single context window, Deep Agents maintain structured task plans they can update, retry, and recover from. Think of it as a living to-do list that guides the agent toward its long-term goal. To experience this, just try out Claude Code or Codex for planning; the results are significantly better once you enable it before executing any task.
+- source: dair-ai-prompt-engineering-guide/pages/models/gemini.en.mdx
+  start: 6122
+  end: 6349
+  hint: text
+  quote: Here is another example of a task that analyzes a piece of text and extracts the desired information. Keep in mind that this is using zero-shot prompting so the result is not perfect but the model is performing relatively well.
+- source: dair-ai-prompt-engineering-guide/pages/prompts/creativity/infinite-primes.en.mdx
+  start: 921
+  end: 1222
+  hint: code
+  quote: "```python\n        import fireworks.client\n        fireworks.client.api_key = \"<FIREWORKS_API_KEY>\"\n        completion = fireworks.client.ChatCompletion.create(\n            model=\"accounts/fireworks/models/mixtral-8x7b-instruct\",\n            messages=[\n                {\n                \"role\": \"user\","
+- source: dspy-docs/docs/docs/learn/programming/7-assertions.md
+  start: 226
+  end: 470
+  hint: text
+  quote: Language models (LMs) have transformed how we interact with machine learning, offering vast capabilities in natural language understanding and generation. However, ensuring these models adhere to domain-specific constraints remains a challenge.
+- source: dspy-docs/docs/docs/diving-deeper/modules.md
+  start: 5427
+  end: 5711
+  hint: code
+  quote: '**`Module.forward(**kwargs)`**
+
+    What you override. Accept signature inputs as keyword arguments, do your work, return a `Prediction`. Don’t put settings reads in `__init__` — read them inside `forward` so the current LM and adapter are picked up at call time, not at construction time.'
+- source: dspy-docs/docs/docs/diving-deeper/rlm.md
+  start: 7390
+  end: 7758
+  hint: code
+  quote: '**`__call__(**inputs, interpreter_factory=...)` / `acall(**inputs, interpreter_factory=...)`**
+
+    The public call validates the inputs against the signature, builds the variable list, opens the interpreter, and runs the loop. Each turn asks the action predictor for code, runs it, and appends the result to history until the model submits or the loop reaches `max_iters`.'
+- source: dspy-docs/docs/docs/getting-started/expanding-signatures.md
+  start: 3339
+  end: 3465
+  hint: code
+  quote: '```
+
+    Generated 3 haikus, here''s the first:
+
+    Sun on sandy toes,
+
+    waves breathe slow, worries drift away—
+
+    soft light, easy air.
+
+    ```'
+- source: dspy-docs/docs/docs/diving-deeper/modules.md
+  start: 10308
+  end: 10479
+  hint: code
+  quote: '**`Prediction.get_lm_usage()` / `Prediction.set_lm_usage(tokens_dict)`**
+
+    Token-usage accounting. Populated when the prediction ran under `dspy.settings(track_usage=True)`.'
+- source: dspy-docs/docs/docs/faqs.md
+  start: 4919
+  end: 5110
+  hint: text
+  quote: '**What do DSPy optimizers tune?** Or, _what does compiling actually do?_ Each optimizer is different, but they all seek to maximize a metric on your program by updating prompts or LM weights.'
+- source: dspy-docs/docs/docs/getting-started/class-based-signatures.md
+  start: 1776
+  end: 2114
+  hint: text
+  quote: Signature docstrings and field descriptions are optional, but they are handy levers when field names don’t provide sufficient context for a task. However, resist the urge to restate what the signature already says or write prescriptive tutorials. Expansive rules, watch-outs, and guidance are what optimizers are for (more on that later).
+- source: dspy-docs/docs/docs/diving-deeper/react.md
+  start: 6910
+  end: 7079
+  hint: code
+  quote: '```text
+
+    user       original input fields, when present
+
+    assistant  next_thought plus native tool_calls
+
+    tool       one result message per call, matched by tool_call_id
+
+    ```'
+- source: dspy-docs/docs/docs/deep-dive/data-handling/examples.md
+  start: 1075
+  end: 1163
+  hint: text
+  quote: Examples can have any field keys and any value types, though usually values are strings.
+- source: dspy-docs/docs/docs/diving-deeper/adapters.md
+  start: 748
+  end: 1102
+  hint: code
+  quote: 'Same Signature, different prompt shape, no Signature changes. LMs vary a lot in what they prefer to read and produce: a model trained on instruction-following with markers loves ChatAdapter’s `[[ ## field ## ]]` format; a model with native structured-output mode does best with JSONAdapter; a reasoning model that formats unreliably wants TwoStepAdapter.'
+- source: dspy-docs/docs/docs/tutorials/ai_text_game/index.md
+  start: 687
+  end: 1070
+  hint: code
+  quote: '```python
+
+    import dspy
+
+    import json
+
+    from typing import Dict, List, Optional, Any
+
+    from dataclasses import dataclass, field
+
+    from enum import Enum
+
+    import random
+
+    from rich.console import Console
+
+    from rich.panel import Panel
+
+    from rich.text import Text
+
+    import typer
+
+
+    # Configure DSPy
+
+    lm = dspy.LM(model=''openai/gpt-4o-mini'')
+
+    dspy.configure(lm=lm)
+
+
+    console = Console()
+
+
+    class GameState(Enum):'
+- source: dspy-docs/docs/docs/tutorials/saving/index.md
+  start: 2396
+  end: 2796
+  hint: code
+  quote: "```python\nloaded_dspy_program = dspy.ChainOfThought(\"question -> answer\") # Recreate the same program.\nloaded_dspy_program.load(\"./dspy_program/program.json\")\n\nassert len(compiled_dspy_program.demos) == len(loaded_dspy_program.demos)\nfor original_demo, loaded_demo in zip(compiled_dspy_program.demos, loaded_dspy_program.demos):\n    # Loaded demo is a dict, while the original demo is a dspy.Example."
+- source: dspy-docs/docs/docs/diving-deeper/bootstrap-fewshot-family.md
+  start: 4023
+  end: 4234
+  hint: code
+  quote: The trainset is embedded once at construction. Each forward call embeds the new input, retrieves the `k` nearest training examples, and runs `BootstrapFewShot` on that micro-trainset before invoking the program.
+- source: dspy-docs/docs/docs/learn/programming/adapters.md
+  start: 11451
+  end: 11687
+  hint: text
+  quote: 'Adapters are a crucial component of DSPy that bridge the gap between structured DSPy signatures and language model APIs.
+
+    Understanding when and how to use different adapters will help you build more reliable and efficient DSPy programs.'
+- source: dspy-docs/docs/docs/diving-deeper/adapters.md
+  start: 9110
+  end: 9432
+  hint: code
+  quote: '**`parse_value(value, annotation)` in `dspy/adapters/utils.py`**
+
+    Strategy: if the annotation is `str`, pass through. If it’s an `Enum` or `Literal`, match against allowed values. Otherwise: try `json_repair.loads`, fall back to `ast.literal_eval`, fall back to the raw string; then validate with `TypeAdapter(annotation)`.'
+- source: dspy-docs/docs/docs/diving-deeper/choosing-an-optimizer.md
+  start: 5346
+  end: 5578
+  hint: text
+  quote: '**What’s your compute budget?**
+
+    Zero-config baselines (LabeledFewShot, BootstrapFewShot) cost almost nothing. Search-based optimizers (BootstrapRS, MIPROv2, GEPA) cost real money. Combined optimizers (BetterTogether) pay both bills.'
+- source: dspy-docs/docs/docs/tutorials/cache/index.md
+  start: 8812
+  end: 8996
+  hint: code
+  quote: "```python\ndspy.configure_cache(\n    enable_disk_cache=True,\n    enable_memory_cache=True,\n    disk_size_limit_bytes=YOUR_DESIRED_VALUE,\n    memory_max_entries=YOUR_DESIRED_VALUE,\n)\n```"
+- source: fastapi-docs/docs/en/docs/tutorial/dependencies/dependencies-with-yield.md
+  start: 2516
+  end: 2624
+  hint: code
+  quote: '**FastAPI** will make sure that the "exit code" in each dependency with `yield` is run in the correct order.'
+- source: fastapi-docs/docs/en/docs/tutorial/first-steps.md
+  start: 564
+  end: 876
+  hint: code
+  quote: "```console\n$ <font color=\"#4E9A06\">uv run fastapi</font> dev\n\n  <span style=\"background-color:#009485\"><font color=\"#D3D7CF\"> FastAPI </font></span>  Starting development server \U0001F680\n\n             Searching for package file structure from directories\n             with <font color=\"#3465A4\">__init__.py</font> files"
+- source: fastapi-docs/docs/en/docs/reference/exceptions.md
+  start: 132
+  end: 353
+  hint: text
+  quote: When you raise an exception, as would happen with normal Python, the rest of the execution is aborted. This way you can raise these exceptions from anywhere in the code to abort a request and show the error to the client.
+- source: fastapi-docs/docs/en/docs/tutorial/dependencies/classes-as-dependencies.md
+  start: 3840
+  end: 3884
+  hint: code
+  quote: '```Python
+
+    ... Depends(CommonQueryParams)
+
+    ```'
+- source: fastapi-docs/docs/en/docs/_llm-test.md
+  start: 10726
+  end: 10838
+  hint: code
+  quote: See e.g. section `### List of English terms and their preferred German translations` in `docs/de/llm-prompt.md`.
+- source: fastapi-docs/docs/en/docs/deployment/concepts.md
+  start: 18503
+  end: 18662
+  hint: text
+  quote: Understanding these ideas and how to apply them should give you the intuition necessary to take any decisions when configuring and tweaking your deployments. 🤓
+- source: fastapi-docs/docs/en/docs/tutorial/debugging.md
+  start: 343
+  end: 460
+  hint: code
+  quote: 'The main purpose of the `__name__ == "__main__"` is to have some code that is executed when your file is called with:'
+- source: fastapi-docs/docs/en/docs/deployment/docker.md
+  start: 13325
+  end: 13448
+  hint: code
+  quote: '* Go to the project directory (in where your `Dockerfile` is, containing your `app` directory).
+
+    * Build your FastAPI image:'
+- source: fastapi-docs/docs/en/docs/advanced/response-directly.md
+  start: 346
+  end: 519
+  hint: code
+  quote: If you don't declare a response model, FastAPI will use the `jsonable_encoder` explained in [JSON Compatible Encoder](../tutorial/encoder.md) and put it in a `JSONResponse`.
+- source: fastapi-docs/docs/en/docs/tutorial/frontend.md
+  start: 3139
+  end: 3189
+  hint: code
+  quote: So, you can normally omit the `fallback` argument.
+- source: fastapi-docs/docs/en/docs/tutorial/dependencies/index.md
+  start: 3475
+  end: 3663
+  hint: text
+  quote: '* Calling your dependency ("dependable") function with the correct parameters.
+
+    * Get the result from your function.
+
+    * Assign that result to the parameter in your *path operation function*.'
+- source: fastapi-docs/docs/en/docs/advanced/opentelemetry.md
+  start: 824
+  end: 1037
+  hint: text
+  quote: '**FastAPI provides OpenTelemetry support by default** for HTTP request traces, metrics, and logs. WebSocket connections also provide traces and logs. To see that data, configure a monitoring service to receive it.'
+- source: fastapi-docs/docs/en/docs/tutorial/response-model.md
+  start: 4532
+  end: 4646
+  hint: text
+  quote: Now, whenever a browser is creating a user with a password, the API will return the same password in the response.
+- source: fastapi-docs/docs/en/docs/tutorial/stream-json-lines.md
+  start: 397
+  end: 526
+  hint: text
+  quote: So, it will send the first item, the client will receive and start processing it, and you might still be producing the next item.
+- source: fastapi-docs/docs/en/docs/tutorial/extra-models.md
+  start: 5682
+  end: 5924
+  hint: code
+  quote: But if we put that in the assignment `response_model=PlaneItem | CarItem` we would get an error, because Python would try to perform an **invalid operation** between `PlaneItem` and `CarItem` instead of interpreting that as a type annotation.
+- source: fastapi-docs/docs/en/docs/reference/websockets.md
+  start: 1540
+  end: 1629
+  hint: code
+  quote: When a client disconnects, a `WebSocketDisconnect` exception is raised, you can catch it.
+- source: fastapi-docs/docs/en/docs/tutorial/security/oauth2-jwt.md
+  start: 8113
+  end: 8174
+  hint: code
+  quote: 'Call the endpoint `/users/me/`, you will get the response as:'
+- source: fastapi-docs/docs/en/docs/advanced/response-directly.md
+  start: 1043
+  end: 1144
+  hint: text
+  quote: It won't do any data conversion with Pydantic models, it won't convert the contents to any type, etc.
+- source: fastapi-docs/docs/en/docs/virtual-environments.md
+  start: 506
+  end: 603
+  hint: code
+  quote: '```console
+
+    $ uv init awesome-project --bare
+
+    $ cd awesome-project
+
+    $ uv add "fastapi[standard]"
+
+    ```'
+- source: haystack-docs/docs-website/docs/pipeline-components/retrievers/alloydbkeywordretriever.mdx
+  start: 4162
+  end: 4532
+  hint: code
+  quote: '```python
+
+    from haystack import Document, Pipeline
+
+    from haystack.components.builders.answer_builder import AnswerBuilder
+
+    from haystack.components.builders.chat_prompt_builder import ChatPromptBuilder
+
+    from haystack.components.generators.chat import OpenAIChatGenerator
+
+    from haystack.dataclasses import ChatMessage
+
+    from haystack.document_stores.types import DuplicatePolicy'
+- source: haystack-docs/docs-website/docs/pipeline-components/rankers/fastembedranker.mdx
+  start: 2180
+  end: 2327
+  hint: code
+  quote: You can set the path where the model is stored in a cache directory. You can also set the number of threads a single `onnxruntime` session can use.
+- source: haystack-docs/docs-website/docs/pipeline-components/retrievers/mariadbkeywordretriever.mdx
+  start: 127
+  end: 324
+  hint: code
+  quote: '|  |  |
+
+    | --- | --- |
+
+    | **Most common position in a pipeline** | 1. Before a [`PromptBuilder`](../builders/promptbuilder.mdx) in a RAG pipeline 2. The last component in a keyword search pipeline 3.'
+- source: haystack-docs/docs-website/docs/pipeline-components/retrievers/oracleembeddingretriever.mdx
+  start: 1597
+  end: 1824
+  hint: code
+  quote: The distance metric (COSINE, EUCLIDEAN, or DOT) is configured on the `OracleDocumentStore`. In addition to `query_embedding`, the retriever accepts `top_k` (maximum documents to return) and `filters` to narrow the search space.
+- source: haystack-docs/docs-website/docs/concepts/data-classes/chatmessage.mdx
+  start: 5711
+  end: 6099
+  hint: code
+  quote: "```python\nfrom haystack.dataclasses import ChatMessage, ImageContent\n\nlion_image_url = (\n    \"https://images.unsplash.com/photo-1546182990-dffeafbe841d?\"\n    \"ixlib=rb-4.0&q=80&w=1080&fit=max\"\n)\n\nimage_content = ImageContent.from_url(lion_image_url, detail=\"low\")\n\nuser_message = ChatMessage.from_user(\n    content_parts=[\"What does the image show?\", image_content]\n)\n\nprint(user_message)"
+- source: haystack-docs/docs-website/docs/pipeline-components/joiners/branchjoiner.mdx
+  start: 1632
+  end: 1896
+  hint: code
+  quote: '`BranchJoiner` receives multiple data connections of the same type from other components and passes the first value it receives to its single output. This makes it essential for closing loops in pipelines or reconciling multiple branches from a decision component.'
+- source: haystack-docs/docs-website/docs/concepts/components/supercomponents.mdx
+  start: 4407
+  end: 4781
+  hint: code
+  quote: '```python
+
+    from haystack import Pipeline, SuperComponent
+
+    from haystack.components.generators.chat import OpenAIChatGenerator
+
+    from haystack.components.builders import ChatPromptBuilder
+
+    from haystack.components.retrievers import InMemoryBM25Retriever
+
+    from haystack.dataclasses.chat_message import ChatMessage
+
+    from haystack.document_stores.in_memory import InMemoryDocumentStore'
+- source: haystack-docs/docs-website/docs/concepts/pipelines/pipeline-loops.mdx
+  start: 3064
+  end: 3376
+  hint: code
+  quote: "```python\nfrom haystack import Pipeline\nfrom haystack.components.builders import ChatPromptBuilder\nfrom haystack.components.generators.chat import OpenAIChatGenerator\nfrom haystack.components.routers import ConditionalRouter\nfrom haystack.dataclasses import ChatMessage\n\ntemplate = [\n    ChatMessage.from_system("
+- source: haystack-docs/docs-website/docs/concepts/pipelines/pipeline-breakpoints.mdx
+  start: 5645
+  end: 5758
+  hint: code
+  quote: 'Wrap `pipeline.run()` in a `try`/`except` block and retrieve the snapshot from the raised `PipelineRuntimeError`:'
+- source: haystack-docs/docs-website/docs/pipeline-components/rankers/nvidiaranker.mdx
+  start: 812
+  end: 1063
+  hint: code
+  quote: '`NvidiaRanker` ranks `Documents` based on semantic relevance to a specified query. It uses ranking models provided by [NVIDIA NIMs](https://ai.nvidia.com). If you don''t set the `model` parameter, the hosted default `nv-rerank-qa-mistral-4b:1` is used.'
+- source: haystack-docs/docs-website/docs/pipeline-components/retrievers/mongodbatlasfulltextretriever.mdx
+  start: 2355
+  end: 2600
+  hint: code
+  quote: When running the component, you can specify more optional parameters such as `fuzzy` or `synonyms`, `match_criteria`, `score`. Check out our [MongoDB Atlas](/reference/integrations-mongodb-atlas) API Reference for more details on all parameters.
+- source: haystack-docs/docs-website/docs/concepts/data-classes/chatmessage.mdx
+  start: 9542
+  end: 9859
+  hint: code
+  quote: "```python\nfrom haystack.dataclasses import ChatMessage\n\ntool_message = ChatMessage.from_tool(\n    tool_result=\"temperature: 25°C\", origin=tool_call, error=False\n)\n\nprint(tool_message)\n# >> ChatMessage(\n# >>    _role=<ChatRole.TOOL: 'tool'>,\n# >>    _content=[ToolCallResult(\n# >> \t\t\t\t\t\t\t   result='temperature: 25°C',"
+- source: haystack-docs/docs-website/docs/pipeline-components/retrievers/vespaembeddingretriever.mdx
+  start: 2783
+  end: 3034
+  hint: code
+  quote: '- A tensor field for embeddings (named `embedding` by default, configurable on the Document Store via `embedding_field`).
+
+    - A rank profile that scores nearest-neighbor candidates (named `semantic` by default, configurable via the `ranking` parameter).'
+- source: haystack-docs/docs-website/docs/pipeline-components/classifiers.mdx
+  start: 103
+  end: 392
+  hint: text
+  quote: '| Classifier                                                                           | Description                                           |
+
+    | --- | --- |
+
+    | [DocumentLanguageClassifier](classifiers/documentlanguageclassifier.mdx)                       | Classify documents by language.'
+- source: haystack-docs/docs-website/docs/pipeline-components/retrievers/multiretriever.mdx
+  start: 2528
+  end: 2754
+  hint: code
+  quote: This example sets up a `MultiRetriever` combining a BM25 retriever and an embedding-based retriever (wrapped with `TextEmbeddingRetriever`). Both are queried in parallel and the results are merged using reciprocal rank fusion.
+- source: haystack-docs/docs-website/CONTRIBUTING.md
+  start: 4488
+  end: 4703
+  hint: code
+  quote: '```md
+
+    <!-- From docs/ to reference/ -->
+
+    See the [Pipeline API Reference](/reference/haystack-api/pipelines/pipeline)
+
+
+    <!-- From reference/ to docs/ -->
+
+    See the [Pipeline Concepts Guide](/docs/concepts/pipelines)
+
+    ```'
+- source: haystack-docs/docs-website/docs/pipeline-components/retrievers/multiretriever.mdx
+  start: 2959
+  end: 3359
+  hint: code
+  quote: "```python\nfrom haystack import Document\nfrom haystack.document_stores.in_memory import InMemoryDocumentStore\nfrom haystack.document_stores.types import DuplicatePolicy\nfrom haystack_integrations.components.embedders.sentence_transformers import (\n    SentenceTransformersDocumentEmbedder,\n    SentenceTransformersTextEmbedder,\n)\nfrom haystack.components.retrievers import (\n    InMemoryBM25Retriever,"
+- source: haystack-docs/docs-website/docs/concepts/data-classes/filecontent.mdx
+  start: 1892
+  end: 2062
+  hint: code
+  quote: "```python\nfrom haystack.dataclasses import FileContent\n\nfile_content = FileContent.from_url(\n    \"https://example.com/reports/quarterly-report.pdf\",\n    timeout=30,\n)\n```"
+- source: haystack-docs/SECURITY.md
+  start: 816
+  end: 1191
+  hint: text
+  quote: Haystack is a framework intended to run inside a trusted execution environment. It assumes that the application built with it has already validated and sanitized user-supplied input before passing it to the framework. Validation and sanitization of input, for example URLs, file paths, filter expressions, and queries, are the responsibility of the application, not Haystack.
+- source: haystack-docs/docs-website/docs/pipeline-components/rankers/otariranker.mdx
+  start: 3630
+  end: 3692
+  hint: code
+  quote: 'Install the `otari-haystack` package to use the `OtariRanker`:'
+- source: haystack-docs/docs-website/docs/pipeline-components/retrievers/multiretriever.mdx
+  start: 1134
+  end: 1326
+  hint: code
+  quote: '`MultiRetriever` composes any number of text retrievers into a single component. All retrievers are queried in parallel using a thread pool, and their results are merged before being returned.'
+- source: huggingface-sentence-transformers-docs/docs/sentence_transformer/training_overview.md
+  start: 16211
+  end: 16461
+  hint: code
+  quote: '```{eval-rst}
+
+    The :class:`SentenceTransformerTrainer` trains and evaluates using :class:`datasets.Dataset` (one dataset) or :class:`datasets.DatasetDict` instances (multiple datasets, see also `Multi-dataset training <#multi-dataset-training>`_).
+
+
+    ..'
+- source: huggingface-sentence-transformers-docs/docs/cross_encoder/training_overview.md
+  start: 43123
+  end: 43457
+  hint: code
+  quote: '```{eval-rst}
+
+    The :class:`~sentence_transformers.cross_encoder.trainer.CrossEncoderTrainer` is where all previous components come together. We only have to specify the trainer with the model, training arguments (optional), training dataset, evaluation dataset (optional), loss function, evaluator (optional) and we can start training.'
+- source: huggingface-sentence-transformers-docs/docs/sentence_transformer/training_overview.md
+  start: 38693
+  end: 39041
+  hint: code
+  quote: '```{eval-rst}
+
+    The :class:`~sentence_transformers.sentence_transformer.trainer.SentenceTransformerTrainer` is where all previous components come together. We only have to specify the trainer with the model, training arguments (optional), training dataset, evaluation dataset (optional), loss function, evaluator (optional) and we can start training.'
+- source: huggingface-sentence-transformers-docs/examples/sentence_transformer/applications/retrieve_rerank/README.md
+  start: 5229
+  end: 5329
+  hint: text
+  quote: For more details how to compare the embeddings, see [semantic search](../semantic-search/README.md).
+- source: huggingface-sentence-transformers-docs/docs/cross_encoder/training_overview.md
+  start: 27333
+  end: 27703
+  hint: code
+  quote: '```{eval-rst}
+
+    You can provide the :class:`~sentence_transformers.cross_encoder.trainer.CrossEncoderTrainer` with an ``eval_dataset`` to get the evaluation loss during training, but it may be useful to get more concrete metrics during training, too. For this, you can use evaluators to assess the model''s performance with useful metrics before, during, or after training.'
+- source: huggingface-sentence-transformers-docs/docs/cross_encoder/training_overview.md
+  start: 8077
+  end: 8321
+  hint: code
+  quote: "```{eval-rst}\nThe :class:`CrossEncoderTrainer` trains and evaluates using :class:`datasets.Dataset` (one dataset) or :class:`datasets.DatasetDict` instances (multiple datasets, see also `Multi-dataset training <#multi-dataset-training>`_). \n\n.."
+- source: huggingface-sentence-transformers-docs/docs/cross_encoder/training_overview.md
+  start: 68118
+  end: 68514
+  hint: code
+  quote: '```{eval-rst}
+
+    The top performing models are trained using many datasets at once. Normally, this is rather tricky, as each dataset has a different format. However, :class:`~sentence_transformers.cross_encoder.trainer.CrossEncoderTrainer` can train with multiple datasets without having to convert each dataset to the same format. It can even apply different loss functions to each of the datasets.'
+- source: huggingface-sentence-transformers-docs/examples/sentence_transformer/README.md
+  start: 389
+  end: 676
+  hint: text
+  quote: The [training](training/) folder contains examples how to fine-tune transformer models like BERT, RoBERTa, or XLM-RoBERTa for generating sentence embedding. For the documentation how to train your own models, see [Training Overview](../../docs/sentence_transformer/training_overview.md).
+- source: huggingface-sentence-transformers-docs/docs/sentence_transformer/usage/efficiency.rst
+  start: 19672
+  end: 19972
+  hint: code
+  quote: 'OpenVINO models can be quantized to int8 precision using Optimum Intel to speed up inference.
+
+    To do this, you can use the `export_static_quantized_openvino_model` function,
+
+    which saves the quantized model in a directory or model repository that you specify.
+
+    Post-Training Static Quantization expects:'
+- source: huggingface-sentence-transformers-docs/docs/cross_encoder/training_overview.md
+  start: 13041
+  end: 13300
+  hint: code
+  quote: '```{eval-rst}
+
+    It is important that your dataset format matches your loss function (or that you choose a loss function that matches your dataset format and model). Verifying whether a dataset format and model work with a loss function involves three steps:
+
+
+    1.'
+- source: huggingface-sentence-transformers-docs/docs/sentence_transformer/usage/efficiency.rst
+  start: 9868
+  end: 9996
+  hint: code
+  quote: 'All keyword arguments passed via `model_kwargs` will be passed on to `ORTModel.from_pretrained`. Some notable arguments include:'
+- source: huggingface-sentence-transformers-docs/docs/cross_encoder/usage/efficiency.rst
+  start: 13337
+  end: 13726
+  hint: code
+  quote: "```\nfrom sentence_transformers import CrossEncoder, export_dynamic_quantized_onnx_model\n\nmodel = CrossEncoder(\"cross-encoder/ms-marco-MiniLM-L6-v2\", backend=\"onnx\")\nexport_dynamic_quantized_onnx_model(\n    model=model,\n    quantization_config=\"avx512_vnni\",\n    model_name_or_path=\"sentence-transformers/cross-encoder/ms-marco-MiniLM-L6-v2\",\n    push_to_hub=True,\n    create_pr=True,\n)\n```"
+- source: huggingface-sentence-transformers-docs/docs/sentence_transformer/training_overview.md
+  start: 29407
+  end: 29791
+  hint: code
+  quote: '```{eval-rst}
+
+    You can provide the :class:`~sentence_transformers.sentence_transformer.trainer.SentenceTransformerTrainer` with an ``eval_dataset`` to get the evaluation loss during training, but it may be useful to get more concrete metrics during training, too. For this, you can use evaluators to assess the model''s performance with useful metrics before, during, or after training.'
+- source: huggingface-sentence-transformers-docs/docs/sentence_transformer/usage/efficiency.rst
+  start: 13815
+  end: 14114
+  hint: code
+  quote: "```\nfrom sentence_transformers import SentenceTransformer, export_optimized_onnx_model\n\nmodel = SentenceTransformer(\"path/to/my/mpnet-legal-finetuned\", backend=\"onnx\")\nexport_optimized_onnx_model(\n    model=model, optimization_config=\"O3\", model_name_or_path=\"path/to/my/mpnet-legal-finetuned\"\n)\n```"
+- source: huggingface-sentence-transformers-docs/docs/sentence_transformer/usage/efficiency.rst
+  start: 8851
+  end: 8951
+  hint: code
+  quote: '```bash
+
+    pip install sentence-transformers[onnx-gpu]
+
+    # or
+
+    pip install sentence-transformers[onnx]
+
+    ```'
+- source: huggingface-transformers-docs/docs/source/en/intel_gpu.md
+  start: 1264
+  end: 1327
+  hint: code
+  quote: '```cli
+
+    ZE_AFFINITY_MASK=2,0 torchrun trainer-program.py ...
+
+    ```'
+- source: huggingface-transformers-docs/docs/source/en/exporters.md
+  start: 24472
+  end: 24792
+  hint: code
+  quote: "- **ONNX Runtime** — the decode graph exposes the cache as matched `input.<name>` / `output.<name>`\n  pairs. ORT's `CudaSession.set_buffer_sharing` (`onnxruntime.transformers.io_binding_helper`) binds\n  each pair to one device buffer, so the cache is read and updated in place across the loop with no host\n  round-trips."
+- source: huggingface-transformers-docs/docs/source/en/fsdp.md
+  start: 4640
+  end: 4876
+  hint: code
+  quote: Run the [accelerate config](https://huggingface.co/docs/accelerate/en/package_reference/cli#accelerate-config) command and answer questions about your hardware and training setup. This creates a `default_config.yaml` file in your cache.
+- source: huggingface-transformers-docs/docs/source/en/kv_cache.md
+  start: 1716
+  end: 1908
+  hint: code
+  quote: The [`DynamicCache`] is the default cache class for all models. It allows the cache size to grow dynamically in order to store an increasing number of keys and values as generation progresses.
+- source: huggingface-transformers-docs/docs/source/en/community_integrations/transformers_as_backend.md
+  start: 1022
+  end: 1233
+  hint: code
+  quote: Use `ALL_ATTENTION_FUNCTIONS` when defining the attention layer and propagate `**kwargs` from the base `MyModel` class to the attention layers. Set `_supports_attention_backend` to `True` in [`PreTrainedModel`].
+- source: huggingface-transformers-docs/docs/source/en/exporters.md
+  start: 24794
+  end: 24992
+  hint: code
+  quote: "- **ExecuTorch (XNNPACK)** — turn off the memory-planning allocations on [`ExecutorchConfig`] so the in-place\n  write can land in the caller's own tensor (see the reference for what each flag does):"
+- source: huggingface-transformers-docs/docs/source/en/tasks/document_question_answering.md
+  start: 14022
+  end: 14320
+  hint: code
+  quote: '```py
+
+    >>> def encode_dataset(examples, max_length=512):
+
+    ...     questions = examples["question"]
+
+    ...     words = examples["words"]
+
+    ...     boxes = examples["boxes"]
+
+    ...     answers = examples["answer"]
+
+
+    ...     # encode the batch of examples and initialize the start_positions and end_positions
+
+    ...'
+- source: huggingface-transformers-docs/docs/source/en/aws_trainium.md
+  start: 2843
+  end: 3089
+  hint: code
+  quote: Set `torch_compile=True` to wrap the model with `torch.compile`. This compiles the model's forward pass, while the optimizer step runs eagerly. [`TrainingArguments`] sets `torch_compile_backend` to `"neuron"` automatically when it detects Neuron.
+- source: huggingface-transformers-docs/docs/source/en/pipeline_tutorial.md
+  start: 9376
+  end: 9731
+  hint: code
+  quote: '```py
+
+    from transformers import pipeline
+
+
+    pipeline = pipeline(task="automatic-speech-recognition", model="openai/whisper-large-v3")
+
+    pipeline(audio="https://huggingface.co/datasets/Narsil/asr_dummy/resolve/main/mlk.flac", return_timestamps="word")
+
+    {''text'': '' I have a dream that one day this nation will rise up and live out the true meaning of its creed.'','
+- source: huggingface-transformers-docs/docs/source/en/quantization/aqlm.md
+  start: 8
+  end: 264
+  hint: number
+  quote: Additive Quantization of Language Models ([AQLM](https://huggingface.co/papers/2401.06118)) quantizes multiple weights together and takes advantage of interdependencies between them. AQLM represents groups of 8-16 weights as a sum of multiple vector codes.
+- source: huggingface-transformers-docs/docs/source/en/experts_interface.md
+  start: 8064
+  end: 8323
+  hint: code
+  quote: "```py\nfrom transformers import AutoModelForCausalLM, FineGrainedFP8Config\n\nmodel = AutoModelForCausalLM.from_pretrained(\n    \"deepseek-ai/DeepSeek-V3\",\n    quantization_config=FineGrainedFP8Config(dequantize=True),\n    experts_implementation=\"deepgemm\",\n)\n```"
+- source: huggingface-transformers-docs/docs/source/en/main_classes/image_processor.md
+  start: 446
+  end: 812
+  hint: code
+  quote: "- [`BaseImageProcessor`] — abstract base class (for backward compatibility only; do not instantiate directly)\n  - [`TorchvisionBackend`] — the **default** [torchvision-backed](https://pytorch.org/vision/stable/index.html) backend. GPU-accelerated and significantly faster than the PIL backend. All models expose a `<Model>ImageProcessor` class that inherits from it."
+- source: huggingface-transformers-docs/docs/source/en/quantization/compressed_tensors.md
+  start: 5985
+  end: 6252
+  hint: code
+  quote: Compressed-tensor models are defined through its configuration entry. The following example is taken from the [nm-testing/Meta-Llama-3.1-8B-Instruct-FP8-hf](https://huggingface.co/nm-testing/Meta-Llama-3.1-8B-Instruct-FP8-hf/blob/main/config.json) `config.json` file.
+- source: huggingface-transformers-docs/docs/source/en/main_classes/optimizer_schedules.md
+  start: 54
+  end: 300
+  hint: code
+  quote: '- an optimizer with weight decay fixed that can be used to fine-tuned models, and
+
+    - several schedules in the form of schedule objects that inherit from `_LRSchedule`:
+
+    - a gradient accumulation class to accumulate the gradients of multiple batches'
+- source: huggingface-transformers-docs/docs/source/en/weightconverter.md
+  start: 23839
+  end: 24209
+  hint: code
+  quote: '> [!NOTE]
+
+    > The default is 4 threads for asynchronous parameter loading. This provides the best trade-off across loading scenarios and hardware. The work is mostly I/O bound, but depending on accelerator hardware and the `dtype` required at loading, it can become CPU/GPU-bound if the `dtype` differs from the serialized one (this requires an additional copy operation).'
+- source: huggingface-transformers-docs/docs/source/en/training.md
+  start: 3311
+  end: 3614
+  hint: code
+  quote: '- Set `bf16=True` for fast mixed precision training if your hardware supports it (Ampere+ GPUs). Otherwise, fall back to `fp16=True` on older hardware.
+
+    - `gradient_accumulation_steps` simulates a larger effective batch size by accumulating gradients over multiple forward passes before updating weights.'
+- source: huggingface-transformers-docs/docs/source/en/tasks/instance_segmentation.md
+  start: 11602
+  end: 11988
+  hint: code
+  quote: '```py
+
+    >>> import torch.nn.functional as F
+
+
+
+    >>> @torch.no_grad()
+
+    ... def compute_mean_iou(pred_masks, gt_masks, target_size):
+
+    ...     """Union-based IoU: merge all instances per image, then compute IoU."""
+
+    ...     pred_masks = F.interpolate(pred_masks[None], size=target_size, mode="bilinear", align_corners=False)[0]
+
+    ...     pred_union = (pred_masks.sigmoid() > 0.5).any(dim=0)
+
+    ...
+
+    ...'
+- source: huggingface-transformers-docs/docs/source/en/perf_infer_gpu_multi.md
+  start: 6029
+  end: 6285
+  hint: code
+  quote: '| Strategy | Description |
+
+    |---|---|
+
+    | `ColwiseParallel` | Shards a linear weight on its output-feature dim (`Shard(0)` for a 2D `nn.Linear` weight) and shards a 1D bias. Redistributes the input to `Replicate()`, then places the output at `output_layouts`.'
+- source: huggingface-transformers-docs/docs/source/en/optimizers.md
+  start: 10279
+  end: 10484
+  hint: code
+  quote: Append `_layerwise` to the optimizer name for layerwise optimization (`"galore_adamw_layerwise"`). Only linear layers targeted by GaLore use low-rank decomposition. All other layers are optimized normally.
+- source: huggingface-transformers-docs/docs/source/en/exporters.md
+  start: 32607
+  end: 32954
+  hint: code
+  quote: '```cpp
+
+    #include <executorch/extension/data_loader/file_data_loader.h>
+
+    #include <executorch/extension/tensor/tensor_ptr.h>
+
+    #include <executorch/runtime/executor/method.h>
+
+    #include <executorch/runtime/executor/program.h>
+
+
+    using namespace executorch::runtime;
+
+    using executorch::extension::FileDataLoader;
+
+    using executorch::extension::make_tensor_ptr;'
+- source: huggingface-transformers-docs/docs/source/en/testing.md
+  start: 8428
+  end: 8811
+  hint: code
+  quote: '- `audio_mask_key`: the kwarg name your model expects for the audio mask (`"feature_attention_mask"`, `"input_features_mask"`, etc.). Leave it `None` if your model doesn''t consume a separate audio mask.
+
+    - `audio_config_key`: the attribute name your top-level config uses to nest the audio sub-config. Defaults to `"audio_config"` but models like GraniteSpeech use `"encoder_config"`.'
+- source: huggingface-transformers-docs/docs/source/en/tasks/image_text_to_text.md
+  start: 9704
+  end: 10074
+  hint: code
+  quote: "```python\nfrom transformers import AutoModelForImageTextToText, QuantoConfig\n\nmodel_id = \"Qwen/Qwen3-VL-4B-Instruct\"\nquantization_config = QuantoConfig(weights=\"int8\")\nquantized_model = AutoModelForImageTextToText.from_pretrained(\n    model_id, device_map=\"auto\", quantization_config=quantization_config\n)\n\nmessages = [\n    {\n        \"role\": \"user\",\n        \"content\": ["
+- source: huggingface-transformers-docs/docs/source/en/models.md
+  start: 4239
+  end: 4372
+  hint: code
+  quote: '```py
+
+    from transformers import LlamaModel, LlamaForCausalLM
+
+
+    model = LlamaForCausalLM.from_pretrained("meta-llama/Llama-2-7b-hf")
+
+    ```'
+- source: huggingface-transformers-docs/docs/source/en/modular_transformers.md
+  start: 21918
+  end: 22121
+  hint: text
+  quote: Check shape and name matches when iterating over keys. Shape mismatches typically mean a parameter in your config is wrong, the architecture differs from the original, or a weight needs to be transposed.
+- source: huggingface-transformers-docs/docs/source/en/weightconverter.md
+  start: 17727
+  end: 18114
+  hint: code
+  quote: Custom code models are skipped before any lookup happens. A sub-model counts as custom code when [`~PreTrainedModel.is_custom_code`] returns `True`, which covers models loaded from the Hub with `trust_remote_code=True` and any model class not in Transformers. Custom code models don't inherit a conversion mapping because its class name or `model_type` might collide with a native model.
+- source: llamaindex-docs/docs/src/content/docs/framework/module_guides/loading/documents_and_nodes/usage_documents.md
+  start: 4144
+  end: 4273
+  hint: code
+  quote: 'Then, we can test what the LLM will actually end up reading using the `get_content()` function and specifying `MetadataMode.LLM`:'
+- source: llamaindex-docs/docs/src/content/docs/framework/understanding/extraction/index.md
+  start: 1086
+  end: 1194
+  hint: code
+  quote: "```python\nfrom pydantic import BaseModel\n\n\nclass User(BaseModel):\n    id: int\n    name: str = \"Jane Doe\"\n```"
+- source: llamaindex-docs/docs/src/content/docs/framework/understanding/agent/index.mdx
+  start: 3758
+  end: 3936
+  hint: text
+  quote: Now we create our agent. It needs an array of tools, an LLM, and a system prompt to tell it what kind of agent to be. Your system prompt would usually be more detailed than this!
+- source: llamaindex-docs/docs/src/content/docs/framework/understanding/evaluating/cost_analysis/index.md
+  start: 2673
+  end: 2840
+  hint: code
+  quote: Tokens are counted using the `TokenCountingHandler` callback. See the [example notebook](/python/examples/observability/tokencountinghandler) for details on the setup.
+- source: llamaindex-docs/docs/src/content/docs/framework/module_guides/observability/index.md
+  start: 17
+  end: 141
+  hint: text
+  quote: LlamaIndex provides **one-click observability** 🔭 to allow you to build principled LLM applications in a production setting.
+- source: llamaindex-docs/docs/src/content/docs/framework/module_guides/indexing/lpg_index_guide.md
+  start: 10257
+  end: 10637
+  hint: code
+  quote: "```python\nfrom llama_index.core.indices.property_graph import TextToCypherRetriever\n\nDEFAULT_RESPONSE_TEMPLATE = (\n    \"Generated Cypher query:\\n{query}\\n\\n\" \"Cypher Response:\\n{response}\"\n)\nDEFAULT_ALLOWED_FIELDS = [\"text\", \"label\", \"type\"]\n\nDEFAULT_TEXT_TO_CYPHER_TEMPLATE = (\n    index.property_graph_store.text_to_cypher_template,\n)\n\n\ncypher_retriever = TextToCypherRetriever("
+- source: llamaindex-docs/docs/src/content/docs/framework/module_guides/evaluating/usage_pattern_retrieval.md
+  start: 654
+  end: 859
+  hint: code
+  quote: 'You can manually curate a retrieval evaluation dataset of questions + node id''s. We also offer synthetic dataset generation over an existing text corpus with our `generate_question_context_pairs` function:'
+- source: llamaindex-docs/docs/src/content/docs/framework/understanding/putting_it_all_together/apps/fullstack_with_delphic.md
+  start: 9240
+  end: 9582
+  hint: number
+  quote: 'WebSockets are a communication protocol that enables bidirectional and full-duplex communication between a client and a
+
+    server over a single, long-lived connection. The WebSocket protocol is designed to work over the same ports as HTTP and
+
+    HTTPS (ports 80 and 443, respectively) and uses a similar handshake process to establish a connection.'
+- source: llamaindex-docs/docs/src/content/docs/framework/understanding/agent/tools.md
+  start: 893
+  end: 992
+  hint: text
+  quote: 'Our dependencies are the same as our previous example, we just need to add the Yahoo Finance tools:'
+- source: llamaindex-docs/docs/src/content/docs/framework/understanding/putting_it_all_together/q_and_a/terms_definitions_tutorial.md
+  start: 15449
+  end: 15707
+  hint: text
+  quote: If you paste the text into the upload tab and run it (it may take some time), we can insert the extracted terms. Make sure to also copy the text for the extracted terms into a notepad or similar before inserting into the index! We will need them in a second.
+- source: llamaindex-docs/docs/src/content/docs/framework/understanding/putting_it_all_together/chatbots/building_a_chatbot.md
+  start: 9023
+  end: 9381
+  hint: code
+  quote: '```
+
+    Here is a comparison of the risk factors described in the Uber 10-K reports across years:
+
+
+    2022 Risk Factors:
+
+    - Potential adverse effect if drivers were classified as employees instead of independent contractors.
+
+    - Highly competitive nature of the mobility, delivery, and logistics industries.
+
+    - Need to lower fares or service fees to remain competitive.'
+- source: llamaindex-docs/docs/src/content/docs/framework/module_guides/observability/index.md
+  start: 12069
+  end: 12120
+  hint: text
+  quote: '![](./../../_static/integrations/mlflow/mlflow.gif)'
+- source: llamaindex-docs/docs/src/content/docs/framework/module_guides/loading/node_parsers/index.md
+  start: 29
+  end: 348
+  hint: code
+  quote: Node parsers are a simple abstraction that take a list of documents, and chunk them into `Node` objects, such that each node is a specific chunk of the parent document. When a document is broken into nodes, all of it's attributes are inherited to the children nodes (i.e. `metadata`, text and metadata templates, etc.).
+- source: llamaindex-docs/docs/src/content/docs/framework/module_guides/storing/docstores.md
+  start: 2114
+  end: 2466
+  hint: code
+  quote: '```python
+
+    from llama_index.storage.docstore.redis import RedisDocumentStore
+
+    from llama_index.core.node_parser import SentenceSplitter
+
+
+    # create parser and parse document into nodes
+
+    parser = SentenceSplitter()
+
+    nodes = parser.get_nodes_from_documents(documents)
+
+
+    # create (or load) docstore and add nodes
+
+    docstore = RedisDocumentStore.from_host_and_port('
+- source: llamaindex-docs/docs/src/content/docs/framework/understanding/putting_it_all_together/apps/fullstack_with_delphic.md
+  start: 26009
+  end: 26232
+  hint: code
+  quote: '`onmessage`is triggered when a new message is received from the server through the WebSocket connection. In the
+
+    callback, the received data is parsed and the `messages` state is updated with the new message from the server:'
+- source: llamaindex-docs/docs/src/content/docs/framework/understanding/putting_it_all_together/q_and_a/terms_definitions_tutorial.md
+  start: 2373
+  end: 2616
+  hint: code
+  quote: "```python\nimport os\nimport streamlit as st\n\nDEFAULT_TERM_STR = (\n    \"Make a list of terms and definitions that are defined in the context, \"\n    \"with one pair on each line. \"\n    \"If a term is missing it's definition, use your best judgment."
+- source: llamaindex-docs/docs/src/content/docs/framework/understanding/rag/loading/llamahub.md
+  start: 288
+  end: 682
+  hint: code
+  quote: '- Browse the [`readers` directory](https://github.com/run-llama/llama_index/tree/main/llama-index-integrations/readers) of the LlamaIndex repo. Each package has a README with installation and usage instructions.
+
+    - Search PyPI for `llama-index-readers-`. Package names follow the pattern `llama-index-readers-<source>`, for example `llama-index-readers-google` or `llama-index-readers-database`.'
+- source: llamaindex-docs/docs/src/content/docs/framework/understanding/extraction/index.md
+  start: 4985
+  end: 5247
+  hint: text
+  quote: Now that you have a basic understanding of Pydantic and the schemas it generates, you can move on to using Pydantic classes for structured data extraction in LlamaIndex, starting with [Structured LLMs](/python/framework/understanding/extraction/structured_llms).
+- source: llamaindex-docs/docs/src/content/docs/framework/module_guides/loading/documents_and_nodes/usage_documents.md
+  start: 6083
+  end: 6459
+  hint: code
+  quote: "```python\nfrom llama_index.core import Document\nfrom llama_index.core.schema import MetadataMode\n\ndocument = Document(\n    text=\"This is a super-customized document\",\n    metadata={\n        \"file_name\": \"super_secret_document.txt\",\n        \"category\": \"finance\",\n        \"author\": \"LlamaIndex\",\n    },\n    excluded_llm_metadata_keys=[\"file_name\"],\n    metadata_seperator=\"::\","
+- source: mcp-spec/docs/docs/2026-07-28/develop/build-client.mdx
+  start: 61208
+  end: 61255
+  hint: code
+  quote: 'Add this helper method inside `impl MCPClient`:'
+- source: mcp-spec/docs/docs/2026-07-28/develop/build-client.mdx
+  start: 545
+  end: 689
+  hint: code
+  quote: '- Mac or Windows computer
+
+    - Latest Python version installed
+
+    - Latest version of `uv` installed
+
+    - You must use the Python MCP SDK 2.0.0 or higher'
+- source: mcp-spec/docs/docs/2026-07-28/develop/build-server.mdx
+  start: 37105
+  end: 37499
+  hint: code
+  quote: "```kotlin\n// Register weather tools\n\nserver.addTool(\n    name = \"get_alerts\",\n    description = \"Get weather alerts for a US state. Input is a two-letter US state code (e.g. CA, NY)\",\n    inputSchema = ToolSchema(\n        properties = buildJsonObject {\n            putJsonObject(\"state\") {\n                put(\"type\", \"string\")\n                put(\"description\", \"Two-letter US state code (e.g."
+- source: mcp-spec/docs/docs/2026-07-28/tutorials/security/security_best_practices.mdx
+  start: 14521
+  end: 14775
+  hint: code
+  quote: "1. The `resource_metadata` URL from the `WWW-Authenticate` header\n2. The `authorization_servers` URLs from the Protected Resource Metadata\n   document\n3. The `token_endpoint`, `authorization_endpoint`, and other URLs from\n   Authorization Server Metadata"
+- source: mcp-spec/docs/specification/2026-07-28/server/utilities/caching.mdx
+  start: 5425
+  end: 5823
+  hint: code
+  quote: "- A server **MAY** provide `ttlMs` without advertising `listChanged: true` in its\n  capabilities. In this case, the client relies entirely on TTL-based freshness.\n- A server **MAY** advertise `listChanged: true` **and** provide `ttlMs`. In this case,\n  the client can use the TTL to avoid unnecessary refetches between notifications, and\n  the notification acts as an immediate invalidation signal."
+- source: mcp-spec/docs/specification/2026-07-28/basic/authorization/index.mdx
+  start: 15087
+  end: 15449
+  hint: number
+  quote: MCP clients **SHOULD** provide the most specific URI that they can for the MCP server they intend to access, following the guidance in [RFC 8707](https://www.rfc-editor.org/rfc/rfc8707). While the canonical form uses lowercase scheme and host components, implementations **SHOULD** accept uppercase scheme and host components for robustness and interoperability.
+- source: mcp-spec/docs/specification/2026-07-28/server/resources.mdx
+  start: 11267
+  end: 11553
+  hint: code
+  quote: 'MCP servers **MAY** identify file:// resources with an
+
+    [XDG MIME type](https://specifications.freedesktop.org/shared-mime-info-spec/0.14/ar01s02.html#id-1.3.14),
+
+    like `inode/directory`, to represent non-regular files (such as directories) that don’t
+
+    otherwise have a standard MIME type.'
+- source: mcp-spec/docs/docs/2026-07-28/learn/architecture.mdx
+  start: 13574
+  end: 13800
+  hint: code
+  quote: '1. **Protocol Version Selection**: The `io.modelcontextprotocol/protocolVersion` field declares the version the client is speaking on this request, and `supportedVersions` in the response lists the versions the server accepts.'
+- source: mcp-spec/docs/docs/2026-07-28/tutorials/security/authorization.mdx
+  start: 2729
+  end: 2973
+  hint: text
+  quote: With the URI pointer to the PRM document, the client will fetch the metadata to learn about the authorization server, supported scopes, and other resource information. The data is typically encapsulated in a JSON blob, similar to the one below.
+- source: mcp-spec/docs/docs/2026-07-28/develop/build-server.mdx
+  start: 2578
+  end: 2671
+  hint: code
+  quote: Make sure to restart your terminal afterwards to ensure that the `uv` command gets picked up.
+- source: mcp-spec/docs/docs/2026-07-28/tools/inspector/cli.mdx
+  start: 6514
+  end: 6879
+  hint: code
+  quote: '`--tool-args-json` takes the whole argument object at once and skips the `key=value` parsing, so `{"zip":"10001"}` sends the string `"10001"` rather than a number. The schema conversion still applies to string values, so this only keeps a string a string when the schema types that property as a string (or doesn''t declare it). The two flags are mutually exclusive:'
+- source: mcp-spec/docs/docs/2026-07-28/develop/build-server.mdx
+  start: 12601
+  end: 12939
+  hint: code
+  quote: "```typescript\n// Helper function for making NWS API requests\nasync function makeNWSRequest<T>(url: string): Promise<T | null> {\n  const headers = {\n    \"User-Agent\": USER_AGENT,\n    Accept: \"application/geo+json\",\n  };\n\n  try {\n    const response = await fetch(url, { headers });\n    if (!response.ok) {\n      throw new Error(`HTTP error!"
+- source: mcp-spec/docs/docs/2026-07-28/learn/architecture.mdx
+  start: 23949
+  end: 24134
+  hint: text
+  quote: This execution pattern allows AI applications to dynamically invoke server functionality and receive structured responses that can be integrated into conversations with language models.
+- source: mcp-spec/docs/docs/2026-07-28/learn/client-concepts.mdx
+  start: 9192
+  end: 9530
+  hint: code
+  quote: Roots are exclusively filesystem paths and always use the `file://` URI scheme. They help servers understand project boundaries, workspace organization, and accessible directories. The roots list can change as users work with different projects or folders. Servers pick up the updated boundaries the next time they request the roots list.
+- source: mcp-spec/docs/specification/2026-07-28/server/prompts.mdx
+  start: 3621
+  end: 3806
+  hint: code
+  quote: 'To retrieve a specific prompt, clients send a `prompts/get` request. Arguments may be
+
+    auto-completed through [the completion API](/specification/2026-07-28/server/utilities/completion).'
+- source: mcp-spec/docs/docs/2026-07-28/tools/inspector.mdx
+  start: 17
+  end: 312
+  hint: code
+  quote: 'The [MCP Inspector](https://github.com/modelcontextprotocol/inspector) is the reference developer tool for testing and debugging [MCP servers](/docs/2026-07-28/learn/server-concepts). It ships as a single package, `@modelcontextprotocol/inspector`, providing **three clients behind one binary**:'
+- source: mcp-spec/docs/docs/2026-07-28/tutorials/security/authorization.mdx
+  start: 5978
+  end: 6200
+  hint: number
+  quote: The access token is what the client will use to authenticate requests to the MCP server. This step follows standard [OAuth 2.1 authorization code with PKCE](https://oauth.net/2/grant-types/authorization-code/) conventions.
+- source: mcp-spec/docs/specification/2026-07-28/basic/patterns/subscriptions.mdx
+  start: 531
+  end: 931
+  hint: code
+  quote: "```json\n{\n  \"jsonrpc\": \"2.0\",\n  \"id\": 1,\n  \"method\": \"subscriptions/listen\",\n  \"params\": {\n    \"_meta\": {\n      \"io.modelcontextprotocol/protocolVersion\": \"2026-07-28\",\n      \"io.modelcontextprotocol/clientInfo\": {\n        \"name\": \"ExampleClient\",\n        \"version\": \"1.0.0\"\n      },\n      \"io.modelcontextprotocol/clientCapabilities\": {}\n    },\n    \"notifications\": {\n      \"toolsListChanged\": true,"
+- source: mcp-spec/docs/docs/2026-07-28/tutorials/security/security_best_practices.mdx
+  start: 33243
+  end: 33339
+  hint: text
+  quote: 'Since XSS fundamentally compromises the client''s security context, focus on limiting the damage:'
+- source: mcp-spec/docs/docs/2026-07-28/develop/connect-remote-servers.mdx
+  start: 6546
+  end: 6613
+  hint: text
+  quote: Browse our collection of official and community-created MCP servers
+- source: microsoft-ai-agents-for-beginners/05-agentic-rag/README.md
+  start: 7137
+  end: 7200
+  hint: text
+  quote: '![Tool Integration Architecture](./images/tool-integration.png)'
+- source: microsoft-ai-agents-for-beginners/09-metacognition/README.md
+  start: 58809
+  end: 58933
+  hint: code
+  quote: "```sql\n   SELECT * FROM flights WHERE destination='Paris' AND dates='2025-04-01 to 2025-04-10' AND budget='moderate';\n   ```"
+- source: microsoft-ai-agents-for-beginners/09-metacognition/README.md
+  start: 28097
+  end: 28483
+  hint: code
+  quote: "```python\nimport requests\nimport json\n\nclass TravelAgent:\n    def __init__(self, destinations):\n        self.destinations = destinations\n\n    def get_recommendations(self, preferences, api_key, endpoint):\n        # Generate a prompt for the Azure OpenAI\n        prompt = self.generate_prompt(preferences)\n        \n        # Define headers and payload for the request\n        headers = {"
+- source: microsoft-ai-agents-for-beginners/12-context-engineering/README.md
+  start: 11524
+  end: 11850
+  hint: text
+  quote: '**Solution:** After a certain number of turns or when the context grows too large, the agent should **summarize the most recent and relevant parts of the conversation** – focusing on your current travel dates and destination – and use that condensed summary for the next LLM call, discarding the less relevant historical chat.'
+- source: microsoft-ai-agents-for-beginners/11-agentic-protocols/README.md
+  start: 8265
+  end: 8600
+  hint: text
+  quote: '4. **Delegated Task Execution**: The Travel Agent sends specific tasks to these specialized agents (e.g., "Find flights to Honolulu," "Book a hotel," "Rent a car"). Each of these specialized agents, running their own LLMs and utilizing their own tools (which could be MCP servers themselves), performs its specific part of the booking.'
+- source: microsoft-ai-agents-for-beginners/11-agentic-protocols/code_samples/github-mcp/event-descriptions.md
+  start: 8922
+  end: 9099
+  hint: text
+  quote: Get ready for a session packed with hype, high-stakes AI drama, and must-know strategies to keep your AI on the right side of history. Don’t just build AI—build AI that matters!
+- source: microsoft-ai-agents-for-beginners/08-multi-agent/solution/solution-quiz.md
+  start: 42
+  end: 377
+  hint: text
+  quote: '**Answer: A2.** Multiple agents are useful when a task has distinct specialist roles, separate tools or permissions, and clear handoffs that need coordination. A simple support bot can usually remain a single agent. A high volume of identical requests is primarily a scaling concern and does not by itself require a multi-agent design.'
+- source: microsoft-ai-agents-for-beginners/00-course-setup/AzureSearch.md
+  start: 3107
+  end: 3421
+  hint: code
+  quote: "```bash\n    az search service update --name <service-name> --resource-group <resource-group> --auth-options aadOrApiKey\n    az role assignment create --assignee <your-user-or-principal-id> --role \"Search Service Contributor\" --scope $(az search service show -g <resource-group> -n <service-name> --query id -o tsv)"
+- source: microsoft-ai-agents-for-beginners/18-securing-ai-agents/README.md
+  start: 16592
+  end: 16864
+  hint: text
+  quote: Verification fails. The signature was computed over the canonical bytes of the original payload; modifying any field changes those bytes, which makes the signature invalid. The attacker would need the private key to produce a fresh valid signature, which they do not have.
+- source: microsoft-ai-agents-for-beginners/15-browser-use/README.md
+  start: 7555
+  end: 7913
+  hint: number
+  quote: '| Concept in this course | How Project Opal applies it |
+
+    |------------------------|-----------------------------|
+
+    | **Human-in-the-loop** (Lesson 06) | Opal pauses for login credentials, sensitive data, or ambiguous instructions, and never enters passwords or submits forms without explicit confirmation. You can *Take Control* and *Return Control* mid-task.'
+- source: microsoft-ai-agents-for-beginners/12-context-engineering/README.md
+  start: 1825
+  end: 2194
+  hint: text
+  quote: Prompt engineering is focused on a single set of static instructions to effectively guide the AI Agents with a set of rules.  Context engineering is how to manage a dynamic set of information, including the initial prompt, to ensure that the AI Agent has what it needs over time. The main idea around context engineering is to make this process repeatable and reliable.
+- source: microsoft-ai-agents-for-beginners/06-building-trustworthy-agents/README.md
+  start: 7550
+  end: 7818
+  hint: text
+  quote: '**Mitigation**: AI agents should have access to systems on a need-only basis to prevent these types of attacks. Communication between the agent and system should also be secure. Implementing authentication and access control is another way to protect this information.'
+- source: microsoft-ai-agents-for-beginners/10-ai-agents-production/README.md
+  start: 6232
+  end: 6514
+  hint: text
+  quote: '**Automated Evaluation Metrics:** You can also set up automated evals. For instance, you can use an LLM to score the output of the agent e.g. if it is helpful, accurate, or not. There are also several open source libraries that help you to score different aspects of the agent. E.g.'
+- source: microsoft-ai-agents-for-beginners/13-agent-memory/README.md
+  start: 5056
+  end: 5381
+  hint: text
+  quote: A long-term memory might store that "Ben enjoys skiing and outdoor activities, likes coffee with a mountain view, and wants to avoid advanced ski slopes due to a past injury". This information, learned from previous interactions, influences recommendations in future travel planning sessions, making them highly personalized.
+- source: microsoft-ai-agents-for-beginners/08-multi-agent/README.md
+  start: 8449
+  end: 8746
+  hint: text
+  quote: '- **Visualization Tools**: Visualization tools can help you see the interactions between agents in a more intuitive way. For example, you could have a graph that shows the flow of information between agents. This could help you identify bottlenecks, inefficiencies, and other issues in the system.'
+- source: openai-cookbook/examples/audio/voice_agent_evaluation.md
+  start: 9590
+  end: 9789
+  hint: text
+  quote: Human reviewers can fill gaps in automated evaluation, particularly for subjective audio qualities such as naturalness, prosody, pronunciation, and whether the conversation feels appropriately paced.
+- source: openai-cookbook/examples/agents_api/sandboxes/modal/webhook_managed/README.md
+  start: 1358
+  end: 1601
+  hint: code
+  quote: '```bash
+
+    uv run examples/agents_api/sandboxes/modal/webhook_managed/client.py --agent-id "$OPENAI_AGENT_ID"
+
+    uv run examples/agents_api/sandboxes/modal/webhook_managed/client.py --session-id "$SESSION_ID" --input "Run another shell command."
+
+    ```'
+- source: openai-cookbook/examples/agents_api/sandboxes/databricks/README.md
+  start: 4251
+  end: 4540
+  hint: code
+  quote: '- An OpenAI application key (`OPENAI_API_KEY`) for creating sessions and submitting input.
+
+    - A separate OpenAI executor key (`OPENAI_EXECUTOR_API_KEY`) with the same organization, project, and user or service account as the session. It is passed to codex in the sandbox as `CODEX_API_KEY`.'
+- source: openai-cookbook/examples/partners/AWS/chatgpt_agents_sdk_aws_agentcore_cookbook/README.md
+  start: 2313
+  end: 2669
+  hint: text
+  quote: "- **Model Context Protocol (MCP)** lets ChatGPT discover tools, call them with\n  structured inputs, and receive structured results. The MCP adapter is the\n  server that exposes the three flight tools and validates their inputs and\n  outputs against schemas, which define the accepted fields and values.\n- **The widget** is a small HTML view inside ChatGPT."
+- source: openai-cookbook/articles/per_run_spending_controller_responses_api.md
+  start: 6441
+  end: 6780
+  hint: code
+  quote: "```python\nclass BudgetExceeded(RuntimeError):\n    pass\n\nclass UncertainCharge(RuntimeError):\n    pass\n\n@dataclass\nclass RunBudget:\n    maximum: Fraction\n    spent: Fraction = field(default_factory=Fraction, init=False)\n    pending: Fraction = field(default_factory=Fraction, init=False)\n    blocked: bool = field(default=False, init=False)"
+- source: openai-cookbook/examples/agents_sdk/multi-agent-portfolio-collaboration/prompts/pm_base.md
+  start: 2424
+  end: 2593
+  hint: text
+  quote: '**2. For ad-hoc or follow-up analysis (e.g., user requests only one section, or you need to re-run a single specialist):**
+
+    - Use the relevant individual specialist tool.'
+- source: openai-cookbook/examples/voice_solutions/realtime_translation_guide.mdx
+  start: 1411
+  end: 1581
+  hint: code
+  quote: These have been the main blockers to the high accuracy and low latency required for natural live interpretation, and what we're solving for with `gpt-realtime-translate`.
+- source: openai-cookbook/examples/audio/voice_agent_evaluation.md
+  start: 377
+  end: 731
+  hint: text
+  quote: 'A complete evaluation follows a request through the entire system: the user’s spoken intent, the agent’s conversational behavior, the work delegated, the tools actually executed, the resulting application state, and the result ultimately communicated to the user. A natural-sounding confirmation does not prove the correct backend actions were completed.'
+- source: openai-cookbook/articles/techniques_to_improve_reliability.md
+  start: 36171
+  end: 36376
+  hint: text
+  quote: This paradigm of trying to build a reliable system out of less reliable components is reminiscent of probabilistic programming, and many of the analysis techniques of that field can be applied to this one.
+- source: openai-cookbook/examples/chatgpt/sharepoint_site_access/sharepoint_site_access.md
+  start: 3611
+  end: 3912
+  hint: code
+  quote: 'This command calls Microsoft Graph and prints each resolved site identifier and
+
+    the deduplicated collection GUIDs. It does not read or modify the ChatGPT
+
+    workspace allowlist. Tenant-root URLs and percent-encoded paths, such as
+
+    `https://contoso.sharepoint.com/sites/Finance%20Team`, are both supported.'
+- source: openai-cookbook/examples/data/structured_outputs_articles/moe.md
+  start: 776
+  end: 1115
+  hint: text
+  quote: '- **Gating Network:** The gating network is responsible for dynamically selecting which experts should be consulted for a given input. It assigns weights to each expert''s output, determining their contribution to the final prediction. The gating network typically uses a softmax function to produce these weights, ensuring they sum to one.'
+- source: openai-cookbook/articles/codex_exec_plans.md
+  start: 1888
+  end: 2246
+  hint: text
+  quote: '~~~md
+
+    # Codex Execution Plans (ExecPlans):
+
+
+    This document describes the requirements for an execution plan ("ExecPlan"), a design document that a coding agent can follow to deliver a working feature or system change. Treat the reader as a complete beginner to this repository: they have only the current working tree and the single ExecPlan file you provide.'
+- source: openai-cookbook/examples/evaluation/moving-from-openai-evals-to-promptfoo.md
+  start: 1046
+  end: 1408
+  hint: text
+  quote: '| OpenAI Evals | Promptfoo |
+
+    | --- | --- |
+
+    | Evaluations and results are managed in the OpenAI Platform dashboard. | Evaluations are defined in a config file and run with the CLI or in CI. |
+
+    | Graders are configured as testing criteria in an eval. | Grading behavior is configured as assertions and metrics. |
+
+    | Runs are tied to the Platform evaluation workflow.'
+- source: openai-cookbook/examples/codex/build_code_review_with_codex_sdk.md
+  start: 33340
+  end: 33538
+  hint: code
+  quote: "```groovy\npipeline {\n  agent any\n\n  options {\n    timestamps()\n    ansiColor('xterm')\n    // Prevent overlapping runs on the same PR. Newer builds will cancel older ones after passing the milestone."
+- source: openai-cookbook/examples/audio/duplex_voice_agent_evaluation/crawl_harness/README.md
+  start: 10456
+  end: 10723
+  hint: code
+  quote: '`max_examples = 0` means all examples. Set `verbose = true` for detailed output
+
+    by default. Command-line arguments override
+
+    configuration. Use `--config` to select another TOML file, `--data`
+
+    to override the dataset, and `--results-dir` to change the output location:'
+- source: openai-cookbook/articles/techniques_to_improve_reliability.md
+  start: 8951
+  end: 9220
+  hint: code
+  quote: '```gpt-3.5-turbo-instruct
+
+    The text explains that statistics is a science that studies the variability, collection, organization, analysis, interpretation, and presentation of data, as well as the random process that generates them following the laws of probability.
+
+    ```'
+- source: openai-cookbook/examples/agents_api/sandboxes/cloudflare/webhook_managed/README.md
+  start: 295
+  end: 505
+  hint: code
+  quote: 'Complete the [provider setup](../README.md#prerequisites).
+
+    Create the agent using the [shared setup](../../webhook_managed.md#set-up-once)
+
+    with this mode''s `client.py`. Starting at the Cookbook repository root:'
+- source: openai-cookbook/examples/partners/AWS/chatgpt_agents_sdk_aws_agentcore_cookbook/docs/aws-evaluation.md
+  start: 12727
+  end: 12855
+  hint: text
+  quote: 'CloudWatch ingestion can take several minutes. Increase the wait or retry
+
+    settings only after checking the log group and Region.'
+- source: openai-cookbook/examples/voice_solutions/one_way_translation_using_realtime_api.mdx
+  start: 1179
+  end: 1533
+  hint: text
+  quote: A real-world use case for this demo is a multilingual, conversational translation where a speaker talks into the speaker app and listeners hear translations in their selected native language via the listener app. Imagine a conference room with a speaker talking in English and a participant with headphones in choosing to listen to a Tagalog translation.
+- source: openai-cookbook/articles/gpt-oss-safeguard-guide.md
+  start: 29122
+  end: 29501
+  hint: code
+  quote: '```markdown
+
+    **Spam Policy (#SP)**
+
+    **GOAL:** Identify spam. Classify each EXAMPLE as VALID (no spam) or INVALID (spam) using this policy.
+
+
+    **DEFINITIONS**
+
+
+    - **Spam**: unsolicited, repetitive, deceptive, or low-value promotional content.
+
+
+    - **Bulk Messaging:** Same or similar messages sent repeatedly.
+
+
+    - **Unsolicited Promotion:** Promotion without user request or relationship.'
+- source: openai-cookbook/examples/agents_api/apps/document_review/README.md
+  start: 7196
+  end: 7530
+  hint: code
+  quote: "```python\nimport json\nfrom examples.agents_api.apps.document_review.agent import validate_review\n\nreviews = []\nfor document in sorted(input_directory.iterdir()):\n    if not document.is_file():\n        continue\n    report = json.loads((output_directory / f\"{document.stem}.json\").read_text())\n    validate_review(report, document.name)"
+- source: openai-cookbook/examples/audio/duplex_voice_agent_evaluation/crawl_harness/README.md
+  start: 10201
+  end: 10454
+  hint: code
+  quote: '```toml
+
+    [dataset]
+
+    path = "data/scenarios.json"
+
+
+    [execution]
+
+    concurrency = 1
+
+    max_examples = 0
+
+    verbose = false
+
+    response_timeout_seconds = 30.0
+
+
+    [audio]
+
+    chunk_ms = 20
+
+    sample_rate_hz = 24000
+
+    real_time = true
+
+
+    [assistant]
+
+    mode = "responses"
+
+    endpoint = ""
+
+    ```'
+- source: openai-cookbook/examples/deep_research_api/how_to_build_a_deep_research_mcp_server/README.md
+  start: 1691
+  end: 1973
+  hint: code
+  quote: '```python
+
+    # system_message includes reference to internal file lookups for MCP.
+
+    system_message = """
+
+    You are a professional researcher preparing a structured, data-driven report on behalf of a global health economics team. Your task is to analyze the health question the user poses.'
+- source: openai-cookbook/articles/openai-harmony.md
+  start: 28061
+  end: 28456
+  hint: code
+  quote: '```
+
+    <|start|>system<|message|>You are ChatGPT, a large language model trained by OpenAI.
+
+    Knowledge cutoff: 2024-06
+
+    Current date: 2025-06-28
+
+
+    Reasoning: high
+
+
+    # Tools
+
+
+    ## python
+
+
+    Use this tool to execute Python code in your chain of thought. The code will not be shown to the user. This tool should be used for internal reasoning, but not for code that is intended to be visible to the user (e.g.'
+- source: opentelemetry-docs/content/en/docs/concepts/context-propagation/index.md
+  start: 2454
+  end: 2521
+  hint: code
+  quote: '```text
+
+    00-a0892f3577b34da6a3ce929d0e0e4736-f03067aa0ba902b7-01
+
+    ```'
+- source: opentelemetry-docs/content/en/docs/concepts/instrumentation/libraries.md
+  start: 5215
+  end: 5471
+  hint: number
+  quote: "- OpenTelemetry Trace API reached stability in early 2021. It follows\n  [Semantic Versioning 2.0](/docs/specs/otel/versioning-and-stability/).\n- Use the earliest stable OpenTelemetry API (1.0.\\*) and avoid updating it\n  unless you have to use new features."
+- source: opentelemetry-docs/content/en/docs/what-is-opentelemetry.md
+  start: 1164
+  end: 1266
+  hint: text
+  quote: 'In software, this is typically achieved by analyzing telemetry data such as
+
+    traces, metrics, and logs.'
+- source: opentelemetry-docs/content/en/docs/concepts/signals/logs.md
+  start: 1118
+  end: 1484
+  hint: code
+  quote: "- Several receivers which parse logs from specific, known sources of log data.\n- The `filelogreceiver`, which reads logs from any file and provides features to\n  parse them from different formats or use a regular expression.\n- Processors like the `transformprocessor` which lets you parse nested data,\n  flatten nested structures, add/remove/update values, and more."
+- source: opentelemetry-docs/content/en/docs/concepts/context-propagation/index.md
+  start: 3544
+  end: 3849
+  hint: code
+  quote: 'In the case of metrics, context propagation enables you to aggregate
+
+    measurements in that context. For example, instead of only looking at the
+
+    response time of all the `GET /product` requests, you can also get metrics for
+
+    combinations of `POST /cart/add > GET /product` and
+
+    `GET /checkout > GET /product`.'
+- source: opentelemetry-docs/content/en/docs/concepts/sampling/index.md
+  start: 9030
+  end: 9376
+  hint: text
+  quote: 'Many [vendors](/ecosystem/vendors) offer comprehensive sampling solutions that
+
+    incorporate head sampling, tail sampling, and other features that can support
+
+    sophisticated sampling needs. These solutions may also be optimized specifically
+
+    for the vendor''s backend. If you are sending telemetry to a vendor, consider
+
+    using their sampling solutions.'
+- source: opentelemetry-docs/content/en/docs/concepts/signals/profiles.md
+  start: 1305
+  end: 1456
+  hint: text
+  quote: "- **System-level profiling**: Offers a holistic view of the infrastructure,\n  pinpointing issues in operating system calls, kernel operations, and I/O."
+- source: opentelemetry-docs/content/en/docs/concepts/observability-primer.md
+  start: 2827
+  end: 3192
+  hint: text
+  quote: 'A **log** is a timestamped message emitted by services or other components.
+
+    Unlike [traces](#distributed-traces), they aren''t necessarily associated with
+
+    any particular user request or transaction. You can find logs almost everywhere
+
+    in software. Logs have been heavily relied on in the past by both developers and
+
+    operators to help them understand system behavior.'
+- source: opentelemetry-docs/content/en/docs/concepts/sampling/index.md
+  start: 4284
+  end: 4469
+  hint: text
+  quote: 'Head sampling is a sampling technique used to make a sampling decision as early
+
+    as possible. A decision to sample or drop a span or trace is not made by
+
+    inspecting the trace as a whole.'
+- source: opentelemetry-genai-conventions/docs/gen-ai/mcp.md
+  start: 54877
+  end: 55174
+  hint: code
+  quote: '**[9] `gen_ai.prompt.variable`:** Prompt templates are parameterized with variables that are filled in
+
+    at runtime. This attribute records the variable values passed to the
+
+    template. The attribute name defines the variable name, and the
+
+    attribute value is the variable value serialized as a string.'
+- source: opentelemetry-genai-conventions/docs/gen-ai/gen-ai-agent-spans.md
+  start: 99138
+  end: 99216
+  hint: text
+  quote: 'This refinement applies when a dedicated tool loads a skill.
+
+    Examples include:'
+- source: opentelemetry-genai-conventions/docs/gen-ai/gen-ai-spans.md
+  start: 22136
+  end: 22357
+  hint: code
+  quote: '**[8] `gen_ai.retrieval.documents`:** Each document object SHOULD contain the following properties when available:
+
+    `id` (string): A unique identifier for the document, `score` (double): The relevance score of the document'
+- source: opentelemetry-genai-conventions/docs/gen-ai/gen-ai-metrics.md
+  start: 24908
+  end: 25019
+  hint: text
+  quote: '**[8]:** Used when accessing the ''generativelanguage.googleapis.com'' endpoint. Also known as the AI Studio API.'
+- source: opentelemetry-genai-conventions/docs/gen-ai/openai.md
+  start: 94171
+  end: 94414
+  hint: text
+  quote: Reports the usage of input tokens written to a provider-managed cache following the common [gen_ai.client.inference.usage.cache_write.input_tokens](./gen-ai-token-metrics.md#metric-gen_aiclientinferenceusagecache_writeinput_tokens) definition.
+- source: opentelemetry-genai-conventions/docs/gen-ai/aws-bedrock.md
+  start: 34312
+  end: 34655
+  hint: code
+  quote: '| Value | Description | Stability |
+
+    | --- | --- | --- |
+
+    | `chat` | Chat completion operation such as [OpenAI Chat API](https://platform.openai.com/docs/api-reference/chat) | ![Development](https://img.shields.io/badge/-development-blue) |
+
+    | `create_agent` | Create GenAI agent | ![Development](https://img.shields.io/badge/-development-blue) |'
+- source: opentelemetry-genai-conventions/docs/gen-ai/azure-ai-inference.md
+  start: 28438
+  end: 28751
+  hint: code
+  quote: '**[36] `gen_ai.output.messages`:** Each message represents a single output choice/candidate generated by
+
+    the model. Each message corresponds to exactly one generation
+
+    (choice/candidate) and vice versa - one choice cannot be split across
+
+    multiple messages or one message cannot contain parts from multiple choices.'
+- source: opentelemetry-genai-conventions/docs/gen-ai/openai.md
+  start: 57079
+  end: 57396
+  hint: code
+  quote: '| Name | Instrument Type | Unit (UCUM) | Description | Stability | Entity Associations |
+
+    | -------- | --------------- | ----------- | -------------- | --------- | ------ |
+
+    | `gen_ai.client.inference.usage.input_tokens` | Counter | `{token}` | OpenAI-specific extension to `gen_ai.client.inference.usage.input_tokens`.'
+- source: opentelemetry-genai-conventions/docs/gen-ai/gen-ai-agent-spans.md
+  start: 734
+  end: 1028
+  hint: text
+  quote: Generative AI models can be trained to use tools to access real-time information or suggest a real-world action. For example, a model can leverage a database retrieval tool to access specific information, like a customer's purchase history, so it can generate tailored shopping recommendations.
+- source: opentelemetry-genai-conventions/docs/gen-ai/azure-ai-inference.md
+  start: 20751
+  end: 20927
+  hint: text
+  quote: 'The attribute specifies the output modality and not the actual output format.
+
+    For example, if an image is requested, the actual output could be a
+
+    URL pointing to an image file.'
+- source: opentelemetry-genai-conventions/docs/gen-ai/azure-ai-inference.md
+  start: 1616
+  end: 1821
+  hint: text
+  quote: '| Key | Stability | [Requirement Level](https://opentelemetry.io/docs/specs/semconv/general/attribute-requirement-level/) | Value Type | Description | Example Values |
+
+    | --- | --- | --- | --- | --- | --- |'
+- source: opentelemetry-genai-conventions/docs/gen-ai/gen-ai-exceptions.md
+  start: 1205
+  end: 1410
+  hint: text
+  quote: '| Key | Stability | [Requirement Level](https://opentelemetry.io/docs/specs/semconv/general/attribute-requirement-level/) | Value Type | Description | Example Values |
+
+    | --- | --- | --- | --- | --- | --- |'
+- source: opentelemetry-genai-conventions/docs/gen-ai/non-normative/examples-llm-calls.md
+  start: 30595
+  end: 30962
+  hint: code
+  quote: "```json\n[\n  {\n    \"role\": \"assistant\",\n    \"parts\": [\n      {\n        \"type\": \"reasoning\",\n        \"content\": \"Alright, the user wants a joke about OpenTelemetry… Hmm, OpenTelemetry is all about distributed tracing and metrics, right? So maybe I can play with the word \\\"trace.\\\" That's a core concept — tracing requests through systems. But how do I make that funny?"
+- source: opentelemetry-genai-conventions/docs/gen-ai/anthropic.md
+  start: 1510
+  end: 1715
+  hint: text
+  quote: '| Key | Stability | [Requirement Level](https://opentelemetry.io/docs/specs/semconv/general/attribute-requirement-level/) | Value Type | Description | Example Values |
+
+    | --- | --- | --- | --- | --- | --- |'
+- source: opentelemetry-genai-conventions/docs/gen-ai/gen-ai-spans.md
+  start: 40387
+  end: 40663
+  hint: code
+  quote: '**[12] `gen_ai.system_instructions`:** Only content carried on the fetched response is recorded. A fetched response contains the system instructions, output messages, and tool definitions but not the original input messages, so `gen_ai.input.messages` is not set on this span.'
+- source: opentelemetry-genai-conventions/docs/gen-ai/mcp.md
+  start: 84566
+  end: 84786
+  hint: code
+  quote: '**[4] `server.port`:** When observed from the client side, and when communicating through an intermediary, `server.port` SHOULD represent the server port behind any intermediaries, for example proxies, if it''s available.'
+- source: opentelemetry-genai-conventions/docs/gen-ai/gen-ai-metrics.md
+  start: 46923
+  end: 47249
+  hint: text
+  quote: '**[1]:** Represents the end-to-end duration of a workflow execution, measured from the point where application code initiates the workflow to the point where the workflow completes, independent of workflow complexity.
+
+    A workflow is a coordinated process composed of multiple agents or other operations involving generative AI.'
+- source: opentelemetry-genai-conventions/docs/gen-ai/azure-ai-inference.md
+  start: 32862
+  end: 33033
+  hint: code
+  quote: '`gen_ai.operation.name` has the following list of well-known values. If one of them applies, then the respective value MUST be used; otherwise, a custom value MAY be used.'
+- source: opentelemetry-genai-conventions/docs/gen-ai/openai.md
+  start: 38983
+  end: 39212
+  hint: code
+  quote: '**Span name** SHOULD be `{gen_ai.operation.name}`. The response identifier is high
+
+    cardinality, so it is not included in the span name. Semantic conventions for individual
+
+    GenAI providers MAY specify a different span name format.'
+- source: opentelemetry-genai-conventions/docs/gen-ai/gen-ai-agent-spans.md
+  start: 138438
+  end: 138734
+  hint: code
+  quote: "**[15] `gen_ai.tool.type`:** Extension: A tool executed on the agent-side to directly call external APIs, bridging the gap between the agent and real-world systems.\n  Agent-side operations involve actions that are performed by the agent on the server or within the agent's controlled environment."
+- source: opentelemetry-genai-conventions/docs/gen-ai/openai.md
+  start: 23982
+  end: 24286
+  hint: code
+  quote: '**[15] `gen_ai.conversation.compacted`:** This attribute is a positive indicator of context compaction. Instrumentations
+
+    SHOULD set it to `true` only when they can reliably determine that context
+
+    compaction was applied. Instrumentations SHOULD NOT set it to `false`; they
+
+    SHOULD leave it unset otherwise.'
+- source: opentelemetry-genai-conventions/docs/gen-ai/anthropic.md
+  start: 20397
+  end: 20667
+  hint: code
+  quote: '**[8] `gen_ai.prompt.version`:** The version string can follow any versioning scheme chosen by the
+
+    application (e.g., SemVer, date-based, or platform-specific tags).
+
+    When a prompt management system is in use, this SHOULD match the
+
+    version identifier used by that system.'
+- source: pydantic-docs/docs/concepts/experimental.md
+  start: 5063
+  end: 5381
+  hint: text
+  quote: 'This example uses plain idiomatic Python code that may be easier to understand, type-check, etc. than the examples above.
+
+    The approach you choose should really depend on your use case.
+
+    You will have to compare verbosity, performance, ease of returning meaningful errors to your users, etc. to choose the right pattern.'
+- source: pydantic-docs/docs/integrations/visual_studio_code.md
+  start: 5463
+  end: 5526
+  hint: text
+  quote: '![VS Code strict type errors with model](../img/vs_code_07.png)'
+- source: pydantic-docs/docs/concepts/types.md
+  start: 321
+  end: 720
+  hint: code
+  quote: 'On top of these, Pydantic provides extra types, either [directly in the library](../api/types.md)
+
+    (e.g. [`SecretStr`][pydantic.types.SecretStr]) or in the [`pydantic-extra-types`](https://github.com/pydantic/pydantic-extra-types)
+
+    external library. These are implemented using the patterns described in the [custom types](#custom-types) section.
+
+    Strictness and constraints *can''t* be applied on them.'
+- source: pydantic-docs/docs/concepts/models.md
+  start: 10793
+  end: 11018
+  hint: text
+  quote: 'Besides, using these abstract types can also lead to [poor validation performance](./performance.md#sequence-vs-list-or-tuple-with-mapping-vs-dict), and in general using concrete container types
+
+    will avoid unnecessary checks.'
+- source: pydantic-docs/docs/concepts/types.md
+  start: 17380
+  end: 17757
+  hint: code
+  quote: "```python\nfrom typing import Annotated, Any\n\nfrom pydantic_core import core_schema\n\nfrom pydantic import (\n    BaseModel,\n    GetCoreSchemaHandler,\n    GetJsonSchemaHandler,\n    ValidationError,\n)\nfrom pydantic.json_schema import JsonSchemaValue\n\n\nclass ThirdPartyType:\n    \"\"\"\n    This is meant to represent a type from a third-party library that wasn't designed with Pydantic"
+- source: pydantic-docs/docs/examples/dynamic_models.md
+  start: 1612
+  end: 1991
+  hint: code
+  quote: "```python {lint=\"skip\" requires=\"3.11\" linenums=\"1\"}\n    from typing import Annotated\n\n    from pydantic import BaseModel, Field, create_model\n\n\n    def make_fields_optional(model_cls: type[BaseModel]) -> type[BaseModel]:\n        new_fields = {}\n\n        for f_name, f_info in model_cls.model_fields.items():\n            f_dct = f_info.asdict()\n            new_fields[f_name] = ("
+- source: pydantic-docs/docs/concepts/models.md
+  start: 29130
+  end: 29522
+  hint: code
+  quote: "```python\nfrom pydantic import BaseModel, ConfigDict\n\n\nclass PetCls:\n    def __init__(self, *, name: str) -> None:\n        self.name = name\n\n\nclass PersonCls:\n    def __init__(self, *, name: str, pets: list[PetCls]) -> None:\n        self.name = name\n        self.pets = pets\n\n\nclass Pet(BaseModel):\n    model_config = ConfigDict(from_attributes=True)\n\n    name: str\n\n\nclass Person(BaseModel):"
+- source: pydantic-docs/docs/errors/validation_errors.md
+  start: 20664
+  end: 20900
+  hint: code
+  quote: "```python\nfrom pydantic import BaseModel, ValidationError\n\n\nclass Model(BaseModel):\n    x: frozenset\n\n\ntry:\n    model = Model(x='test')\nexcept ValidationError as exc:\n    print(repr(exc.errors()[0]['type']))\n    #> 'frozen_set_type'\n```"
+- source: pydantic-docs/docs/concepts/json_schema.md
+  start: 26233
+  end: 26631
+  hint: code
+  quote: "```python\nimport json\n\nfrom pydantic import BaseModel, ConfigDict\n\n\nclass Person(BaseModel):\n    model_config = ConfigDict(\n        field_title_generator=lambda field_name, field_info: field_name.upper()\n    )\n    name: str\n    age: int\n\n\nprint(json.dumps(Person.model_json_schema(), indent=2))\n\"\"\"\n{\n  \"properties\": {\n    \"name\": {\n      \"title\": \"NAME\",\n      \"type\": \"string\"\n    },\n    \"age\": {"
+- source: pydantic-docs/docs/examples/files.md
+  start: 3659
+  end: 4024
+  hint: code
+  quote: 'With two records, spotting a bad one is easy. In a pipeline processing files with thousands of records,
+
+    the error''s `loc` gives you the index of the failing one, and if the pipeline runs unattended,
+
+    [Logfire](../errors/troubleshooting.md) records failed validations with their field locations and
+
+    rejected values, so you can find the offending record after the run.'
+- source: pydantic-docs/docs/errors/validation_errors.md
+  start: 22859
+  end: 23011
+  hint: code
+  quote: 'This error is raised when attempting to parse a python or JSON value from a string outside the maximum range that Python
+
+    `str` to `int` parsing permits:'
+- source: pydantic-docs/docs/concepts/models.md
+  start: 6749
+  end: 7085
+  hint: code
+  quote: "* [`model_validate()`][pydantic.main.BaseModel.model_validate]: Validates the given object against the Pydantic model. See [Validating data](#validating-data).\n* [`model_validate_json()`][pydantic.main.BaseModel.model_validate_json]: Validates the given JSON data against the Pydantic model. See\n    [Validating data](#validating-data)."
+- source: pydantic-docs/docs/concepts/models.md
+  start: 11797
+  end: 12111
+  hint: code
+  quote: "* `'ignore'`: Providing extra data is ignored (the default).\n* `'forbid'`: Providing extra data is not permitted.\n* `'allow'`: Providing extra data is allowed and stored in the `__pydantic_extra__` dictionary attribute.\n  The `__pydantic_extra__` can explicitly be annotated to provide validation for extra fields."
+- source: pydantic-docs/docs/concepts/serialization.md
+  start: 26793
+  end: 27009
+  hint: code
+  quote: 'However, do note that the *serialize as any* behavior will apply to *all* values, not only the values where duck typing
+
+    is relevant. You may want to prefer using the `SerializeAsAny` annotation when required instead.'
+- source: pydantic-docs/docs/integrations/mypy.md
+  start: 2552
+  end: 2652
+  hint: code
+  quote: If you're using `pydantic.v1` models, you'll need to add `pydantic.v1.mypy` to your list of plugins.
+- source: pydantic-docs/docs/internals/architecture.md
+  start: 9389
+  end: 9649
+  hint: code
+  quote: 'Pydantic wraps the `SchemaValidator` in a plugin layer: when plugins are installed, each of the
+
+    `validate_python`, `validate_json`, and `validate_strings` calls can be intercepted, letting a plugin
+
+    observe the input, result, and any error for every validation.'
+- source: pydantic-docs/docs/integrations/visual_studio_code.md
+  start: 5167
+  end: 5408
+  hint: code
+  quote: The type of the field `knight` is declared with the class `Knight` (a Pydantic model) and the code is passing a literal `dict` instead. This is still valid for Pydantic, and the `dict` would be automatically converted to a `Knight` instance.
+- source: pytest-docs/doc/en/explanation/types.rst
+  start: 1344
+  end: 1509
+  hint: code
+  quote: To type fixtures in pytest, just add normal types to the fixture functions -- there is nothing special that needs to be done just because of the `fixture` decorator.
+- source: pytest-docs/doc/en/example/pythoncollection.rst
+  start: 267
+  end: 578
+  hint: code
+  quote: "```text\ntests/\n|-- example\n|   |-- test_example_01.py\n|   |-- test_example_02.py\n|   '-- test_example_03.py\n|-- foobar\n|   |-- test_foobar_01.py\n|   |-- test_foobar_02.py\n|   '-- test_foobar_03.py\n'-- hello\n    '-- world\n        |-- test_world_01.py\n        |-- test_world_02.py\n        '-- test_world_03.py\n```"
+- source: pytest-docs/doc/en/reference/fixtures.rst
+  start: 76
+  end: 178
+  hint: text
+  quote: 'Fixtures are defined using the @pytest.fixture decorator. Pytest has several useful built-in fixtures:'
+- source: pytest-docs/doc/en/how-to/capture-warnings.rst
+  start: 3690
+  end: 3894
+  hint: text
+  quote: 'You can use the @pytest.mark.filterwarnings mark to add warning filters to specific test items,
+
+    allowing you to have finer control of which warnings should be captured at test, class or
+
+    even module level:'
+- source: pytest-docs/doc/en/example/simple.rst
+  start: 18221
+  end: 18575
+  hint: code
+  quote: '```pytest
+
+    $ pytest
+
+    =========================== test session starts ============================
+
+    platform linux -- Python 3.x.y, pytest-9.x.y, pluggy-1.x.y
+
+    rootdir: /home/sweet/project
+
+    collected 7 items
+
+
+    a/test_db.py F                                                       [ 14%]
+
+    a/test_db2.py F                                                      [ 28%]'
+- source: pytest-docs/doc/en/example/reportingdemo.rst
+  start: 120
+  end: 513
+  hint: code
+  quote: '```pytest
+
+    assertion $ pytest failure_demo.py
+
+    =========================== test session starts ============================
+
+    platform linux -- Python 3.x.y, pytest-9.x.y, pluggy-1.x.y
+
+    rootdir: /home/sweet/project/assertion
+
+    collected 44 items
+
+
+    failure_demo.py FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF         [100%]
+
+
+    ================================= FAILURES ================================='
+- source: pytest-docs/doc/en/historical-notes.rst
+  start: 2893
+  end: 3145
+  hint: code
+  quote: "```python\n# replace this\nskipif = item.get_marker(\"skipif\")\nif skipif:\n    for condition in skipif.args:\n        # eval condition\n        ...\n\n# by this:\nfor skipif in item.iter_markers(\"skipif\"):\n    condition = skipif.args[0]\n    # eval condition\n```"
+- source: pytest-docs/doc/en/reference/reference.rst
+  start: 4022
+  end: 4302
+  hint: code
+  quote: ":keyword Union[bool, str] condition:\n    Condition for marking the test function as xfail (`True/False` or a\n    condition string). If a `bool`, you also have\n    to specify `reason` (see condition string).\n:keyword str reason:\n    Reason why the test function is marked as xfail."
+- source: pytest-docs/doc/en/how-to/output.rst
+  start: 2755
+  end: 3140
+  hint: code
+  quote: "```pytest\n$ pytest --no-header\n=========================== test session starts ============================\ncollected 4 items\n\ntest_verbosity_example.py .FFF                                       [100%]\n\n================================= FAILURES =================================\n_____________________________ test_words_fail ______________________________\n\n    def test_words_fail():"
+- source: pytest-docs/doc/en/explanation/goodpractices.rst
+  start: 5519
+  end: 5687
+  hint: code
+  quote: 'In `prepend` and `append` import-modes, if pytest finds a `"a/b/test_module.py"`
+
+    test file while recursing into the filesystem it determines the import name
+
+    as follows:'
+- source: pytest-docs/doc/en/how-to/tmp_path.rst
+  start: 4637
+  end: 4765
+  hint: code
+  quote: "- When the `--basetemp` option is used (e.g. `pytest --basetemp=mydir`),\n  it will be used directly as base temporary directory:"
+- source: pytest-docs/doc/en/reference/fixtures.rst
+  start: 8364
+  end: 8678
+  hint: text
+  quote: 'Names of fixtures or tests, where they''re defined, the order they''re defined in,
+
+    and the order fixtures are requested in have no bearing on execution order
+
+    beyond coincidence. While pytest will try to make sure coincidences like these
+
+    stay consistent from run to run, it''s not something that should be depended on.'
+- source: pytest-docs/doc/en/how-to/monkeypatch.rst
+  start: 6291
+  end: 6680
+  hint: code
+  quote: "```python\n# contents of test_app.py, a simple test for our API retrieval\nimport pytest\nimport requests\n\n# app.py that includes the get_json() function\nimport app\n\n\n# custom class to be the mock return value of requests.get()\nclass MockResponse:\n    @staticmethod\n    def json():\n        return {\"mock_key\": \"mock_response\"}\n\n\n# monkeypatched requests.get moved to a fixture\n@pytest.fixture"
+- source: pytest-docs/doc/en/explanation/goodpractices.rst
+  start: 8329
+  end: 8635
+  hint: code
+  quote: 'Once you are done with your work and want to make sure that your actual
+
+    package passes all tests you may want to look into tox, the
+
+    virtualenv test automation tool.
+
+    `tox` helps you to setup virtualenv environments with pre-defined
+
+    dependencies and then executing a pre-configured test command with
+
+    options.'
+- source: pytest-docs/doc/en/reference/reference.rst
+  start: 61656
+  end: 61971
+  hint: code
+  quote: "```\n$ pytest --help\nusage: pytest [options] [file_or_dir] [file_or_dir] [...]\n\npositional arguments:\n  file_or_dir\n\ngeneral:\n  -k EXPRESSION         Only run tests matching the given keyword expression,\n                        e.g. -k 'test_method or test_other', -k 'not (slow or\n                        network)'."
+- source: pytest-docs/doc/en/reference/reference.rst
+  start: 61193
+  end: 61346
+  hint: code
+  quote: 'Disable plugin auto-loading through entry point packaging metadata.
+
+    Only plugins explicitly specified in `-p` or env var `PYTEST_PLUGINS` will be loaded.'
+- source: pytest-docs/doc/en/how-to/plugins.rst
+  start: 3892
+  end: 4024
+  hint: code
+  quote: '`-p` and `PYTEST_PLUGINS` are both ways to explicitly control which
+
+    plugins are loaded, but they serve slightly different use-cases.'
+- source: python-docs/Doc/howto/logging-cookbook.rst
+  start: 80408
+  end: 80642
+  hint: code
+  quote: "```\nimport logging\nimport logging.config\nimport logging.handlers\nfrom multiprocessing import Process, Queue, Event, current_process\nimport os\nimport random\nimport time\n\nclass MyHandler:\n    \"\"\"\n    A simple handler for logging events."
+- source: python-docs/Doc/builtins/stdtypes.rst
+  start: 194205
+  end: 194281
+  hint: text
+  quote: 'Union objects can be tested for equality with other union objects.  Details:'
+- source: python-docs/Doc/reference/datamodel.rst
+  start: 102193
+  end: 102356
+  hint: code
+  quote: 'When subscripting a *class*, the special
+
+    class method `__class_getitem__` may be called instead of
+
+    `__getitem__`. See classgetitem-versus-getitem for more
+
+    details.'
+- source: python-docs/Doc/library/typing.rst
+  start: 30846
+  end: 31161
+  hint: code
+  quote: '3.12: `TypeAlias` is deprecated in favor of the `type` statement,
+
+    which creates instances of `TypeAliasType`
+
+    and which natively supports forward references.
+
+    Note that while `TypeAlias` and `TypeAliasType` serve
+
+    similar purposes and have similar names, they are distinct and the
+
+    latter is not the type of the former.'
+- source: python-docs/Doc/library/re.rst
+  start: 7016
+  end: 7226
+  hint: code
+  quote: "`{m}`\n   Specifies that exactly *m* copies of the previous RE should be matched; fewer\n   matches cause the entire RE not to match.  For example, `a{6}` will match\n   exactly six `'a'` characters, but not five."
+- source: python-docs/Doc/tutorial/index.rst
+  start: 896
+  end: 1113
+  hint: text
+  quote: 'The Python interpreter is easily extended with new functions and data types
+
+    implemented in C or C++ (or other languages callable from C). Python is also
+
+    suitable as an extension language for customizable applications.'
+- source: python-docs/Doc/glossary.rst
+  start: 34308
+  end: 34669
+  hint: text
+  quote: "interpreter shutdown\n   When asked to shut down, the Python interpreter enters a special phase\n   where it gradually releases all allocated resources, such as modules\n   and various critical internal structures.  It also makes several calls\n   to the garbage collector. This can trigger\n   the execution of code in user-defined destructors or weakref callbacks."
+- source: python-docs/Doc/library/typing.rst
+  start: 82051
+  end: 82132
+  hint: code
+  quote: '3.13: Removed support for the keyword-argument method of creating `TypedDict`\ s.'
+- source: python-docs/Doc/howto/mro.rst
+  start: 931
+  end: 1330
+  hint: number
+  quote: "*All the people of the Python mailing list who sent me their support.\n   Paul Foley who pointed out various imprecisions and made me to add the\n   part on local precedence ordering. David Goodger for help with the\n   formatting in reStructuredText. David Mertz for help with the editing.\n   Finally, Guido van Rossum who enthusiastically added this document to\n   the official Python 2.3 home-page.*"
+- source: python-docs/Doc/faq/library.rst
+  start: 20412
+  end: 20697
+  hint: code
+  quote: 'You can use the `connect_ex` method
+
+    to avoid creating an exception.
+
+    It will just return the errno value.
+
+    To poll, you can call `connect_ex` again later
+
+    -- `0` or `errno.EISCONN` indicate that you''re connected -- or you can pass this
+
+    socket to `select.select` to check if it''s writable.'
+- source: python-docs/Doc/library/shutil.rst
+  start: 13885
+  end: 14194
+  hint: code
+  quote: 'If *copy_function* is given, it must be a callable that takes two arguments,
+
+    *src* and the destination, and will be used to copy *src* to the destination
+
+    if `os.rename` cannot be used.  If the source is a directory,
+
+    `copytree` is called, passing it the *copy_function*. The
+
+    default *copy_function* is `copy2`.'
+- source: python-docs/Doc/library/typing.rst
+  start: 44338
+  end: 44698
+  hint: code
+  quote: '`TypeIs` aims to benefit *type narrowing* -- a technique used by static
+
+    type checkers to determine a more precise type of an expression within a
+
+    program''s code flow.  Usually type narrowing is done by analyzing
+
+    conditional code flow and applying the narrowing to a block of code.  The
+
+    conditional expression here is sometimes referred to as a "type predicate":'
+- source: python-docs/Doc/reference/lexical_analysis.rst
+  start: 245
+  end: 427
+  hint: code
+  quote: 'The lexical analyzer determines the program text''s encoding
+
+    (UTF-8 by default), and decodes the text into
+
+    source characters.
+
+    If the text cannot be decoded, a `SyntaxError` is raised.'
+- source: python-docs/Doc/builtins/stdtypes.rst
+  start: 134027
+  end: 134398
+  hint: number
+  quote: 'Return a copy of the sequence where all ASCII tab characters are replaced
+
+    by one or more ASCII spaces, depending on the current column and the given
+
+    tab size.  Tab positions occur every *tabsize* bytes (default is 8,
+
+    giving tab positions at columns 0, 8, 16 and so on).  To expand the
+
+    sequence, the current column is set to zero and the sequence is examined
+
+    byte by byte.'
+- source: python-docs/Doc/builtins/stdtypes.rst
+  start: 203958
+  end: 204114
+  hint: code
+  quote: '```
+
+    >>> import sys
+
+    >>> sys.set_int_max_str_digits(4300)  # Illustrative, this is the default.
+
+    >>> _ = int(''2'' * 5432)
+
+    Traceback (most recent call last):
+
+    ...'
+- source: python-docs/Doc/reference/expressions.rst
+  start: 49729
+  end: 49850
+  hint: code
+  quote: 'The `@` (at) operator is intended to be used for matrix multiplication.  No
+
+    builtin Python types implement this operator.'
+- source: python-docs/Doc/builtins/stdtypes.rst
+  start: 70740
+  end: 71083
+  hint: code
+  quote: 'Return `True` if the string ends with the specified *suffix*, otherwise return
+
+    `False`.  *suffix* can also be a tuple of suffixes to look for.  With optional
+
+    *start*, test beginning at that position.  With optional *end*, stop comparing
+
+    at that position. Using *start* and *end* is equivalent to
+
+    `str[start:end].endswith(suffix)`. For example:'
+- source: python-docs/Doc/howto/a-conceptual-overview-of-asyncio.rst
+  start: 15863
+  end: 16263
+  hint: text
+  quote: 'A future has a few important attributes. One is its state, which can be either
+
+    "pending", "cancelled", or "done".
+
+    Another is its result, which is set when the state transitions to done.
+
+    Unlike a coroutine, a future does not represent the actual computation to be
+
+    done; instead, it represents the status and result of that computation, kind of
+
+    like a status light (red, yellow, or green) or indicator.'
+- source: python-docs/Doc/library/contextlib.rst
+  start: 24036
+  end: 24156
+  hint: text
+  quote: 'This allows the intended cleanup behaviour to be made explicit up front,
+
+    rather than requiring a separate flag variable.'
+- source: python-docs/Doc/library/shutil.rst
+  start: 4569
+  end: 4692
+  hint: code
+  quote: "* If `os.chmod in os.supports_follow_symlinks` is\n  `True`, `copystat` can modify the permission\n  bits of a symbolic link."
+- source: python-docs/Doc/library/csv.rst
+  start: 13964
+  end: 14360
+  hint: code
+  quote: 'To make it easier to specify the format of input and output records, specific
+
+    formatting parameters are grouped together into dialects.  A dialect is a
+
+    subclass of the `Dialect` class containing various attributes
+
+    describing the format of the CSV file.  When creating `reader` or
+
+    `writer` objects, the programmer can specify a string or a subclass of
+
+    the `Dialect` class as the dialect parameter.'
+- source: python-docs/Doc/library/enum.rst
+  start: 25071
+  end: 25293
+  hint: code
+  quote: 'the *property* and the member must be defined in separate classes;
+
+    for example, the *value* and *name* attributes are defined in the
+
+    *Enum* class, and *Enum* subclasses can define members with the
+
+    names `value` and `name`.'
+- source: python-docs/Doc/glossary.rst
+  start: 19002
+  end: 19361
+  hint: code
+  quote: "dictionary view\n   The objects returned from `dict.keys`, `dict.values`, and\n   `dict.items` are called dictionary views. They provide a dynamic\n   view on the dictionary’s entries, which means that when the dictionary\n   changes, the view reflects these changes. To force the\n   dictionary view to become a full list use `list(dictview)`.  See\n   dict-views."
+- source: python-docs/Doc/faq/programming.rst
+  start: 22061
+  end: 22154
+  hint: text
+  quote: 'In comp.lang.python, Fredrik Lundh once gave an excellent analogy in answer to
+
+    this question:'
+- source: python-docs/Doc/library/collections.abc.rst
+  start: 8270
+  end: 8555
+  hint: code
+  quote: 'Checking `isinstance(obj, Iterable)` detects classes that are registered
+
+    as `Iterable` or that have an `__iter__` method,
+
+    but it does
+
+    not detect classes that iterate with the `__getitem__` method.
+
+    The only reliable way to determine whether an object is iterable
+
+    is to call `iter(obj)`.'
+- source: python-peps/peps/pep-0008.rst
+  start: 45385
+  end: 45436
+  hint: text
+  quote: This document has been placed in the public domain.
+- source: python-peps/peps/pep-0008.rst
+  start: 28764
+  end: 28870
+  hint: text
+  quote: 'To avoid name clashes with subclasses, use two leading underscores to
+
+    invoke Python''s name mangling rules.'
+- source: python-peps/peps/pep-0008.rst
+  start: 11523
+  end: 11783
+  hint: code
+  quote: "- Absolute imports are recommended, as they are usually more readable\n  and tend to be better behaved (or at least give better error\n  messages) if the import system is incorrectly configured (such as\n  when a directory inside a package ends up on `sys.path`):"
+- source: python-peps/peps/pep-0008.rst
+  start: 3901
+  end: 4231
+  hint: code
+  quote: 'When the conditional part of an `if`-statement is long enough to require
+
+    that it be written across multiple lines, it''s worth noting that the
+
+    combination of a two character keyword (i.e. `if`), plus a single space,
+
+    plus an opening parenthesis creates a natural 4-space indent for the
+
+    subsequent lines of the multiline conditional.'
+- source: python-peps/peps/pep-0008.rst
+  start: 14654
+  end: 14704
+  hint: text
+  quote: '- Immediately before a comma, semicolon, or colon:'
+- source: ragas-docs/docs/concepts/metrics/available_metrics/answer_correctness.md
+  start: 1309
+  end: 1372
+  hint: number
+  quote: '**Low answer correctness**: Einstein was born in Spain in 1879.'
+- source: ragas-docs/docs/concepts/metrics/available_metrics/agents.md
+  start: 1633
+  end: 2032
+  hint: code
+  quote: "```python\nimport asyncio\nfrom openai import AsyncOpenAI\nfrom ragas.llms.base import llm_factory\nfrom ragas.metrics.collections import TopicAdherence\nfrom ragas.messages import HumanMessage, AIMessage, ToolMessage, ToolCall\n\n\nasync def evaluate_topic_adherence():\n    # Setup LLM\n    client = AsyncOpenAI()\n    llm = llm_factory(\"gpt-4o-mini\", client=client)\n\n    user_input = [\n        HumanMessage("
+- source: ragas-docs/docs/concepts/metrics/available_metrics/nvidia_metrics.md
+  start: 13163
+  end: 13351
+  hint: number
+  quote: "- **Response:** \"Albert Einstein was born in 1879.\"\n- **Retrieved Contexts:**\n  - \"Albert Einstein was born March 14, 1879.\"\n  - \"Albert Einstein was born at Ulm, in Württemberg, Germany.\""
+- source: ragas-docs/CODE_OF_CONDUCT.md
+  start: 1276
+  end: 1642
+  hint: text
+  quote: '- Harassment, intimidation, or discrimination of any kind
+
+    - Unwelcome sexual attention or advances
+
+    - Trolling, insulting/derogatory comments, and personal or political attacks
+
+    - Publishing others'' private information without explicit permission (doxing)
+
+    - Gatekeeping—deliberately excluding or discouraging participation
+
+    - Deliberate disinformation or misinformation'
+- source: ragas-docs/docs/quoted_spans_metric.md
+  start: 315
+  end: 556
+  hint: text
+  quote: '**Why:** Users place extra trust in exact quotes.  When a model quotes facts
+
+    that aren''t present in its evidence, it undermines reliability.  This metric
+
+    helps catch cases of citation drift where quoted phrases in the answer are
+
+    unsupported.'
+- source: ragas-docs/docs/getstarted/rag_eval.md
+  start: 1522
+  end: 1915
+  hint: code
+  quote: "```python\n\n    import numpy as np\n\n    class RAG:\n        def __init__(self, model=\"gpt-4o\"):\n            import openai\n            self.llm = ChatOpenAI(model=model)\n            openai_client = openai.OpenAI()\n            self.embeddings = OpenAIEmbeddings(client=openai_client)\n            self.doc_embeddings = None\n            self.docs = None\n\n        def load_documents(self, documents):"
+- source: ragas-docs/docs/concepts/metrics/available_metrics/context_recall.md
+  start: 297
+  end: 590
+  hint: code
+  quote: Since it is about not missing anything, calculating context recall always requires a reference to compare against. The LLM-based Context Recall metric uses `reference` as a proxy to `reference_contexts`, which makes it easier to use as annotating reference contexts can be very time-consuming.
+- source: ragas-docs/CODE_OF_CONDUCT.md
+  start: 6188
+  end: 6286
+  hint: text
+  quote: We appreciate your participation in making Ragas a welcoming and inclusive community for everyone.
+- source: ragas-docs/docs/concepts/metrics/available_metrics/traditional.md
+  start: 4752
+  end: 5125
+  hint: code
+  quote: The `RougeScore` score is a set of metrics used to evaluate the quality of natural language generations. It measures the overlap between the generated `response` and the `reference` text based on n-gram recall, precision, and F1 score. ROUGE score ranges from 0 to 1, where 1 indicates a perfect match between the response and the reference. This is a non LLM based metric.
+- source: ragas-docs/docs/concepts/metrics/available_metrics/rubrics_based.md
+  start: 1800
+  end: 2185
+  hint: code
+  quote: "```python\nfrom ragas.metrics.collections import DomainSpecificRubrics\n\nmy_custom_rubrics = {\n    \"score1_description\": \"Answer and ground truth are completely different\",\n    \"score2_description\": \"Answer and ground truth are somewhat different\",\n    \"score3_description\": \"Answer and ground truth are somewhat similar\",\n    \"score4_description\": \"Answer and ground truth are similar\","
+- source: ragas-docs/docs/concepts/metrics/available_metrics/context_recall.md
+  start: 4253
+  end: 4457
+  hint: text
+  quote: The metric computes recall using retrieved_context_ids and reference_context_ids, with values ranging between 0 and 1. Higher values indicate better performance. It works with both string and integer IDs.
+- source: ragas-docs/docs/concepts/metrics/available_metrics/semantic_similarity.md
+  start: 2345
+  end: 2511
+  hint: number
+  quote: "!!! warning \"Deprecation Timeline\"\n    This API will be deprecated in version 0.4 and removed in version 1.0. Please migrate to the collections-based API shown above."
+- source: rohitg00-ai-engineering-from-scratch/phases/05-nlp-foundations-to-advanced/README.md
+  start: 428
+  end: 560
+  hint: text
+  quote: 'Keep the command, exit code, token list, stems, lemmas, and one example where
+
+    stemming loses meaning but lemmatization preserves it.'
+- source: rohitg00-ai-engineering-from-scratch/phases/11-llm-engineering/01-prompt-engineering/docs/en.md
+  start: 16191
+  end: 16576
+  hint: code
+  quote: "```python\nPROMPT_PATTERNS = {\n    \"persona\": {\n        \"name\": \"Persona Pattern\",\n        \"template\": (\n            \"You are {role} with {experience}.\\n\"\n            \"Your communication style is {style}.\\n\"\n            \"You prioritize {priority}.\\n\\n\"\n            \"{task}\"\n        ),\n        \"variables\": [\"role\", \"experience\", \"style\", \"priority\", \"task\"],\n        \"temperature\": 0.7,"
+- source: rohitg00-ai-engineering-from-scratch/README.md
+  start: 81502
+  end: 81859
+  hint: number
+  quote: '| # | Project | Combines | Lang |
+
+    |:---:|---------|----------|------|
+
+    | 01 | [Terminal-Native Coding Agent](phases/19-capstone-projects/01-terminal-native-coding-agent/) | P0 P5 P7 P10 P11 P13 P14 P15 P17 P18 | Python |
+
+    | 02 | [RAG over Codebase (Cross-Repo Semantic Search)](phases/19-capstone-projects/02-rag-over-codebase/) | P5 P7 P11 P13 P17 | Python |'
+- source: rohitg00-ai-engineering-from-scratch/phases/14-agent-engineering/05-self-refine-and-critic/docs/en.md
+  start: 2455
+  end: 2732
+  hint: code
+  quote: 'Self-Refine''s weakness: the feedback step is an LLM scoring itself. For factual claims this is unreliable (a hallucination often looks convincing to the model that produced it). CRITIC replaces `feedback(task, output)` with `verify(task, output, tools)` where `tools` includes:'
+- source: rohitg00-ai-engineering-from-scratch/phases/13-tools-and-protocols/README.md
+  start: 3837
+  end: 4133
+  hint: number
+  quote: 'Complete Lesson 15''s executable security checkpoint before any non-loopback
+
+    bind, shared ingress, hosted endpoint, or registry publication. Review the
+
+    external target and requested authority, then confirm the deployment action
+
+    explicitly. A completed tutorial does not grant deployment authority.'
+- source: rohitg00-ai-engineering-from-scratch/phases/11-llm-engineering/10-evaluation/outputs/prompt-eval-designer.md
+  start: 3041
+  end: 3239
+  hint: number
+  quote: '**Tier 3: Distribution Sample (100-200 cases)**
+
+    - Random sample from production traffic (anonymized)
+
+    - Refresh monthly to track distribution shift
+
+    - Weight by frequency -- common queries matter more'
+- source: rohitg00-ai-engineering-from-scratch/phases/11-llm-engineering/09-function-calling/outputs/prompt-tool-designer.md
+  start: 604
+  end: 699
+  hint: text
+  quote: The description is the most important field. The model reads it to decide when to use the tool.
+- source: rohitg00-ai-engineering-from-scratch/phases/11-llm-engineering/11-caching-cost/docs/en.md
+  start: 23910
+  end: 24283
+  hint: code
+  quote: "```python\ndef simulate_llm_call(model, query):\n    input_tokens = len(query.split()) * 4 + 500\n    output_tokens = 150 + (len(query.split()) * 2)\n    latency = 200 + (output_tokens * 2)\n    return {\n        \"model\": model,\n        \"response\": f\"[Simulated {model} response to: {query[:50]}...]\",\n        \"input_tokens\": input_tokens,\n        \"output_tokens\": output_tokens,"
+- source: rohitg00-ai-engineering-from-scratch/phases/17-infrastructure-and-production/13-llm-observability/docs/en.md
+  start: 1931
+  end: 2203
+  hint: text
+  quote: They don't solve the same problem. LangSmith answers "why did this LangGraph run fail?" Phoenix answers "is my RAG pipeline drifting?" Helicone answers "which app is burning tokens?" Langfuse answers "can I self-host the whole thing?" Different tools, different audiences.
+- source: rohitg00-ai-engineering-from-scratch/phases/14-agent-engineering/28-orchestration-patterns/docs/en.md
+  start: 5087
+  end: 5477
+  hint: text
+  quote: '| Term | What people say | What it actually means |
+
+    |------|----------------|------------------------|
+
+    | Supervisor-worker | "Router + specialists" | Central LLM dispatches to specialists; they don''t talk to each other |
+
+    | Swarm | "Peer-to-peer" | Direct handoffs via shared tools; no central router |
+
+    | Hierarchical | "Supervisors of supervisors" | Nested subgraphs for large populations |'
+- source: rohitg00-ai-engineering-from-scratch/phases/11-llm-engineering/12-guardrails/docs/en.md
+  start: 2499
+  end: 2756
+  hint: text
+  quote: These are not theoretical. Bing Chat's system prompt was extracted on day one of public preview. ChatGPT plugins were exploited to exfiltrate conversation data. Google Bard was tricked into endorsing phishing sites through indirect injection in Google Docs.
+- source: rohitg00-ai-engineering-from-scratch/SPONSORS.md
+  start: 9333
+  end: 9722
+  hint: number
+  quote: "1. Maintainer time on new lessons and on the issue queue.\n2. Site hosting, domain, and CDN (Vercel + custom domains).\n3. Diagram authoring tools, font licensing, design assets.\n4. One-time research or content fees for guest lesson reviewers when a phase covers\n   territory outside the maintainer's depth.\n5. Contributor bounties on specific issues that have been open longer than 30 days."
+- source: rohitg00-ai-engineering-from-scratch/phases/11-llm-engineering/07-advanced-rag/docs/en.md
+  start: 17284
+  end: 17662
+  hint: code
+  quote: "```python\ndef create_parent_child_chunks(text, parent_size=200, child_size=50):\n    words = text.split()\n    parents = []\n    children = []\n    child_to_parent = {}\n\n    parent_idx = 0\n    start = 0\n    while start < len(words):\n        parent_end = min(start + parent_size, len(words))\n        parent_text = \" \".join(words[start:parent_end])\n        parents.append(parent_text)"
+- source: rohitg00-ai-engineering-from-scratch/phases/11-llm-engineering/09-function-calling/docs/en.md
+  start: 8220
+  end: 8437
+  hint: number
+  quote: '**Rule 2: Allowlist functions.** The model can only call functions you explicitly define. Never build a generic "execute any function by name" tool. If you have 50 internal functions, expose only the 5 the user needs.'
+- source: rohitg00-ai-engineering-from-scratch/phases/05-nlp-foundations-to-advanced/14-information-retrieval-search/docs/en.md
+  start: 2443
+  end: 2841
+  hint: code
+  quote: "```python\nimport math\nimport re\nfrom collections import Counter\n\nTOKEN_RE = re.compile(r\"[a-z0-9]+\")\n\n\ndef tokenize(text):\n    return TOKEN_RE.findall(text.lower())\n\n\nclass BM25:\n    def __init__(self, corpus, k1=1.5, b=0.75):\n        if not corpus:\n            raise ValueError(\"corpus must not be empty\")\n        self.corpus = [tokenize(d) for d in corpus]\n        self.k1 = k1\n        self.b = b"
+- source: rohitg00-ai-engineering-from-scratch/phases/11-llm-engineering/12-guardrails/docs/en.md
+  start: 25113
+  end: 25502
+  hint: code
+  quote: "```python\nclass GuardrailPipeline:\n    def __init__(self, system_prompt=\"You are a helpful assistant.\"):\n        self.system_prompt = system_prompt\n        self.stats = {\"total\": 0, \"blocked_input\": 0, \"blocked_output\": 0, \"passed\": 0, \"pii_scrubbed\": 0}\n        self.log = []\n\n    def validate_input(self, user_input):\n        results = []\n        results.append(check_length(user_input))"
+- source: rohitg00-ai-engineering-from-scratch/phases/13-tools-and-protocols/04-structured-output/outputs/skill-structured-output-designer.md
+  start: 1856
+  end: 2038
+  hint: text
+  quote: 'Output: a one-page contract with the schema JSON, the Pydantic class, the refusal and retry policy, and the ten test vectors. End with a note on the first provider to target and why.'
+- source: rohitg00-ai-engineering-from-scratch/phases/11-llm-engineering/03-structured-outputs/outputs/skill-structured-outputs.md
+  start: 1948
+  end: 2336
+  hint: text
+  quote: '1. Keep schemas flat when possible. Nested objects beyond 2 levels increase extraction errors.
+
+    2. Use enums for categorical fields. Do not rely on the model inventing the right string.
+
+    3. Make ambiguous fields required with explicit null support rather than optional. Forces the model to make a decision.
+
+    4. Add descriptions to schema properties. The model reads these as instructions.
+
+    5.'
+- source: rohitg00-ai-engineering-from-scratch/phases/14-agent-engineering/06-tool-use-and-function-calling/docs/en.md
+  start: 6660
+  end: 6974
+  hint: number
+  quote: '| Term | What people say | What it actually means |
+
+    |------|----------------|------------------------|
+
+    | Function calling | "Tool use" | Structured-output tool invocation with validated schema |
+
+    | Toolformer | "Self-supervised tool annotation" | Schick 2023 — keep tool calls whose results reduce next-token loss |'
+- source: rohitg00-ai-engineering-from-scratch/phases/11-llm-engineering/08-fine-tuning-lora/docs/en.md
+  start: 18078
+  end: 18442
+  hint: code
+  quote: "```python\ndef demo():\n    torch.manual_seed(42)\n    d_model = 256\n    n_classes = 10\n\n    model = nn.Sequential(\n        nn.Linear(d_model, 512),\n        nn.ReLU(),\n        nn.Linear(512, 512),\n        nn.ReLU(),\n        nn.Linear(512, n_classes),\n    )\n\n    n_samples = 500\n    x = torch.randn(n_samples, d_model)\n    y = torch.randint(0, n_classes, (n_samples,))"
+- source: rohitg00-ai-engineering-from-scratch/README.md
+  start: 21343
+  end: 21476
+  hint: number
+  quote: <b>Phase 1 — Math Foundations</b> &nbsp;<code>22 lessons</code>&nbsp; <em>The intuition behind every AI algorithm, through code.</em>
+- source: rohitg00-ai-engineering-from-scratch/phases/11-llm-engineering/01-prompt-engineering/outputs/skill-prompt-patterns.md
+  start: 4393
+  end: 4755
+  hint: text
+  quote: '1. **Using Chain-of-Thought for everything**: CoT adds tokens and latency. Only use it when reasoning steps are needed.
+
+    2. **Too many constraints**: more than 5-7 constraints and the model starts dropping some. Prioritize the 3 most important.
+
+    3. **Contradictory persona + constraints**: "You are a creative writer" + "Never use metaphors" confuses the model.
+
+    4.'
+- source: rohitg00-ai-engineering-from-scratch/AGENTS.md
+  start: 11057
+  end: 11435
+  hint: code
+  quote: '```bash
+
+    python3 scripts/audit_lessons.py
+
+    python3 scripts/audit_certifications.py
+
+    python3 scripts/check_readme_counts.py        # advisory — CI fixes on merge
+
+    node --test site/test_manuals.js && node scripts/audit_manuals.js   # when manuals/ changes
+
+    node site/build-cheatsheets.js --check && node site/build-cheatsheets.js --check-quality   # when cheatsheets/ or lessons change'
+- source: ruff-docs/AGENTS.md
+  start: 2597
+  end: 2788
+  hint: text
+  quote: 'For security reviews of repository, CI, and release changes, use the
+
+    [repository threat model](agents/references/repository-threat-model.md) to assess
+
+    trust boundaries and calibrate severity.'
+- source: ruff-docs/docs/editors/settings.md
+  start: 5008
+  end: 5301
+  hint: code
+  quote: "- `\"editorFirst\"`: Editor settings take priority over configuration files present in the workspace.\n- `\"filesystemFirst\"`: Configuration files present in the workspace take priority over editor\n    settings.\n- `\"editorOnly\"`: Ignore configuration files entirely i.e., only use editor settings."
+- source: ruff-docs/docs/rule-proposals.md
+  start: 2574
+  end: 2725
+  hint: code
+  quote: "When choosing a diagnostic range (marked by `^^^^` above), also consider that the start of the\n    range determines where `noqa` comments will be valid"
+- source: ruff-docs/CONTRIBUTING.md
+  start: 12011
+  end: 12377
+  hint: code
+  quote: 'To trigger the violation, you''ll likely want to augment the logic in `crates/ruff_linter/src/checkers/ast.rs`
+
+    to call your new function at the appropriate time and with the appropriate inputs. The `Checker`
+
+    defined therein is a Python AST visitor, which iterates over the AST, building up a semantic model,
+
+    and calling out to lint rule analyzer functions as it goes.'
+- source: ruff-docs/AGENTS.md
+  start: 2293
+  end: 2595
+  hint: code
+  quote: 'During code review, check the proposed changes against all applicable code, test,
+
+    documentation, and architectural conventions in this `AGENTS.md`. Report
+
+    meaningful violations introduced by the changes; do not apply agent-only workflow
+
+    instructions to PR authors or flag unrelated pre-existing issues.'
+- source: ruff-docs/CONTRIBUTING.md
+  start: 9196
+  end: 9293
+  hint: text
+  quote: 'For a publishable crate, generate its README and verify that the workspace can still be packaged:'
+- source: ruff-docs/docs/editors/settings.md
+  start: 1603
+  end: 1933
+  hint: code
+  quote: "1. **Specific settings:** Individual settings like [`lineLength`](#linelength) or\n    [`lint.select`](#select) defined in the editor\n1. [**`ruff.configuration`**](#configuration): Settings provided via the\n    [`configuration`](#configuration) field (either a path to a configuration file or an inline\n    configuration object)\n1."
+- source: ruff-docs/docs/configuration.md
+  start: 16735
+  end: 16922
+  hint: code
+  quote: 'Specifying `--config "line-length=90"` will override the `line-length`
+
+    setting from *all* configuration files detected by Ruff,
+
+    including configuration files discovered in subdirectories.'
+- source: ruff-docs/AGENTS.md
+  start: 16676
+  end: 17047
+  hint: text
+  quote: '- All significant changes must be tested. Add or update focused tests for semantic changes when existing coverage does not already establish the intended behavior.
+
+    - Look to see if your tests could go in an existing file before adding a new file for your tests.
+
+    - Get your tests to pass. If you didn''t run the tests, your code does not work.
+
+    - Follow existing code style.'
+- source: ruff-docs/docs/versioning.md
+  start: 3598
+  end: 3856
+  hint: text
+  quote: The preview mode is _not_ intended to gate access to work that is incomplete or features that we are _likely to remove._ However, **we reserve the right to make changes to _any_ behavior gated by the mode** including the removal of preview features or rules.
+- source: ruff-docs/docs/editors/setup.md
+  start: 5448
+  end: 5501
+  hint: text
+  quote: With the <code>conform.nvim</code> plugin for Neovim.
+- source: ruff-docs/docs/editors/setup.md
+  start: 9633
+  end: 9734
+  hint: code
+  quote: 'You can pass settings into `ruff server` using `[language-server.ruff.config.settings]`. For example:'
+- source: uv-docs/docs/index.md
+  start: 4952
+  end: 5007
+  hint: text
+  quote: 'Use a specific Python version in the current directory:'
+- source: uv-docs/CONTRIBUTING.md
+  start: 8265
+  end: 8424
+  hint: code
+  quote: 'We provide diverse sets of requirements for testing and benchmarking the resolver in
+
+    `test/requirements` and for the installer in `test/requirements/compiled`.'
+- source: uv-docs/docs/reference/storage.md
+  start: 35
+  end: 92
+  hint: text
+  quote: uv uses the following high-level directories for storage.
+- source: uv-docs/docs/pip/compatibility.md
+  start: 14587
+  end: 14762
+  hint: code
+  quote: 'Both pip and uv allow editable requirements to be built and installed even when `--only-binary` is
+
+    provided. For example, `uv pip install -e . --only-binary :all:` is allowed.'
+- source: uv-docs/docs/pip/compatibility.md
+  start: 5408
+  end: 5618
+  hint: code
+  quote: 'As of v0.1.39, users can opt in to `pip`-style behavior for multiple indexes via the
+
+    `--index-strategy` command-line option, or the `UV_INDEX_STRATEGY` environment variable, which
+
+    supports the following values:'
+- source: uv-docs/docs/guides/integration/jupyter.md
+  start: 2116
+  end: 2507
+  hint: code
+  quote: 'When creating a notebook, select the `project` kernel from the dropdown. Then use `!uv add pydantic`
+
+    to add `pydantic` to the project''s dependencies, or `!uv pip install pydantic` to install `pydantic`
+
+    into the project''s virtual environment without persisting the change to the project `pyproject.toml`
+
+    or `uv.lock` files. Either command will make `import pydantic` work within the notebook.'
+- source: uv-docs/docs/guides/integration/docker.md
+  start: 17929
+  end: 18270
+  hint: code
+  quote: '```console
+
+    $ gh attestation verify --owner astral-sh oci://ghcr.io/astral-sh/uv:latest
+
+    Loaded digest sha256:xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx for oci://ghcr.io/astral-sh/uv:latest
+
+    Loaded 1 attestation from GitHub API
+
+
+    The following policy criteria will be enforced:
+
+    - OIDC Issuer must match:...................'
+- source: uv-docs/docs/reference/internals/metadata.md
+  start: 8803
+  end: 9155
+  hint: code
+  quote: "```js\n{\n  // Information about the schema of this output\n  \"schema\": {\n    // The version of this output, currently \"preview\"\n    \"version\": \"preview\"\n  },\n  // The directory the uv.lock can be found in\n  \"workspace_root\": \"/workspace\",\n  // Information about the environment, available when an environment exists or `--sync` is used\n  \"environment\": {"
+- source: uv-docs/CONTRIBUTING.md
+  start: 4427
+  end: 4544
+  hint: text
+  quote: 'A subset of uv tests require both [Git](https://git-scm.com) and [Git LFS](https://git-lfs.com/) to
+
+    execute properly.'
+- source: uv-docs/docs/guides/integration/jfrog.md
+  start: 870
+  end: 1111
+  hint: code
+  quote: '```toml title="pyproject.toml"
+
+    [[tool.uv.index]]
+
+    name = "private-registry"
+
+    url = "https://<organization>.jfrog.io/artifactory/api/pypi/<repository>/simple"
+
+    publish-url = "https://<organization>.jfrog.io/artifactory/api/pypi/<repository>"
+
+    ```'
+- source: uv-docs/docs/guides/integration/pytorch.md
+  start: 12315
+  end: 12585
+  hint: text
+  quote: 'Many packages in the PyTorch ecosystem include GPU-enabled extensions that are compiled for a
+
+    specific combination of CUDA and PyTorch versions. Building these packages from source often
+
+    requires access to the CUDA development toolkit and additional build configuration.'
+- source: uv-docs/docs/concepts/projects/dependencies.md
+  start: 28548
+  end: 28942
+  hint: code
+  quote: 'Some dependencies are only required in specific environments, e.g., a specific Python version or
+
+    operating system. For example to install the `importlib-metadata` backport for the
+
+    `importlib.metadata` module, use `importlib-metadata >=7.1.0,<8; python_version < ''3.10''`. To
+
+    install `colorama` on Windows (but omit it on other platforms), use
+
+    `colorama >=0.4.6,<5; platform_system == "Windows"`.'
+- source: uv-docs/docs/concepts/projects/config.md
+  start: 11941
+  end: 12270
+  hint: code
+  quote: "If the CUDA toolkit is available during resolution, we recommend omitting the\n    `FLASH_ATTENTION_SKIP_CUDA_BUILD` variable, as setting `FLASH_ATTENTION_SKIP_CUDA_BUILD`\n    to `TRUE` can lead to an incompatible install if no compatible pre-built wheel is available\n    for the target PyTorch version, GPU version, and platform."
+- source: uv-docs/docs/guides/projects.md
+  start: 828
+  end: 1141
+  hint: code
+  quote: 'A project consists of a few important parts that work together and allow uv to manage your project.
+
+    In addition to the files created by `uv init`, uv will create a virtual environment and `uv.lock`
+
+    file in the root of your project the first time you run a project command, i.e., `uv run`,
+
+    `uv sync`, or `uv lock`.'
+- source: uv-docs/docs/concepts/indexes.md
+  start: 19
+  end: 330
+  hint: code
+  quote: 'By default, uv uses the [Python Package Index (PyPI)](https://pypi.org) for dependency resolution
+
+    and package installation. However, uv can be configured to use other package indexes, including
+
+    private indexes, via the `[[tool.uv.index]]` configuration option (and `--index`, the analogous
+
+    command-line option).'
+- source: uv-docs/docs/concepts/projects/run.md
+  start: 1898
+  end: 2011
+  hint: code
+  quote: 'The invocation `uv run example.py` would run _isolated_ from the project with only the given
+
+    dependencies listed.'
+- source: uv-docs/docs/pip/compatibility.md
+  start: 11378
+  end: 11615
+  hint: code
+  quote: 'Alternatively, if a resolver prioritizes including the most recent version of `fastapi`, it would
+
+    need to use an older version of `starlette` that satisfies the upper bound. In practice, this
+
+    requires falling back to `starlette==0.36.3`:'
+- source: vllm-docs/docs/features/automatic_prefix_caching.md
+  start: 719
+  end: 1089
+  hint: code
+  quote: With prefix caching enabled, Mamba state is stored only on the Mamba block grid, so a prefix-cache hit can resume only at a block boundary. `--enable-mamba-shared-prefix-checkpoint` also stores a checkpoint at the shared-prefix junction, the point where an earlier request with the same prefix stopped. Requests whose shared prefix ends inside a block can then reuse it.
+- source: vllm-docs/docs/design/cuda_graphs_multimodal.md
+  start: 17128
+  end: 17502
+  hint: code
+  quote: '* `cudagraph_mm_encoder` (`bool`, default `False`) — enable CUDA Graph capture for multimodal encoder. When enabled, captures the full encoder forward as a CUDA Graph for each token budget level.
+
+    * `encoder_cudagraph_token_budgets` (`list[int]`, default `[]`) — token budget levels for capture. If empty (default), auto-inferred from model architecture as power-of-2 levels.'
+- source: vllm-docs/docs/benchmarking/cli.md
+  start: 12530
+  end: 12837
+  hint: code
+  quote: '- **Supported models:** The `CustomAudioDataset` class supports two types of audio models: ASR models (e.g. Whisper) which do not require a "prompt" field; and multimodal audio-text chat models (e.g. Qwen2-Audio). Since these model types require different arguments at inference, we are giving two examples.'
+- source: vllm-docs/docs/usage/troubleshooting.md
+  start: 3300
+  end: 3650
+  hint: code
+  quote: '- `export VLLM_LOGGING_LEVEL=DEBUG` to turn on more logging.
+
+    - `export VLLM_LOG_STATS_INTERVAL=1.` to get log statistics more frequently for tracking running queue, waiting queue and cache hit states.
+
+    - `export CUDA_LAUNCH_BLOCKING=1` to identify which CUDA kernel is causing the problem.
+
+    - `export NCCL_DEBUG=TRACE` to turn on more logging for NCCL.'
+- source: vllm-docs/docs/design/metrics.md
+  start: 10660
+  end: 10881
+  hint: code
+  quote: 'The engine core process will collect some key statistics from the
+
+    scheduler - e.g. the number of requests that were scheduled or waiting
+
+    after the last scheduler pass - and include those statistics in
+
+    `EngineCoreOutputs`.'
+- source: vllm-docs/docs/cli/README.md
+  start: 2042
+  end: 2334
+  hint: code
+  quote: '```bash
+
+    # Directly connect to localhost API without arguments
+
+    vllm chat
+
+
+    # Specify API url
+
+    vllm chat --url http://{vllm-serve-host}:{vllm-serve-port}/v1
+
+
+    # Quick chat with a single prompt
+
+    vllm chat --quick "hi"
+
+
+    # Print TTFT and throughput statistics after each response
+
+    vllm chat --stats
+
+    ```'
+- source: vllm-docs/docs/design/shm_tensor_arena.md
+  start: 10144
+  end: 10309
+  hint: text
+  quote: '**Slot lifecycle.** The rebuilt tensor is the *source* of an async H2D while
+
+    the worker executes that step, so the reader must not release the slot at
+
+    unpickle time.'
+- source: vllm-docs/docs/serving/online_serving/speech_to_text.md
+  start: 4726
+  end: 5075
+  hint: number
+  quote: 'Our Translation API is compatible with [OpenAI''s Translations API](https://platform.openai.com/docs/api-reference/audio/createTranslation);
+
+    you can use the [official OpenAI Python client](https://github.com/openai/openai-python) to interact with it.
+
+    Whisper models can translate audio from one of the 55 non-English supported languages into English.'
+- source: vllm-docs/docs/features/quantization/gptqmodel.md
+  start: 1890
+  end: 2273
+  hint: code
+  quote: "```python\n    from datasets import load_dataset\n    from gptqmodel import GPTQModel, QuantizeConfig\n\n    model_id = \"meta-llama/Llama-3.2-1B-Instruct\"\n    quant_path = \"Llama-3.2-1B-Instruct-gptqmodel-4bit\"\n\n    calibration_dataset = load_dataset(\n        \"allenai/c4\",\n        data_files=\"en/c4-train.00001-of-01024.json.gz\",\n        split=\"train\",\n    ).select(range(1024))[\"text\"]"
+- source: vllm-docs/docs/features/quantization/online.md
+  start: 9210
+  end: 9356
+  hint: code
+  quote: Use the `targets` parameter to apply different online shorthands to different layers, instead of one scheme applied everywhere via `linear`/`moe`.
+- source: vllm-docs/docs/features/custom_logitsprocs.md
+  start: 4484
+  end: 4882
+  hint: code
+  quote: "``` python\n    import torch\n    from vllm.config import VllmConfig\n    from vllm.sampling_params import SamplingParams\n    from vllm.v1.worker.gpu.sample.logits_processor import (\n        LogitsProcRequestState,\n        LogitsContext,\n        LogitsProcessor,\n    )\n\n\n    class TargetTokenLogitsProcessor(LogitsProcessor):\n        \"\"\"Masks out all tokens except `target_token` (a per-request custom"
+- source: vllm-docs/docs/configuration/conserving_memory.md
+  start: 4359
+  end: 4703
+  hint: code
+  quote: '`limit_mm_per_prompt` also accepts configurable options per modality. In the configurable form, you still specify `count`, and you may optionally provide size hints that control how vLLM profiles and reserves memory for your multi‑modal inputs. This helps you tune memory for the actual media you expect, instead of the model’s absolute maxima.'
+- source: vllm-docs/docs/getting_started/installation/cpu.md
+  start: 11167
+  end: 11365
+  hint: text
+  quote: 'vLLM auto-detects the platform and routes linear layers through ZenDNN-optimized kernels - no flag needed. To verify it is engaged, look for the platform-selection line in the server''s startup logs:'
+- source: vllm-docs/docs/features/quantization/quark.md
+  start: 12080
+  end: 12216
+  hint: text
+  quote: 'As examples, we provide some ready-to-use quantized mixed precision model to show the usage in vLLM and the accuracy benefits. They are:'
+- source: vllm-docs/docs/features/quantization/README.md
+  start: 7353
+  end: 7707
+  hint: code
+  quote: "```python\nfrom vllm.model_executor.layers.linear import UnquantizedLinearMethod\n\nclass MyQuantLinearMethod(UnquantizedLinearMethod):\n    \"\"\"Custom quantization method for linear layers.\"\"\"\n\n    def create_weights(\n        self, layer: torch.nn.Module, *weight_args, **extra_weight_attrs\n    ):\n        # Create quantized weights for the layer\n        ..."
+- source: vllm-docs/docs/serving/integrations/llamaindex.md
+  start: 177
+  end: 259
+  hint: code
+  quote: To run inference on a single or multiple GPUs, use `Vllm` class from `llamaindex`.
+- source: vllm-docs/docs/design/logits_processors.md
+  start: 5775
+  end: 6162
+  hint: text
+  quote: At sampling time, the sampler checks whether all requests in the persistent batch employ greedy sampling. If that is the case, the sampler saves compute by skipping "argmax-invariant" logits processors. Here, "argmax" is shorthand for the token ID with the highest logit value in a given row of the logits tensor (i.e. the token which the model weighted the highest for a given request).
+- source: vllm-docs/docs/features/reasoning_outputs.md
+  start: 13518
+  end: 13651
+  hint: code
+  quote: '`--reasoning-config` accepts a JSON object corresponding to
+
+    [ReasoningConfig][vllm.config.ReasoningConfig] with the following fields:'
+- source: vllm-docs/docs/features/quantization/online.md
+  start: 404
+  end: 786
+  hint: code
+  quote: '```python
+
+    from vllm import LLM
+
+
+    # Per-tensor FP8 quantization (one scale per weight tensor)
+
+    llm = LLM("meta-llama/Llama-3.1-8B", quantization="fp8_per_tensor")
+
+
+    # Per-block FP8 quantization (128x128 block scaling for weights and 1x128 block scaling for activations)
+
+    llm = LLM("meta-llama/Llama-3.1-8B", quantization="fp8_per_block")
+
+
+    # MXFP8 quantization for weights and activations'
+- source: vllm-docs/docs/features/custom_logitsprocs.md
+  start: 9990
+  end: 10314
+  hint: code
+  quote: Once your package is installed, your custom logits processor will be loaded automatically whenever vLLM is initialized. You do *not* need to pass the custom logits processor to the `LLM` or `AsyncLLM` constructors or to the vLLM server explicitly at initialization time if your logits processor is exposed as an entry point.
+- source: vllm-docs/docs/features/speculative_decoding/README.md
+  start: 3462
+  end: 3825
+  hint: code
+  quote: 'The same keys are accepted from Python via `LLM(..., speculative_config={...})`.
+
+    The tables below highlight common user-facing keys accepted in this JSON
+
+    object; they are not an exhaustive schema reference.
+
+    For more details, see the generated [engine arguments reference](../../configuration/engine_args.md)
+
+    and the API docs for [vllm.config.SpeculativeConfig][].'
+- source: vllm-docs/docs/features/tool_calling.md
+  start: 22930
+  end: 23230
+  hint: code
+  quote: '1. Direct JSON arrays: Output strings that are JSON arrays starting with `[` and ending with `]`
+
+    2. Thinking tags: Using `<think>...</think>` tags containing JSON arrays
+
+    3. Code blocks: JSON in code blocks (```json ...```)
+
+    4. Tool calls tags: Using `[TOOL_CALLS]` or `<tool_call>...</tool_call>` tags'
+- source: vllm-docs/docs/features/sleep_mode.md
+  start: 6921
+  end: 7301
+  hint: code
+  quote: 'By default, CUDA graph memory stays on the GPU while asleep. With
+
+    `sleep_mode_offload_cudagraph=True` (off by default), CUDA graphs are captured
+
+    into a cuMem pool that sleep backs up to CPU memory at both levels and any wake
+
+    restores in place, so graphs are replayed, not recaptured. It needs the default
+
+    `cumem` backend, CUDA or ROCm, and CUDA graphs; otherwise it has no effect.'
+- source: vllm-docs/docs/design/expert_substitution.md
+  start: 2995
+  end: 3148
+  hint: text
+  quote: 'Zero-weight routes may schedule some unnecessary GEMM work; the memory savings
+
+    are unaffected. Monolithic backends route internally and are not selected.'
+- source: vllm-docs/docs/features/tool_calling.md
+  start: 4654
+  end: 4995
+  hint: code
+  quote: vLLM supports the `tool_choice='required'` option in the chat completion API. Similar to the named function calling, it also uses structured outputs, so this is enabled by default and will work with any supported model. However, support for alternative decoding backends are on the [roadmap](../usage/v1_guide.md#features) for the V1 engine.

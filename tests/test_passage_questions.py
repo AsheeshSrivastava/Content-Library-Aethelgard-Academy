@@ -178,3 +178,16 @@ def test_source_limits_are_checked():
 def test_a_small_set_is_refused_for_the_mix():
     assert any("about 150" in p for p in check_mix(make_set(["code"] * 10)))
     assert not any("about 150" in p for p in check_mix(make_set(good_kinds()[:100])))
+
+def test_the_mix_counts_register_sources_not_files():
+    qs = [PassageQuestion(f"q{i}", f"python-peps/pep-{i:04d}.rst", "x", k) for i, k in enumerate(good_kinds())]
+    assert any("1 sources are covered" in p for p in check_mix(qs)) and any("above 12" in p for p in check_mix(qs))
+
+
+def test_a_file_name_is_grouped_through_the_loaded_sources():
+    srcs = {f"src{n}/page{i}.md": "x" for n in range(20) for i in range(8)}
+    names = [f"page{i}.md" for i in range(8)]
+    qs = [PassageQuestion(f"q{i}", f"src{i % 20}/page{i % 8}.md", "x", k) for i, k in enumerate(good_kinds())]
+    assert check_mix(qs, srcs) == []
+    short = [PassageQuestion(f"q{i}", f"page{i % 8}.md", "x", k) for i, k in enumerate(good_kinds())]
+    assert check_mix(short, srcs) != []  # ambiguous names fall back to the text itself
