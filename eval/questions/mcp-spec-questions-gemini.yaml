@@ -37,13 +37,13 @@ questions:
 - q: What is a Client ID Metadata Document and what URL scheme does it use?
   expect: [basic/authorization/client-registration]
 - q: What does it mean for MCP to be stateless, and where is session information stored?
-  expect: [basic/index, changelog]
+  expect: [basic/index]
 - q: What are tool annotations such as audience and priority used for?
   expect: [server/tools, schema, server/resources]
 - q: When should a server choose URL mode elicitation instead of standard form mode?
   expect: [client/elicitation]
 - q: Why should an MCP server sort its list of tools in a fixed, repeatable order before returning them?
-  expect: [server/tools, changelog]
+  expect: [server/tools]
 - q: Why must server diagnostics and debug logs be directed to standard error rather than standard output when using the stdio transport?
   expect: [basic/transports/stdio]
 - q: Why must clients verify the issuer identifier parameter returned in an authorization response?
@@ -61,7 +61,7 @@ questions:
 - q: How does an MCP server distinguish between an invalid JSON-RPC protocol error and an internal tool execution failure?
   expect: [server/tools]
 - q: How does Client ID Metadata Document authentication differ from traditional Dynamic Client Registration?
-  expect: [basic/authorization/client-registration, deprecated]
+  expect: [basic/authorization/client-registration]
 outside:
 - How do I configure LangChain's OpenAIAssistantRunnable to use Azure OpenAI endpoints?
 - How do I implement tool call streaming in the Vercel AI SDK with createDataStreamResponse?

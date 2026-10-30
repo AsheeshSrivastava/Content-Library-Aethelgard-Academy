@@ -6,6 +6,7 @@ import sys
 from pathlib import Path
 
 from ragcore.errors import LoadRefused, RegisterError, SkipShareExceeded
+from ragcore.exclusions import apply_exclusions, load_exclusions
 from ragcore.evalset import check_questions, load_question_dir
 from ragcore.gate import LicenceRules
 from ragcore.loaders.snapshot import load_snapshot
@@ -19,6 +20,7 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--snapshots", help="folder that holds <id>/<version>/ snapshots")
     parser.add_argument("--rules", help="licence rules file (default: licence-rules.yaml beside the register folder)")
     parser.add_argument("--broad-share", type=float, default=0.25)
+    parser.add_argument("--exclusions", help="corpus exclusions file (spec 14); files it leaves out count as not in the library")
     try:
         args = parser.parse_args(argv)
     except SystemExit as exc:
@@ -29,6 +31,7 @@ def main(argv: list[str] | None = None) -> int:
     register = Path(args.register)
     notes: list[str] = []
     source_ids: list[str] = []
+    loaded: list = []
     try:
         sets = load_question_dir(Path(args.questions))
         rules = LicenceRules.load(Path(args.rules) if args.rules else register.parent / "licence-rules.yaml")
@@ -39,9 +42,14 @@ def main(argv: list[str] | None = None) -> int:
                 notes.append(f"{record.id}: not on disk")
                 continue
             try:
-                source_ids += [s.source_id for s in load_snapshot(folder, record, rules).sources]
+                loaded += load_snapshot(folder, record, rules).sources
             except (LoadRefused, SkipShareExceeded) as exc:
                 notes.append(f"{record.id}: not loaded ({exc})")
+        if args.exclusions:
+            applied = apply_exclusions(loaded, load_exclusions(Path(args.exclusions)))
+            loaded = applied.kept
+            notes.append(f"exclusions: {len(applied.excluded)} files left out")
+        source_ids = [s.source_id for s in loaded]
     except (RegisterError, OSError, ValueError) as exc:
         print(f"Cannot check the questions: {exc}", file=sys.stderr)
         return 2

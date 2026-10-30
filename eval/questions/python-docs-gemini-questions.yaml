@@ -3,7 +3,7 @@ questions:
 - q: Why does adding 0.1 three times not equal 0.3 in Python?
   expect: [tutorial/floatingpoint]
 - q: How do I create an isolated virtual environment for a Python project?
-  expect: [library/venv, tutorial/venv]
+  expect: [tutorial/venv]
 - q: Under what condition does the optional else block attached to a for or while loop run?
   expect: [reference/compound_stmts, tutorial/controlflow]
 - q: How can you prevent the original exception from being displayed as context when raising a new exception?
@@ -82,8 +82,6 @@ questions:
   expect: [library/subprocess]
 - q: How do I use an asyncio.TaskGroup context manager to wait for a collection of concurrent tasks to finish?
   expect: [library/asyncio-task]
-- q: How can I verify that a function raises a specific exception and inspect the exception message using unittest?
-  expect: [library/unittest]
 - q: What is the difference between a shallow copy and a deep copy when copying nested data structures in Python?
   expect: [library/copy]
 - q: How can I read a CSV file directly into dictionary rows using column headers as keys?

@@ -1,0 +1,6 @@
+# Out of scope: every file these questions expect was left out of the corpus (spec 14, 2026-10-30).
+# Kept for later; not read by the question check or the comparison.
+# From python-docs-gemini-questions.yaml.
+questions:
+- q: How can I verify that a function raises a specific exception and inspect the exception message using unittest?
+  expect: [library/unittest]

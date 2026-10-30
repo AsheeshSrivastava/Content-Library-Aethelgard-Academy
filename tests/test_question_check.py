@@ -79,3 +79,20 @@ def test_a_snapshot_with_too_many_skipped_files_is_named_not_loaded(tmp_path, ca
         ("s1", "approved", FILES), ("thin", "approved", stubs)))
     main(args)
     assert "thin: not loaded" in capsys.readouterr().out
+
+
+def test_excluded_files_count_as_missing_from_the_library(tmp_path, capsys):
+    from test_chunk_report import PARA, setup
+    library, snaps, _ = setup(tmp_path, {f"f{i}.md": f"# F{i}\n\n{PARA}\n" for i in range(8)})
+    questions = tmp_path / "q"
+    questions.mkdir()
+    (questions / "a.yaml").write_text("questions:\n  - q: 'What is in file seven?'\n    expect: ['f7.md']\n", encoding="utf-8")
+    ex = tmp_path / "ex.yaml"
+    ex.write_text("s1:\n  - exclude: f7.md\n    reason: noise\n", encoding="utf-8")
+    base = ["--questions", str(questions), "--register", str(library / "sources"), "--snapshots", str(snaps)]
+    assert main(base) == 0
+    capsys.readouterr()
+    assert main([*base, "--exclusions", str(ex)]) == 1
+    out = capsys.readouterr().out
+    assert "exclusions: 1 files left out" in out and "no-match" in out
+    assert main([*base, "--exclusions", str(tmp_path / "missing.yaml")]) == 2

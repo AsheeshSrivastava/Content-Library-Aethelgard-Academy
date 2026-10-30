@@ -1,0 +1,6 @@
+# Out of scope: every file these questions expect was left out of the corpus (spec 14, 2026-10-30).
+# Kept for later; not read by the question check or the comparison.
+# From ruff-docs-questions.yaml.
+questions:
+- q: How do I migrate my editor settings from the old Python-based ruff-lsp to the new Rust language server?
+  expect: [migration]

@@ -1,0 +1,168 @@
+# Corpus exclusions (spec 14, ADR 0008). Reviewed noise that stays out of the searchable corpus.
+# Per source id: ordered rules, the last matching rule wins, a file with no matching rule stays.
+# Paths are inside the snapshot (no source id). `*` matches any characters including "/".
+# Basis: reports/noise-audit.md (2026-10-30). Approved by the owner on 2026-10-30 (three groups):
+#   A. Python library/ curated to the modules a learner and an AI engineer use
+#   B. migration, deprecation and breaking-change pages
+#   C. link-list pages (navigation with almost no explanation)
+#   D. release-note changelogs, sample test-data files, a site-theme template, one exact duplicate page (added 2026-10-30)
+# YAML allows one entry per source id, so the groups are marked in the reasons.
+
+python-docs:
+  - exclude: "Doc/library/*"
+    reason: "A: most standard library pages are not taught in the course (tkinter, curses, audio, removed and legacy modules); only the list below is kept."
+  # Kept (30). Functions, stdtypes and exceptions live in Doc/builtins and are not affected.
+  - include: "Doc/library/sys.rst"
+  - include: "Doc/library/os.rst"
+  - include: "Doc/library/pathlib.rst"
+  - include: "Doc/library/json.rst"
+  - include: "Doc/library/math.rst"
+  - include: "Doc/library/typing.rst"
+  - include: "Doc/library/collections.rst"
+  - include: "Doc/library/collections.abc.rst"
+  - include: "Doc/library/itertools.rst"
+  - include: "Doc/library/functools.rst"
+  - include: "Doc/library/dataclasses.rst"
+  - include: "Doc/library/enum.rst"
+  - include: "Doc/library/re.rst"
+  - include: "Doc/library/datetime.rst"
+  - include: "Doc/library/logging.rst"
+  - include: "Doc/library/argparse.rst"
+  - include: "Doc/library/subprocess.rst"
+  - include: "Doc/library/asyncio.rst"
+  - include: "Doc/library/asyncio-task.rst"
+  - include: "Doc/library/contextlib.rst"
+  - include: "Doc/library/random.rst"
+  - include: "Doc/library/statistics.rst"
+  - include: "Doc/library/csv.rst"
+  - include: "Doc/library/shutil.rst"
+  - include: "Doc/library/tempfile.rst"
+  - include: "Doc/library/abc.rst"
+  - include: "Doc/library/copy.rst"
+  - include: "Doc/library/time.rst"
+  - include: "Doc/library/threading.rst"
+  - include: "Doc/library/sqlite3.rst"
+
+dair-ai-prompt-engineering-guide:
+  - exclude: "pages/datasets.en.mdx"
+    reason: "C: link list of datasets."
+  - exclude: "pages/tools.en.mdx"
+    reason: "C: link list of tools."
+
+dspy-docs:
+  - exclude: "docs/docs/tutorials/index.md"
+    reason: "C: table of contents of the tutorials."
+
+fastapi-docs:
+  - exclude: "docs/en/docs/how-to/migrate-from-pydantic-v1-to-pydantic-v2.md"
+    reason: "B: migration guide between library versions."
+
+haystack-docs:
+  - exclude: "MIGRATION.md"
+    reason: "B: migration guide between versions."
+
+huggingface-sentence-transformers-docs:
+  - exclude: "docs/migration_guide.md"
+    reason: "B: migration guide between versions."
+  - exclude: "docs/cross_encoder/usage/backend_export_sidebar.rst"
+    reason: "D: exact copy of docs/sentence_transformer/usage/backend_export_sidebar.rst, which stays."
+
+llamaindex-docs:
+  - exclude: "docs/src/content/docs/framework/module_guides/observability/callbacks/token_counting_migration.md"
+    reason: "B: migration guide for a removed feature."
+  - exclude: "docs/src/content/docs/framework/module_guides/supporting_modules/service_context_migration.md"
+    reason: "B: migration guide for a removed feature."
+  - exclude: "CHANGELOG.md"
+    reason: "D: release notes (version numbers and bug IDs)."
+  - exclude: "docs/src/content/docs/framework/CHANGELOG.md"
+    reason: "D: release notes (version numbers and bug IDs)."
+  - exclude: "docs/src/content/docs/framework/module_guides/deploying/agents/modules.md"
+    reason: "C: link list of modules."
+  - exclude: "docs/src/content/docs/framework/module_guides/deploying/query_engine/modules.md"
+    reason: "C: link list of modules."
+  - exclude: "docs/src/content/docs/framework/module_guides/evaluating/modules.md"
+    reason: "C: link list of modules."
+  - exclude: "docs/src/content/docs/framework/module_guides/index.md"
+    reason: "C: table of contents."
+  - exclude: "docs/src/content/docs/framework/module_guides/indexing/modules.md"
+    reason: "C: link list of modules."
+  - exclude: "docs/src/content/docs/framework/module_guides/loading/connector/modules.md"
+    reason: "C: link list of modules."
+  - exclude: "docs/src/content/docs/framework/module_guides/models/index.md"
+    reason: "C: table of contents."
+  - exclude: "docs/src/content/docs/framework/module_guides/models/llms/modules.md"
+    reason: "C: link list of modules."
+  - exclude: "docs/src/content/docs/framework/module_guides/querying/index.md"
+    reason: "C: table of contents."
+  - exclude: "docs/src/content/docs/framework/module_guides/querying/retriever/retrievers.md"
+    reason: "C: link list of retrievers."
+  - exclude: "docs/src/content/docs/framework/use_cases/index.md"
+    reason: "C: table of contents."
+
+mcp-spec:
+  - exclude: "docs/specification/2026-07-28/deprecated.mdx"
+    reason: "B: list of deprecated features."
+  - exclude: "docs/specification/2026-07-28/changelog.mdx"
+    reason: "D: release notes of the spec version."
+
+openai-cookbook:
+  - exclude: "examples/agents_sdk/migrate-from-claude-agent-sdk/README.md"
+    reason: "B: migration guide from another SDK."
+  - exclude: "examples/vector_databases/README.md"
+    reason: "C: link list of vector database examples."
+  - exclude: "examples/agents_sdk/sandboxed-code-migration/repo_fixtures/*"
+    reason: "D: sample project files used as test data, not teaching text."
+
+pydantic-docs:
+  - exclude: "docs/migration.md"
+    reason: "B: migration guide between major versions."
+
+pytest-docs:
+  - exclude: "doc/en/deprecations.rst"
+    reason: "B: list of deprecations."
+
+ragas-docs:
+  - exclude: "docs/concepts/components/index.md"
+    reason: "C: table of contents."
+  - exclude: "docs/concepts/metrics/available_metrics/index.md"
+    reason: "C: table of contents."
+
+ruff-docs:
+  - exclude: "BREAKING_CHANGES.md"
+    reason: "B: breaking-change list between versions."
+  - exclude: "docs/editors/migration.md"
+    reason: "B: migration guide for editor settings."
+  - exclude: "CHANGELOG.md"
+    reason: "D: release notes (version numbers and bug IDs)."
+  - exclude: "docs/.overrides/*"
+    reason: "D: site theme template, not documentation."
+
+uv-docs:
+  - exclude: "docs/guides/migration/*"
+    reason: "B: migration guides (from pip and others)."
+  - exclude: "CHANGELOG.md"
+    reason: "D: release notes (version numbers and bug IDs)."
+  - exclude: "docs/concepts/authentication/index.md"
+    reason: "C: table of contents."
+  - exclude: "docs/concepts/index.md"
+    reason: "C: table of contents."
+  - exclude: "docs/concepts/projects/index.md"
+    reason: "C: table of contents."
+  - exclude: "docs/guides/index.md"
+    reason: "C: table of contents."
+  - exclude: "docs/guides/integration/index.md"
+    reason: "C: table of contents."
+  - exclude: "docs/reference/index.md"
+    reason: "C: table of contents."
+  - exclude: "docs/reference/policies/index.md"
+    reason: "C: table of contents."
+
+rohitg00-ai-engineering-from-scratch:
+  - exclude: "CHANGELOG.md"
+    reason: "D: release notes (version numbers and bug IDs)."
+
+vllm-docs:
+  - exclude: "docs/getting_started/installation/README.md"
+    reason: "C: link list of installation pages."
+  - exclude: "docs/training/rlhf.md"
+    reason: "C: link list of training libraries."

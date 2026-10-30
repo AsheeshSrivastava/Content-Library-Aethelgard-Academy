@@ -21,6 +21,7 @@ from ragcore.chunking import (CHILD_CHARS, ChunkConfig, chunk_fixed, chunk_merge
 from ragcore.compare import markdown_table, score_questions, split_sets
 from ragcore.contracts import Passage, Source, Span, make_passages
 from ragcore.embed.base import FakeEmbedder, estimate_seconds, load_model_specs, probe
+from ragcore.exclusions import Rule, apply_exclusions, load_exclusions
 from ragcore.errors import LoadRefused, RegisterError, SkipShareExceeded
 from ragcore.evalset import QuestionSet, load_question_dir
 from ragcore.gate import LicenceRules
@@ -35,6 +36,7 @@ CHUNKER_NAMES = ("rules", "fixed", "merge-small", "parent-child", "llamaindex")
 MERGE_MIN_CHARS = 300
 DEFAULT_RUNS = Path.home() / ".ragcore" / "runs"
 DEFAULT_MODELS = Path(__file__).resolve().parent.parent.parent / "configs" / "models.yaml"
+DEFAULT_EXCLUSIONS = Path(__file__).resolve().parent.parent.parent / "configs" / "corpus-exclusions.yaml"
 EMBEDDER_IDS = ("fake", "bge-m3", "jina-v2-base-en")
 SEMANTIC_PREFIX = "semantic-"
 CHUNK_CACHE = "_chunks"
@@ -169,7 +171,8 @@ def questions_fingerprint(folder: Path) -> str:
 
 
 def load_corpus(register: Path, snapshots: Path, rules_path: Path | None = None,
-                only: list[str] | None = None) -> tuple[list[Source], list[str]]:
+                only: list[str] | None = None,
+                exclusions: dict[str, list[Rule]] | None = None) -> tuple[list[Source], list[str]]:
     register, snapshots = Path(register), Path(snapshots)
     rules = LicenceRules.load(Path(rules_path) if rules_path else register.parent / "licence-rules.yaml")
     records = [load_record(p) for p in sorted(register.glob("*.yaml"))]
@@ -188,6 +191,15 @@ def load_corpus(register: Path, snapshots: Path, rules_path: Path | None = None,
             sources += load_snapshot(folder, record, rules).sources
         except (LoadRefused, SkipShareExceeded) as exc:
             notes.append(f"{record.id}: not loaded ({exc})")
+    if exclusions:
+        loaded_ids = {s.source_id.partition("/")[0] for s in sources}
+        applied = apply_exclusions(sources, {k: v for k, v in exclusions.items() if k in loaded_ids})
+        sources = applied.kept
+        left_out: dict[str, int] = {}
+        for source_id, _ in applied.excluded:
+            left_out[source_id.partition("/")[0]] = left_out.get(source_id.partition("/")[0], 0) + 1
+        notes += [f"exclusions: {n} files left out of {name}" for name, n in left_out.items()]
+        notes += [f"exclusion rule matches no file: {name} {glob!r}" for name, glob in applied.unused]
     return sorted(sources, key=lambda s: s.source_id), notes
 
 
@@ -339,12 +351,22 @@ def _parser() -> argparse.ArgumentParser:
     parser.add_argument("--embedders", default="bge-m3,jina-v2-base-en")
     parser.add_argument("--chunkers", default=",".join(CHUNKER_NAMES))
     parser.add_argument("--only", default="", help="comma list of source ids (stage 0 uses one small source)")
+    parser.add_argument("--exclusions", default="", help="corpus exclusions file (default: configs/corpus-exclusions.yaml); "
+                        "'none' turns the exclusions off")
     parser.add_argument("--baseline", default="rules")
     parser.add_argument("--max-chars", type=int, default=ChunkConfig.max_chars)
     parser.add_argument("--hard-limit", type=int, default=ChunkConfig.hard_limit)
     parser.add_argument("--batch", type=int, default=256)
     parser.add_argument("--probe-n", type=int, default=256)
     return parser
+
+
+def _exclusions(value: str) -> dict[str, list[Rule]]:
+    if value == "none":
+        return {}
+    if value:
+        return load_exclusions(Path(value))
+    return load_exclusions(DEFAULT_EXCLUSIONS) if DEFAULT_EXCLUSIONS.is_file() else {}
 
 
 def _safe_print(text: str) -> None:
@@ -374,8 +396,9 @@ def main(argv: list[str] | None = None) -> int:
         if unknown or not embedder_ids:
             raise ValueError(f"unknown embedder {', '.join(unknown) or '(none)'}; choose from {', '.join(EMBEDDER_IDS)}")
         sets = load_question_dir(Path(args.questions))
+        exclusions = _exclusions(args.exclusions)
         sources, notes = load_corpus(Path(args.register), Path(args.snapshots), Path(args.rules) if args.rules else None,
-                                     _csv(args.only) or None)
+                                     _csv(args.only) or None, exclusions)
         if not sources:
             raise ValueError("no sources loaded: " + "; ".join(notes))
     except (ValueError, RegisterError, OSError) as exc:

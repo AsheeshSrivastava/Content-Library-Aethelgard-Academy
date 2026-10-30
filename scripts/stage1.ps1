@@ -12,6 +12,7 @@ param(
 $lib = 'D:\01-Project\unsloth\aethelgard-academy\.worktrees\library3\content\library'
 $snaps = 'C:\Users\sashe\.aethelgard\library\snapshots'
 $args2 = @('--register', "$lib\sources", '--snapshots', $snaps, '--questions', 'eval\questions',
+           '--exclusions', 'configs\corpus-exclusions.yaml',
            '--embedders', $Embedders, '--chunkers', $Chunkers)
 if ($Only) { $args2 += @('--only', $Only) }
 uv run --group embed --group variants python scripts/run_stage.py $Step @args2

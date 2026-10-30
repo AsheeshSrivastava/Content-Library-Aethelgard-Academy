@@ -18,8 +18,6 @@ questions:
   expect: [github]
 - q: How can I start JupyterLab inside my project so notebooks can import all project dependencies?
   expect: [jupyter]
-- q: How do I convert an existing project that uses requirements.txt into a modern pyproject.toml project?
-  expect: [pip-to-project]
 - q: How do I enable tab completion for uv subcommands in my terminal shell?
   expect: [installation]
 - q: What does universal resolution mean and how does it handle multiple operating systems?

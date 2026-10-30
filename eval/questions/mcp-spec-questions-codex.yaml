@@ -1,19 +1,21 @@
 # Written by Codex from the MCP spec and docs at the pinned commit dae694f61a31, 2026-10-24. Checked against the files by Claude (pending).
 questions:
 - q: How can my client get a server's supported protocol versions, available features, and software identity in one call before trying its tools?
-  expect: [2026-07-28/server/discover, 2026-07-28/basic/versioning, 2026-07-28/learn/versioning, 2026-07-28/learn/architecture, 2026-07-28/changelog, 2026-07-28/schema]
+  expect: [2026-07-28/server/discover, 2026-07-28/basic/versioning, 2026-07-28/learn/versioning,
+  2026-07-28/learn/architecture]
 - q: How do I fetch the rest of a long MCP list and tell when I have reached the end, without assuming every page has the same number of items?
   expect: [server/utilities/pagination]
 - q: How do I make suggestions for one prompt argument take account of values the user has already filled into its other arguments?
   expect: [server/utilities/completion]
 - q: In the July 2026 protocol, how do I ask for server log messages while a particular request runs?
-  expect: [2026-07-28/server/utilities/logging, 2026-07-28/basic/index, 2026-07-28/schema, 2026-07-28/changelog, 2026-07-28/tools/debugging, 2026-07-28/tools/inspector/protocol-eras]
+  expect: [2026-07-28/server/utilities/logging, 2026-07-28/basic/index, 2026-07-28/tools/debugging,
+  2026-07-28/tools/inspector/protocol-eras]
 - q: How do I ask for updates during a slow MCP operation and connect each update back to the call that started it?
-  expect: [basic/patterns/progress, 2026-07-28/schema]
+  expect: [basic/patterns/progress]
 - q: How should my client handle the unreadable state string returned when a server needs another round of input; may I unpack it and change it before retrying?
   expect: [basic/patterns/mrtr]
 - q: In the July 2026 protocol, how do I listen for changes to the available tools and to one particular resource while leaving other event types out?
-  expect: [basic/patterns/subscriptions, 2026-07-28/schema, 2026-07-28/changelog, 2026-07-28/tools/inspector/protocol-eras]
+  expect: [basic/patterns/subscriptions, 2026-07-28/tools/inspector/protocol-eras]
 - q: When sending a tool call over HTTP in the July 2026 protocol, how do I put the operation and tool name into the required headers?
   expect: [basic/transports/streamable-http]
 - q: How do I publish an HTTPS document that identifies my OAuth client, and which fields must that document contain?
@@ -37,15 +39,15 @@ questions:
 - q: What does the date in an MCP protocol version tell me, and does every compatible documentation update require a new date?
   expect: [learn/versioning]
 - q: What is an MCP resource meant to provide to a model, and what identifies an individual resource?
-  expect: [server/resources, learn/server-concepts, 2026-07-28/schema]
+  expect: [server/resources, learn/server-concepts]
 - q: When MCP says a prompt is controlled by the user, does that mean the user wrote the template or that the user chooses when to use it?
   expect: [2026-07-28/server/prompts, learn/server-concepts]
 - q: If I give a server a list of project folders as roots, does MCP actually prevent that server from reading files elsewhere?
   expect: [2026-07-28/client/roots, 2026-07-28/learn/client-concepts]
 - q: What is the July 2026 status of asking the client to generate model output on the server's behalf, and what should a new server use instead?
-  expect: [2026-07-28/client/sampling, 2026-07-28/deprecated, 2026-07-28/changelog, 2026-07-28/learn/client-concepts]
+  expect: [2026-07-28/client/sampling, 2026-07-28/learn/client-concepts]
 - q: What does isError mean inside a tool result when the surrounding JSON-RPC exchange succeeded?
-  expect: [server/tools, 2026-07-28/schema, develop/clients/client-best-practices, tools/inspector/cli]
+  expect: [server/tools, develop/clients/client-best-practices, tools/inspector/cli]
 - q: What does the millisecond lifetime on a cacheable MCP result mean; is it a promise that the data cannot change during that time?
   expect: [server/utilities/caching]
 - q: Which official SDKs are listed as Tier 1, and are Python and TypeScript among them?
@@ -69,9 +71,9 @@ questions:
 - q: My stdio server finds ./data when I start it in a terminal but cannot find it when Claude Desktop launches it; what should I check in the path configuration?
   expect: [tools/debugging, develop/connect-local-servers]
 - q: My client receives a result from an older MCP server with no resultType field; should it reject that result or interpret it in a particular way?
-  expect: [2026-07-28/basic/index, 2026-07-28/changelog, 2026-07-28/schema]
+  expect: [2026-07-28/basic/index]
 - q: My July 2026 HTTP tool call gets error -32020 even though the JSON parses; what mismatch or missing information should I look for?
-  expect: [basic/transports/streamable-http, 2026-07-28/schema]
+  expect: [basic/transports/streamable-http]
 - q: In the July 2026 protocol, how does stopping an in-flight request differ between HTTP streaming and a local stdio process?
   expect: [basic/patterns/cancellation, basic/transports/streamable-http, basic/transports/stdio, tools/inspector/protocol-eras]
 - q: When a server needs more information from a person, how do the in-client form and external-page options differ for entering a password or API key?

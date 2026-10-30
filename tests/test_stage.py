@@ -485,3 +485,62 @@ def test_llamaindex_run_is_built_and_stops_when_too_many_nodes_are_unmapped(tmp_
     monkeypatch.setattr(li.LlamaIndexChunker, "_node_texts", lambda self, text: ["never in the text " + t for t in ["a", "b"]])
     with pytest.raises(RuntimeError, match="1%"):
         build_run(tmp_path, "llamaindex", sources(), FakeEmbedder(dim=16), CONFIG, questions_fp="q")
+
+
+# --- exclusions (spec 14) -------------------------------------------------------------------------
+
+from ragcore.exclusions import Rule  # noqa: E402
+
+
+def test_load_corpus_applies_exclusions_and_says_so(tmp_path):
+    library, snaps, _ = setup(tmp_path, {"a.md": f"# A\n\n{DISK_PARA}\n", "b.md": f"# B\n\n{DISK_PARA}\n",
+                                         "keep/c.md": f"# C\n\n{DISK_PARA}\n"})
+    rules = {"s1": [Rule("exclude", "*.md", "all"), Rule("include", "keep/*", ""), Rule("exclude", "typo/*", "x")]}
+    loaded, notes = load_corpus(library / "sources", snaps, exclusions=rules)
+    assert [s.source_id for s in loaded] == ["s1/keep/c.md"]
+    assert "exclusions: 2 files left out of s1" in notes
+    assert "exclusion rule matches no file: s1 'typo/*'" in notes
+
+
+def test_rules_for_sources_that_were_not_loaded_are_not_reported(tmp_path):
+    library, snaps, _ = setup(tmp_path, {"a.md": f"# A\n\n{DISK_PARA}\n"})
+    loaded, notes = load_corpus(library / "sources", snaps, exclusions={"elsewhere": [Rule("exclude", "*", "x")]})
+    assert len(loaded) == 1 and notes == []
+
+
+def test_the_run_id_changes_when_the_corpus_changes_through_exclusions(tmp_path):
+    library, snaps, _ = setup(tmp_path, {"a.md": f"# A\n\n{DISK_PARA}\n", "b.md": f"# B\n\n{DISK_PARA} more\n"})
+    full, _ = load_corpus(library / "sources", snaps)
+    less, _ = load_corpus(library / "sources", snaps, exclusions={"s1": [Rule("exclude", "b.md", "noise")]})
+    one = build_run(tmp_path / "runs", "rules", full, FakeEmbedder(), CONFIG, questions_fp="q")
+    two = build_run(tmp_path / "runs", "rules", less, FakeEmbedder(), CONFIG, questions_fp="q")
+    assert one.run_id != two.run_id and two.count < one.count
+
+
+def _main_args(tmp_path, library, snaps):
+    questions = tmp_path / "questions"
+    questions.mkdir(exist_ok=True)
+    (questions / "a.yaml").write_text("questions:\n  - q: 'x?'\n    expect: ['a.md']\n", encoding="utf-8")
+    return ["--register", str(library / "sources"), "--snapshots", str(snaps), "--questions", str(questions),
+            "--runs", str(tmp_path / "runs"), "--embedders", "fake", "--chunkers", "rules"]
+
+
+def test_main_exclusions_file_none_and_missing(tmp_path, capsys):
+    library, snaps, _ = setup(tmp_path, {"a.md": f"# A\n\n{DISK_PARA}\n", "b.md": f"# B\n\n{DISK_PARA}\n"})
+    ex = tmp_path / "ex.yaml"
+    ex.write_text("s1:\n  - exclude: b.md\n    reason: noise\n", encoding="utf-8")
+    args = _main_args(tmp_path, library, snaps)
+    assert main(["estimate", *args, "--exclusions", str(ex)]) == 0
+    out = capsys.readouterr().out
+    assert "exclusions: 1 files left out of s1" in out and "Corpus: 1 sources" in out
+    assert main(["estimate", *args, "--exclusions", "none"]) == 0
+    assert "Corpus: 2 sources" in capsys.readouterr().out
+    assert main(["estimate", *args, "--exclusions", str(tmp_path / "missing.yaml")]) == 2
+    ex.write_text("s1:\n  - exclude: b.md\n", encoding="utf-8")
+    assert main(["estimate", *args, "--exclusions", str(ex)]) == 2
+
+
+def test_main_uses_the_shipped_file_by_default(tmp_path, capsys):
+    library, snaps, _ = setup(tmp_path, {"a.md": f"# A\n\n{DISK_PARA}\n"})
+    assert main(["estimate", *_main_args(tmp_path, library, snaps)]) == 0
+    assert "Corpus: 1 sources" in capsys.readouterr().out  # no rule names source s1, and rules for other sources stay quiet

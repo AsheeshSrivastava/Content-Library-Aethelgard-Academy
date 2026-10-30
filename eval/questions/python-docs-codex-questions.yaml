@@ -13,7 +13,7 @@ questions:
 - q: How do I go through a dictionary and get each key together with its value?
   expect: [tutorial/datastructures]
 - q: Why do scripts put their startup code inside an if check on __name__ before calling main()?
-  expect: [tutorial/modules, library/__main__, faq/programming, reference/import, library/pydoc]
+  expect: [tutorial/modules, faq/programming, reference/import]
 - q: What does Python store in __pycache__, and why does that folder appear after importing a module?
   expect: [tutorial/modules, faq/programming]
 - q: When reading a text file with readline(), how is reaching the end different from reading an empty line?
@@ -63,13 +63,13 @@ questions:
 - q: How can I run several coroutine calls concurrently and get their returned values in the same order that I supplied the calls?
   expect: [library/asyncio-task]
 - q: How do I write a unittest test that succeeds only when a call raises a particular exception?
-  expect: [library/unittest, tutorial/stdlib]
+  expect: [tutorial/stdlib]
 - q: How do shallow and deep copies differ when an object contains other mutable objects?
   expect: [library/copy]
 - q: How can I get the five smallest values from a large collection without sorting the whole collection?
-  expect: [library/heapq, howto/sorting]
+  expect: [howto/sorting]
 - q: How can I insert a new score into a list that is already sorted and keep it sorted?
-  expect: [library/bisect, tutorial/stdlib2]
+  expect: [tutorial/stdlib2]
 - q: How do I make an argparse option like --verbose act as a true or false switch without requiring a value after it?
   expect: [howto/argparse, library/argparse]
 - q: When should I record an event with logging instead of displaying it with print?

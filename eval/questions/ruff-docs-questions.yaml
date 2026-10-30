@@ -20,8 +20,6 @@ questions:
   expect: [configuration]
 - q: How can I test a brand new preview lint rule without enabling all other experimental checks?
   expect: [preview]
-- q: How do I migrate my editor settings from the old Python-based ruff-lsp to the new Rust language server?
-  expect: [migration]
 - q: How do I prevent Ruff from scanning files inside certain test or build directories?
   expect: [configuration]
 - q: What does it mean when a code fix is marked unsafe?

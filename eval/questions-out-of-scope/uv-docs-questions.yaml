@@ -1,0 +1,6 @@
+# Out of scope: every file these questions expect was left out of the corpus (spec 14, 2026-10-30).
+# Kept for later; not read by the question check or the comparison.
+# From uv-docs-questions.yaml.
+questions:
+- q: How do I convert an existing project that uses requirements.txt into a modern pyproject.toml project?
+  expect: [pip-to-project]
