@@ -50,4 +50,4 @@ This spec described the baseline `heading-pack`. The comparison (spec 13, report
 
 ## Open questions for the owner (not blocking)
 - ~~The sizes (1500 and 6000) come from library3 and stay provisional until the comparison.~~ Settled by the comparison (see the update above).
-- At embedding time the heading path will probably be put in front of the passage text; the passage itself stays an exact slice. That is the embedder's unit, not this one.
+- ~~At embedding time the heading path will probably be put in front of the passage text.~~ It was not: the comparison embedded the plain passage text, and spec 17 keeps it that way (the keyword index does use the heading path, spec 15 section 3.1). Putting it in front for the vectors is an untested idea, not a decision.

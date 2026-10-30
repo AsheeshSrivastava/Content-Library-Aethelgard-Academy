@@ -27,6 +27,8 @@ Rules:
 4. Sources in the store but not in the loaded set are deleted with their passages and vectors.
 5. `SyncReport`: sources added, replaced, unchanged, deleted; passages added, reused, deleted; vectors embedded; seconds. A dry run (`--dry-run`) reports what would change and writes nothing.
 6. Running sync twice in a row changes nothing the second time.
+7. **Same inputs as the comparison.** A passage is embedded as its exact text with `kind="passage"` (the heading path is NOT put in front, as in the stage 1 to 4 runs); a question is embedded with `kind="query"`. Changing this would break the end-to-end check in section 7 test 10.
+8. **Pinned chunker dependency.** `llama-index-core` is a pinned dependency of the index (exact version in `pyproject.toml` and recorded in `meta` as part of the chunker setup), because another version can move the cuts and change passage IDs (spec 09 update of 2026-10-30). Sync refuses to run with a different installed version than the one in `meta`.
 
 ## 4. Retriever (`index_retriever.py`)
 - `Retriever.open(path, setup, embedder, reranker)` loads all vectors into one array and builds the keyword index from stored texts (spec 15 section 3.1).
