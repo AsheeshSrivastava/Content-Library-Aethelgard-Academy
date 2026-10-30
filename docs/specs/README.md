@@ -29,3 +29,4 @@ If code or a spec changes the decision, stop and amend the ADR or spec first. A 
 | [14](14-corpus-exclusions.md) | Corpus exclusions file | 8+ | Accepted 2026-10-30 |
 | [15](15-hybrid-and-rerank.md) | Hybrid search and reranking (stage 3) | 8+ | Accepted 2026-10-30 |
 | [16](16-passage-level-questions.md) | Passage-level questions (stage 4) | 8+ | Accepted 2026-10-30 |
+| [17](17-indexer-and-retriever.md) | Persistent index, automatic sync and retriever adapter | 9 | Draft 2026-10-30 |

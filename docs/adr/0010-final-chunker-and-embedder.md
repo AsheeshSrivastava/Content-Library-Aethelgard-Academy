@@ -1,6 +1,6 @@
 # ADR 0010: Final chunker and embedder: jina-v2-base-en with the `llamaindex` chunker
 
-## Status: Proposed (the owner chose this on 2026-10-30; it becomes Accepted when the owner marks it)
+## Status: Accepted (2026-10-30, by the owner)
 
 ## Context
 The comparison (ADR 0007, spec 13; report `docs/reports/retrieval-comparison-report.md`) ended with two cells within a few questions of each other: jina-v2-base-en with `llamaindex`, and bge-m3 with `merge-small`. Retrieval is hybrid search plus the local reranker `BAAI/bge-reranker-v2-m3` (ADR 0009). The 548 file-level questions (stage 3) and the 137 passage-level questions (stage 4, spec 16, reviewed by Gemini and Codex, frozen with hash DF6A47B5...) were run on both cells with the final method (HR).
