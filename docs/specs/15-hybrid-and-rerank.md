@@ -25,7 +25,7 @@ On the two cells chosen from stages 1 and 2 (**jina-v2-base-en with llamaindex**
 ### 3.2 Fusion (`fusion.py`)
 Reciprocal rank fusion: score(passage) = sum over lists of 1 / (60 + rank), ranks from 1. Lists: vector top 200 and keyword top 200 passages. Equal scores can only come from the same ranks in the same lists, so they go to the lower row position. If one list is empty, the other passes through unchanged.
 ### 3.3 Reranker (`rerank.py`)
-- Pinned in `configs/models.yaml` (repo `BAAI/bge-reranker-v2-m3`, full commit hash, licence, no remote code). `AutoModelForSequenceClassification`, fp16, pair input (query, passage), at most 1,024 tokens per pair with truncation of the passage and a count of truncated pairs. Score = the raw logit; order is descending score, ties by the fused rank.
+- Pinned in `configs/rerankers.yaml` (repo `BAAI/bge-reranker-v2-m3`, full commit hash, licence, no remote code). `AutoModelForSequenceClassification`, fp16, pair input (query, passage), at most 1,024 tokens per pair with truncation of the passage and a count of truncated pairs. Score = the raw logit; order is descending score, ties by the fused rank.
 - Candidates: the first 30 passages of the list it follows (V or H). Passages beyond 30 are dropped, since the result is collapsed to files anyway.
 - `FakeReranker` (word overlap) for tests.
 - Golden check (`-m model`, needs the `embed` group): scores for 5 fixed pairs match the reference implementation (`sentence-transformers` `CrossEncoder` with an identity activation) to 1e-2, fp16 against fp32 keeps the same order on 50 pairs, batch size does not change order.

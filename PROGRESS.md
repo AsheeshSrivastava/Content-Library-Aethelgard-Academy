@@ -121,3 +121,7 @@ Late chunking built for 3 chunkers per embedder and reported: every late run is 
 
 ## Living report (2026-10-30)
 `docs/reports/retrieval-comparison-report.md` is the one detailed report of the comparison: corpus, chunkers in plain words, stage 1 and 2 tables, what is settled and what is not. It is provisional. Update it (and its change log) after stage 3 and after the passage-level questions; do not write a second report.
+
+## Unit 15c, reranker (2026-10-30)
+Restarting review of the work: `rerank.py`, `configs/rerankers.yaml`, `scripts/golden_rerank.py`, `tests/test_rerank.py`, `tests/test_rerank_hf.py`, against spec 15 section 3.3. The pin lives in its own file `configs/rerankers.yaml` (a reranker has no vector size or pooling, so it does not fit `models.yaml`); spec 15 and ADR 0009 now name that file. Tests red first (22 in `test_rerank.py`); mutation check of 7 mutants, one equivalent (a tie-break that a stable sort already gives) so the code was simplified, the other 6 caught. Model tests on the GPU: 6 passed (scores match the sentence-transformers reference within the 1e-2 rule, fp16 keeps the order of 50 pairs, batch size 2 and 16 give the same order, a too-long passage is cut and counted). Full suite 919 passed after clearing stale bytecode (see AGENTS.md, new mistakes line). Not independent review. Next: 15d pipelines V/L/H/VR/HR and the `stage3` command.
+

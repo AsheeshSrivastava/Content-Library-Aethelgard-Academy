@@ -1,0 +1,9 @@
+# Pinned rerankers for stage 3 (spec 15, ADR 0009). A run records these values in its report.
+# Change a pin only by adding a new entry and re-running; never edit a pin in place.
+bge-reranker-v2-m3:
+  repo: BAAI/bge-reranker-v2-m3
+  revision: 953dc6f6f85a1b2dbfca4c34a2796e7dde08d41e   # main on 2026-10-30
+  license: Apache-2.0
+  max_pair_tokens: 1024
+  trust_remote_code: false
+  weights: model.safetensors

@@ -8,7 +8,7 @@ Stage 1 and 2 of the comparison (spec 13, report `docs/reports/retrieval-compari
 ## Decision
 1. **Keyword index:** our own BM25 (k1 1.2, b 0.75) over the passage text plus its heading path, built in memory from the same passages as the run. Tokens are lower-case words and numbers; identifiers with `_`, `.` or camelCase also add their parts; no stemming, no stop words (code and API names must stay intact).
 2. **Combining:** reciprocal rank fusion (k 60) of the vector list and the keyword list, 200 candidates each. Fusion works on ranks, so the very different score scales of cosine and BM25 do not matter.
-3. **Reranker:** `BAAI/bge-reranker-v2-m3` (a cross-encoder, local, fp16, pinned to a full commit hash in `configs/models.yaml`, no remote code). It scores the query against each of the first 30 fused passages and orders them by that score. After it, results are collapsed to one hit per source file, as in spec 13 section 4.5.
+3. **Reranker:** `BAAI/bge-reranker-v2-m3` (a cross-encoder, local, fp16, pinned to a full commit hash in `configs/rerankers.yaml`, no remote code). It scores the query against each of the first 30 fused passages and orders them by that score. After it, results are collapsed to one hit per source file, as in spec 13 section 4.5.
 4. **Measurement:** five variants per cell (vector only = baseline, keyword only, hybrid, vector + reranker, hybrid + reranker), the same questions and the same pre-registered paired rule as spec 13 section 5. Settings above are fixed now and not tuned.
 5. Everything runs on the owner's computer. No paid service.
 

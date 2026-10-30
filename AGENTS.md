@@ -41,6 +41,8 @@ This branch is a fresh start for the RAG library. It has no history from other b
 
 Each line: what went wrong, then the rule. Add a line when a new mistake is found; keep it to the point.
 
+- Mutation check by editing a source file and restoring it within the same second leaves a stale `.pyc` (same size, same mtime), so later runs fail on code that is correct. Rule: delete `__pycache__` (or run pytest with `-B`) after every mutation round before trusting the suite.
+
 - **Synthetic tests passed, real files failed (parent-child, semantic).** Text was lost on 5 real files. Rule: before handing over any chunker, run it over every loaded source and require 0 failures (spec 13 section 9f). Check semantic chunkers with a random-unit-vector embedder that cuts a lot, at percentiles 90, 50 and 10, never with a stand-in that rarely cuts.
 - **Indented code comment mistaken for a heading.** `    # note` inside a code fence in an admonition lost text when it stood alone in a passage. Rule: decide "only headings" on the raw slice before `_trim`, never after (fixed in `parent_child_spans`, `heading_pack_spans`, `fixed_spans`).
 - **Loop simplified and behaviour lost.** A gap rule in parent-child became `break` and dropped text. Rule: when simplifying a loop, keep every case; add the case as a test first.
