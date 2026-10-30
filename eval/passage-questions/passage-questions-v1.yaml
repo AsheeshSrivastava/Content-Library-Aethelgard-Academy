@@ -101,10 +101,6 @@ questions:
   source: fastapi-docs/docs/en/docs/tutorial/stream-json-lines.md
   quote: So, it will send the first item, the client will receive and start processing it, and you might still be producing the next item.
   kind: fact
-- q: In the tutorial on returning several model types, why does putting two model classes joined by a vertical bar directly into the response model argument raise an error?
-  source: fastapi-docs/docs/en/docs/tutorial/extra-models.md
-  quote: But if we put that in the assignment `response_model=PlaneItem | CarItem` we would get an error, because Python would try to perform an **invalid operation** between `PlaneItem` and `CarItem` instead of interpreting that as a type annotation.
-  kind: code
 - q: If the other side drops the connection in a FastAPI websocket handler, what is raised, and what can the developer do with it?
   source: fastapi-docs/docs/en/docs/reference/websockets.md
   quote: When a client disconnects, a `WebSocketDisconnect` exception is raised, you can catch it.
@@ -231,10 +227,6 @@ questions:
   source: llamaindex-docs/docs/src/content/docs/framework/module_guides/loading/documents_and_nodes/usage_documents.md
   quote: 'Then, we can test what the LLM will actually end up reading using the `get_content()` function and specifying `MetadataMode.LLM`:'
   kind: code
-- q: In what order does FastAPI run the cleanup code of dependencies that use yield when they are nested?
-  source: fastapi-docs/docs/en/docs/tutorial/dependencies/dependencies-with-yield.md
-  quote: '**FastAPI** will make sure that the "exit code" in each dependency with `yield` is run in the correct order.'
-  kind: fact
 - q: Without a declared output model, what does FastAPI do to returned data before sending it?
   source: fastapi-docs/docs/en/docs/advanced/response-directly.md
   quote: If you don't declare a response model, FastAPI will use the `jsonable_encoder` explained in [JSON Compatible Encoder](../tutorial/encoder.md) and put it in a `JSONResponse`.
@@ -853,10 +845,6 @@ questions:
   source: vllm-docs/docs/getting_started/installation/cpu.md
   quote: 'vLLM auto-detects the platform and routes linear layers through ZenDNN-optimized kernels - no flag needed. To verify it is engaged, look for the platform-selection line in the server''s startup logs:'
   kind: how-to
-- q: When does the sampler skip some post-processing steps to save work, and why is that safe?
-  source: vllm-docs/docs/design/logits_processors.md
-  quote: At sampling time, the sampler checks whether all requests in the persistent batch employ greedy sampling. If that is the case, the sampler saves compute by skipping "argmax-invariant" logits processors. Here, "argmax" is shorthand for the token ID with the highest logit value in a given row of the logits tensor (i.e. the token which the model weighted the highest for a given request).
-  kind: context
 - q: When can a custom token-adjusting plugin be loaded without being passed explicitly?
   source: vllm-docs/docs/features/custom_logitsprocs.md
   quote: Once your package is installed, your custom logits processor will be loaded automatically whenever vLLM is initialized. You do *not* need to pass the custom logits processor to the `LLM` or `AsyncLLM` constructors or to the vLLM server explicitly at initialization time if your logits processor is exposed as an entry point.
