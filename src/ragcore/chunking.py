@@ -319,12 +319,16 @@ def parent_child_spans(text: str, parents: list[Span], child_chars: int) -> tupl
         pos = b_start
         while pos < b_end:
             i = bisect.bisect_right(starts, pos) - 1
-            if i < 0 or pos >= parents[i].end:  # Outside every parent: the chunker dropped it (headings or comments only).
-                break
+            if i < 0 or pos >= parents[i].end:  # In a gap: trimmed blanks, or text the rules chunker dropped.
+                if i + 1 >= len(parents):
+                    break
+                pos = parents[i + 1].start  # Inside this block after its trimmed indent, or past it: then the loop ends.
+                continue
             piece_end = min(b_end, parents[i].end)
             for s, e in _hard_cut(text, pos, piece_end, child_chars, block_ends, line_ends):
+                headings_only = _only_headings(text[s:e])  # Judged with its indent: "    # x" is text, not a heading.
                 s, e = _trim(text, s, e)
-                if e <= s or _only_headings(text[s:e]):
+                if headings_only:  # Blank counts as headings only.
                     dropped += 1
                     continue
                 out.append((Span(s, e, parents[i].headings), i))

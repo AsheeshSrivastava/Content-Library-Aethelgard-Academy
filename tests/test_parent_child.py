@@ -118,3 +118,33 @@ def test_a_long_paragraph_in_a_dropped_free_document_loses_nothing():
     r = chunk_parent_child(source, ChunkConfig(max_chars=150, hard_limit=300), child_chars=100)
     joined = " ".join(c.text for c in r.children)
     assert joined.split() == source.text.split("\n\n")[1].split()
+
+
+def test_an_indented_block_that_starts_a_new_parent_keeps_its_children():
+    # The rules chunker trims the indent, so the parent starts two characters after the block does (found on real data).
+    source = src(f"# A\n\n{paragraph(400, 'first')}\n\n  * {paragraph(200, 'item')}\n\n  * {paragraph(200, 'more')}\n")
+    config = ChunkConfig(max_chars=450, hard_limit=6000)
+    r = chunk_parent_child(source, config)
+    assert len(r.parents) >= 2
+    assert [c.text[:4] for c in r.children if c.text.startswith(("* it", "* mo"))] == ["* it", "* mo"]
+    assert check_chunking(source, r.children, config) == []
+
+
+def test_text_before_the_first_parent_does_not_lose_the_rest_of_its_block():
+    source = src(f"   \n\n  * {paragraph(100, 'lead')}\n")
+    r = chunk_parent_child(source, CFG)
+    assert [c.text[:6] for c in r.children] == ["* lead"]
+
+
+def test_an_indented_line_that_looks_like_a_heading_is_text_not_a_heading():
+    # Found on real data: indented "#### x" lines (in lists and code) are not headings; the trim must not make them one.
+    source = src("# A\n\n- item:\n\n    #### Odd line\n\n    more text in the same list here\n")
+    r = chunk_parent_child(source, CFG)
+    assert any("#### Odd line" in c.text for c in r.children)
+    assert check_chunking(source, r.children, CFG) == []
+
+
+def test_an_indented_comment_line_of_code_is_kept():
+    source = src("# A\n\nRun it:\n\n    # gpu_input_batch.py\n\n    class InputBatch:\n        pass\n")
+    r = chunk_parent_child(source, CFG)
+    assert any("# gpu_input_batch.py" in c.text for c in r.children)

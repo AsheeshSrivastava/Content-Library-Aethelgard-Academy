@@ -94,3 +94,6 @@ Next: 13f semantic chunker (steered by each embedder).
 ## Self-review, unit 13f: semantic chunker (2026-10-29)
 Restarting review of the work: spec 13 section 4.2, `semantic.py`, the `breaks` argument of `heading_pack_spans`, the semantic parts of `stage.py` (labels with the steering model, the on-disk chunking cache, the estimate stand-in). Rules behaviour unchanged (existing chunking tests pass). Mutation check about 45 mutants; two dead guards removed, and tests added for the cache (dropped count, bad cache ignored, shared by embedders), the steering-time estimate and one model object per id. Real data on `python-peps` with bge-m3 and jina: all commands work. Not independent review.
 Next: 13g LlamaIndex mapper (optional group `variants`), then 13h late chunking.
+
+## Fix, unit 13e: parent-child on real files (2026-10-30)
+Restarting review of the work: `parent_child_spans` in `chunking.py`. The owner first estimate on the whole corpus failed on `reasoning-llms.en.mdx` (lost text), then a whole-corpus check found 4 more files. Two causes (trimmed indent before a new parent; indented heading-like lines), 4 new tests written red first, then fixed. Lesson: synthetic tests were not enough, so every new chunker is now also run over all 2,226 sources before it is handed over (spec 13 section 9f). Not independent review.

@@ -153,5 +153,8 @@ llamaindex-docs, the case that started this: rules 7,638 passages (median 153 ch
 - Tests: 17 in `test_semantic.py`, 14 more in `test_stage.py`. Mutation check about 45 mutants over two rounds; the only survivors left were two dead guards, now removed.
 - Real data, `python-peps` (3 sources): rules 72 passages, semantic-bge-m3 97, semantic-jina 96 (so the two steering models cut differently). The pipeline is proven; ranking waits for stage 1.
 
+## 9f. Fix after the first real-corpus estimate (2026-10-30)
+The first `estimate` on the whole corpus stopped with a chunking error in `parent-child` (the gate worked as intended). Two causes, both shown only by real files, now fixed with failing tests first: (1) the rules chunker trims a leading indent, so a new parent can start a few characters after its first block; the child scanner treated that block as lost; it now continues at the next parent when it starts inside the block. (2) An indented line such as `    #### x` or `    # comment` (inside a list or code) is text, but after trimming it looked like a heading and was dropped; it is now judged with its indent. After the fix, all 2,226 sources pass every chunker: rules 32,988, fixed 19,919, merge-small 26,818, parent-child 133,530 and semantic (fake steering) 40,525 passages, 0 failures.
+
 ## 10. Not in this spec
 Hybrid/lexical search, the reranker, the "not found" threshold, a quote-anchored question set, the content page, the paid embedders from library3.
