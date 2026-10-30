@@ -120,7 +120,7 @@ Picked by right-first on the primary set. Primary set, 548 questions:
 - One setting each: no semantic percentile sweep, no chunk-size sweep, one late window and overlap. These were fixed before the runs and not tuned.
 - Differences of 5 or 6 questions can change with a different question set.
 - Eight mcp-spec questions that expected a `2026-07-28/schema` file lost that expectation when the exclusions were applied; they still have other valid files.
-- Hybrid search and the reranker can reorder everything above.
+- Hybrid search and the reranker reordered the picture: see section 9.1. The chunker and embedder differences above shrink once the reranker is used.
 
 ## 8. Decisions on record
 
@@ -130,12 +130,46 @@ Picked by right-first on the primary set. Primary set, 548 questions:
 | 2026-10-29 | bge-m3 is the main steering model for semantic chunking, jina the control | owner |
 | 2026-10-30 | Corpus exclusions file accepted (ADR 0008, spec 14); the 3 optional restores declined | owner |
 | 2026-10-30 | Late chunking not adopted (rule in spec 13 section 5) | pre-registered rule |
-| open | Final chunker, final embedder, the two cells for stage 3 | owner |
+| 2026-10-30 | Stage 3 cells: jina + llamaindex and bge-m3 + merge-small | owner |
+| 2026-10-30 | Stage 3 result: HR (hybrid + reranker) beats V on both cells (section 9.1) | pre-registered rule |
+| open | Final chunker and embedder | owner |
 
 ## 9. To be filled in after stage 3 and the passage-level questions
 
 ### 9.1 Stage 3: hybrid search (lexical plus vectors) and bge-reranker-v2-m3
-_Not run yet. Plan: a separate spec, run on the two chosen cells, same questions, same paired rule._
+Spec 15, ADR 0009 (both accepted). Run on 2026-10-30 on the two cells chosen by the owner, all 598 questions (548 primary, 50 secondary), saved in `~/.ragcore/stage3/`. The baseline for each cell is its own V (vector only), which matches the stage 1 numbers exactly (a check that the same runs and corpus were used). Two power cuts interrupted the run; results are saved one pipeline at a time, so only the interrupted pipeline was scored again.
+
+**Pipelines:** V vector only; L keyword only (own BM25 over heading path and passage text); H hybrid (reciprocal rank fusion, k 60, 200 candidates from each list); VR and HR = V or H, then `BAAI/bge-reranker-v2-m3` on the first 30 passages. Settings were fixed before the run and not tuned.
+
+**Primary questions (548), right first / top 3 / MRR:**
+
+| Pipeline | jina-v2-base-en + llamaindex | bge-m3 + merge-small |
+|---|---|---|
+| V | 334 / 420 / 0.700 (baseline) | 316 / 421 / 0.681 (baseline) |
+| L | 287 / 385 / 0.629 (worse) | 294 / 387 / 0.636 (worse) |
+| H | 332 / 425 / 0.710 (beats: +5 top 3) | 318 / 431 / 0.696 (beats: +10 top 3) |
+| VR | 362 / 453 / 0.748 (beats: +28 / +33) | 376 / 457 / 0.765 (beats: +60 / +36) |
+| **HR** | **373 / 468 / 0.775 (beats: +39 / +48)** | **379 / 466 / 0.779 (beats: +63 / +45)** |
+
+**Secondary questions (50, rag-questions), right first / top 3:**
+
+| Pipeline | jina + llamaindex | bge-m3 + merge-small |
+|---|---|---|
+| V | 22 / 34 | 20 / 33 |
+| L | 17 / 29 (worse) | 18 / 32 (close) |
+| H | 30 / 39 (beats) | 26 / 38 (beats) |
+| VR | 24 / 37 (beats) | 23 / 35 (close) |
+| HR | 24 / 37 (beats) | 25 / 32 (beats by the first-gain rule; top 3 is -1) |
+
+**Cost per question:** V 0.017 to 0.019 s, L 0.002 s, H 0.013 to 0.018 s, VR 0.14 to 0.20 s, HR 0.15 to 0.20 s. Pairs cut to the 1,024-token limit: jina 0; bge-m3/merge-small 483 (VR) and 343 (HR) of about 16,000 each.
+
+**What this says:**
+- The pre-registered rule picks **HR on both cells** (most right-first among the beating variants).
+- Almost all of the gain comes from the reranker. Hybrid alone adds mostly in the top 3 (+5 and +10), little in right-first. Keyword-only is clearly worse than vectors, so it is a helper, not a replacement.
+- With HR the two cells end nearly level on the primary set (373 vs 379 right first; 468 vs 466 top 3). The earlier lead of jina over bge-m3 is gone. bge-m3 gains more from the reranker (+63 against +39).
+- The secondary set is small (50 questions), so differences there are noisy; it agrees in direction.
+- HR on bge-m3/merge-small cut 343 pairs at the token limit. Merge-small passages are longer. This is a follow-up (a longer pair limit), not a change made after seeing the results.
+- The questions still check files, not passages. The ranking of the two cells under HR is a near tie and is not settled by this set.
 
 ### 9.2 Passage-level (quote-anchored) questions
 _Not written yet._
@@ -147,3 +181,4 @@ _Open._
 
 - 2026-10-30: first version after stage 1 and stage 2.
 - 2026-10-30: added section 2a (why each comparison, and the size of the matrix).
+- 2026-10-30: stage 3 results added (section 9.1); sections 7 and 8 updated.
