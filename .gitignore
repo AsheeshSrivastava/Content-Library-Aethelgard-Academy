@@ -7,4 +7,6 @@ __pycache__/
 snapshots/
 *.db
 eval-out/
-reports/
+/reports/
+
+.obsidian
