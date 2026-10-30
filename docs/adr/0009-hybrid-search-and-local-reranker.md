@@ -1,6 +1,6 @@
 # ADR 0009: Hybrid search with our own keyword index, and a local cross-encoder reranker
 
-## Status: Proposed (2026-10-30; the owner chose hybrid search plus `BAAI/bge-reranker-v2-m3` on 2026-10-29, the mechanics below are open for the owner to accept)
+## Status: Accepted (2026-10-30, by the owner)
 
 ## Context
 Stage 1 and 2 of the comparison (spec 13, report `docs/reports/retrieval-comparison-report.md`) narrowed the choice to two cells, jina-v2-base-en with `llamaindex` and bge-m3 with `merge-small`, and found the chunkers within about 6 questions of each other out of 548. Vector search alone misses exact terms (function names, flags, error codes) that matter in documentation, and the owner decided the final retrieval is hybrid search followed by the local reranker `BAAI/bge-reranker-v2-m3`. This ADR fixes how, so that stage 3 can be measured the same way as stages 1 and 2.

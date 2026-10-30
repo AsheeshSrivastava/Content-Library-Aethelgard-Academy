@@ -1,6 +1,6 @@
 # Spec 15: Hybrid search and reranking (stage 3)
 
-Status: Draft (2026-10-30), follows ADR 0009 (Proposed). Written before the code.
+Status: Accepted 2026-10-30, follows ADR 0009 (Accepted). Written before the code.
 
 ## 1. Question
 On the two cells chosen from stages 1 and 2 (**jina-v2-base-en with llamaindex** and **bge-m3 with merge-small**), does a keyword index, rank fusion and the local reranker `BAAI/bge-reranker-v2-m3` find the right file first more often than vector search alone, and which step is responsible?
@@ -23,7 +23,7 @@ On the two cells chosen from stages 1 and 2 (**jina-v2-base-en with llamaindex**
 - BM25 with k1 1.2 and b 0.75, document length in tokens. Query terms are used once each. A query with no tokens returns an empty list.
 - Results: the first 200 passages by score, ties by row position (repeatable).
 ### 3.2 Fusion (`fusion.py`)
-Reciprocal rank fusion: score(passage) = sum over lists of 1 / (60 + rank), ranks from 1. Lists: vector top 200 and keyword top 200 passages. Ties by the better of the two ranks, then row position. If one list is empty, the other passes through unchanged.
+Reciprocal rank fusion: score(passage) = sum over lists of 1 / (60 + rank), ranks from 1. Lists: vector top 200 and keyword top 200 passages. Equal scores can only come from the same ranks in the same lists, so they go to the lower row position. If one list is empty, the other passes through unchanged.
 ### 3.3 Reranker (`rerank.py`)
 - Pinned in `configs/models.yaml` (repo `BAAI/bge-reranker-v2-m3`, full commit hash, licence, no remote code). `AutoModelForSequenceClassification`, fp16, pair input (query, passage), at most 1,024 tokens per pair with truncation of the passage and a count of truncated pairs. Score = the raw logit; order is descending score, ties by the fused rank.
 - Candidates: the first 30 passages of the list it follows (V or H). Passages beyond 30 are dropped, since the result is collapsed to files anyway.
