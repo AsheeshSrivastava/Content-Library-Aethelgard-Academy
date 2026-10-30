@@ -16,6 +16,8 @@ Rules:
 2. A `schema_version` newer than the code is refused. An older one is copied to `index.db.bak-<version>` before it is upgraded.
 3. All writes for one source happen in one transaction (`replace_source`), foreign keys on. A crash between sources leaves a valid index.
 4. A lock file stops two syncs at once with a clear message.
+5. The file uses SQLite's write-ahead mode (`journal_mode=WAL`), so searches are never blocked while a sync writes.
+6. The retriever opens the file **read-only** (`mode=ro`); only sync opens it for writing. A test proves that a write through the retriever's connection fails.
 
 ## 3. Sync (`index_sync.py`)
 `sync(register, snapshots, exclusions, setup, embedder, store) -> SyncReport`.
@@ -49,6 +51,7 @@ Setup mismatch, newer schema, a source whose text no longer matches its stored h
 7. Interrupted sync (fake failure after N sources): store valid, rerun completes and equals an uninterrupted sync.
 8. `search` order equals the stage 3 `HR` pipeline on a fake corpus with the fake embedder and fake reranker; ties repeatable; `max_per_file` respected; empty query and empty index return `[]`.
 9. Second sync lock refused.
+9a. The store is in write-ahead mode; a search runs and returns while a sync transaction is open; a write through the retriever's read-only connection fails.
 10. **End-to-end:** with the real setup, sync the real corpus, then score the 137 frozen passage-level questions through `Retriever.search`: right first and top 3 must equal the stage 4 HR result for jina/llamaindex (100 and 121), and must be repeatable. A difference stops the unit.
 11. Mutation check over the store, sync and retriever logic.
 
