@@ -30,3 +30,4 @@ If code or a spec changes the decision, stop and amend the ADR or spec first. A 
 | [15](15-hybrid-and-rerank.md) | Hybrid search and reranking (stage 3) | 8+ | Accepted 2026-10-30 |
 | [16](16-passage-level-questions.md) | Passage-level questions (stage 4) | 8+ | Accepted 2026-10-30 |
 | [17](17-indexer-and-retriever.md) | Persistent index, automatic sync and retriever adapter | 9 | Accepted 2026-10-30 |
+| [18](18-packaging.md) | Installable package and public surface | 7 | Accepted 2026-11-15 |

@@ -12,6 +12,8 @@ from ragcore.index_store import IndexSetup, IndexStore, IndexStoreError, open_in
 from ragcore.retrieve import N_RAW, RERANK_DEPTH, make_ranker
 from ragcore.runs import Run
 
+VARIANTS = ("HR", "L")  # HR: hybrid + reranker (default). L: keywords only, no models, no torch (spec 18 section 4)
+
 
 @dataclass(frozen=True)
 class Result:
@@ -29,7 +31,12 @@ class Result:
 
 
 class Retriever:
-    def __init__(self, store: IndexStore, embedder, reranker, *, n_raw: int = N_RAW, depth: int = RERANK_DEPTH) -> None:
+    def __init__(self, store: IndexStore, embedder=None, reranker=None, *, variant: str = "HR", n_raw: int = N_RAW,
+                 depth: int = RERANK_DEPTH) -> None:
+        if variant not in VARIANTS:
+            raise ValueError(f"variant must be one of {', '.join(VARIANTS)}, got {variant!r}")
+        if variant == "HR" and (embedder is None or reranker is None):
+            raise ValueError("variant HR needs an embedder and a reranker; use variant 'L' for keywords only")
         if not store.read_only:
             raise IndexStoreError("the retriever needs an index opened read-only")
         self.store = store
@@ -40,16 +47,16 @@ class Retriever:
             rows = [{"passage_id": p.passage_id, "source_id": p.source_id, "start": p.start, "end": p.end,
                      "headings": list(p.heading_path), "parent": None} for p in self._passages]
             run = Run("index", {}, rows, matrix)
-            self._rank = make_ranker("HR", run, [p.text for p in self._passages], embedder, reranker, None, n_raw, depth)
+            self._rank = make_ranker(variant, run, [p.text for p in self._passages], embedder, reranker, None, n_raw, depth)
         self._open = True
 
     @classmethod
-    def open(cls, path: Path | str, setup: IndexSetup, embedder, reranker, *, n_raw: int = N_RAW,
-             depth: int = RERANK_DEPTH) -> Retriever:
+    def open(cls, path: Path | str, setup: IndexSetup, embedder=None, reranker=None, *, variant: str = "HR",
+             n_raw: int = N_RAW, depth: int = RERANK_DEPTH) -> Retriever:
         """Open the index file read-only (never creating it) and load it. A different setup is refused."""
         store = open_index(path, setup, read_only=True)
         try:
-            return cls(store, embedder, reranker, n_raw=n_raw, depth=depth)
+            return cls(store, embedder, reranker, variant=variant, n_raw=n_raw, depth=depth)
         except BaseException:
             store.close()
             raise
