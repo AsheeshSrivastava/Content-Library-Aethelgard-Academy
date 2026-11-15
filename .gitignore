@@ -17,3 +17,9 @@ eval-out/
 .claude/settings.local.json
 .mypy_cache/
 .coverage
+
+
+portfolio_workflow_guide.md
+
+# Private skills stay local (never committed)
+skills/
