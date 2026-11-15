@@ -1857,11 +1857,20 @@ wheels = [
 
 [[package]]
 name = "ragcore"
-version = "0.0.1"
-source = { virtual = "." }
+version = "0.1.0"
+source = { editable = "." }
 dependencies = [
     { name = "numpy" },
     { name = "pyyaml" },
+]
+
+[package.optional-dependencies]
+embed = [
+    { name = "torch" },
+    { name = "transformers" },
+]
+variants = [
+    { name = "llama-index-core" },
 ]
 
 [package.dev-dependencies]
@@ -1879,15 +1888,19 @@ variants = [
 
 [package.metadata]
 requires-dist = [
+    { name = "llama-index-core", marker = "extra == 'variants'", specifier = "==0.14.25" },
     { name = "numpy", specifier = ">=2.0" },
     { name = "pyyaml", specifier = ">=6.0.3" },
+    { name = "torch", marker = "extra == 'embed'", specifier = ">=2.7" },
+    { name = "transformers", marker = "extra == 'embed'", specifier = ">=4.50,<5" },
 ]
+provides-extras = ["embed", "variants"]
 
 [package.metadata.requires-dev]
 dev = [{ name = "pytest", specifier = ">=9.1.1" }]
 embed = [
     { name = "numpy", specifier = ">=2.0" },
-    { name = "torch", specifier = ">=2.7", index = "https://download.pytorch.org/whl/cu128" },
+    { name = "torch", specifier = ">=2.7", index = "https://download.pytorch.org/whl/cu128", conflict = { package = "ragcore", group = "embed" } },
     { name = "transformers", specifier = ">=4.50,<5" },
 ]
 variants = [{ name = "llama-index-core", specifier = "==0.14.25" }]
