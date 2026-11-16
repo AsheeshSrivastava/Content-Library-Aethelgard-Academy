@@ -15,6 +15,7 @@ Run every check that covers your change and paste the output
 before saying a change is done. If a check fails, say so.
 
 ## Review
+- Run the checks first. If any check fails, fix it and do not start /code-review or /security-review until all checks pass.
 - Commit and push rules are in AGENTS.md. There is no CI in this repo yet; run the checks locally.
 - Before asking the owner to commit or merge: /code-review, then /security-review. At most 3 review rounds.
 - REVIEW.md says what counts as a real problem in this repo.
