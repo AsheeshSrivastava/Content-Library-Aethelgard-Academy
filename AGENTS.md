@@ -1,6 +1,6 @@
 # AGENTS.md (rag-core)
 
-<!-- CORE v3 begins. Identical in every project. Edit only the master, then re-sync. -->
+<!-- CORE v4 begins. Identical in every project. Edit only the master, then re-sync. -->
 ## Core Rules
 
 **Order of authority:** my current message, then the Project section, then this Core, then skills, plugins and output styles. Point out real contradictions; do not resolve them silently.
@@ -36,11 +36,12 @@
 - Prefer reversible steps. Ask before anything destructive or hard to undo.
 - Commit or push only when I ask. Never write secrets into files or commits.
 - Do not save an AI guess as authoritative knowledge.
+- When you open a PR, end your report with a ready-to-paste merge commit title (`<subject> (#N)`) and merge commit body, each in its own code block, plus a reminder to use "Create a merge commit" (not squash). Do this without being asked. Do not repeat the PR description; it is already on GitHub.
 
 **Ownership:** explain important logic enough for me to evaluate, change and recover it. Prefer simple, portable formats.
 
 **Tokens:** read only the part of a file you need; do not re-read what you just edited. Use a helper only for jobs big enough to repay its brief. Review a helper's output before use.
-<!-- CORE v3 ends. -->
+<!-- CORE v4 ends. -->
 
 ---
 
