@@ -1,7 +1,7 @@
 # PROGRESS
 
 Single source of truth for where rag-core stands. Update at the end of every step.
-Last updated: 2026-10-29 (register, gate, pinned fetch done; specs 02/03 and ADRs 0005/0006 accepted).
+Last updated: 2026-11-19 (v0.2.0 tagged; wired into the LMS as an optional mode; GitHub README written; contextual-retrieval step revisit recorded). The roadmap table below is the October plan; the unit sections at the end are the current record.
 
 ## Goal
 
@@ -36,6 +36,8 @@ A citation-grounded RAG library for the Aethelgard content factory: approved sou
 - Main checkout (`layout1`) has uncommitted changes (handoff, tasks, story-bible draft). This branch does not touch them.
 - Python version for this branch is undecided (library3 venv is 3.12).
 - Snapshots are backed up (F:\backup, 2026-10-29); old index files (experiments, 780 MB) are local only and not backed up.
+
+- Revisit after real use (owner, 2026-11-19): the LMS plan step 6b (a model-written, search-only context sentence per passage) is skipped for now. Hybrid search alone raised paraphrased questions from 30.0% to 66.7% in the top 3 on the LMS question sets, and a keyword-only variant gave only a small gain. Look at it again once real learners have used the tutor, and only if the questions still missed justify a per-passage model cost (print a cost estimate first; the owner runs paid steps).
 
 ## Session handoff
 
@@ -171,3 +173,6 @@ Restarting review of the work: `pyproject.toml`, `src/ragcore/__init__.py`, `ind
 
 ## Unit 7b: public `load_models` (2026-11-19)
 [Spec 19](docs/specs/19-load-models.md) and the ADR 0012 amendment accepted by the owner 2026-11-19 (pins moved into the package). `ragcore.load_models(embedder_id, reranker_id, *, local_files_only=False)` returns `(embedder, reranker, IndexSetup)`; new `src/ragcore/models.py`; pins now in `src/ragcore/pins/` (content unchanged); `make_setup` shared with the index command; version 0.2.0. Tests first (21 red, then green): `tests/test_load_models.py`. Full suite 1243 passed, 5 skipped. Wheel check `scripts/check_wheel.py`: pins inside the wheel, clean venv with core dependencies only passes. Mutation check: 6 hand-made breaks of `models.py`, all caught. Not run: the `model`-marked real-model test (needs the GPU on the owner's PC; spec 19 test 12). Not independent review. Tag `v0.2.0` only on the owner's word.
+
+## Used by the LMS, and the GitHub README (2026-11-19)
+The Aethelgard Academy LMS merged its rag-core adapter (LMS PR #56, SPEC-27, ADR-0035 section 5.4): optional mode `hybrid_rerank`, pinned to v0.2.0 (commit 0a74380), off by default, with a labelled "Keyword search only" fallback. Real-model run on the owner's machine, 240 learner-style questions on the LMS's 1,371-file corpus: right file in the top 3 for 75.0% with hybrid search (LMS keyword search 57.1%), paraphrase questions 66.7% (keyword 30.0%); adapter and direct rag-core gave identical numbers; median search 150 ms, slowest 211 ms over 300 searches. rag-core itself was not changed for this. New root `README.md` written for the portfolio (problem, decisions, results with what each number counts, honest limits, use as a library). Docs only, so no ADR or spec was needed. Tests re-run 2026-11-19: 1247 passed, 5 skipped, 39 deselected. Next in this repo: nothing scheduled; the Hugging Face Space README is updated by hand from `rag-core-docs/README_new-after-step7.md`.
