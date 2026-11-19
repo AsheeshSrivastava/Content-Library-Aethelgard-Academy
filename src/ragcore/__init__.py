@@ -4,10 +4,11 @@ from importlib import metadata as _metadata
 
 from ragcore.index_retriever import Result, Retriever
 from ragcore.index_store import IndexSetup, IndexStoreError, open_index
+from ragcore.models import load_models
 
 try:
     __version__ = _metadata.version("ragcore")
 except _metadata.PackageNotFoundError:  # a source checkout that was never installed
-    __version__ = "0.1.0"
+    __version__ = "0.2.0"
 
-__all__ = ["Retriever", "Result", "IndexSetup", "open_index", "IndexStoreError", "__version__"]
+__all__ = ["Retriever", "Result", "IndexSetup", "open_index", "IndexStoreError", "load_models", "__version__"]

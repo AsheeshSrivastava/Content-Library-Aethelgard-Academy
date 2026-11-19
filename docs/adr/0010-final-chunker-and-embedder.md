@@ -1,5 +1,7 @@
 # ADR 0010: Final chunker and embedder: jina-v2-base-en with the `llamaindex` chunker
 
+> Note (2026-11-19, spec 19): the pin files named below moved to `src/ragcore/pins/` (`models.yaml`, `rerankers.yaml`); content unchanged.
+
 ## Status: Accepted (2026-10-30, by the owner)
 
 ## Context

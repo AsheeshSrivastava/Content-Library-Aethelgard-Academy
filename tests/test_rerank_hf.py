@@ -16,7 +16,7 @@ ID = "bge-reranker-v2-m3"
 @pytest.fixture(scope="module")
 def spec():
     from ragcore.rerank import load_reranker_specs
-    return load_reranker_specs(ROOT / "configs" / "rerankers.yaml")[ID]
+    return load_reranker_specs(ROOT / "src" / "ragcore" / "pins" / "rerankers.yaml")[ID]
 
 
 @pytest.fixture(scope="module")

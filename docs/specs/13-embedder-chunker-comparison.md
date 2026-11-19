@@ -1,5 +1,7 @@
 # Spec 13: Embedder and chunker comparison (plan, pre-registration, unit list)
 
+> Note (2026-11-19, spec 19): the pin files named below moved to `src/ragcore/pins/` (`models.yaml`, `rerankers.yaml`); content unchanged.
+
 Status: Accepted (2026-10-29, owner, with ADR 0007). Pre-registration in section 5 is now frozen. Builds on specs 09 (chunking) and 12 (eval harness). Nothing here is built yet; this spec is what gets built, in the order of the last section.
 
 ## 1. Question

@@ -8,7 +8,7 @@ np = pytest.importorskip("numpy")
 from ragcore.embed.base import (FakeEmbedder, ModelSpec, TokenStates, estimate_seconds, load_model_specs,  # noqa: E402
                                 probe)
 
-MODELS = Path(__file__).resolve().parent.parent / "configs" / "models.yaml"
+MODELS = Path(__file__).resolve().parent.parent / "src" / "ragcore" / "pins" / "models.yaml"
 SHA = "a" * 40
 
 GOOD = f"""

@@ -21,13 +21,12 @@ from ragcore.errors import RegisterError
 from ragcore.index_retriever import Retriever
 from ragcore.index_store import IndexSetup, IndexStoreError, open_index
 from ragcore.index_sync import SyncError, sync
+from ragcore.models import DEFAULT_EMBEDDER, DEFAULT_RERANKER, LLAMA_INDEX_PIN, MODELS_PINS, RERANKER_PINS, make_setup
 from ragcore.passage_eval import QuoteSpan, score_passage_questions
 from ragcore.passage_questions import PassageQuestion
 from ragcore.retrieve import PassageHit
 
 DEFAULT_INDEX = Path.home() / ".ragcore" / "index" / "index.db"
-DEFAULT_EMBEDDER = "jina-v2-base-en"
-DEFAULT_RERANKER = "bge-reranker-v2-m3"
 DEFAULT_QUESTIONS = Path(__file__).resolve().parent.parent.parent / "eval" / "passage-questions"
 STAGE4_FIRST, STAGE4_TOP3 = 100, 121  # jina-v2-base-en + llamaindex + HR on the 137 questions (report section 9.2)
 PROGRESS_EVERY = 100
@@ -69,7 +68,7 @@ class _LazyEmbedder:
 
 def real_services() -> Services:
     from ragcore.embed.base import load_model_specs
-    from ragcore.llamaindex_chunker import LlamaIndexChunker, llamaindex_version
+    from ragcore.llamaindex_chunker import LlamaIndexChunker
     from ragcore.register import load_record
     from ragcore.rerank import load_reranker_specs
     from ragcore.stage import _exclusions, load_corpus, make_embedder
@@ -97,11 +96,11 @@ def real_services() -> Services:
             llama = metadata.version("llama-index-core")
         except metadata.PackageNotFoundError:
             raise ValueError("LlamaIndex is not installed: run with `--group variants`") from None
+        if llama != LLAMA_INDEX_PIN:  # An index built with another version could not be opened by `load_models` (spec 19 R4).
+            raise ValueError(f"LlamaIndex {llama} is installed but ragcore pins {LLAMA_INDEX_PIN}: run with `--group variants`")
         model = load_model_specs(Path(args.models))[args.embedder]
         reranker = load_reranker_specs(Path(args.rerankers))[args.reranker]
-        revision = model.revision + (f"+{model.code_revision}" if model.code_revision else "")
-        return IndexSetup(model.id, revision, "llamaindex", llamaindex_version(config),
-                          f"{config.max_chars}/{config.hard_limit}", llama, reranker.id, reranker.revision)
+        return make_setup(model, reranker, llama, config)
 
     class Bound:
         def __init__(self) -> None:
@@ -132,8 +131,8 @@ def _parser() -> argparse.ArgumentParser:
     parser.add_argument("--snapshots")
     parser.add_argument("--rules")
     parser.add_argument("--exclusions", default="", help="corpus exclusions file (default: configs/corpus-exclusions.yaml)")
-    parser.add_argument("--models", default=str(Path(__file__).resolve().parent.parent.parent / "configs" / "models.yaml"))
-    parser.add_argument("--rerankers", default=str(Path(__file__).resolve().parent.parent.parent / "configs" / "rerankers.yaml"))
+    parser.add_argument("--models", default=str(MODELS_PINS))
+    parser.add_argument("--rerankers", default=str(RERANKER_PINS))
     parser.add_argument("--embedder", default=DEFAULT_EMBEDDER)
     parser.add_argument("--reranker", default=DEFAULT_RERANKER)
     parser.add_argument("--batch", type=int, default=256, help="sync: texts embedded at once (the comparison used 256)")

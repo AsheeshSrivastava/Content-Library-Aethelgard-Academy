@@ -17,13 +17,14 @@ from ragcore.compare import QResult, markdown_table, score_questions, split_sets
 from ragcore.contracts import Source
 from ragcore.errors import RegisterError
 from ragcore.evalset import Question, load_question_dir
+from ragcore.models import RERANKER_PINS
 from ragcore.rerank import FakeReranker, load_reranker_specs
 from ragcore.retrieve import PIPELINES, RERANK_DEPTH, keyword_index, make_pipeline
 from ragcore.runs import Run, RunError, compute_run_id, load_run
 from ragcore.stage import (DEFAULT_MODELS, DEFAULT_RUNS, EMBEDDER_IDS, _csv, _exclusions, _safe_print, corpus_fingerprint,
                            is_semantic, load_corpus, make_embedder, questions_fingerprint, run_inputs, valid_chunker)
 
-DEFAULT_RERANKERS = Path(__file__).resolve().parent.parent.parent / "configs" / "rerankers.yaml"
+DEFAULT_RERANKERS = RERANKER_PINS
 DEFAULT_OUT = Path.home() / ".ragcore" / "stage3"
 DEFAULT_CELLS = "jina-v2-base-en:llamaindex,bge-m3:merge-small"
 RERANKER_IDS = ("fake", "bge-reranker-v2-m3")
@@ -111,7 +112,8 @@ def save_cell(path: Path, run_id: str, questions_fp: str, reranker_fp: str, vari
 
 
 def load_cell(path: Path, run_id: str, questions_fp: str, reranker_fp: str | None) -> dict[str, VariantResult]:
-    """Saved variants of a cell, or none when the file is missing or was made from other inputs (any reranker when\n    eranker_fp is None, which the report uses so that it never loads the model)."""
+    """Saved variants of a cell, or none when the file is missing or was made from other inputs (any reranker when\n    
+eranker_fp is None, which the report uses so that it never loads the model)."""
     if not path.is_file():
         return {}
     data = json.loads(path.read_text(encoding="utf-8"))

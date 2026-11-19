@@ -1,5 +1,7 @@
 # Spec 17: Persistent index, automatic sync and retriever adapter
 
+> Note (2026-11-19, spec 19): the pin files named below moved to `src/ragcore/pins/` (`models.yaml`, `rerankers.yaml`); content unchanged.
+
 Status: Accepted by the owner 2026-10-30, follows ADR 0011 (Accepted). Written before the code.
 
 ## 1. Purpose
