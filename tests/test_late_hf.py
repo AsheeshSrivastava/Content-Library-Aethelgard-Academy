@@ -17,7 +17,7 @@ SENTENCE = "Retrieval finds passages that answer a question, and ranking orders 
 def encoder(request):
     from ragcore.embed.base import load_model_specs
     from ragcore.embed.hf import HFEncoder
-    return HFEncoder(load_model_specs(ROOT / "configs" / "models.yaml")[request.param])
+    return HFEncoder(load_model_specs(ROOT / "src" / "ragcore" / "pins" / "models.yaml")[request.param])
 
 
 def test_token_spans_match_the_token_count_and_point_into_the_text(encoder):

@@ -22,3 +22,9 @@ Option 2. Build backend `hatchling` with `src/ragcore`. Core dependencies stay p
 - Exported names become a promise: removing one needs a version bump.
 - `L` is lower quality than HR (stage 3 report); it is a fallback, not the recommended mode.
 - Revisit if the LMS needs more than search (for example indexing from inside the LMS) or if PyPI publishing is wanted.
+
+## Amendment 2026-11-19: a public `load_models` (Accepted by the owner 2026-11-19)
+Context: the LMS needs the hybrid-plus-reranker mode, but the functions that build the embedder and reranker are internal and read `configs/*.yaml`, which the installed package does not contain. Importing the internals would break "public surface only" and copy the pins into the LMS, where they would drift.
+Decision: the pins move into the package (`src/ragcore/pins/`) and one function, `load_models(embedder_id, reranker_id)`, returns the embedder, the reranker and the matching `IndexSetup`. The public surface grows from six names to seven. Version 0.2.0, tag `v0.2.0` after merge. Details: [spec 19](../specs/19-load-models.md).
+Trade-offs accepted: one more promised name; the pin files change location (content unchanged); the `IndexSetup` carries the pinned LlamaIndex version as a constant, checked against `pyproject.toml` by a test.
+

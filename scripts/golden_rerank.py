@@ -23,7 +23,7 @@ ID = "bge-reranker-v2-m3"
 
 
 def main() -> None:
-    spec = yaml.safe_load((Path(__file__).resolve().parent.parent / "configs" / "rerankers.yaml").read_text(encoding="utf-8"))[ID]
+    spec = yaml.safe_load((Path(__file__).resolve().parent.parent / "src" / "ragcore" / "pins" / "rerankers.yaml").read_text(encoding="utf-8"))[ID]
     from sentence_transformers import CrossEncoder
     model = CrossEncoder(spec["repo"], revision=spec["revision"], device="cpu", max_length=spec["max_pair_tokens"],
                          default_activation_function=torch.nn.Identity())

@@ -22,7 +22,7 @@ def model_id(request):
 @pytest.fixture(scope="module")
 def specs():
     from ragcore.embed.base import load_model_specs
-    return load_model_specs(ROOT / "configs" / "models.yaml")
+    return load_model_specs(ROOT / "src" / "ragcore" / "pins" / "models.yaml")
 
 
 @pytest.fixture(scope="module")

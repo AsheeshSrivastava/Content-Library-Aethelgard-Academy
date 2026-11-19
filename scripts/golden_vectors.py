@@ -24,7 +24,7 @@ TEXTS = [
 
 
 def main(ids: list[str]) -> None:
-    specs = yaml.safe_load((Path(__file__).resolve().parent.parent / "configs" / "models.yaml").read_text(encoding="utf-8"))
+    specs = yaml.safe_load((Path(__file__).resolve().parent.parent / "src" / "ragcore" / "pins" / "models.yaml").read_text(encoding="utf-8"))
     out_dir = Path.home() / ".ragcore" / "golden"
     out_dir.mkdir(parents=True, exist_ok=True)
     for model_id in ids:

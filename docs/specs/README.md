@@ -31,3 +31,4 @@ If code or a spec changes the decision, stop and amend the ADR or spec first. A 
 | [16](16-passage-level-questions.md) | Passage-level questions (stage 4) | 8+ | Accepted 2026-10-30 |
 | [17](17-indexer-and-retriever.md) | Persistent index, automatic sync and retriever adapter | 9 | Accepted 2026-10-30 |
 | [18](18-packaging.md) | Installable package and public surface | 7 | Accepted 2026-11-15 |
+| [19](19-load-models.md) | Public `load_models` and bundled pins | 7b | Accepted 2026-11-19 |

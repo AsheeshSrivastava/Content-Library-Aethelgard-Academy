@@ -31,7 +31,7 @@ def yaml_of(**changes):
 
 
 def test_real_file_loads_and_is_pinned():
-    specs = load_reranker_specs(ROOT / "configs" / "rerankers.yaml")
+    specs = load_reranker_specs(ROOT / "src" / "ragcore" / "pins" / "rerankers.yaml")
     spec = specs["bge-reranker-v2-m3"]
     assert isinstance(spec, RerankerSpec)
     assert spec.repo == "BAAI/bge-reranker-v2-m3"

@@ -14,7 +14,7 @@ from test_index_retriever import SETUP, FakeEmbedder, fill, path  # noqa: F401
 
 ROOT = Path(__file__).resolve().parents[1]
 PYPROJECT = tomllib.loads((ROOT / "pyproject.toml").read_text(encoding="utf-8"))
-SURFACE = {"Retriever", "Result", "IndexSetup", "open_index", "IndexStoreError", "__version__"}
+SURFACE = {"Retriever", "Result", "IndexSetup", "open_index", "IndexStoreError", "load_models", "__version__"}
 
 
 def test_public_surface_is_exactly_the_promised_names():
@@ -24,7 +24,7 @@ def test_public_surface_is_exactly_the_promised_names():
 
 
 def test_version_matches_pyproject():
-    assert ragcore.__version__ == PYPROJECT["project"]["version"] == "0.1.0"
+    assert ragcore.__version__ == PYPROJECT["project"]["version"] == "0.2.0"
 
 
 def test_importing_ragcore_does_not_pull_heavy_libraries():

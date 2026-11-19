@@ -27,6 +27,7 @@ from ragcore.errors import LoadRefused, RegisterError, SkipShareExceeded
 from ragcore.evalset import QuestionSet, load_question_dir
 from ragcore.gate import LicenceRules
 from ragcore.loaders.snapshot import load_snapshot
+from ragcore.models import MODELS_PINS
 from ragcore.register import load_record
 from ragcore.retrieve import make_retriever
 from ragcore.runs import RunError, compute_run_id, load_run, write_run
@@ -36,7 +37,7 @@ from ragcore.semantic import SemanticChunker
 CHUNKER_NAMES = ("rules", "fixed", "merge-small", "parent-child", "llamaindex")
 MERGE_MIN_CHARS = 300
 DEFAULT_RUNS = Path.home() / ".ragcore" / "runs"
-DEFAULT_MODELS = Path(__file__).resolve().parent.parent.parent / "configs" / "models.yaml"
+DEFAULT_MODELS = MODELS_PINS
 DEFAULT_EXCLUSIONS = Path(__file__).resolve().parent.parent.parent / "configs" / "corpus-exclusions.yaml"
 EMBEDDER_IDS = ("fake", "bge-m3", "jina-v2-base-en")
 SEMANTIC_PREFIX = "semantic-"
