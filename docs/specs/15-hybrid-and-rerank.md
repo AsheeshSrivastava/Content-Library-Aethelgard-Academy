@@ -1,5 +1,7 @@
 # Spec 15: Hybrid search and reranking (stage 3)
 
+> Note (2026-11-19, spec 19): the pin files named below moved to `src/ragcore/pins/` (`models.yaml`, `rerankers.yaml`); content unchanged.
+
 Status: Accepted 2026-10-30, follows ADR 0009 (Accepted). Written before the code.
 
 ## 1. Question

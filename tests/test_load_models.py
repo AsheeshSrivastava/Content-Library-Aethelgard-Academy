@@ -111,6 +111,21 @@ def test_setup_equals_the_one_the_index_command_builds(monkeypatch):
     assert index_cli.real_services().setup(args) == ragcore.load_models()[2]
 
 
+def test_index_command_refuses_a_different_llama_index_version(monkeypatch):
+    from ragcore import index_cli
+    monkeypatch.setattr(index_cli.metadata, "version", lambda name: "0.14.26")
+    args = argparse.Namespace(models=str(pin_dir() / "models.yaml"), rerankers=str(pin_dir() / "rerankers.yaml"),
+                              embedder="jina-v2-base-en", reranker="bge-reranker-v2-m3")
+    with pytest.raises(ValueError, match=r"0\.14\.26.*0\.14\.25"):
+        index_cli.real_services().setup(args)
+
+
+def test_index_command_uses_the_same_default_ids():
+    from ragcore import index_cli, models
+    assert (index_cli.DEFAULT_EMBEDDER, index_cli.DEFAULT_RERANKER) == (models.DEFAULT_EMBEDDER, models.DEFAULT_RERANKER)
+    assert index_cli.DEFAULT_EMBEDDER is models.DEFAULT_EMBEDDER
+
+
 def test_llama_index_constant_equals_the_pyproject_pin():
     from ragcore.models import LLAMA_INDEX_PIN
     assert f"llama-index-core=={LLAMA_INDEX_PIN}" in PYPROJECT["project"]["optional-dependencies"]["variants"]
@@ -123,6 +138,23 @@ def test_missing_torch_says_to_install_the_embed_extra(monkeypatch):
         raise ModuleNotFoundError("No module named 'torch'", name="torch")
     monkeypatch.setattr("ragcore.embed.hf.HFEncoder", boom)
     with pytest.raises(ImportError, match=r"ragcore\[embed\]"):
+        ragcore.load_models()
+
+
+def test_other_import_errors_are_not_reported_as_a_missing_extra(monkeypatch):
+    def boom(spec, **kwargs):
+        raise ImportError("cannot import name 'foo' from 'transformers'")
+    monkeypatch.setattr("ragcore.embed.hf.HFEncoder", boom)
+    with pytest.raises(ImportError, match="cannot import name") as caught:
+        ragcore.load_models()
+    assert "ragcore[embed]" not in str(caught.value)
+
+
+def test_missing_other_module_is_not_reported_as_a_missing_extra(monkeypatch):
+    def boom(spec, **kwargs):
+        raise ModuleNotFoundError("No module named 'einops'", name="einops")
+    monkeypatch.setattr("ragcore.embed.hf.HFEncoder", boom)
+    with pytest.raises(ModuleNotFoundError, match="einops"):
         ragcore.load_models()
 
 

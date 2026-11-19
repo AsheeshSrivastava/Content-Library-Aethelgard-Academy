@@ -50,6 +50,8 @@ def load_models(embedder_id: str = DEFAULT_EMBEDDER, reranker_id: str = DEFAULT_
         from ragcore.rerank import HFReranker
         embedder = HFEncoder(embedder_spec, local_files_only=local_files_only)
         reranker = HFReranker(reranker_spec, local_files_only=local_files_only)
-    except ImportError as exc:
+    except ModuleNotFoundError as exc:
+        if (exc.name or "").split(".")[0] not in ("torch", "transformers"):
+            raise  # Some other missing module (for example one the Jina code needs) is reported as it is.
         raise ImportError('the models need torch and transformers: install them with `pip install "ragcore[embed]"`') from exc
     return embedder, reranker, make_setup(embedder_spec, reranker_spec, LLAMA_INDEX_PIN)

@@ -1,5 +1,7 @@
 # ADR 0009: Hybrid search with our own keyword index, and a local cross-encoder reranker
 
+> Note (2026-11-19, spec 19): the pin files named below moved to `src/ragcore/pins/` (`models.yaml`, `rerankers.yaml`); content unchanged.
+
 ## Status: Accepted (2026-10-30, by the owner)
 
 ## Context

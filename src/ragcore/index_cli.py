@@ -21,14 +21,12 @@ from ragcore.errors import RegisterError
 from ragcore.index_retriever import Retriever
 from ragcore.index_store import IndexSetup, IndexStoreError, open_index
 from ragcore.index_sync import SyncError, sync
-from ragcore.models import MODELS_PINS, RERANKER_PINS, make_setup
+from ragcore.models import DEFAULT_EMBEDDER, DEFAULT_RERANKER, LLAMA_INDEX_PIN, MODELS_PINS, RERANKER_PINS, make_setup
 from ragcore.passage_eval import QuoteSpan, score_passage_questions
 from ragcore.passage_questions import PassageQuestion
 from ragcore.retrieve import PassageHit
 
 DEFAULT_INDEX = Path.home() / ".ragcore" / "index" / "index.db"
-DEFAULT_EMBEDDER = "jina-v2-base-en"
-DEFAULT_RERANKER = "bge-reranker-v2-m3"
 DEFAULT_QUESTIONS = Path(__file__).resolve().parent.parent.parent / "eval" / "passage-questions"
 STAGE4_FIRST, STAGE4_TOP3 = 100, 121  # jina-v2-base-en + llamaindex + HR on the 137 questions (report section 9.2)
 PROGRESS_EVERY = 100
@@ -98,6 +96,8 @@ def real_services() -> Services:
             llama = metadata.version("llama-index-core")
         except metadata.PackageNotFoundError:
             raise ValueError("LlamaIndex is not installed: run with `--group variants`") from None
+        if llama != LLAMA_INDEX_PIN:  # An index built with another version could not be opened by `load_models` (spec 19 R4).
+            raise ValueError(f"LlamaIndex {llama} is installed but ragcore pins {LLAMA_INDEX_PIN}: run with `--group variants`")
         model = load_model_specs(Path(args.models))[args.embedder]
         reranker = load_reranker_specs(Path(args.rerankers))[args.reranker]
         return make_setup(model, reranker, llama, config)
