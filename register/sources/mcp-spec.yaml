@@ -1,0 +1,43 @@
+id: mcp-spec
+title: Model Context Protocol specification and docs
+owner: Model Context Protocol project (Linux Foundation)
+url: https://modelcontextprotocol.io/
+kind: docs
+area: ai-engineering
+licence:
+  id: Apache-2.0
+  file_url: https://github.com/modelcontextprotocol/modelcontextprotocol/blob/main/LICENSE
+  covers: both
+  note: 'LICENSE read 2026-10-24: the project is moving from MIT to Apache-2.0. New
+    code and specification contributions are Apache-2.0; documentation contributions
+    (not specifications) are CC-BY-4.0; contributions not yet relicensed stay MIT.
+    All three are permissive and need attribution. The gate sees one id, so Apache-2.0
+    is recorded and the mix is noted here.'
+  file_hash: sha256:0382b0057770ca05e9c350a50aa3b1c1fea84da0bc81d723bf00b9aa841be58a
+version:
+  ref: dae694f61a31f7a3ec2af3aff709e11f70f61e48
+  fetched: 2026-10-24
+content_hash: sha256:5420342dadafff3c7907a2f072192353dc14eda186237230e29d8cf142feba90
+status: approved
+reviewer: Asheesh Ranjan Srivastava
+reviewed_on: 2026-10-24
+override_reason: ''
+notes: Added 2026-10-24 from links in the rohitg00 lessons (stage 4 tool contracts,
+  stage 12.3 permissions). Specification version dated 2026-07-28 (newest dated folder;
+  a draft folder also exists and is left out) plus the docs/docs/2026-07-28 concept
+  pages (older dated folders hold near-duplicate copies and are left out). Check the
+  date is the latest released version before approving.
+max_mb: 200
+fetch:
+  git: https://github.com/modelcontextprotocol/modelcontextprotocol
+  ref: ''
+  paths:
+  - docs/specification/2026-07-28/architecture
+  - docs/specification/2026-07-28/basic
+  - docs/specification/2026-07-28/client
+  - docs/specification/2026-07-28/server
+  - docs/docs/2026-07-28
+  files:
+  - docs/specification/2026-07-28/changelog.mdx
+  - docs/specification/2026-07-28/deprecated.mdx
+  - docs/specification/2026-07-28/index.mdx

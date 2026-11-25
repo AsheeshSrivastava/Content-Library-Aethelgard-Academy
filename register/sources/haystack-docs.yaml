@@ -1,0 +1,33 @@
+id: haystack-docs
+title: Haystack documentation
+owner: deepset
+url: https://docs.haystack.deepset.ai/
+kind: docs
+area: ai-engineering
+licence:
+  id: Apache-2.0
+  file_url: https://github.com/deepset-ai/haystack/blob/main/LICENSE
+  covers: both
+  note: Root LICENSE read 2026-10-25 (Apache-2.0), no docs exclusion; docs sit inside
+    the same repo. Copy in content/library/licences. Not a qualified legal review.
+  file_hash: sha256:3f0a3af7e9b0f3b6358aaa3c7501ab522a67dc5483b870e9a8b3db41ea42e249
+version:
+  ref: 622967d7b6a878085a72ce9fb942bab0f485ad2f
+  fetched: 2026-10-25
+content_hash: sha256:5edc864881b55ae3eaf8e992ef8db2608a6180033a88fc1a292d6c53296f4e5a
+status: approved
+reviewer: Asheesh Ranjan Srivastava
+reviewed_on: 2026-10-25
+override_reason: ''
+notes: Added 2026-10-25 for RAG and reranking breadth. Retrievers, rankers, joiners
+  (hybrid retrieval) and concepts. Vendor framework docs, so say which ideas are Haystack-specific.
+max_mb: 200
+fetch:
+  git: https://github.com/deepset-ai/haystack
+  ref: ''
+  paths:
+  - docs-website/docs/concepts
+  - docs-website/docs/pipeline-components/rankers
+  - docs-website/docs/pipeline-components/retrievers
+  - docs-website/docs/pipeline-components/joiners
+  files: []

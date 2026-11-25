@@ -1,0 +1,45 @@
+id: python-docs
+title: Python documentation
+owner: Python Software Foundation
+url: https://docs.python.org/3/
+kind: docs
+area: python
+licence:
+  id: PSF-2.0
+  file_url: https://github.com/python/cpython/blob/v3.14.9/LICENSE
+  covers: both
+  note: 'Read 2026-10-23 at tag v3.14.9 (LICENSE and Doc/license.rst): "Python software
+    and documentation are licensed under the Python Software Foundation License Version
+    2." Since 3.8.6 the examples, recipes and other code in the documentation are
+    also dual licensed under Zero-Clause BSD. The PSF licence requires keeping the
+    copyright notice and licence text, so these go in the NOTICE list. Doc/copyright.rst
+    still carries an "All rights reserved" line; the licence page is what grants the
+    rights. Hash is recorded at fetch.'
+  file_hash: sha256:b0e25a78cffb43f4d92de8b61ccfa1f1f98ecbc22330b54b5251e7b6ba010231
+version:
+  ref: ead82c07db1f111d613926ed1b6667411d768125
+  fetched: 2026-10-24
+content_hash: sha256:6e0039748329533268113b85f7efc2f8ee4dd630e70891d346814d0da6056ebc
+status: approved
+reviewer: Asheesh Ranjan Srivastava
+reviewed_on: 2026-10-24
+override_reason: ''
+notes: 'Python source for the Python units. Pinned to Python 3.14 (Asheesh, 2026-10-23):
+  3.15 is very new and library support may lag. Latest 3.14 tag seen 2026-10-23 is
+  v3.14.9. The Playground sandbox is to be raised from 3.12 to 3.14 to match (requested
+  through the coordinator). Scope chosen 2026-10-24: tutorial, language reference,
+  standard library, howtos, FAQ and the glossary. Left out: whatsnew (changelogs),
+  C API, extending, installation and platform pages, deprecations. Fetched, indexed and embedded 2026-10-24.'
+max_mb: 200
+fetch:
+  git: https://github.com/python/cpython
+  ref: v3.14.9
+  paths:
+  - Doc/tutorial
+  - Doc/builtins
+  - Doc/reference
+  - Doc/library
+  - Doc/howto
+  - Doc/faq
+  files:
+  - Doc/glossary.rst

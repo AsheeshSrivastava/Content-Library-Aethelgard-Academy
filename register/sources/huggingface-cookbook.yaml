@@ -1,0 +1,27 @@
+id: huggingface-cookbook
+title: Hugging Face Open-Source AI Cookbook
+owner: Hugging Face
+url: https://huggingface.co/learn/cookbook
+kind: repo
+area: ai-engineering
+licence:
+  id: Apache-2.0
+  file_url: https://github.com/huggingface/cookbook/blob/main/LICENSE
+  covers: unknown
+  note: Repo page shows Apache-2.0; LICENSE file not yet read.
+version:
+  ref: ''
+  fetched: null
+content_hash: ''
+status: quarantine
+reviewer: ''
+reviewed_on: null
+override_reason: ''
+notes: Added 2026-10-25 for advanced RAG recipes. Almost all content is .ipynb notebooks (only a few .md files), so the indexer may skip most of it. Check what the gate and indexer actually read before approving.
+max_mb: 200
+fetch:
+  git: https://github.com/huggingface/cookbook
+  ref: ''
+  paths:
+  - notebooks/en
+  files: []

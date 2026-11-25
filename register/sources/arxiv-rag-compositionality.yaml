@@ -1,0 +1,35 @@
+id: arxiv-rag-compositionality
+title: Retrieval Augmented Generation Compositionality (arXiv 2610.29722)
+owner: Ido Levy, Segev Shlomov, Leshem Choshen
+url: https://arxiv.org/abs/2610.29722
+kind: paper
+area: ai-engineering
+licence:
+  id: CC-BY-4.0
+  file_url: https://creativecommons.org/licenses/by/4.0/legalcode.txt
+  covers: both
+  note: The paper's abstract page shows CC BY 4.0 (seen 2026-10-25); fetch checks
+    the page still declares it. Not a qualified legal review.
+  file_hash: sha256:9ba9550ad48438d0836ddab3da480b3b69ffa0aac7b7878b5a0039e7ab429411
+version:
+  ref: web-fb713419ea9b
+  fetched: 2026-10-25
+content_hash: sha256:977139f598f816704c18715ff7b425694fb6622e106de4bd3e86a5cbeb59b747
+status: approved
+reviewer: Asheesh Ranjan Srivastava
+reviewed_on: 2026-10-25
+override_reason: ''
+notes: Added 2026-10-25 at Asheesh's request. v1 submitted 21 Oct 2026. Tests 450
+  RAG configurations (embedding, chunking, retrieval, reranking, query augmentation,
+  compression, agentic verification) over eight benchmarks. Finding to use in lessons,
+  with the citation - gains that look strong alone do not add up when combined, and
+  the best mix can change as the corpus grows. Findings from one paper, so say so.
+  The text comes from arXiv's HTML page (tables flattened, maths kept as the authors'
+  own text).
+max_mb: 20
+fetch:
+  ref: ''
+  paths: []
+  files: []
+  web: https://arxiv.org/html/2610.29722
+  licence_url: https://creativecommons.org/licenses/by/4.0/legalcode.txt

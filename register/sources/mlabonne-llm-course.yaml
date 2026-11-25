@@ -1,0 +1,30 @@
+id: mlabonne-llm-course
+title: LLM Course
+owner: Maxime Labonne
+url: https://github.com/mlabonne/llm-course
+kind: repo
+area: ai-engineering
+licence:
+  id: Apache-2.0
+  file_url: https://github.com/mlabonne/llm-course/blob/main/LICENSE
+  covers: both
+  note: LICENSE read 2026-10-26 (standard Apache-2.0 text). The repo holds one README
+    roadmap of links and images, so there is almost nothing to index. Not fetched.
+    Not a qualified legal review.
+  file_hash: sha256:c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4
+version:
+  ref: 7abd96e8284bfae232048fdb77b52397a2114847
+  fetched: 2026-10-30
+content_hash: sha256:c0dd9f2fe5019010866fad0f4ddf2735198dc40c69b232750aa07066388f6aba
+status: approved
+reviewer: Asheesh Ranjan Srivastava
+reviewed_on: 2026-10-30
+override_reason: ''
+notes: ''
+max_mb: 200
+fetch:
+  git: https://github.com/mlabonne/llm-course
+  ref: ''
+  paths: []
+  files:
+  - README.md

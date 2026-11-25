@@ -1,0 +1,69 @@
+id: microsoft-ai-agents-for-beginners
+title: AI Agents for Beginners
+owner: Microsoft
+url: https://github.com/microsoft/ai-agents-for-beginners
+kind: repo
+area: ai-engineering
+licence:
+  id: MIT
+  file_url: https://github.com/microsoft/ai-agents-for-beginners/blob/main/LICENSE
+  covers: both
+  note: Root LICENSE read 2026-10-26 (standard MIT text, 1,141 bytes, no content exclusion).
+    Not a qualified legal review; Microsoft trademark terms are separate.
+  file_hash: sha256:c2cfccb812fe482101a8f04597dfc5a9991a6b2748266c47ac91b6a5aae15383
+version:
+  ref: 7dfa75abfa147bdbe72dab76dd0bd3aba186e367
+  fetched: 2026-10-26
+content_hash: sha256:0fbf4b85acd05bb43ed38e949238c11ad15dea4cc217eef123b5bafb8bc81bf1
+status: approved
+reviewer: Asheesh Ranjan Srivastava
+reviewed_on: 2026-10-26
+override_reason: ''
+notes: 'Licence read 2026-10-26. Translations and notebooks are left out (the translations
+  folder is not listed); trademarks are excluded by Microsoft''s usual notice, which
+  the licence file does not mention. Trimmed 2026-10-26 to the files listed. Left
+  out: workflow event-description samples.'
+max_mb: 200
+fetch:
+  git: https://github.com/microsoft/ai-agents-for-beginners
+  ref: ''
+  paths: []
+  files:
+  - 00-course-setup/AzureSearch.md
+  - 00-course-setup/README.md
+  - 01-intro-to-ai-agents/README.md
+  - 01-intro-to-ai-agents/code_samples/01-dotnet-agent-framework.md
+  - 02-explore-agentic-frameworks/README.md
+  - 02-explore-agentic-frameworks/azure-ai-foundry-agent-creation.md
+  - 02-explore-agentic-frameworks/code_samples/02-dotnet-agent-framework.md
+  - 03-agentic-design-patterns/README.md
+  - 03-agentic-design-patterns/code_samples/03-dotnet-agent-framework.md
+  - 04-tool-use/README.md
+  - 04-tool-use/code_samples/04-dotnet-agent-framework.md
+  - 05-agentic-rag/README.md
+  - 05-agentic-rag/code_samples/05-dotnet-agent-framework.md
+  - 05-agentic-rag/code_samples/document.md
+  - 06-building-trustworthy-agents/README.md
+  - 07-planning-design/README.md
+  - 07-planning-design/code_samples/07-dotnet-agent-framework.md
+  - 08-multi-agent/README.md
+  - 08-multi-agent/code_samples/08-dotnet-agent-framework.md
+  - 08-multi-agent/solution/solution-quiz.md
+  - 08-multi-agent/solution/solution.md
+  - 09-metacognition/README.md
+  - 10-ai-agents-production/README.md
+  - 11-agentic-protocols/README.md
+  - 11-agentic-protocols/code_samples/github-mcp/MCP_SETUP.md
+  - 11-agentic-protocols/code_samples/github-mcp/README.md
+  - 11-agentic-protocols/code_samples/github-mcp/chainlit.md
+  - 11-agentic-protocols/code_samples/github-mcp/event-descriptions.md
+  - 11-agentic-protocols/code_samples/mcp-agents/README.md
+  - 12-context-engineering/README.md
+  - 12-context-engineering/code_samples/vacation_agent_scratchpad.md
+  - 13-agent-memory/README.md
+  - 14-microsoft-agent-framework/README.md
+  - 15-browser-use/README.md
+  - 16-deploying-scalable-agents/README.md
+  - 17-creating-local-ai-agents/README.md
+  - 18-securing-ai-agents/README.md
+  - 18-securing-ai-agents/code_samples/sample_receipts/README.md

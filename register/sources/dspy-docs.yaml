@@ -1,0 +1,104 @@
+id: dspy-docs
+title: DSPy documentation
+owner: Stanford NLP
+url: https://dspy.ai/
+kind: docs
+area: ai-engineering
+licence:
+  id: MIT
+  file_url: https://github.com/stanfordnlp/dspy/blob/main/LICENSE
+  covers: both
+  note: Root LICENSE read 2026-10-26 (standard MIT text, about 1106 bytes, no content
+    exclusion); the licence names 'documentation files'. Not a qualified legal review.
+  file_hash: sha256:fc84421fcf968a696680dacf66ad53db769f699f557690127c5ccb3f6358cfdb
+version:
+  ref: 15aad8de2678a4d89a3a093e944fe58f8744c497
+  fetched: 2026-10-26
+content_hash: sha256:ffe379b23998aa5dc40334458cf58776830be6562945a2b018107508cc90a70d
+status: approved
+reviewer: Asheesh Ranjan Srivastava
+reviewed_on: 2026-10-26
+override_reason: ''
+notes: 'Added 2026-10-26 for programmatic prompting, optimisers and evaluation (about
+  170 pages). Trimmed 2026-10-26 to the files listed. Left out: api stubs, community,
+  roadmap, contributing, history.'
+max_mb: 200
+fetch:
+  git: https://github.com/stanfordnlp/dspy
+  ref: ''
+  paths: []
+  files:
+  - docs/docs/cheatsheet.md
+  - docs/docs/deep-dive/data-handling/built-in-datasets.md
+  - docs/docs/deep-dive/data-handling/examples.md
+  - docs/docs/deep-dive/data-handling/loading-custom-data.md
+  - docs/docs/diving-deeper/adapters.md
+  - docs/docs/diving-deeper/bootstrap-fewshot-family.md
+  - docs/docs/diving-deeper/built-in-module-variants.md
+  - docs/docs/diving-deeper/choosing-an-optimizer.md
+  - docs/docs/diving-deeper/flex.md
+  - docs/docs/diving-deeper/gepa-in-depth.md
+  - docs/docs/diving-deeper/metrics-and-evaluation.md
+  - docs/docs/diving-deeper/modules.md
+  - docs/docs/diving-deeper/react.md
+  - docs/docs/diving-deeper/rlm.md
+  - docs/docs/diving-deeper/saving-and-loading.md
+  - docs/docs/diving-deeper/settings-and-context.md
+  - docs/docs/diving-deeper/signatures-in-depth.md
+  - docs/docs/diving-deeper/tools.md
+  - docs/docs/faqs.md
+  - docs/docs/getting-started/changing-modules.md
+  - docs/docs/getting-started/class-based-signatures.md
+  - docs/docs/getting-started/composing-modules.md
+  - docs/docs/getting-started/expanding-signatures.md
+  - docs/docs/getting-started/first-program.md
+  - docs/docs/getting-started/gepa-optimization.md
+  - docs/docs/getting-started/installation.md
+  - docs/docs/getting-started/metrics.md
+  - docs/docs/getting-started/program-dont-prompt.md
+  - docs/docs/getting-started/react-and-tools.md
+  - docs/docs/getting-started/saving-and-loading.md
+  - docs/docs/getting-started/where-to-go-next.md
+  - docs/docs/index.md
+  - docs/docs/learn/evaluation/data.md
+  - docs/docs/learn/evaluation/metrics.md
+  - docs/docs/learn/evaluation/overview.md
+  - docs/docs/learn/index.md
+  - docs/docs/learn/optimization/optimizers.md
+  - docs/docs/learn/optimization/overview.md
+  - docs/docs/learn/programming/7-assertions.md
+  - docs/docs/learn/programming/adapters.md
+  - docs/docs/learn/programming/language_models.md
+  - docs/docs/learn/programming/mcp.md
+  - docs/docs/learn/programming/modules.md
+  - docs/docs/learn/programming/overview.md
+  - docs/docs/learn/programming/signatures.md
+  - docs/docs/learn/programming/tools.md
+  - docs/docs/production/index.md
+  - docs/docs/tutorials/ai_text_game/index.md
+  - docs/docs/tutorials/async/index.md
+  - docs/docs/tutorials/build_ai_program/index.md
+  - docs/docs/tutorials/cache/index.md
+  - docs/docs/tutorials/classification/index.md
+  - docs/docs/tutorials/conversation_history/index.md
+  - docs/docs/tutorials/core_development/index.md
+  - docs/docs/tutorials/custom_lm_engines/index.md
+  - docs/docs/tutorials/deployment/index.md
+  - docs/docs/tutorials/email_extraction/index.md
+  - docs/docs/tutorials/gepa_ai_program/index.md
+  - docs/docs/tutorials/index.md
+  - docs/docs/tutorials/jev_decisions/index.md
+  - docs/docs/tutorials/llms_txt_generation/index.md
+  - docs/docs/tutorials/mcp/index.md
+  - docs/docs/tutorials/mem0_react_agent/index.md
+  - docs/docs/tutorials/observability/index.md
+  - docs/docs/tutorials/optimize_ai_program/index.md
+  - docs/docs/tutorials/optimizer_tracking/index.md
+  - docs/docs/tutorials/output_refinement/best-of-n-and-refine.md
+  - docs/docs/tutorials/papillon/index.md
+  - docs/docs/tutorials/real_world_examples/index.md
+  - docs/docs/tutorials/rl_ai_program/index.md
+  - docs/docs/tutorials/sample_code_generation/index.md
+  - docs/docs/tutorials/saving/index.md
+  - docs/docs/tutorials/streaming/index.md
+  - docs/docs/tutorials/yahoo_finance_react/index.md

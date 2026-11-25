@@ -1,0 +1,32 @@
+id: ragas-docs
+title: Ragas documentation
+owner: Exploding Gradients (Ragas)
+url: https://docs.ragas.io/
+kind: docs
+area: ai-engineering
+licence:
+  id: Apache-2.0
+  file_url: https://github.com/explodinggradients/ragas/blob/main/LICENSE
+  covers: both
+  note: Root LICENSE read 2026-10-25 (Apache-2.0), no docs exclusion; docs sit inside
+    the same repo. Copy in content/library/licences. Not a qualified legal review.
+  file_hash: sha256:664b930830f291c2936ab30bcd6ef9ca6c9c7384cc475ae0c526156a27d5a6c6
+version:
+  ref: 298b68274234c060deacab3cf5fb52aa3a20e885
+  fetched: 2026-10-25
+content_hash: sha256:811a5885a92e1a0407c0c3e559797595d49feb4a4ccf137732f28516611749a0
+status: approved
+reviewer: Asheesh Ranjan Srivastava
+reviewed_on: 2026-10-25
+override_reason: ''
+notes: Added 2026-10-25 for RAG evaluation (unit 9.x, retrieval metrics such as context
+  precision and recall, groundedness) and stage 5. Last push may be old; check it
+  is maintained.
+max_mb: 200
+fetch:
+  git: https://github.com/explodinggradients/ragas
+  ref: ''
+  paths:
+  - docs/concepts
+  - docs/getstarted
+  files: []

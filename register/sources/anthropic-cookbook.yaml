@@ -1,0 +1,83 @@
+id: anthropic-cookbook
+title: Anthropic Cookbook
+owner: Anthropic
+url: https://github.com/anthropics/anthropic-cookbook
+kind: repo
+area: ai-engineering
+licence:
+  id: MIT
+  file_url: https://github.com/anthropics/anthropic-cookbook/blob/main/LICENSE
+  covers: both
+  note: Root LICENSE read 2026-10-26 (standard MIT text, about 1085 bytes, no content
+    exclusion); the licence names 'documentation files'. Not a qualified legal review.
+  file_hash: sha256:d7a04bf11ce24a7b79cd44b4a78dcc9971eaeb3b565821de437e0ecb7723e634
+version:
+  ref: bfe50e59dbb4f5546a0af9ca36ebb77e637c9ce1
+  fetched: 2026-10-26
+content_hash: sha256:568650177c9b42faa93af126908f172fd98889c2bc57af968420ffa2547c3027
+status: approved
+reviewer: Asheesh Ranjan Srivastava
+reviewed_on: 2026-10-26
+override_reason: ''
+notes: 'Added 2026-10-26. Mostly Jupyter notebooks (103), which are not indexed; only
+  the Markdown pages are, so coverage is partial. Trimmed 2026-10-26 to the files
+  listed. Left out: sample data, generated reports and test folders.'
+max_mb: 200
+fetch:
+  git: https://github.com/anthropics/anthropic-cookbook
+  ref: ''
+  paths: []
+  files:
+  - capabilities/README.md
+  - capabilities/classification/README.md
+  - capabilities/classification/evaluation/README.md
+  - capabilities/content_moderation/README.md
+  - capabilities/content_moderation/data/ad_creatives/policies.md
+  - capabilities/content_moderation/data/product_listings/policies.md
+  - capabilities/content_moderation/data/ugc/policies.md
+  - capabilities/content_moderation/evaluation/README.md
+  - capabilities/contextual-embeddings/README.md
+  - capabilities/knowledge_graph/README.md
+  - capabilities/knowledge_graph/evaluation/README.md
+  - capabilities/retrieval_augmented_generation/README.md
+  - capabilities/retrieval_augmented_generation/evaluation/README.md
+  - capabilities/summarization/README.md
+  - capabilities/summarization/evaluation/README.md
+  - capabilities/text_to_sql/README.md
+  - capabilities/text_to_sql/evaluation/README.md
+  - claude_agent_sdk/README.md
+  - claude_agent_sdk/chief_of_staff_agent/.claude/agents/financial-analyst.md
+  - claude_agent_sdk/chief_of_staff_agent/.claude/agents/recruiter.md
+  - claude_agent_sdk/chief_of_staff_agent/.claude/commands/budget-impact.md
+  - claude_agent_sdk/chief_of_staff_agent/.claude/commands/slash-command-test.md
+  - claude_agent_sdk/chief_of_staff_agent/.claude/commands/strategic-brief.md
+  - claude_agent_sdk/chief_of_staff_agent/.claude/commands/talent-scan.md
+  - claude_agent_sdk/chief_of_staff_agent/.claude/output-styles/executive.md
+  - claude_agent_sdk/chief_of_staff_agent/.claude/output-styles/technical.md
+  - claude_agent_sdk/chief_of_staff_agent/CLAUDE.md
+  - claude_agent_sdk/chief_of_staff_agent/flow_diagram.md
+  - claude_agent_sdk/hosting/README.md
+  - claude_agent_sdk/hosting/docker/README.md
+  - claude_agent_sdk/hosting/kubernetes/README.md
+  - claude_agent_sdk/hosting/modal/README.md
+  - claude_agent_sdk/observability_agent/architecture_diagram.md
+  - claude_agent_sdk/research_agent/architecture_diagram.md
+  - managed_agents/README.md
+  - managed_agents/cma-mcp/README.md
+  - managed_agents/linear/README.md
+  - managed_agents/mongodb_on_cma/README.md
+  - managed_agents/mongodb_on_cma/self_hosted_sandbox/README.md
+  - managed_agents/roadtrip_planner/README.md
+  - managed_agents/self_hosted_sandboxes/README.md
+  - managed_agents/sentry/README.md
+  - managed_agents/slack/README.md
+  - patterns/agents/README.md
+  - patterns/agents/prompts/citations_agent.md
+  - patterns/agents/prompts/research_lead_agent.md
+  - patterns/agents/prompts/research_subagent.md
+  - skills/CLAUDE.md
+  - skills/README.md
+  - skills/custom_skills/analyzing-financial-statements/SKILL.md
+  - skills/custom_skills/applying-brand-guidelines/REFERENCE.md
+  - skills/custom_skills/applying-brand-guidelines/SKILL.md
+  - skills/custom_skills/creating-financial-models/SKILL.md

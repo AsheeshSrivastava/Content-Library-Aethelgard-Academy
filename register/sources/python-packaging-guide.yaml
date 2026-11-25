@@ -1,0 +1,23 @@
+id: python-packaging-guide
+title: Python Packaging User Guide
+owner: Python Packaging Authority
+url: https://packaging.python.org/
+kind: docs
+area: python
+licence:
+  id: CC-BY-SA-3.0
+  file_url: https://github.com/pypa/packaging.python.org/blob/main/README.rst
+  covers: both
+  note: No LICENSE file. README.rst (read 2026-10-26) says the guide is licensed under Creative Commons
+    Attribution-ShareAlike 3.0. Share-alike is held back for the same reason as OWASP. Not fetched.
+version:
+  ref: ''
+  fetched: null
+content_hash: ''
+status: quarantine
+reviewer: ''
+reviewed_on: null
+override_reason: ''
+notes: Added 2026-10-26; held in quarantine on purpose (share-alike). Do not fetch unless Asheesh decides
+  otherwise.
+max_mb: 200

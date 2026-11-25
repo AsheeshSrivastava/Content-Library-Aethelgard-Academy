@@ -1,0 +1,20 @@
+id: chiphuyen-dmls-book
+title: Designing Machine Learning Systems (companion repo)
+owner: Chip Huyen
+url: https://github.com/chiphuyen/dmls-book
+kind: repo
+area: ai-engineering
+licence:
+  id: unverified
+  file_url: ''
+  covers: unknown
+  note: No licence shown on the repo page.
+version:
+  ref: ''
+  fetched: null
+content_hash: ''
+status: rejected
+reviewer: Claude self-review
+reviewed_on: 2026-10-22
+override_reason: ''
+notes: Holds summaries of a published book and no licence. Rejected 2026-10-22.

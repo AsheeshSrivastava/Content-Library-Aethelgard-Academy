@@ -1,0 +1,20 @@
+id: pinecone-docs
+title: Pinecone documentation
+owner: Pinecone Systems, Inc.
+url: https://docs.pinecone.io/
+kind: docs
+area: ai-engineering
+licence:
+  id: unverified
+  file_url: ''
+  covers: unknown
+  note: Documentation terms and licence not yet read.
+version:
+  ref: ''
+  fetched: null
+content_hash: ''
+status: quarantine
+reviewer: ''
+reviewed_on: null
+override_reason: ''
+notes: 'Candidate for the cloud version: a managed (hosted) vector database. Asked about by Asheesh 2026-10-23. Not suitable for the local-first MVP, where data stays on the PC. Until the terms are read, treat as reference only: link to it, do not copy it.'

@@ -1,0 +1,22 @@
+id: asabeneh-30-days-of-python
+title: 30 Days of Python (original repo; Asheesh's fork is a copy)
+owner: Asabeneh Yetayeh
+url: https://github.com/Asabeneh/30-Days-Of-Python
+kind: repo
+area: python
+licence:
+  id: unlicensed
+  file_url: ''
+  covers: unknown
+  note: GitHub reports no licence on the original or on Asheesh's fork, and the original's root folder has no LICENSE file (checked 2026-10-22 through the GitHub API). A fork does not give us the right to reuse.
+  file_hash: ''
+version:
+  ref: ''
+  fetched: null
+content_hash: ''
+status: reference-only
+reviewer: Claude self-review
+reviewed_on: 2026-10-22
+override_reason: ''
+notes: Cite and link only. Reuse would need the author's written permission or a licence added upstream. Useful as a beginner-topic map (30 daily topics).
+max_mb: 200

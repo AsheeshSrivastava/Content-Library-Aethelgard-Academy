@@ -1,0 +1,103 @@
+id: rasbt-llms-from-scratch
+title: Build a Large Language Model (From Scratch)
+owner: Sebastian Raschka
+url: https://github.com/rasbt/LLMs-from-scratch
+kind: repo
+area: ai-engineering
+licence:
+  id: Apache-2.0
+  file_url: https://github.com/rasbt/LLMs-from-scratch/blob/fb009538a8875f481a10f3f1f7b93b9ee51a42e3/LICENSE.txt
+  covers: both
+  note: Licence file read at the pinned commit 2026-10-30. Not a qualified legal review.
+  file_hash: sha256:4b6615cdb446946fa1907e1d195e02130d6833fbd162e018b60dd39893fb231f
+version:
+  ref: fb009538a8875f481a10f3f1f7b93b9ee51a42e3
+  fetched: 2026-10-30
+content_hash: sha256:e6f3a080dea816384eb27b6df71fa0abfe0dc670f0b1261e45eb4a77a774cf4f
+status: approved
+reviewer: Asheesh Ranjan Srivastava
+reviewed_on: 2026-10-30
+override_reason: ''
+notes: Added 2026-10-30. Markdown pages only; the code and notebooks are not indexed,
+  so coverage is partial.
+max_mb: 200
+fetch:
+  git: https://github.com/rasbt/LLMs-from-scratch
+  ref: ''
+  paths: []
+  files:
+  - README.md
+  - appendix-A/01_main-chapter-code/README.md
+  - appendix-A/02_setup-recommendations/README.md
+  - appendix-A/README.md
+  - appendix-B/README.md
+  - appendix-C/README.md
+  - appendix-D/README.md
+  - appendix-E/README.md
+  - ch01/README.md
+  - ch01/reading-recommendations.md
+  - ch02/01_main-chapter-code/README.md
+  - ch02/02_bonus_bytepair-encoder/README.md
+  - ch02/03_bonus_embedding-vs-matmul/README.md
+  - ch02/04_bonus_dataloader-intuition/README.md
+  - ch02/05_bpe-from-scratch/README.md
+  - ch02/06_bonus_simple-tokenizer-v3/README.md
+  - ch02/README.md
+  - ch03/01_main-chapter-code/README.md
+  - ch03/02_bonus_efficient-multihead-attention/README.md
+  - ch03/03_understanding-buffers/README.md
+  - ch03/README.md
+  - ch04/01_main-chapter-code/README.md
+  - ch04/02_performance-analysis/README.md
+  - ch04/03_kv-cache/README.md
+  - ch04/04_gqa/README.md
+  - ch04/05_mla/README.md
+  - ch04/06_swa/README.md
+  - ch04/07_moe/README.md
+  - ch04/08_deltanet/README.md
+  - ch04/09_dsa/README.md
+  - ch04/10_kv-sharing/README.md
+  - ch04/README.md
+  - ch05/01_main-chapter-code/README.md
+  - ch05/02_alternative_weight_loading/README.md
+  - ch05/03_bonus_pretraining_on_gutenberg/README.md
+  - ch05/04_learning_rate_schedulers/README.md
+  - ch05/05_bonus_hparam_tuning/README.md
+  - ch05/06_user_interface/README.md
+  - ch05/07_gpt_to_llama/README.md
+  - ch05/08_memory_efficient_weight_loading/README.md
+  - ch05/09_extending-tokenizers/README.md
+  - ch05/10_llm-training-speed/README.md
+  - ch05/11_qwen3/README.md
+  - ch05/11_qwen3/qwen3-chat-interface/README.md
+  - ch05/12_gemma3/README.md
+  - ch05/13_olmo3/README.md
+  - ch05/14_ch05_with_other_llms/README.md
+  - ch05/15_tiny-aya/README.md
+  - ch05/16_qwen3.5/README.md
+  - ch05/17_gemma4/README.md
+  - ch05/18_muon/README.md
+  - ch05/19_cpu_mps_differences/README.md
+  - ch05/README.md
+  - ch06/01_main-chapter-code/README.md
+  - ch06/02_bonus_additional-experiments/README.md
+  - ch06/03_bonus_imdb-classification/README.md
+  - ch06/04_user_interface/README.md
+  - ch06/README.md
+  - ch07/01_main-chapter-code/README.md
+  - ch07/02_dataset-utilities/README.md
+  - ch07/03_model-evaluation/README.md
+  - ch07/04_preference-tuning-with-dpo/README.md
+  - ch07/05_dataset-generation/README.md
+  - ch07/06_user_interface/README.md
+  - ch07/README.md
+  - pkg/llms_from_scratch/README.md
+  - setup/01_optional-python-setup-preferences/README.md
+  - setup/01_optional-python-setup-preferences/native-pixi.md
+  - setup/01_optional-python-setup-preferences/native-uv.md
+  - setup/02_installing-python-libraries/README.md
+  - setup/03_optional-docker-environment/.devcontainer/README.md
+  - setup/03_optional-docker-environment/README.md
+  - setup/04_optional-aws-sagemaker-notebook/README.md
+  - setup/README.md
+  - troubleshooting.md

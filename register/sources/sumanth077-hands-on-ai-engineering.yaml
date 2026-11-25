@@ -1,0 +1,21 @@
+id: sumanth077-hands-on-ai-engineering
+title: Hands-On AI Engineering
+owner: Sumanth077
+url: https://github.com/Sumanth077/Hands-On-AI-Engineering
+kind: repo
+area: ai-engineering
+licence:
+  id: unverified
+  file_url: https://github.com/Sumanth077/Hands-On-AI-Engineering/blob/main/LICENSE
+  covers: unknown
+  note: 'Read 2026-10-26: the README shows an MIT badge but the repo has NO licence file, so the licence
+    cannot be verified. Stays in quarantine; ask the author to add a LICENSE file if we want it.'
+version:
+  ref: ''
+  fetched: null
+content_hash: ''
+status: quarantine
+reviewer: ''
+reviewed_on: null
+override_reason: ''
+notes: ''

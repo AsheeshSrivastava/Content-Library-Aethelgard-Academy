@@ -1,0 +1,35 @@
+id: huggingface-sentence-transformers-docs
+title: Sentence Transformers documentation and examples
+owner: Hugging Face (UKP Lab origin)
+url: https://sbert.net/
+kind: docs
+area: ai-engineering
+licence:
+  id: Apache-2.0
+  file_url: https://github.com/huggingface/sentence-transformers/blob/main/LICENSE
+  covers: both
+  note: Root LICENSE read 2026-10-25 (Apache-2.0), no docs exclusion; docs sit inside
+    the same repo. Copy in content/library/licences. Not a qualified legal review.
+  file_hash: sha256:624b030fd62b8b989dd502d5bb6322cbc0dbb524ab9c9708f32efe33d7275735
+version:
+  ref: 33f9bd81610560e48ff5eac80e910496b49ae193
+  fetched: 2026-10-25
+content_hash: sha256:90b390b3f2b30f44dac4cf85ff000cf9f46f37dba56d6a95bbaabc711da2859a
+status: approved
+reviewer: Asheesh Ranjan Srivastava
+reviewed_on: 2026-10-25
+override_reason: ''
+notes: Added 2026-10-25 for RAG and reranking breadth (units 6.x embeddings, 8.2 hybrid,
+  8.3 reranking). Bi-encoder versus cross-encoder, retrieve-and-rerank. Docs are mostly
+  .rst; check that the indexer reads them.
+max_mb: 200
+fetch:
+  git: https://github.com/huggingface/sentence-transformers
+  ref: ''
+  paths:
+  - docs/cross_encoder
+  - docs/sentence_transformer
+  - examples/sentence_transformer/applications/retrieve_rerank
+  - examples/sentence_transformer/applications/semantic-search
+  - examples/cross_encoder/applications
+  files: []

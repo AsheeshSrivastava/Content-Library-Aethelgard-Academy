@@ -1,0 +1,32 @@
+id: huggingface-course
+title: Hugging Face Course
+owner: Hugging Face
+url: https://huggingface.co/learn
+kind: repo
+area: ai-engineering
+licence:
+  id: Apache-2.0
+  file_url: https://github.com/huggingface/course/blob/main/LICENSE
+  covers: both
+  note: LICENSE read 2026-10-30 (standard Apache-2.0 text, 11357 bytes). Not a qualified
+    legal review.
+  file_hash: sha256:c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4
+version:
+  ref: 8b893f0ede6c781045692a7f892f25a0c92b4805
+  fetched: 2026-10-30
+content_hash: sha256:b49cd50dd27125ff7f5cc231300952c345e4a748d40397f3e0bdb0bf5e35e055
+status: approved
+reviewer: Asheesh Ranjan Srivastava
+reviewed_on: 2026-10-30
+override_reason: ''
+notes: Added 2026-10-25 for embeddings and semantic search basics. English chapters
+  only (the repo holds many translations). Chapters are .mdx; check the indexer reads
+  them.
+max_mb: 200
+fetch:
+  git: https://github.com/huggingface/course
+  ref: ''
+  paths:
+  - chapters/en/chapter1
+  - chapters/en/chapter5
+  files: []

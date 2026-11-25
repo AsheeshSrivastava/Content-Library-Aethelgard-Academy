@@ -1,0 +1,83 @@
+id: pydantic-docs
+title: Pydantic documentation
+owner: Pydantic Services
+url: https://docs.pydantic.dev/
+kind: docs
+area: python
+licence:
+  id: MIT
+  file_url: https://github.com/pydantic/pydantic/blob/main/LICENSE
+  covers: both
+  note: Root LICENSE read 2026-10-26 (standard MIT text, about 1150 bytes, no content
+    exclusion); the licence names 'documentation files'. Not a qualified legal review.
+  file_hash: sha256:a9e186f3ca16b5eef84318e7a701721351a00cb7b8ae3a4394b67b49e3529ef3
+version:
+  ref: 37dc34b4f001191b4f3db707cc52bac95baf17f0
+  fetched: 2026-10-26
+content_hash: sha256:3802b6ae098cf3f54c8a464df1f3632b0f2bf3e093ae8121bbea379c57e2db76
+status: approved
+reviewer: Asheesh Ranjan Srivastava
+reviewed_on: 2026-10-26
+override_reason: ''
+notes: 'Added 2026-10-26 for data validation and settings (about 90 pages). Trimmed
+  2026-10-26 to the files listed. Left out: api stub pages and contributing.'
+max_mb: 200
+fetch:
+  git: https://github.com/pydantic/pydantic
+  ref: ''
+  paths: []
+  files:
+  - docs/concepts/alias.md
+  - docs/concepts/config.md
+  - docs/concepts/conversion_table.md
+  - docs/concepts/dataclasses.md
+  - docs/concepts/experimental.md
+  - docs/concepts/fields.md
+  - docs/concepts/forward_annotations.md
+  - docs/concepts/json.md
+  - docs/concepts/json_schema.md
+  - docs/concepts/models.md
+  - docs/concepts/performance.md
+  - docs/concepts/pydantic_settings.md
+  - docs/concepts/serialization.md
+  - docs/concepts/strict_mode.md
+  - docs/concepts/type_adapter.md
+  - docs/concepts/types.md
+  - docs/concepts/unions.md
+  - docs/concepts/validation_decorator.md
+  - docs/concepts/validators.md
+  - docs/enterprise-support.md
+  - docs/errors/errors.md
+  - docs/errors/troubleshooting.md
+  - docs/errors/usage_errors.md
+  - docs/errors/validation_errors.md
+  - docs/examples/custom_validators.md
+  - docs/examples/cyclic_references.md
+  - docs/examples/dynamic_models.md
+  - docs/examples/files.md
+  - docs/examples/orms.md
+  - docs/examples/pydantic_ai.md
+  - docs/examples/queues.md
+  - docs/examples/requests.md
+  - docs/help_with_pydantic.md
+  - docs/index.md
+  - docs/install.md
+  - docs/integrations/aws_lambda.md
+  - docs/integrations/datamodel_code_generator.md
+  - docs/integrations/devtools.md
+  - docs/integrations/documentation.md
+  - docs/integrations/hypothesis.md
+  - docs/integrations/linting.md
+  - docs/integrations/llms.md
+  - docs/integrations/logfire.md
+  - docs/integrations/mypy.md
+  - docs/integrations/pycharm.md
+  - docs/integrations/pyrefly.md
+  - docs/integrations/rich.md
+  - docs/integrations/visual_studio_code.md
+  - docs/internals/architecture.md
+  - docs/internals/resolving_annotations.md
+  - docs/migration.md
+  - docs/pydantic_people.md
+  - docs/version-policy.md
+  - docs/why.md
