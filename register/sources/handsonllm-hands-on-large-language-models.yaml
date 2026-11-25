@@ -1,0 +1,20 @@
+id: handsonllm-hands-on-large-language-models
+title: Hands-On Large Language Models (companion repo)
+owner: Jay Alammar, Maarten Grootendorst
+url: https://github.com/HandsOnLLM/Hands-On-Large-Language-Models
+kind: repo
+area: ai-engineering
+licence:
+  id: Apache-2.0
+  file_url: https://github.com/HandsOnLLM/Hands-On-Large-Language-Models/blob/main/LICENSE
+  covers: code
+  note: Repo page shows Apache-2.0; it does not say the book text is covered.
+version:
+  ref: ''
+  fetched: null
+content_hash: ''
+status: quarantine
+reviewer: ''
+reviewed_on: null
+override_reason: ''
+notes: Use the code only. The book text belongs to the publisher.

@@ -1,0 +1,38 @@
+id: python-peps
+title: Python Enhancement Proposals
+owner: Python Software Foundation
+url: https://peps.python.org/
+kind: docs
+area: python
+licence:
+  id: CC0-1.0
+  file_url: https://github.com/python/peps/blob/main/peps/pep-0001.rst
+  covers: both
+  note: 'Read 2026-10-23: PEP 1 says each PEP is placed in the public domain or under
+    CC0-1.0, whichever is more permissive; PEP 8 ends "This document has been placed
+    in the public domain." The repository has no LICENSE file, so the statement lives
+    in each document. Before any PEP is indexed, its own copyright section must be
+    read and found to say public domain or CC0. Some PEPs may differ.'
+  file_hash: sha256:8b613aac788344b22acb5a7bf4684c8f464baa4f1f742128bb7df2ff108b6f52
+version:
+  ref: 9d5f4ad2ce0c0272d810ab2017964d51c77b5aa2
+  fetched: 2026-10-24
+content_hash: sha256:a6a620e9f7fe7152271aa5b0559d0e21f99fbce9bd2fdf63808a72a2cb6a7460
+status: approved
+reviewer: Asheesh Ranjan Srivastava
+reviewed_on: 2026-10-24
+override_reason: ''
+notes: 'Python source for the Python units. Only named PEPs are taken (PEP 8, 20,
+  257 and others the coverage map needs). The repository has no tags, so the pin is
+  the commit at fetch time (HEAD seen 2026-10-23: 22db3b4d). Copyright sections read
+  2026-10-24 on main: PEP 8, 20 and 257 each say "This document has been placed in
+  the public domain.". Files taken: pep-0008, pep-0020, pep-0257 only. Fetched, indexed and embedded 2026-10-24.'
+max_mb: 200
+fetch:
+  git: https://github.com/python/peps
+  ref: ''
+  paths: []
+  files:
+  - peps/pep-0008.rst
+  - peps/pep-0020.rst
+  - peps/pep-0257.rst

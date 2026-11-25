@@ -1,0 +1,61 @@
+id: openai-evals
+title: OpenAI Evals
+owner: OpenAI
+url: https://github.com/openai/evals
+kind: repo
+area: ai-engineering
+licence:
+  id: MIT
+  file_url: https://github.com/openai/evals/blob/8eac7a7de5215c907fbddc30efdaf316913eccdd/LICENSE.md
+  covers: both
+  note: Licence file read at the pinned commit 2026-10-30. Not a qualified legal review.
+  file_hash: sha256:055f213a5784ecbe4d24df5f539bd134490e327d5e83c51c2ba4e9d5cf308757
+version:
+  ref: 8eac7a7de5215c907fbddc30efdaf316913eccdd
+  fetched: 2026-10-30
+content_hash: sha256:a1e3cbd60dc5ca031067a34992471ec7bbdc0895ea9d1e96711ae0809b68c55f
+status: approved
+reviewer: Asheesh Ranjan Srivastava
+reviewed_on: 2026-10-30
+override_reason: ''
+notes: Added 2026-10-30. LICENSE.md is MIT but says the datasets under evals/registry/data
+  have their own licences (some non-commercial), so that folder is left out. Only
+  docs and Markdown pages are taken.
+max_mb: 200
+fetch:
+  git: https://github.com/openai/evals
+  ref: ''
+  paths: []
+  files:
+  - README.md
+  - docs/build-eval.md
+  - docs/completion-fn-protocol.md
+  - docs/completion-fns.md
+  - docs/custom-eval.md
+  - docs/eval-templates.md
+  - docs/run-evals.md
+  - evals/elsuite/already_said_that/README.md
+  - evals/elsuite/ballots/readme.md
+  - evals/elsuite/bluff/README.md
+  - evals/elsuite/bugged_tools/README.md
+  - evals/elsuite/cant_do_that_anymore/README.md
+  - evals/elsuite/error_recovery/README.md
+  - evals/elsuite/function_deduction/README.md
+  - evals/elsuite/hr_ml_agent_bench/README.md
+  - evals/elsuite/identifying_variables/README.md
+  - evals/elsuite/make_me_pay/readme.md
+  - evals/elsuite/make_me_say/readme.md
+  - evals/elsuite/multistep_web_tasks/README.md
+  - evals/elsuite/sandbagging/README.md
+  - evals/elsuite/schelling_point/README.md
+  - evals/elsuite/self_prompting/readme.md
+  - evals/elsuite/skill_acquisition/readme.md
+  - evals/elsuite/steganography/readme.md
+  - evals/elsuite/steganography/scripts/dataset/README.md
+  - evals/elsuite/text_compression/readme.md
+  - evals/elsuite/text_compression/scripts/dataset/README.md
+  - evals/elsuite/theory_of_mind/readme.md
+  - evals/elsuite/track_the_stat/README.md
+  - evals/elsuite/twenty_questions/readme.md
+  - evals/solvers/README.md
+  - evals/solvers/postprocessors/README.md

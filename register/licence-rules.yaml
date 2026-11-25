@@ -1,0 +1,5 @@
+# What each licence lets the library take. Ids are SPDX where one exists.
+# A licence not listed here is reference-only: we cite it and copy none of it.
+allowed: [MIT, Apache-2.0, BSD-2-Clause, BSD-3-Clause, CC-BY-4.0, CC0-1.0, PSF-2.0, Unlicense]
+share-alike: [CC-BY-SA-4.0, GPL-2.0-only, GPL-3.0-only, GPL-3.0-or-later]
+non-commercial: [CC-BY-NC-4.0, CC-BY-NC-SA-4.0, custom-non-commercial]

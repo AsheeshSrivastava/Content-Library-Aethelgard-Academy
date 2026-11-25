@@ -1,0 +1,32 @@
+id: opentelemetry-docs
+title: OpenTelemetry documentation
+owner: OpenTelemetry (CNCF)
+url: https://opentelemetry.io/docs/
+kind: docs
+area: ai-engineering
+licence:
+  id: CC-BY-4.0
+  file_url: https://github.com/open-telemetry/opentelemetry.io/blob/main/LICENSE
+  covers: text
+  note: 'Root LICENSE read 2026-10-24: Creative Commons Attribution 4.0 International.
+    A second file, LICENSE-CODE, covers code samples. Not yet verified at a pinned
+    commit.'
+  file_hash: sha256:6f9997b6f85f473f853aeef19b5f16504dd228ba99cee70e5a19211df947a2b3
+version:
+  ref: ce13abdfc9fac8e92bf420b1f758451f63082c69
+  fetched: 2026-10-24
+content_hash: sha256:a069ba9b3787a53a643dbfd2f4cd616b7dc662ba3fd5237b7d31b2e728561199
+status: limited
+reviewer: Asheesh Ranjan Srivastava
+reviewed_on: 2026-10-24
+override_reason: ''
+notes: Added 2026-10-24 from links in the rohitg00 lessons (stage 13 tracing, stage
+  11 trace reading). Take concepts only; tracing vocabulary, signals, context propagation.
+max_mb: 200
+fetch:
+  git: https://github.com/open-telemetry/opentelemetry.io
+  ref: ''
+  paths:
+  - content/en/docs/concepts
+  - content/en/docs/what-is-opentelemetry.md
+  files: []

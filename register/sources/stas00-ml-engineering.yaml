@@ -1,0 +1,90 @@
+id: stas00-ml-engineering
+title: Machine Learning Engineering Open Book
+owner: Stas Bekman
+url: https://github.com/stas00/ml-engineering
+kind: repo
+area: ai-engineering
+licence:
+  id: CC-BY-SA-4.0
+  file_url: https://github.com/stas00/ml-engineering/blob/adab2fa8732e13029acd8ab992c1941604f5f94d/LICENSE-CC-BY-SA
+  covers: both
+  note: Licence file read at the pinned commit 2026-10-30. Not a qualified legal review.
+  file_hash: sha256:d06ba16057cd1b732d9705934192bb4e376836b8fa4965e67dd4692bd2f6f130
+version:
+  ref: adab2fa8732e13029acd8ab992c1941604f5f94d
+  fetched: 2026-10-30
+content_hash: sha256:5ea86e97b5cef937ef5ef32edf565a5fe38aff708bc33b0bf994e7d27ff0f06b
+status: approved
+reviewer: Asheesh Ranjan Srivastava
+reviewed_on: 2026-10-30
+override_reason: 'Owner 2026-10-30: used as reference to understand topics only; our
+  own content is written in our own words and no text is copied, so share-alike does
+  not apply to what we ship.'
+notes: 'Added 2026-10-30. Whole book is CC BY-SA 4.0 (share-alike): the gate caps
+  it at limited.'
+max_mb: 200
+fetch:
+  git: https://github.com/stas00/ml-engineering
+  ref: ''
+  paths: []
+  files:
+  - README.md
+  - SKILL.md
+  - build/README.md
+  - build/SESSION.md
+  - build/consistency-checks.md
+  - build/cover/README.md
+  - compute/README.md
+  - compute/accelerator/README.md
+  - compute/accelerator/amd/debug.md
+  - compute/accelerator/amd/performance.md
+  - compute/accelerator/benchmarks/README.md
+  - compute/accelerator/nvidia/debug.md
+  - compute/cpu-memory/README.md
+  - compute/cpu/README.md
+  - courses/lesson-learned/README.md
+  - debug/README.md
+  - debug/make-tiny-models-tokenizers-datasets.md
+  - debug/nccl-performance-debug.md
+  - debug/pytorch.md
+  - debug/tiny-scripts/README.md
+  - debug/tools.md
+  - debug/torch-distributed-hanging-solutions.md
+  - debug/underflow_overflow.md
+  - inference/README.md
+  - insights/ai-battlefield.md
+  - insights/how-to-choose-cloud-provider.md
+  - insights/when-to-upgrade-gpus/README.md
+  - model-parallelism/README.md
+  - network/README.md
+  - network/benchmarks/README.md
+  - network/comms.md
+  - network/debug/README.md
+  - orchestration/README.md
+  - orchestration/kubernetes/README.md
+  - orchestration/slurm/README.md
+  - orchestration/slurm/admin.md
+  - orchestration/slurm/launchers/README.md
+  - orchestration/slurm/performance.md
+  - orchestration/slurm/users.md
+  - resources/README.md
+  - skills/README.md
+  - skills/evaluate-cluster/SKILL.md
+  - skills/ml-engineering/SKILL.md
+  - stabs/README.md
+  - stabs/incoming.md
+  - storage/README.md
+  - testing/README.md
+  - training/README.md
+  - training/checkpoints/README.md
+  - training/datasets.md
+  - training/dtype.md
+  - training/emulate-multi-node.md
+  - training/fault-tolerance/README.md
+  - training/hparams.md
+  - training/instabilities/README.md
+  - training/instabilities/training-loss-patterns.md
+  - training/model-parallelism/README.md
+  - training/performance/README.md
+  - training/re-train-hub-models.md
+  - training/reproducibility/README.md

@@ -1,0 +1,31 @@
+id: uv-docs
+title: uv documentation
+owner: Astral
+url: https://docs.astral.sh/uv/
+kind: docs
+area: python
+licence:
+  id: MIT
+  file_url: https://github.com/astral-sh/uv/blob/0.13.5/LICENSE-MIT
+  covers: both
+  note: 'Read 2026-10-23 at tag 0.13.5: the repository is dual licensed MIT or Apache-2.0
+    (LICENSE-MIT and LICENSE-APACHE); we rely on the MIT option, copyright Astral
+    Software Inc. The fetch step only looks for files named LICENSE or COPYING, so
+    it must learn these two names before this source can be fetched and hashed.'
+  file_hash: sha256:860e3d7a86b84e6a7012c7a635fc64df475cebc6cce34dfeb73a5982ec58176c
+version:
+  ref: 46776a95d6686ac0160c10611327ce491e6b202f
+  fetched: 2026-10-24
+content_hash: sha256:783a1f77c01e070d7a1bd02bbc742ff0a9ee5ec1e66285b328b57ee4b1cf4457
+status: approved
+reviewer: Asheesh Ranjan Srivastava
+reviewed_on: 2026-10-24
+override_reason: ''
+notes: Python source for the Python units (environments, projects, scripts, tools).
+  Latest release tag seen 2026-10-23 is 0.13.5. Fetched, indexed and embedded 2026-10-24.
+max_mb: 200
+fetch:
+  git: https://github.com/astral-sh/uv
+  ref: 0.13.5
+  paths:
+  - docs

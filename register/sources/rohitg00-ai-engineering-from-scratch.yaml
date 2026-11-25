@@ -1,0 +1,75 @@
+id: rohitg00-ai-engineering-from-scratch
+title: AI Engineering from Scratch
+owner: Rohit Ghumare
+url: https://github.com/rohitg00/ai-engineering-from-scratch
+kind: repo
+area: ai-engineering
+licence:
+  id: MIT
+  file_url: https://github.com/rohitg00/ai-engineering-from-scratch/blob/main/LICENSE
+  covers: both
+  note: 'LICENSE file read 2026-10-22: MIT, copyright Rohit Ghumare, covers software
+    and documentation files.'
+  file_hash: sha256:d116e214adbcab1c96e680695bcda5c629f00d72425f83e18770ce5e156c17d4
+version:
+  ref: 3f9715c62a3bedcffb68a260f1a65ee2dd9cc10a
+  fetched: 2026-10-24
+content_hash: sha256:a9e72d25cac808f9d6a56e23ee9e9cf57e69daf27fb5685cd2c94fc026d9d40a
+status: approved
+reviewer: Claude self-review
+reviewed_on: 2026-10-23
+override_reason: ''
+notes: First RAG pilot source (chunking, retrieval, RAG lessons). Lesson quality and
+  code not yet checked; no version pinned.
+max_mb: 200
+fetch:
+  git: https://github.com/rohitg00/ai-engineering-from-scratch
+  ref: ''
+  paths:
+  - phases/05-nlp-foundations-to-advanced/14-information-retrieval-search
+  - phases/05-nlp-foundations-to-advanced/22-embedding-models-deep-dive
+  - phases/05-nlp-foundations-to-advanced/23-chunking-strategies-rag
+  - phases/11-llm-engineering/04-embeddings
+  - phases/11-llm-engineering/05-context-engineering
+  - phases/11-llm-engineering/06-rag
+  - phases/11-llm-engineering/07-advanced-rag
+  - phases/11-llm-engineering/11-caching-cost
+  - phases/11-llm-engineering/15-prompt-caching
+  - phases/00-setup-and-tooling/04-apis-and-keys
+  - phases/02-ml-fundamentals/09-model-evaluation
+  - phases/05-nlp-foundations-to-advanced/20-structured-outputs-constrained-decoding
+  - phases/05-nlp-foundations-to-advanced/27-llm-evaluation-frameworks
+  - phases/11-llm-engineering/01-prompt-engineering
+  - phases/11-llm-engineering/03-structured-outputs
+  - phases/11-llm-engineering/08-fine-tuning-lora
+  - phases/11-llm-engineering/09-function-calling
+  - phases/11-llm-engineering/10-evaluation
+  - phases/11-llm-engineering/12-guardrails
+  - phases/11-llm-engineering/17-agent-framework-tradeoffs
+  - phases/13-tools-and-protocols/01-the-tool-interface
+  - phases/13-tools-and-protocols/02-function-calling-deep-dive
+  - phases/13-tools-and-protocols/04-structured-output
+  - phases/13-tools-and-protocols/05-tool-schema-design
+  - phases/13-tools-and-protocols/15-mcp-security-tool-poisoning
+  - phases/13-tools-and-protocols/20-opentelemetry-genai
+  - phases/13-tools-and-protocols/21-llm-routing-layer
+  - phases/14-agent-engineering/01-the-agent-loop
+  - phases/14-agent-engineering/05-self-refine-and-critic
+  - phases/14-agent-engineering/06-tool-use-and-function-calling
+  - phases/14-agent-engineering/07-memory-virtual-context-memgpt
+  - phases/14-agent-engineering/09-hybrid-memory-mem0
+  - phases/14-agent-engineering/12-anthropic-workflow-patterns
+  - phases/14-agent-engineering/26-failure-modes-agentic
+  - phases/14-agent-engineering/27-prompt-injection-defense
+  - phases/14-agent-engineering/28-orchestration-patterns
+  - phases/14-agent-engineering/30-eval-driven-agent-development
+  - phases/17-infrastructure-and-production/13-llm-observability
+  - phases/17-infrastructure-and-production/14-prompt-semantic-caching
+  - phases/17-infrastructure-and-production/15-batch-apis
+  - phases/17-infrastructure-and-production/25-security-secrets-audit
+  - phases/18-ethics-safety-alignment/15-indirect-prompt-injection
+  - phases/18-ethics-safety-alignment/29-moderation-systems-openai-perspective-llamaguard
+  - phases/19-capstone-projects/65-hybrid-retrieval-bm25-dense
+  - phases/19-capstone-projects/66-reranker-cross-encoder
+  - phases/19-capstone-projects/68-rag-eval-precision-recall
+  files: []

@@ -1,0 +1,86 @@
+id: dabeaz-practical-python
+title: Practical Python Programming
+owner: David Beazley
+url: https://github.com/dabeaz-course/practical-python
+kind: repo
+area: python
+licence:
+  id: CC-BY-SA-4.0
+  file_url: https://github.com/dabeaz-course/practical-python/blob/93dca856b41c61a0a0f85ae334116e4c125629ea/LICENSE.md
+  covers: both
+  note: Licence file read at the pinned commit 2026-10-30. Not a qualified legal review.
+  file_hash: sha256:5049f48bb0fecbaa7974ac5d5f38ade23e829df637fa2f65c5fb3c74ec086a52
+version:
+  ref: 93dca856b41c61a0a0f85ae334116e4c125629ea
+  fetched: 2026-10-30
+content_hash: sha256:097b722c791cc1b17bf0b85399a45adcc8d7f67f54c19af881907b0aca8a3fc4
+status: approved
+reviewer: Asheesh Ranjan Srivastava
+reviewed_on: 2026-10-30
+override_reason: 'Owner 2026-10-30: used as reference to understand topics only; our
+  own content is written in our own words and no text is copied, so share-alike does
+  not apply to what we ship.'
+notes: 'Added 2026-10-30. Course notes only (Notes/ and README). Solutions and Work
+  folders left out. Whole repo is CC BY-SA 4.0 (share-alike): the gate caps it at
+  limited.'
+max_mb: 200
+fetch:
+  git: https://github.com/dabeaz-course/practical-python
+  ref: ''
+  paths: []
+  files:
+  - Notes/00_Setup.md
+  - Notes/01_Introduction/00_Overview.md
+  - Notes/01_Introduction/01_Python.md
+  - Notes/01_Introduction/02_Hello_world.md
+  - Notes/01_Introduction/03_Numbers.md
+  - Notes/01_Introduction/04_Strings.md
+  - Notes/01_Introduction/05_Lists.md
+  - Notes/01_Introduction/06_Files.md
+  - Notes/01_Introduction/07_Functions.md
+  - Notes/02_Working_with_data/00_Overview.md
+  - Notes/02_Working_with_data/01_Datatypes.md
+  - Notes/02_Working_with_data/02_Containers.md
+  - Notes/02_Working_with_data/03_Formatting.md
+  - Notes/02_Working_with_data/04_Sequences.md
+  - Notes/02_Working_with_data/05_Collections.md
+  - Notes/02_Working_with_data/06_List_comprehension.md
+  - Notes/02_Working_with_data/07_Objects.md
+  - Notes/03_Program_organization/00_Overview.md
+  - Notes/03_Program_organization/01_Script.md
+  - Notes/03_Program_organization/02_More_functions.md
+  - Notes/03_Program_organization/03_Error_checking.md
+  - Notes/03_Program_organization/04_Modules.md
+  - Notes/03_Program_organization/05_Main_module.md
+  - Notes/03_Program_organization/06_Design_discussion.md
+  - Notes/04_Classes_objects/00_Overview.md
+  - Notes/04_Classes_objects/01_Class.md
+  - Notes/04_Classes_objects/02_Inheritance.md
+  - Notes/04_Classes_objects/03_Special_methods.md
+  - Notes/04_Classes_objects/04_Defining_exceptions.md
+  - Notes/05_Object_model/00_Overview.md
+  - Notes/05_Object_model/01_Dicts_revisited.md
+  - Notes/05_Object_model/02_Classes_encapsulation.md
+  - Notes/06_Generators/00_Overview.md
+  - Notes/06_Generators/01_Iteration_protocol.md
+  - Notes/06_Generators/02_Customizing_iteration.md
+  - Notes/06_Generators/03_Producers_consumers.md
+  - Notes/06_Generators/04_More_generators.md
+  - Notes/07_Advanced_Topics/00_Overview.md
+  - Notes/07_Advanced_Topics/01_Variable_arguments.md
+  - Notes/07_Advanced_Topics/02_Anonymous_function.md
+  - Notes/07_Advanced_Topics/03_Returning_functions.md
+  - Notes/07_Advanced_Topics/04_Function_decorators.md
+  - Notes/07_Advanced_Topics/05_Decorated_methods.md
+  - Notes/08_Testing_debugging/00_Overview.md
+  - Notes/08_Testing_debugging/01_Testing.md
+  - Notes/08_Testing_debugging/02_Logging.md
+  - Notes/08_Testing_debugging/03_Debugging.md
+  - Notes/09_Packages/00_Overview.md
+  - Notes/09_Packages/01_Packages.md
+  - Notes/09_Packages/02_Third_party.md
+  - Notes/09_Packages/03_Distribution.md
+  - Notes/09_Packages/TheEnd.md
+  - Notes/Contents.md
+  - Notes/InstructorNotes.md
+  - README.md

@@ -1,0 +1,21 @@
+id: gokumohandas-made-with-ml
+title: Made With ML
+owner: Goku Mohandas
+url: https://github.com/GokuMohandas/Made-With-ML
+kind: repo
+area: ai-engineering
+licence:
+  id: MIT
+  file_url: https://github.com/GokuMohandas/Made-With-ML/blob/main/LICENSE
+  covers: code
+  note: LICENSE read 2026-10-26 (standard MIT text). The course lives on madewithml.com, whose text is
+    not in the repo; the repo holds code and notebooks. Not fetched. Not a qualified legal review.
+version:
+  ref: ''
+  fetched: null
+content_hash: ''
+status: quarantine
+reviewer: ''
+reviewed_on: null
+override_reason: ''
+notes: ''

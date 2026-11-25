@@ -1,0 +1,21 @@
+id: aishwaryanr-awesome-generative-ai-guide
+title: Awesome Generative AI Guide
+owner: Aishwarya Naresh Reganti
+url: https://github.com/aishwaryanr/awesome-generative-ai-guide
+kind: repo
+area: ai-engineering
+licence:
+  id: MIT
+  file_url: https://github.com/aishwaryanr/awesome-generative-ai-guide/blob/main/LICENSE.md
+  covers: both
+  note: LICENSE.md read 2026-10-26 (standard MIT text, 1,100 bytes). Mostly a curated list of links to
+    other people's material (225 pages), so low teaching value. Not fetched. Not a qualified legal review.
+version:
+  ref: ''
+  fetched: null
+content_hash: ''
+status: quarantine
+reviewer: ''
+reviewed_on: null
+override_reason: ''
+notes: ''

@@ -1,0 +1,34 @@
+id: opentelemetry-genai-conventions
+title: OpenTelemetry semantic conventions for generative AI
+owner: OpenTelemetry (CNCF)
+url: https://opentelemetry.io/docs/specs/semconv/gen-ai/
+kind: docs
+area: ai-engineering
+licence:
+  id: Apache-2.0
+  file_url: https://github.com/open-telemetry/semantic-conventions-genai/blob/main/LICENSE
+  covers: both
+  note: Apache-2.0 LICENSE read 2026-10-24 in the new dedicated GenAI repository.
+    The older semantic-conventions repo now holds only moved-notice stubs for gen-ai,
+    so it is not used.
+  file_hash: sha256:c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4
+version:
+  ref: 9ffc7e00c639be7712e544e3e54331e885dccf84
+  fetched: 2026-10-24
+content_hash: sha256:56f2d4a35a36fdb6fa4cba2bae7d211e76cd2823ef413148744cddc413d59a5c
+status: approved
+reviewer: Asheesh Ranjan Srivastava
+reviewed_on: 2026-10-25
+override_reason: ''
+notes: Added 2026-10-24. The GenAI conventions moved out of open-telemetry/semantic-conventions
+  into this repo (Gemini and Codex found stubs in the old one). Only docs/gen-ai Markdown.
+  Stage 13.3 tracing one AI request, 14.1 latency by component. Conventions may be
+  marked experimental, so say so in lessons. The non-normative folder holds code and
+  YAML fixtures, which the indexer skips.
+max_mb: 200
+fetch:
+  git: https://github.com/open-telemetry/semantic-conventions-genai
+  ref: ''
+  paths:
+  - docs/gen-ai
+  files: []

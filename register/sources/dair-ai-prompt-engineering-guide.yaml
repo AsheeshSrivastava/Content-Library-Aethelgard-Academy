@@ -1,0 +1,163 @@
+id: dair-ai-prompt-engineering-guide
+title: Prompt Engineering Guide
+owner: DAIR.AI
+url: https://github.com/dair-ai/Prompt-Engineering-Guide
+kind: repo
+area: ai-engineering
+licence:
+  id: MIT
+  file_url: https://github.com/dair-ai/Prompt-Engineering-Guide/blob/main/LICENSE.md
+  covers: both
+  note: Root LICENSE.md read 2026-10-26 (standard MIT text, about 1085 bytes, no content
+    exclusion); the licence names 'documentation files'. Not a qualified legal review.
+  file_hash: sha256:7656d36deffd4d86abfc9f08795084c61a4f3e753387efebe5cbd43ba67ad554
+version:
+  ref: 57673726396dd94acb23bdb1e67f27c78ee85a8e
+  fetched: 2026-10-26
+content_hash: sha256:c986d9b83e417400b7fe30fc36891f6419adf68aa9b814a24625fb6a06505ecf
+status: approved
+reviewer: Asheesh Ranjan Srivastava
+reviewed_on: 2026-10-26
+override_reason: ''
+notes: Licence read 2026-10-26. English pages only (134 files listed); other languages
+  are left out.
+max_mb: 200
+fetch:
+  git: https://github.com/dair-ai/Prompt-Engineering-Guide
+  ref: ''
+  paths: []
+  files:
+  - pages/about.en.mdx
+  - pages/agents.en.mdx
+  - pages/agents/ai-workflows-vs-ai-agents.en.mdx
+  - pages/agents/components.en.mdx
+  - pages/agents/context-engineering-deep-dive.en.mdx
+  - pages/agents/context-engineering.en.mdx
+  - pages/agents/deep-agents.en.mdx
+  - pages/agents/function-calling.en.mdx
+  - pages/agents/introduction.en.mdx
+  - pages/applications.en.mdx
+  - pages/applications/coding.en.mdx
+  - pages/applications/context-caching.en.mdx
+  - pages/applications/finetuning-gpt4o.en.mdx
+  - pages/applications/function_calling.en.mdx
+  - pages/applications/generating.en.mdx
+  - pages/applications/generating_textbooks.en.mdx
+  - pages/applications/pf.en.mdx
+  - pages/applications/synthetic_rag.en.mdx
+  - pages/applications/workplace_casestudy.en.mdx
+  - pages/courses.en.mdx
+  - pages/datasets.en.mdx
+  - pages/guides/4o-image-generation.en.mdx
+  - pages/guides/context-engineering-guide.en.mdx
+  - pages/guides/deep-research.en.mdx
+  - pages/guides/optimizing-prompts.en.mdx
+  - pages/guides/reasoning-llms.en.mdx
+  - pages/index.en.mdx
+  - pages/introduction.en.mdx
+  - pages/introduction/basics.en.mdx
+  - pages/introduction/elements.en.mdx
+  - pages/introduction/examples.en.mdx
+  - pages/introduction/settings.en.mdx
+  - pages/introduction/tips.en.mdx
+  - pages/models.en.mdx
+  - pages/models/chatgpt.en.mdx
+  - pages/models/claude-3.en.mdx
+  - pages/models/code-llama.en.mdx
+  - pages/models/collection.en.mdx
+  - pages/models/flan.en.mdx
+  - pages/models/gemini-advanced.en.mdx
+  - pages/models/gemini-pro.en.mdx
+  - pages/models/gemini.en.mdx
+  - pages/models/gemma.en.mdx
+  - pages/models/gpt-4.en.mdx
+  - pages/models/grok-1.en.mdx
+  - pages/models/kimi-k2.5.en.mdx
+  - pages/models/llama-3.en.mdx
+  - pages/models/llama.en.mdx
+  - pages/models/mistral-7b.en.mdx
+  - pages/models/mistral-large.en.mdx
+  - pages/models/mixtral-8x22b.en.mdx
+  - pages/models/mixtral.en.mdx
+  - pages/models/olmo.en.mdx
+  - pages/models/phi-2.en.mdx
+  - pages/models/sora.en.mdx
+  - pages/notebooks.en.mdx
+  - pages/papers.en.mdx
+  - pages/prompts.en.mdx
+  - pages/prompts/adversarial-prompting.en.mdx
+  - pages/prompts/adversarial-prompting/jailbreaking-llms.en.mdx
+  - pages/prompts/adversarial-prompting/prompt-injection.en.mdx
+  - pages/prompts/adversarial-prompting/prompt-leaking.en.mdx
+  - pages/prompts/classification.en.mdx
+  - pages/prompts/classification/sentiment-fewshot.en.mdx
+  - pages/prompts/classification/sentiment.en.mdx
+  - pages/prompts/coding.en.mdx
+  - pages/prompts/coding/code-snippet.en.mdx
+  - pages/prompts/coding/mysql-query.en.mdx
+  - pages/prompts/coding/tikz.en.mdx
+  - pages/prompts/creativity.en.mdx
+  - pages/prompts/creativity/infinite-primes.en.mdx
+  - pages/prompts/creativity/interdisciplinary.en.mdx
+  - pages/prompts/creativity/new-words.en.mdx
+  - pages/prompts/creativity/rhymes.en.mdx
+  - pages/prompts/evaluation.en.mdx
+  - pages/prompts/evaluation/plato-dialogue.en.mdx
+  - pages/prompts/image-generation.en.mdx
+  - pages/prompts/image-generation/alphabet-person.en.mdx
+  - pages/prompts/information-extraction.en.mdx
+  - pages/prompts/information-extraction/extract-models.en.mdx
+  - pages/prompts/mathematics.en.mdx
+  - pages/prompts/mathematics/composite-functions.en.mdx
+  - pages/prompts/mathematics/odd-numbers.en.mdx
+  - pages/prompts/question-answering.en.mdx
+  - pages/prompts/question-answering/closed-domain.en.mdx
+  - pages/prompts/question-answering/open-domain.en.mdx
+  - pages/prompts/question-answering/science-qa.en.mdx
+  - pages/prompts/reasoning.en.mdx
+  - pages/prompts/reasoning/indirect-reasoning.en.mdx
+  - pages/prompts/reasoning/physical-reasoning.en.mdx
+  - pages/prompts/text-summarization.en.mdx
+  - pages/prompts/text-summarization/explain-concept.en.mdx
+  - pages/prompts/truthfulness.en.mdx
+  - pages/prompts/truthfulness/identify-hallucination.en.mdx
+  - pages/readings.en.mdx
+  - pages/research.en.mdx
+  - pages/research/groq.en.mdx
+  - pages/research/guided-cot.en.mdx
+  - pages/research/infini-attention.en.mdx
+  - pages/research/llm-agents.en.mdx
+  - pages/research/llm-reasoning.en.mdx
+  - pages/research/llm-recall.en.mdx
+  - pages/research/llm-tokenization.en.mdx
+  - pages/research/rag-faithfulness.en.mdx
+  - pages/research/rag.en.mdx
+  - pages/research/rag_hallucinations.en.mdx
+  - pages/research/synthetic_data.en.mdx
+  - pages/research/thoughtsculpt.en.mdx
+  - pages/research/trustworthiness-in-llms.en.mdx
+  - pages/risks.en.mdx
+  - pages/risks/adversarial.en.mdx
+  - pages/risks/biases.en.mdx
+  - pages/risks/factuality.en.mdx
+  - pages/services.en.mdx
+  - pages/techniques.en.mdx
+  - pages/techniques/activeprompt.en.mdx
+  - pages/techniques/ape.en.mdx
+  - pages/techniques/art.en.mdx
+  - pages/techniques/consistency.en.mdx
+  - pages/techniques/cot.en.mdx
+  - pages/techniques/dsp.en.mdx
+  - pages/techniques/fewshot.en.mdx
+  - pages/techniques/graph.en.mdx
+  - pages/techniques/knowledge.en.mdx
+  - pages/techniques/meta-prompting.en.mdx
+  - pages/techniques/multimodalcot.en.mdx
+  - pages/techniques/pal.en.mdx
+  - pages/techniques/prompt_chaining.en.mdx
+  - pages/techniques/rag.en.mdx
+  - pages/techniques/react.en.mdx
+  - pages/techniques/reflexion.en.mdx
+  - pages/techniques/tot.en.mdx
+  - pages/techniques/zeroshot.en.mdx
+  - pages/tools.en.mdx

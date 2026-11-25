@@ -1,0 +1,178 @@
+id: fastapi-docs
+title: FastAPI documentation
+owner: Sebastian Ramirez
+url: https://fastapi.tiangolo.com/
+kind: docs
+area: python
+licence:
+  id: MIT
+  file_url: https://github.com/fastapi/fastapi/blob/main/LICENSE
+  covers: both
+  note: Root LICENSE read 2026-10-26 (standard MIT text, about 1107 bytes, no content
+    exclusion); the licence names 'documentation files'. Not a qualified legal review.
+  file_hash: sha256:4ec89ffc81485b97fec584b2d4a961032eeffe834453894fd9c1274906cc744e
+version:
+  ref: 7a0a3f0b286c6c865cf4398ea0e957a87b8bffa4
+  fetched: 2026-10-26
+content_hash: sha256:2954e68a9173c2c04b3904bafe85be98a97b2ddd13fd43d096a04ee202e512aa
+status: approved
+reviewer: Asheesh Ranjan Srivastava
+reviewed_on: 2026-10-26
+override_reason: ''
+notes: 'Added 2026-10-26 for the web framework Aethelgard itself uses (English pages
+  only, about 156). Trimmed 2026-10-26 to the files listed. Left out: release notes
+  (40% of the pieces), contributing, newsletter, people and management pages.'
+max_mb: 200
+fetch:
+  git: https://github.com/fastapi/fastapi
+  ref: ''
+  paths: []
+  files:
+  - docs/en/docs/_llm-test.md
+  - docs/en/docs/about/index.md
+  - docs/en/docs/advanced/additional-responses.md
+  - docs/en/docs/advanced/additional-status-codes.md
+  - docs/en/docs/advanced/advanced-dependencies.md
+  - docs/en/docs/advanced/advanced-python-types.md
+  - docs/en/docs/advanced/async-tests.md
+  - docs/en/docs/advanced/behind-a-proxy.md
+  - docs/en/docs/advanced/custom-response.md
+  - docs/en/docs/advanced/dataclasses.md
+  - docs/en/docs/advanced/events.md
+  - docs/en/docs/advanced/generate-clients.md
+  - docs/en/docs/advanced/index.md
+  - docs/en/docs/advanced/json-base64-bytes.md
+  - docs/en/docs/advanced/middleware.md
+  - docs/en/docs/advanced/openapi-callbacks.md
+  - docs/en/docs/advanced/openapi-webhooks.md
+  - docs/en/docs/advanced/opentelemetry.md
+  - docs/en/docs/advanced/path-operation-advanced-configuration.md
+  - docs/en/docs/advanced/response-change-status-code.md
+  - docs/en/docs/advanced/response-cookies.md
+  - docs/en/docs/advanced/response-directly.md
+  - docs/en/docs/advanced/response-headers.md
+  - docs/en/docs/advanced/security/http-basic-auth.md
+  - docs/en/docs/advanced/security/index.md
+  - docs/en/docs/advanced/security/oauth2-scopes.md
+  - docs/en/docs/advanced/settings.md
+  - docs/en/docs/advanced/stream-data.md
+  - docs/en/docs/advanced/strict-content-type.md
+  - docs/en/docs/advanced/sub-applications.md
+  - docs/en/docs/advanced/templates.md
+  - docs/en/docs/advanced/testing-dependencies.md
+  - docs/en/docs/advanced/testing-events.md
+  - docs/en/docs/advanced/testing-websockets.md
+  - docs/en/docs/advanced/using-request-directly.md
+  - docs/en/docs/advanced/websockets.md
+  - docs/en/docs/advanced/wsgi.md
+  - docs/en/docs/alternatives.md
+  - docs/en/docs/async.md
+  - docs/en/docs/benchmarks.md
+  - docs/en/docs/deployment/cloud.md
+  - docs/en/docs/deployment/concepts.md
+  - docs/en/docs/deployment/docker.md
+  - docs/en/docs/deployment/fastapicloud.md
+  - docs/en/docs/deployment/https.md
+  - docs/en/docs/deployment/index.md
+  - docs/en/docs/deployment/manually.md
+  - docs/en/docs/deployment/server-workers.md
+  - docs/en/docs/deployment/versions.md
+  - docs/en/docs/editor-support.md
+  - docs/en/docs/environment-variables.md
+  - docs/en/docs/fastapi-cli.md
+  - docs/en/docs/features.md
+  - docs/en/docs/history-design-future.md
+  - docs/en/docs/how-to/authentication-error-status-code.md
+  - docs/en/docs/how-to/conditional-openapi.md
+  - docs/en/docs/how-to/configure-swagger-ui.md
+  - docs/en/docs/how-to/custom-docs-ui-assets.md
+  - docs/en/docs/how-to/custom-request-and-route.md
+  - docs/en/docs/how-to/extending-openapi.md
+  - docs/en/docs/how-to/general.md
+  - docs/en/docs/how-to/graphql.md
+  - docs/en/docs/how-to/index.md
+  - docs/en/docs/how-to/migrate-from-pydantic-v1-to-pydantic-v2.md
+  - docs/en/docs/how-to/separate-openapi-schemas.md
+  - docs/en/docs/how-to/testing-database.md
+  - docs/en/docs/index.md
+  - docs/en/docs/learn/index.md
+  - docs/en/docs/project-generation.md
+  - docs/en/docs/python-types.md
+  - docs/en/docs/reference/apirouter.md
+  - docs/en/docs/reference/background.md
+  - docs/en/docs/reference/dependencies.md
+  - docs/en/docs/reference/encoders.md
+  - docs/en/docs/reference/exceptions.md
+  - docs/en/docs/reference/fastapi.md
+  - docs/en/docs/reference/httpconnection.md
+  - docs/en/docs/reference/index.md
+  - docs/en/docs/reference/middleware.md
+  - docs/en/docs/reference/openapi/docs.md
+  - docs/en/docs/reference/openapi/index.md
+  - docs/en/docs/reference/openapi/models.md
+  - docs/en/docs/reference/parameters.md
+  - docs/en/docs/reference/request.md
+  - docs/en/docs/reference/response.md
+  - docs/en/docs/reference/responses.md
+  - docs/en/docs/reference/security/index.md
+  - docs/en/docs/reference/sse.md
+  - docs/en/docs/reference/staticfiles.md
+  - docs/en/docs/reference/status.md
+  - docs/en/docs/reference/templating.md
+  - docs/en/docs/reference/testclient.md
+  - docs/en/docs/reference/uploadfile.md
+  - docs/en/docs/reference/websockets.md
+  - docs/en/docs/resources/index.md
+  - docs/en/docs/translations.md
+  - docs/en/docs/tutorial/background-tasks.md
+  - docs/en/docs/tutorial/bigger-applications.md
+  - docs/en/docs/tutorial/body-fields.md
+  - docs/en/docs/tutorial/body-multiple-params.md
+  - docs/en/docs/tutorial/body-nested-models.md
+  - docs/en/docs/tutorial/body-updates.md
+  - docs/en/docs/tutorial/body.md
+  - docs/en/docs/tutorial/cookie-param-models.md
+  - docs/en/docs/tutorial/cookie-params.md
+  - docs/en/docs/tutorial/cors.md
+  - docs/en/docs/tutorial/debugging.md
+  - docs/en/docs/tutorial/dependencies/classes-as-dependencies.md
+  - docs/en/docs/tutorial/dependencies/dependencies-in-path-operation-decorators.md
+  - docs/en/docs/tutorial/dependencies/dependencies-with-yield.md
+  - docs/en/docs/tutorial/dependencies/global-dependencies.md
+  - docs/en/docs/tutorial/dependencies/index.md
+  - docs/en/docs/tutorial/dependencies/sub-dependencies.md
+  - docs/en/docs/tutorial/encoder.md
+  - docs/en/docs/tutorial/extra-data-types.md
+  - docs/en/docs/tutorial/extra-models.md
+  - docs/en/docs/tutorial/first-steps.md
+  - docs/en/docs/tutorial/frontend.md
+  - docs/en/docs/tutorial/handling-errors.md
+  - docs/en/docs/tutorial/header-param-models.md
+  - docs/en/docs/tutorial/header-params.md
+  - docs/en/docs/tutorial/index.md
+  - docs/en/docs/tutorial/metadata.md
+  - docs/en/docs/tutorial/middleware.md
+  - docs/en/docs/tutorial/path-operation-configuration.md
+  - docs/en/docs/tutorial/path-params-numeric-validations.md
+  - docs/en/docs/tutorial/path-params.md
+  - docs/en/docs/tutorial/query-param-models.md
+  - docs/en/docs/tutorial/query-params-str-validations.md
+  - docs/en/docs/tutorial/query-params.md
+  - docs/en/docs/tutorial/request-files.md
+  - docs/en/docs/tutorial/request-form-models.md
+  - docs/en/docs/tutorial/request-forms-and-files.md
+  - docs/en/docs/tutorial/request-forms.md
+  - docs/en/docs/tutorial/response-model.md
+  - docs/en/docs/tutorial/response-status-code.md
+  - docs/en/docs/tutorial/schema-extra-example.md
+  - docs/en/docs/tutorial/security/first-steps.md
+  - docs/en/docs/tutorial/security/get-current-user.md
+  - docs/en/docs/tutorial/security/index.md
+  - docs/en/docs/tutorial/security/oauth2-jwt.md
+  - docs/en/docs/tutorial/security/simple-oauth2.md
+  - docs/en/docs/tutorial/server-sent-events.md
+  - docs/en/docs/tutorial/sql-databases.md
+  - docs/en/docs/tutorial/static-files.md
+  - docs/en/docs/tutorial/stream-json-lines.md
+  - docs/en/docs/tutorial/testing.md
+  - docs/en/docs/virtual-environments.md

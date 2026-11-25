@@ -1,0 +1,29 @@
+id: ruff-docs
+title: Ruff documentation
+owner: Astral
+url: https://docs.astral.sh/ruff/
+kind: docs
+area: python
+licence:
+  id: MIT
+  file_url: https://github.com/astral-sh/ruff/blob/0.17.2/LICENSE
+  covers: both
+  note: 'Read 2026-10-23 at tag 0.17.2: MIT, copyright Charles Marsh, covers the software
+    and its associated documentation files. The same file also lists third-party notices;
+    only the docs folder is taken. Hash is recorded at fetch.'
+  file_hash: sha256:2597d854122b77ddc71971564ca2350a37608575ce324adc5650a2b2051c8f18
+version:
+  ref: 30516b42ab972ffa2569e5efcfee81135da466d3
+  fetched: 2026-10-24
+content_hash: sha256:01e4dfc5dab35a09374679a4b34854d83da842cf8b370ee33764f52e64c2ea27
+status: approved
+reviewer: Asheesh Ranjan Srivastava
+reviewed_on: 2026-10-24
+override_reason: ''
+notes: Python source for the Python units. Latest release tag seen 2026-10-23 is 0.17.2. Fetched, indexed and embedded 2026-10-24.
+max_mb: 200
+fetch:
+  git: https://github.com/astral-sh/ruff
+  ref: 0.17.2
+  paths:
+  - docs

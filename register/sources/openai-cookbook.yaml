@@ -1,0 +1,171 @@
+id: openai-cookbook
+title: OpenAI Cookbook
+owner: OpenAI
+url: https://github.com/openai/openai-cookbook
+kind: repo
+area: ai-engineering
+licence:
+  id: MIT
+  file_url: https://github.com/openai/openai-cookbook/blob/main/LICENSE
+  covers: both
+  note: Root LICENSE read 2026-10-26 (standard MIT text, about 1084 bytes, no content
+    exclusion); the licence names 'documentation files'. Not a qualified legal review.
+  file_hash: sha256:13df7812ca53ecaae1cb4a868844bb598373047ae1d580e4debfbef1dd5b6915
+version:
+  ref: 8495326b6f1b7cec94e7f5e393a4045e328a268e
+  fetched: 2026-10-26
+content_hash: sha256:ea35cc9bf87335f0878fc3bdce4e477229ab2329c4053d39462f8d62bccb3740
+status: approved
+reviewer: Asheesh Ranjan Srivastava
+reviewed_on: 2026-10-26
+override_reason: ''
+notes: 'Added 2026-10-26. Most of the cookbook is Jupyter notebooks (276), which are
+  not indexed; only the 160 or so Markdown pages are, so coverage is partial. Trimmed
+  2026-10-26 to the files listed. Left out: GPT Actions library, usage-limit docs,
+  agents and migration notes.'
+max_mb: 800
+fetch:
+  git: https://github.com/openai/openai-cookbook
+  ref: ''
+  paths: []
+  files:
+  - articles/chatgpt-agents-sales-meeting-prep.md
+  - articles/codex_exec_plans.md
+  - articles/gpt-oss-safeguard-guide.md
+  - articles/gpt-oss/handle-raw-cot.md
+  - articles/gpt-oss/run-locally-lmstudio.md
+  - articles/gpt-oss/run-locally-ollama.md
+  - articles/gpt-oss/run-transformers.md
+  - articles/gpt-oss/run-vllm.md
+  - articles/gpt-oss/verifying-implementations.md
+  - articles/how_to_work_with_large_language_models.md
+  - articles/openai-harmony.md
+  - articles/per_run_spending_controller_responses_api.md
+  - articles/related_resources.md
+  - articles/techniques_to_improve_reliability.md
+  - articles/text_comparison_examples.md
+  - articles/what_is_new_with_dalle_3.mdx
+  - articles/what_makes_documentation_good.md
+  - examples/How_to_build_an_agent_with_the_node_sdk.mdx
+  - examples/agents_api/README.md
+  - examples/agents_api/apps/data_analyst/README.md
+  - examples/agents_api/apps/document_review/README.md
+  - examples/agents_api/apps/document_review/skills/expense-review-policy/SKILL.md
+  - examples/agents_api/apps/github_issues/README.md
+  - examples/agents_api/apps/sev_bot/README.md
+  - examples/agents_api/apps/sev_bot/runbooks/checkout-api.md
+  - examples/agents_api/apps/slack_bot/README.md
+  - examples/agents_api/sandboxes/README.md
+  - examples/agents_api/sandboxes/aws/README.md
+  - examples/agents_api/sandboxes/aws/application_managed/README.md
+  - examples/agents_api/sandboxes/aws/webhook_managed/README.md
+  - examples/agents_api/sandboxes/blaxel/README.md
+  - examples/agents_api/sandboxes/blaxel/application_managed/README.md
+  - examples/agents_api/sandboxes/blaxel/webhook_managed/README.md
+  - examples/agents_api/sandboxes/cloudflare/README.md
+  - examples/agents_api/sandboxes/cloudflare/application_managed/README.md
+  - examples/agents_api/sandboxes/cloudflare/webhook_managed/README.md
+  - examples/agents_api/sandboxes/databricks/README.md
+  - examples/agents_api/sandboxes/databricks/application_managed/README.md
+  - examples/agents_api/sandboxes/daytona/README.md
+  - examples/agents_api/sandboxes/daytona/application_managed/README.md
+  - examples/agents_api/sandboxes/daytona/webhook_managed/README.md
+  - examples/agents_api/sandboxes/digitalocean/README.md
+  - examples/agents_api/sandboxes/digitalocean/application_managed/README.md
+  - examples/agents_api/sandboxes/digitalocean/webhook_managed/README.md
+  - examples/agents_api/sandboxes/docker/README.md
+  - examples/agents_api/sandboxes/docker/application_managed/README.md
+  - examples/agents_api/sandboxes/e2b/README.md
+  - examples/agents_api/sandboxes/e2b/application_managed/README.md
+  - examples/agents_api/sandboxes/e2b/webhook_managed/README.md
+  - examples/agents_api/sandboxes/modal/README.md
+  - examples/agents_api/sandboxes/modal/application_managed/README.md
+  - examples/agents_api/sandboxes/modal/webhook_managed/README.md
+  - examples/agents_api/sandboxes/oci/README.md
+  - examples/agents_api/sandboxes/oci/application_managed/README.md
+  - examples/agents_api/sandboxes/vercel/README.md
+  - examples/agents_api/sandboxes/vercel/application_managed/README.md
+  - examples/agents_api/sandboxes/vercel/webhook_managed/README.md
+  - examples/agents_api/sandboxes/webhook_managed.md
+  - examples/agents_sdk/deployment_manager/README.md
+  - examples/agents_sdk/migrate-from-claude-agent-sdk/README.md
+  - examples/agents_sdk/multi-agent-portfolio-collaboration/prompts/code_interpreter.md
+  - examples/agents_sdk/multi-agent-portfolio-collaboration/prompts/editor_base.md
+  - examples/agents_sdk/multi-agent-portfolio-collaboration/prompts/fundamental_base.md
+  - examples/agents_sdk/multi-agent-portfolio-collaboration/prompts/macro_base.md
+  - examples/agents_sdk/multi-agent-portfolio-collaboration/prompts/pm_base.md
+  - examples/agents_sdk/multi-agent-portfolio-collaboration/prompts/quant_base.md
+  - examples/agents_sdk/multi-agent-portfolio-collaboration/prompts/tool_retry_prompt.md
+  - examples/agents_sdk/sandboxed-code-migration/repo_fixtures/case_summary_service/README.md
+  - examples/agents_sdk/sandboxed-code-migration/repo_fixtures/support_reply_service/README.md
+  - examples/audio/duplex_voice_agent_evaluation/README.md
+  - examples/audio/duplex_voice_agent_evaluation/assistants/README.md
+  - examples/audio/duplex_voice_agent_evaluation/assistants/client/README.md
+  - examples/audio/duplex_voice_agent_evaluation/assistants/frontend/README.md
+  - examples/audio/duplex_voice_agent_evaluation/assistants/responses/README.md
+  - examples/audio/duplex_voice_agent_evaluation/crawl_harness/README.md
+  - examples/audio/duplex_voice_agent_evaluation/docs/metrics-contract.md
+  - examples/audio/duplex_voice_agent_evaluation/recorded-example/recording-source.md
+  - examples/audio/duplex_voice_agent_evaluation/run_harness/README.md
+  - examples/audio/duplex_voice_agent_evaluation/shared/README.md
+  - examples/audio/duplex_voice_agent_evaluation/walk_harness/README.md
+  - examples/audio/voice_agent_evaluation.md
+  - examples/chatgpt/chatgpt_prompt_guide/chatgpt_prompt_guide.md
+  - examples/chatgpt/sharepoint_azure_function/Using_Azure_Functions_and_Microsoft_Graph_to_Query_SharePoint.md
+  - examples/chatgpt/sharepoint_site_access/sharepoint_site_access.md
+  - examples/codex/build_code_review_with_codex_sdk.md
+  - examples/codex/code_modernization.md
+  - examples/codex/iterating-development-workflows-with-codex.md
+  - examples/codex/secure_quality_gitlab.md
+  - examples/data/hotel_invoices/README.md
+  - examples/data/structured_outputs_articles/cnns.md
+  - examples/data/structured_outputs_articles/llms.md
+  - examples/data/structured_outputs_articles/moe.md
+  - examples/deep_research_api/how_to_build_a_deep_research_mcp_server/README.md
+  - examples/evals/imagegen_evals/README.md
+  - examples/evals/imagegen_evals/editing_harness/README.md
+  - examples/evals/imagegen_evals/generation_harness/README.md
+  - examples/evals/realtime_evals/README.md
+  - examples/evals/realtime_evals/crawl_harness/README.md
+  - examples/evals/realtime_evals/results_viewer/README.md
+  - examples/evals/realtime_evals/run_harness/README.md
+  - examples/evals/realtime_evals/skills/bootstrap-realtime-eval/SKILL.md
+  - examples/evals/realtime_evals/skills/bootstrap-realtime-eval/references/harness-selection.md
+  - examples/evals/realtime_evals/walk_harness/README.md
+  - examples/evaluation/Building_resilient_prompts_using_an_evaluation_flywheel.md
+  - examples/evaluation/moving-from-openai-evals-to-promptfoo.md
+  - examples/mcp/building-a-supply-chain-copilot-with-agent-sdk-and-databricks-mcp/README.md
+  - examples/mcp/building-a-supply-chain-copilot-with-agent-sdk-and-databricks-mcp/ui/README.md
+  - examples/partners/AWS/chatgpt_agents_sdk_aws_agentcore_cookbook/README.md
+  - examples/partners/AWS/chatgpt_agents_sdk_aws_agentcore_cookbook/docs/aws-evaluation.md
+  - examples/partners/AWS/chatgpt_agents_sdk_aws_agentcore_cookbook/docs/aws-iam.md
+  - examples/partners/AWS/chatgpt_agents_sdk_aws_agentcore_cookbook/docs/existing-agentcore-runtime.md
+  - examples/partners/AWS/chatgpt_agents_sdk_aws_agentcore_cookbook/docs/openai-agentkit-cookbook.md
+  - examples/partners/AWS/chatgpt_agents_sdk_aws_agentcore_cookbook/docs/tracing-and-publication.md
+  - examples/partners/AWS/controlled_agentic_commerce_with_agentcore_payments/README.md
+  - examples/partners/AWS/prior_authorization_agentcore/README.md
+  - examples/partners/harness_aware_plugin_evals/.codex-home/marketplaces/cookbook-plugins/plugins/bls/README.md
+  - examples/partners/harness_aware_plugin_evals/README.md
+  - examples/partners/macro_evals_for_agentic_systems/README.md
+  - examples/third_party/Code_quality_and_security_scan_with_GitHub_Actions.md
+  - examples/vector_databases/README.md
+  - examples/vector_databases/SingleStoreDB/README.md
+  - examples/vector_databases/cassandra_astradb/README.md
+  - examples/vector_databases/elasticsearch/README.md
+  - examples/vector_databases/kusto/README.md
+  - examples/vector_databases/mongodb_atlas/README.md
+  - examples/vector_databases/neon/README.md
+  - examples/vector_databases/oracle_db/README.md
+  - examples/vector_databases/pinecone/README.md
+  - examples/vector_databases/redis/README.md
+  - examples/vector_databases/supabase/README.md
+  - examples/vector_databases/supabase/semantic-search.mdx
+  - examples/vector_databases/typesense/README.md
+  - examples/vector_databases/weaviate/README.md
+  - examples/voice_solutions/one_way_translation_using_realtime_api.mdx
+  - examples/voice_solutions/one_way_translation_using_realtime_api/README.md
+  - examples/voice_solutions/realtime_translation_guide.mdx
+  - examples/voice_solutions/realtime_translation_guide/browser-translation-demo/README.md
+  - examples/voice_solutions/realtime_translation_guide/livekit-translation-demo/README.md
+  - examples/voice_solutions/realtime_translation_guide/twilio-translation-demo/README.md
+  - examples/voice_solutions/running_realtime_api_speech_on_esp32_arduino_edge_runtime_elatoai.md

@@ -1,0 +1,21 @@
+id: nirdiamant-genai-agents
+title: GenAI Agents
+owner: Nir Diamant
+url: https://github.com/NirDiamant/GenAI_Agents
+kind: repo
+area: ai-engineering
+licence:
+  id: custom-non-commercial
+  file_url: https://github.com/NirDiamant/GenAI_Agents/blob/main/LICENSE
+  covers: both
+  note: 'LICENSE file read 2026-10-22: custom agreement allowing non-commercial use
+    with attribution; commercial rights reserved.'
+version:
+  ref: ''
+  fetched: null
+content_hash: ''
+status: reference-only
+reviewer: Claude self-review
+reviewed_on: 2026-10-22
+override_reason: ''
+notes: Cite only; a non-commercial licence blocks use if the academy becomes a product.
