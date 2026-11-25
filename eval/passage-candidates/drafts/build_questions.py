@@ -1,10 +1,11 @@
 ﻿import glob
+from pathlib import Path
 import sys
 from collections import Counter
 
 import yaml
 
-root = r"D:\01-Project\rag-core"
+root = str(Path(__file__).resolve().parents[3])  # the rag-core folder: drafts -> passage-candidates -> eval -> repo
 cands = yaml.safe_load(open(root + r"\eval\passage-candidates\candidates.yaml", encoding="utf-8"))["candidates"]
 picks = []
 for f in sorted(glob.glob(root + r"\eval\passage-candidates\drafts\picks-*.tsv")):

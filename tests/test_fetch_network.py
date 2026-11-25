@@ -2,7 +2,7 @@
 
 Not part of the default run. The owner runs it, for example in PowerShell:
 
-    $env:RAGCORE_LIB3 = "D:\\01-Project\\unsloth\\aethelgard-academy\\.worktrees\\library3\\content\\library"
+    $env:RAGCORE_LIB3 = "<rag-core folder>\\register"   # the repo's own register folder: sources, hosts.yaml, licences
     $env:RAGCORE_PIN_SOURCES = "pytest-docs,mcp-spec"
     $env:RAGCORE_SNAPSHOTS = "<folder that holds <id>\\<sha>\\ snapshots>"   # optional, adds a stored-copy check
     uv run pytest -m network -q tests/test_fetch_network.py

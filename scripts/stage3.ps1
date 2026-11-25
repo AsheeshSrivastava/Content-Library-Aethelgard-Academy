@@ -12,8 +12,11 @@ param(
   [string]$Only = ''
 )
 $Cells = $Cells -join ','
-$lib = 'D:\01-Project\unsloth\aethelgard-academy\.worktrees\library3\content\library'
-$snaps = 'C:\Users\sashe\.aethelgard\library\snapshots'
+$lib = if ($env:RAGCORE_LIB3) { $env:RAGCORE_LIB3 } else { Join-Path (Split-Path $PSScriptRoot -Parent) 'register' }
+if (-not (Test-Path -LiteralPath "$lib\sources") -or -not (Test-Path -LiteralPath "$lib\licence-rules.yaml")) {
+  Write-Error "Register folder not usable: '$lib' needs a sources folder and licence-rules.yaml. Set RAGCORE_LIB3 or restore the repo's register folder."; exit 1
+}
+$snaps = if ($env:RAGCORE_SNAPSHOTS) { $env:RAGCORE_SNAPSHOTS } else { 'C:\Users\sashe\.aethelgard\library\snapshots' }
 $args2 = @('--register', "$lib\sources", '--snapshots', $snaps, '--questions', 'eval\questions',
            '--exclusions', 'configs\corpus-exclusions.yaml', '--cells', $Cells)
 if ($Only) { $args2 += @('--only', $Only) }
